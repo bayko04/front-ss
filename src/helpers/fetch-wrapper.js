@@ -9,6 +9,9 @@ export const fetchWrapper = {
 
 function request(method) {
     return (url, body) => {
+        if(!url.includes("http")) {
+            url = import.meta.env.VITE_API_URL + url
+        }
         const requestOptions = {
             method,
             headers: authHeader(url)

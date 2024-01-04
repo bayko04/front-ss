@@ -5,8 +5,10 @@
 
 <script>
 import './charts/ChartjsConfig';
+import { onMounted } from 'vue';
 import Banner from './components/Banner.vue';
 import { useAuthStore } from './stores/auth.store.js';
+import { startSocketListeners } from './helpers/messages.js'
 
 export default {
   components: {
@@ -15,7 +17,15 @@ export default {
 
   setup () {
     const authStore = useAuthStore();
+    const initWebSocket = () => {
+      if(authStore.userData) {
+        startSocketListeners()
+      }
+    };
 
+    onMounted(() => {
+      initWebSocket();
+    });
     return {
       authStore,
     }

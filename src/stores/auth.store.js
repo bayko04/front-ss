@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
-
-import { fetchWrapper } from '../helpers/fetch-wrapper.js';
+import { fetchWrapper } from '../helpers/fetch-wrapper.js'
 import router from '../router.js';
 import { useAlertStore } from './alert.store.js';
 
@@ -25,7 +24,7 @@ export const useAuthStore = defineStore({
                 localStorage.setItem('userData', JSON.stringify(userData));
 
                 // redirect to previous url or default to home page
-                router.push(this.returnUrl || '/');
+                location.assign(this.returnUrl || '/')
             } catch (error) {
                 const alertStore = useAlertStore();
                 alertStore.error(error);
@@ -34,7 +33,7 @@ export const useAuthStore = defineStore({
         logout() {
             this.userData = null;
             localStorage.removeItem('userData');
-            router.push('/signin');
+            location.assign('/signin')
         }
     }
 });
