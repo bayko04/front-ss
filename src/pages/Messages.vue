@@ -18,9 +18,15 @@
 
           <!-- Messages body -->
           <div class="grow flex flex-col md:translate-x-0 transition-transform duration-300 ease-in-out" :class="msgSidebarOpen ? 'translate-x-1/3' : 'translate-x-0'">
-            <MessagesHeader :msgSidebarOpen="msgSidebarOpen" @toggle-msgsidebar="msgSidebarOpen = !msgSidebarOpen" />
-            <MessagesBody />
-            <MessagesFooter />
+            <Suspense>
+              <MessagesHeader :msgSidebarOpen="msgSidebarOpen" @toggle-msgsidebar="msgSidebarOpen = !msgSidebarOpen" />
+            </Suspense>
+            <Suspense>
+              <MessagesBody />
+            </Suspense>
+            <Suspense>
+              <MessagesFooter />
+            </Suspense>
           </div>
           
         </div>

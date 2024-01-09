@@ -7,9 +7,9 @@
       @click.prevent="dropdownOpen = !dropdownOpen"
       :aria-expanded="dropdownOpen"
     >
-      <img class="w-8 h-8 rounded-full mr-2" src="../../images/user-avatar-32.png" width="32" height="32" alt="Group 01" />
+      <img class="w-8 h-8 rounded-full mr-2" :src="getMessengerComponent(activeAccount?.messenger?.name)" width="32" height="32" alt="Group 01" />
       <div class="truncate">
-        <span class="font-semibold text-slate-800 dark:text-slate-100">#Marketing</span>
+        <span class="font-semibold text-slate-800 dark:text-slate-100">{{activeAccount?.title}}</span>
       </div>
       <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" viewBox="0 0 12 12">
         <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
@@ -29,38 +29,25 @@
           @focusin="dropdownOpen = true"
           @focusout="dropdownOpen = false"
         >
-          <li>
-            <a class="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 block py-1.5 px-3" href="#0" @click="dropdownOpen = false">
+          <li
+              v-for="account in accounts"
+              :key="account.id"
+          >
+            <button
+                :class="{'bg-slate-300': (account.id === activeAccount.id) }"
+                class="w-full font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 block py-1.5 px-3" href="#0"
+                @click="checkAccount(account)"
+            >
               <div class="flex items-center justify-between">
                 <div class="grow flex items-center truncate">
-                  <img class="w-7 h-7 rounded-full mr-2" src="../../images/channel-01.png" width="28" height="28" alt="Channel 01" />
-                  <div class="truncate">#Marketing</div>
+                  <img class="w-7 h-7 rounded-full mr-2" :src="getMessengerComponent(account?.messenger?.name)" width="28" height="28" alt="Channel 01" />
+                  <div class="truncate">{{account.title}}</div>
                 </div>
-                <svg class="w-3 h-3 shrink-0 fill-current text-indigo-500 ml-1" viewBox="0 0 12 12">
+                <svg v-if="account.id === activeAccount.id" class="w-3 h-3 shrink-0 fill-current text-indigo-500 ml-1" viewBox="0 0 12 12">
                   <path d="M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z" />
                 </svg>
               </div>
-            </a>
-          </li>
-          <li>
-            <a class="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 block py-1.5 px-3" href="#0" @click="dropdownOpen = false">
-              <div class="flex items-center justify-between">
-                <div class="grow flex items-center truncate">
-                  <img class="w-7 h-7 rounded-full mr-2" src="../../images/channel-02.png" width="28" height="28" alt="Channel 02" />
-                  <div class="truncate">#Developing</div>
-                </div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a class="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 block py-1.5 px-3" href="#0" @click="dropdownOpen = false">
-              <div class="flex items-center justify-between">
-                <div class="grow flex items-center truncate">
-                  <img class="w-7 h-7 rounded-full mr-2" src="../../images/channel-03.png" width="28" height="28" alt="Channel 03" />
-                  <div class="truncate">#ProductSupport</div>
-                </div>
-              </div>
-            </a>
+            </button>
           </li>
         </ul>
       </div>
@@ -68,12 +55,39 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useMessangers } from "../../utils/messengers.js"
+import instagram from '../../images/chat/instagram.svg?url'
+import messenger from '../../images/chat/messenger.svg?url'
+import telegram from '../../images/chat/telegram.svg?url'
+import whatsapp from '../../images/chat/whatsapp.svg?url'
+import mail from '../../images/chat/mail.svg?url'
 
-export default {
-  name: 'ChannelMenu',
-  setup() {
+
+    const {accounts, activeAccount, setActiveAccount } = await useMessangers()
+
+    function getMessengerComponent (messengerName) {
+      switch (messengerName) {
+        case 'instagram':
+          return instagram;
+        case 'messenger':
+          return messenger;
+        case 'telegram':
+          return telegram;
+        case 'whatsapp':
+          return whatsapp;
+        case 'mail':
+          return mail;
+        default:
+          return whatsapp;
+      }
+    }
+
+    function checkAccount(account) {
+      dropdownOpen.value = false;
+      setActiveAccount(account)
+    }
 
     const dropdownOpen = ref(false)
     const trigger = ref(null)
@@ -101,11 +115,4 @@ export default {
       document.removeEventListener('keydown', keyHandler)
     })    
 
-    return {
-      dropdownOpen,
-      trigger,
-      dropdown,
-    }
-  }  
-}
 </script>

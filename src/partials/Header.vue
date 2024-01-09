@@ -17,6 +17,11 @@
           </button>
 
         </div>
+        <div class="flex items-center space-x-3">
+          <Suspense>
+            <HeaderButtons/>
+          </Suspense>
+        </div>
 
         <!-- Header: Right side -->
         <div class="flex items-center space-x-3">
@@ -57,11 +62,13 @@ import Notifications from '../components/DropdownNotifications.vue'
 import Help from '../components/DropdownHelp.vue'
 import ThemeToggle from '../components/ThemeToggle.vue'
 import UserMenu from '../components/DropdownProfile.vue'
+import HeaderButtons from "../partials/messages/HeaderButtons.vue"
 
 export default {
   name: 'Header',
   props: ['sidebarOpen'],
   components: {
+    HeaderButtons,
     SearchModal,
     Notifications,
     Help,

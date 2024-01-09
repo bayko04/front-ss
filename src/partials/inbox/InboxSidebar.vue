@@ -140,7 +140,7 @@
 </template>
 
 <script>
-import ChannelMenu from '../messages/ChannelMenu.vue'
+import ChannelMenu from '../messages/AccountsMenu.vue'
 
 export default {
   name: 'InboxSidebar',

@@ -13,7 +13,9 @@
           <div class="flex items-center bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 px-5 h-16">
             <div class="w-full flex items-center justify-between">
               <!-- Channel menu -->
-              <ChannelMenu />
+              <Suspense>
+                <AccountsMenu/>
+              </Suspense>
               <!-- Edit button -->
               <button class="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm ml-2">
                 <svg class="w-4 h-4 fill-current text-slate-500" viewBox="0 0 16 16">
@@ -27,8 +29,8 @@
         <div class="px-5 py-4">
           <!-- Search form -->
           <form class="relative">
-            <label for="msg-search" class="sr-only">Search</label>
-            <input id="msg-search" class="form-input w-full pl-9 bg-white dark:bg-slate-800" type="search" placeholder="Search…" />
+            <label for="msg-search" class="sr-only">Поиск</label>
+            <input id="msg-search" class="form-input w-full pl-9 bg-white dark:bg-slate-800" type="search" placeholder="Поиск…" />
             <button class="absolute inset-0 right-auto group" type="submit" aria-label="Search">
               <svg class="w-4 h-4 shrink-0 fill-current text-slate-400 dark:text-slate-500 group-hover:text-slate-500 dark:group-hover:text-slate-400 ml-3 mr-2" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z" />
@@ -37,9 +39,9 @@
             </button>
           </form>
           <!-- Direct messages -->
-          <DirectMessages :msgSidebarOpen="msgSidebarOpen" @close-msgsidebar="$emit('close-msgsidebar')" />
-          <!-- Channels -->
-          <Channels :msgSidebarOpen="msgSidebarOpen" @close-msgsidebar="$emit('close-msgsidebar')" />
+          <Suspense>
+            <DirectMessages :msgSidebarOpen="msgSidebarOpen" @close-msgsidebar="$emit('close-msgsidebar')" />
+          </Suspense>
         </div>
       </div>
 
@@ -48,7 +50,7 @@
 </template>
 
 <script>
-import ChannelMenu from './ChannelMenu.vue'
+import AccountsMenu from './AccountsMenu.vue'
 import DirectMessages from './DirectMessages.vue'
 import Channels from './Channels.vue'
 
@@ -56,7 +58,7 @@ export default {
   name: 'MessagesSidebar',
   props: ['msgSidebarOpen'],
   components: {
-    ChannelMenu,
+    AccountsMenu,
     DirectMessages,
     Channels
   },

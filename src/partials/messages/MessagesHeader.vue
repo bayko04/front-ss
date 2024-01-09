@@ -1,6 +1,9 @@
 <template>
   <div class="sticky top-16">
-    <div class="flex items-center justify-between bg-slate-50 dark:bg-[#161F32] border-b border-slate-200 dark:border-slate-700 px-4 sm:px-6 md:px-5 h-16">
+    <div
+        v-if="activeChat"
+        class="flex items-center justify-between bg-slate-50 dark:bg-[#161F32] border-b border-slate-200 dark:border-slate-700 px-4 sm:px-6 md:px-5 h-16"
+    >
       <!-- People -->
       <div class="flex items-center">
         <!-- Close button -->
@@ -16,13 +19,11 @@
           </svg>
         </button>
         <!-- People list -->
-        <div class="flex -space-x-3 -ml-px">
-          <a class="block" href="#0">
-            <img class="rounded-full border-2 border-white dark:border-slate-800 box-content" src="../../images/user-32-01.jpg" width="32" height="32" alt="User 01" />
-          </a>
-          <a class="block" href="#0">
-            <img class="rounded-full border-2 border-white dark:border-slate-800 box-content" src="../../images/user-32-02.jpg" width="32" height="32" alt="User 04" />
-          </a>
+        <div class="flex -space-x-3 -ml-px items-center">
+          <button class="flex items-center">
+            <img class="rounded-full border-2 border-white dark:border-slate-800 box-content" :src="activeChat.image" width="32" height="32" alt="User 01" />
+            <span class="ml-2">{{ activeChat.name }}</span>
+          </button>
         </div>
       </div>
       <!-- Buttons on the right side -->
@@ -42,9 +43,9 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'MessagesHeader',
-  props: ['msgSidebarOpen'],
-}
+<script setup>
+  import { useMessangers } from "../../utils/messengers.js";
+
+  const { activeChat } = await useMessangers()
+  const { msgSidebarOpen } = defineProps(['msgSidebarOpen']);
 </script>

@@ -16,7 +16,10 @@ function request(method) {
             method,
             headers: authHeader(url)
         };
-        if (body) {
+        if (method === 'GET' && body) {
+            const queryParams = new URLSearchParams(body);
+            url += `?${queryParams}`;
+        } else if (body) {
             requestOptions.headers['Content-Type'] = 'application/json';
             requestOptions.body = JSON.stringify(body);
         }
