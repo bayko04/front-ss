@@ -38,6 +38,9 @@
       <div v-else-if="message.type === 'audio' && message?.attachments[0]">
         <AudioPlayer :audioPath="message?.attachments[0].path"/>
       </div>
+      <div v-else-if="message.type === 'video' && message?.attachments[0]">
+        <VideoPlayer :videoPath="message?.attachments[0].path"/>
+      </div>
     </div>
 
   </div>
@@ -48,6 +51,7 @@
   import { useAuthStore } from '../../stores/auth.store.js'
   import { timestampToTime } from "../../helpers/date-format.js";
   import AudioPlayer from "./AudioPlayer.vue";
+  import VideoPlayer from "./VideoPlayer.vue";
 
   const { activeChat } = await useMessangers()
   const authStore = useAuthStore();
