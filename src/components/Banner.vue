@@ -36,8 +36,20 @@ const typeColor = (type) => {
           <svg v-else class="w-4 h-4 shrink-0 fill-current opacity-80 mt-[3px] mr-3" viewBox="0 0 16 16">
               <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm1 12H7V7h2v5zM8 6c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z" />
           </svg>
-          <div class="font-medium">
+          <div v-if="!Array.isArray(alert.message) && typeof alert.message !== 'object'" class="font-medium">
             {{alert.message}}
+          </div>
+          <div v-else>
+            <div v-for="message in alert.message">
+              <div v-if="!Array.isArray(message) && typeof message !== 'object'">
+                {{ message }}
+              </div>
+              <div v-else>
+                <div v-for="text in message">
+                  {{ text }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <button class="opacity-70 hover:opacity-80 ml-3 mt-[3px]" @click="alertStore.clear()">

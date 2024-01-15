@@ -9,7 +9,7 @@
         v-for="message in activeChat.messages"
         :key="message.id"
     >
-      <img v-if="message.user_id" class="rounded-full mr-4" :src="authStore?.userData?.image" width="40" height="40" alt="User 01" />
+      <img v-if="message.user_id" class="rounded-full mr-4" :src="authStore?.userData?.user?.image" width="40" height="40" alt="User 01" />
       <img v-else class="rounded-full mr-4" :src="activeChat?.image" width="40" height="40" alt="User 01" />
       <div v-if="message.type === 'text'">
         <div

@@ -24,6 +24,7 @@ const emptyMessage = {
 const echo = ref(undefined);
 const queryString = window.location.search;
 const searchParams = new URLSearchParams(queryString);
+export const fileModal = ref(false);
 export function useMessangers() {
   const route = ref(router?.currentRoute?.value);
 
@@ -55,7 +56,7 @@ export function useMessangers() {
     accounts.value = (await fetchWrapper.get('/accounts/all')).data
     if (activeAccount.value === undefined) {
       const accountId = searchParams.get('accountId')
-      accountId ? setActiveAccount(getAccountById(accountId)) : setActiveAccount(accounts.value[0])
+      accountId ? setActiveAccount(getAccountById(accountId)) : setActiveAccount()
     }
 
     if (activeChat.value === undefined) {
@@ -84,9 +85,13 @@ export function useMessangers() {
     return foundChat || undefined;
   }
 
-  const setActiveAccount = async function (account) {
-    activeAccount.value = account
+  const setActiveAccount = async function (account = undefined) {
+    activeAccount.value = account ?? accounts.value[0]
     activeChat.value = undefined
+
+    if(!account) {
+      return
+    }
 
     const newRoute = {
       path: '/messages',
@@ -242,14 +247,13 @@ export function useMessangers() {
     activeChat.value.message.text += emoji
   }
 
-  const sendFiles = async function (messageWithFiles) {
+  const sendFiles = async function () {
     let formData = new FormData()
-    formData.append('method', 'POST')
-    formData.append('text', messageWithFiles.text)
-    messageWithFiles.attachments.forEach(function (attachment) {
-      formData.append('attachments[]', attachment)
-    })
-
+    formData.append('method', 'POST');
+    formData.append('text', activeChat.value.message.text);
+    for (const attachment of activeChat.value.message.attachments) {
+      formData.append('attachments[]', attachment);
+    }
     const chatId = activeChat.value?.id
     await fetchWrapper.post(`/${activeAccount.value.messenger.name}/chats/${chatId}/new-files-message`, formData)
     activeChat.value.message = JSON.parse(JSON.stringify(emptyMessage))

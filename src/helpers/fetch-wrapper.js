@@ -1,4 +1,5 @@
 import { useAuthStore } from '../stores/auth.store.js';
+import {useAlertStore} from "../stores/alert.store.js";
 
 export const fetchWrapper = {
     get: request('GET'),
@@ -16,12 +17,17 @@ function request(method) {
             method,
             headers: authHeader(url)
         };
+        requestOptions.headers['Accept'] = 'application/json';
         if (method === 'GET' && body) {
             const queryParams = new URLSearchParams(body);
             url += `?${queryParams}`;
         } else if (body) {
-            requestOptions.headers['Content-Type'] = 'application/json';
-            requestOptions.body = JSON.stringify(body);
+            if (body instanceof FormData) {
+                requestOptions.body = body;
+            } else {
+                requestOptions.headers['Content-Type'] = 'application/json';
+                requestOptions.body = JSON.stringify(body);
+            }
         }
         return fetch(url, requestOptions).then(handleResponse);
     }
@@ -55,7 +61,8 @@ async function handleResponse(response) {
 
         // get error message from body or default to response status
         const error = (data && data.errors) || response.status;
-        return Promise.reject(error);
+        const alertStore = useAlertStore();
+        alertStore.error(error);
     }
 
     return data;

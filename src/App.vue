@@ -32,7 +32,6 @@ export default {
       await initWebSocket();
     });
 
-    // Возвращайте только те значения, которые необходимы в шаблоне
     return {
       authStore,
     }

@@ -237,3 +237,7 @@ span.flatpickr-weekday {
 .flatpickr-calendar.arrowBottom::after {
     display: none;
 }
+
+.flatpickr-wrapper {
+    width: 100%;
+}

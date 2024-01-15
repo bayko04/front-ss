@@ -30,6 +30,10 @@
           </div>
           
         </div>
+
+        <Suspense>
+          <ModalBasicForChatFiles/>
+        </Suspense>
       </main>
 
     </div> 
@@ -37,26 +41,15 @@
   </div>
 </template>
 
-<script>
-import { ref, onMounted, watch } from 'vue'
-import Sidebar from '../partials/Sidebar.vue'
-import Header from '../partials/Header.vue'
-import MessagesSidebar from '../partials/messages/MessagesSidebar.vue'
-import MessagesHeader from '../partials/messages/MessagesHeader.vue'
-import MessagesBody from '../partials/messages/MessagesBody.vue'
-import MessagesFooter from '../partials/messages/MessagesFooter.vue'
-
-export default {
-  name: 'Messages',
-  components: {
-    Sidebar,
-    Header,
-    MessagesSidebar,
-    MessagesHeader,
-    MessagesBody,
-    MessagesFooter,
-  }, 
-  setup() {
+<script setup>
+    import { ref, onMounted, watch } from 'vue'
+    import Sidebar from '../partials/Sidebar.vue'
+    import Header from '../partials/Header.vue'
+    import MessagesSidebar from '../partials/messages/MessagesSidebar.vue'
+    import MessagesHeader from '../partials/messages/MessagesHeader.vue'
+    import MessagesBody from '../partials/messages/MessagesBody.vue'
+    import MessagesFooter from '../partials/messages/MessagesFooter.vue'
+    import ModalBasicForChatFiles from "../components/ModalBasicForChatFiles.vue";
 
     const sidebarOpen = ref(false)
     const msgSidebarOpen = ref(true)
@@ -72,13 +65,5 @@ export default {
 
     watch(msgSidebarOpen, () => {
       msgSidebarOpen.value ? handleScroll() : handleScroll(false)
-    })      
-
-    return {
-      sidebarOpen,
-      msgSidebarOpen,
-      contentArea,
-    }  
-  }
-}
+    })
 </script>

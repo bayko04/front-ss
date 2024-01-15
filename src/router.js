@@ -66,6 +66,10 @@ import AvatarPage from './pages/component/AvatarPage.vue'
 import TooltipPage from './pages/component/TooltipPage.vue'
 import AccordionPage from './pages/component/AccordionPage.vue'
 import IconsPage from './pages/component/IconsPage.vue'
+import CustomersList from './pages/Customers/CustomersList.vue'
+import Create from './pages/Customers/Create.vue'
+import Update from './pages/Customers/Update.vue'
+import CustomerProfile from "./pages/Customers/CustomerProfile.vue";
 
 const routerHistory = createWebHistory()
 
@@ -75,6 +79,23 @@ const router = createRouter({
     {
       path: '/',
       component: Dashboard
+    },
+    {
+      path: '/customers',
+      component: CustomersList
+    },
+    {
+      path: '/customers/create',
+      component: Create
+    },
+    {
+      path: '/customers/update/:id',
+      component: Update
+    },
+    {
+      path: '/customers/profile/:id',
+      name: 'customerProfile',
+      component: CustomerProfile
     },
     {
       path: '/dashboard/analytics',
