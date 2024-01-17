@@ -80,7 +80,7 @@
                     <!-- Start -->
                     <div>
                       <label class="block text-sm font-medium mb-1" for="date_of_birth">Дата рождения</label>
-                      <ClientDatepicker id="date_of_birth" align="right" v-model="dateOfBirth"/>
+                      <ClientDatepicker id="date_of_birth" :value="dateOfBirth" align="right" v-model="dateOfBirth"/>
                     </div>
                     <!-- End -->
                   </div>
@@ -111,6 +111,36 @@
                       <option v-for="customer_status in customerStore.customerReferences.customer_statuses" :value="customer_status.id" :key="customer_status.id">{{ customer_status.name }}</option>
                     </Field>
                     <div v-if="errors.customer_status_id" class="text-xs mt-1 text-rose-500">{{ errors.customer_status_id }}</div>
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-medium mb-1" for="family_status">Семейное положение</label>
+                    <Field v-model="family_status" name="family_status" id="family_status" as="select" class="form-select w-full">
+                      <option value="">Не выбрано</option>
+                      <option value="single">Холост/Вдова/Вдовец</option>
+                      <option value="married">Женат/Замужем</option>
+                    </Field>
+                    <div v-if="errors.family_status" class="text-xs mt-1 text-rose-500">{{ errors.family_status }}</div>
+                  </div>
+
+                  <div>
+                    <!-- Start -->
+                    <div>
+                      <label class="block text-sm font-medium mb-1" for="address">Адрес</label>
+                      <Field v-model="address" id="address" name="address" class="form-input w-full" type="text" />
+                    </div>
+                    <div v-if="errors.address" class="text-xs mt-1 text-rose-500">{{ errors.address }}</div>
+                    <!-- End -->
+                  </div>
+
+                  <div>
+                    <!-- Start -->
+                    <div>
+                      <label class="block text-sm font-medium mb-1" for="comment">Примечание</label>
+                      <Field v-model="comment" id="comment" name="comment" class="form-input w-full" type="text" />
+                    </div>
+                    <div v-if="errors.comment" class="text-xs mt-1 text-rose-500">{{ errors.comment }}</div>
+                    <!-- End -->
                   </div>
 
                 </div>
@@ -219,6 +249,9 @@ const sex = ref('')
 const customer_status_id = ref('')
 const login = ref('')
 const password = ref('')
+const family_status = ref('')
+const address = ref('')
+const comment = ref('')
 
 onMounted(async () => {
   await customerStore.getReferences()
@@ -246,7 +279,10 @@ async function onSubmit() {
     login: login.value,
     password: password.value,
     date_of_birth: dateOfBirth.value,
-    image: avatar.value
+    image: avatar.value,
+    family_status: family_status.value,
+    address: address.value,
+    comment: comment.value,
   }
   customerStore.addCustomer(values)
 }
@@ -260,6 +296,9 @@ const schema = Yup.object().shape({
   citizenship_id: Yup.string(),
   sex: Yup.string(),
   customer_status_id: Yup.string(),
+  family_status: Yup.string(),
+  comment: Yup.string(),
+  address: Yup.string(),
   login: Yup.string().required('Логин клиента обязательно').min(4, 'Должно быть не менее 4 символов').max(256, 'Должно быть не более 256 символов'),
   password: Yup.string().required('Пароль клиента обязательно').min(4, 'Должно быть не менее 4 символов').max(256, 'Должно быть не более 256 символов'),
 });

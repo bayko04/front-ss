@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-[100dvh] overflow-hidden">
+  <div class="flex h-[100dvh] overflow-hidden" v-if="customerStore.customer">
 
     <!-- Sidebar -->
     <Sidebar :sidebarOpen="sidebarOpen" @close-sidebar="sidebarOpen = false" />
@@ -15,7 +15,7 @@
 
           <!-- Page header -->
           <div class="mb-8">
-            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Добавление клиента ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Редактирование клиента ✨</h1>
           </div>
 
           <div class="border-t border-slate-200 dark:border-slate-700">
@@ -113,6 +113,36 @@
                     <div v-if="errors.customer_status_id" class="text-xs mt-1 text-rose-500">{{ errors.customer_status_id }}</div>
                   </div>
 
+                  <div>
+                    <label class="block text-sm font-medium mb-1" for="family_status">Семейное положение</label>
+                    <Field v-model="family_status" name="family_status" id="family_status" as="select" class="form-select w-full">
+                      <option value="">Не выбрано</option>
+                      <option value="single">Холост/Вдова/Вдовец</option>
+                      <option value="married">Женат/Замужем</option>
+                    </Field>
+                    <div v-if="errors.family_status" class="text-xs mt-1 text-rose-500">{{ errors.family_status }}</div>
+                  </div>
+
+                  <div>
+                    <!-- Start -->
+                    <div>
+                      <label class="block text-sm font-medium mb-1" for="address">Адрес</label>
+                      <Field v-model="address" id="address" name="address" class="form-input w-full" type="text" />
+                    </div>
+                    <div v-if="errors.address" class="text-xs mt-1 text-rose-500">{{ errors.address }}</div>
+                    <!-- End -->
+                  </div>
+
+                  <div>
+                    <!-- Start -->
+                    <div>
+                      <label class="block text-sm font-medium mb-1" for="comment">Примечание</label>
+                      <Field v-model="comment" id="comment" name="comment" class="form-input w-full" type="text" />
+                    </div>
+                    <div v-if="errors.comment" class="text-xs mt-1 text-rose-500">{{ errors.comment }}</div>
+                    <!-- End -->
+                  </div>
+
                 </div>
               </div>
 
@@ -153,6 +183,7 @@
             <div class="mt-2">
               <!-- Start -->
               <button type="submit" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">Сохранить</button>
+              <router-link :to="`/customers/profile/${customerStore.customer.id}`" class="btn dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-indigo-500">Отмена</router-link>
               <!-- End -->
             </div>
             </Form>
@@ -190,6 +221,9 @@ const passport = ref('')
 const citizenship_id = ref('')
 const sex = ref('')
 const customer_status_id = ref('')
+const family_status = ref('')
+const address = ref('')
+const comment = ref('')
 
 onMounted(async () => {
   await customerStore.getReferences()
@@ -217,6 +251,9 @@ async function setCustomer() {
   citizenship_id.value = customer.citizenship_id ?? ''
   sex.value = customer.sex ?? ''
   customer_status_id.value = customer.customer_status_id ?? ''
+  family_status.value = customer.family_status ?? ''
+  address.value = customer.address ?? ''
+  comment.value = customer.comment ?? ''
 }
 
 async function onSubmit() {
@@ -230,7 +267,10 @@ async function onSubmit() {
     sex: sex.value,
     customer_status_id: customer_status_id.value,
     date_of_birth: dateOfBirth.value,
-    image: avatar.value
+    image: avatar.value,
+    family_status: family_status.value,
+    address: address.value,
+    comment: comment.value,
   }
   customerStore.updateCustomer(values)
 }
@@ -244,5 +284,8 @@ const schema = Yup.object().shape({
   citizenship_id: Yup.string(),
   sex: Yup.string(),
   customer_status_id: Yup.string(),
+  family_status: Yup.string(),
+  comment: Yup.string(),
+  address: Yup.string(),
 });
 </script>

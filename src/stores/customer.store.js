@@ -42,8 +42,53 @@ export const useCustomerStore = defineStore({
             try {
                 const result = await fetchWrapper.post(`${baseUrl}`, formData);
                 if(!result.errors) {
-                    router.push('/customers')
+                    router.push(`/customers/profile/${result.data.id}`)
                 }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async setContactAsMain(id) {
+            try {
+                const result = (await fetchWrapper.post(`${baseUrl}/${this.customer.id}/set-contact-as-main/${id}`, {})).data;
+                this.customer.customer_contacts = result
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async addContact(data) {
+            try {
+                const result = (await fetchWrapper.post(`${baseUrl}/${this.customer.id}/add-contact`, data)).data;
+                this.customer.customer_contacts.push(result)
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async removeContact(id) {
+            try {
+                const result = (await fetchWrapper.post(`${baseUrl}/${this.customer.id}/remove-contact/${id}`, {})).data;
+                this.customer.customer_contacts = result
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async addDocument(data) {
+            let formData = new FormData()
+            formData.append('method', 'POST');
+            for (const key in data) {
+                formData.append(key, data[key]);
+            }
+            try {
+                const result = (await fetchWrapper.post(`${baseUrl}/${this.customer.id}/add-document`, formData)).data;
+                this.customer.customer_documents.push(result)
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async removeDocument(id) {
+            try {
+                const result = (await fetchWrapper.post(`${baseUrl}/${this.customer.id}/remove-document/${id}`, {})).data;
+                this.customer.customer_documents = result
             } catch (error) {
                 console.log(error)
             }
@@ -57,7 +102,7 @@ export const useCustomerStore = defineStore({
             try {
                 const result = await fetchWrapper.post(`${baseUrl}/${this.customer.id}`, formData);
                 if(!result.errors) {
-                    router.push('/customers')
+                    router.push(`/customers/profile/${result.data.id}`)
                 }
             } catch (error) {
                 console.log(error)
