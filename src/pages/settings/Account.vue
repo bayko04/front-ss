@@ -16,7 +16,7 @@
           <!-- Page header -->
           <div class="mb-8">
             <!-- Title -->
-            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Account Settings ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Настройки учетной записи ✨</h1>
           </div>
 
           <!-- Content --> 

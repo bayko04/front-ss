@@ -67,9 +67,12 @@ import TooltipPage from './pages/component/TooltipPage.vue'
 import AccordionPage from './pages/component/AccordionPage.vue'
 import IconsPage from './pages/component/IconsPage.vue'
 import CustomersList from './pages/Customers/CustomersList.vue'
-import Create from './pages/Customers/Create.vue'
-import Update from './pages/Customers/Update.vue'
+import CustomerCreate from './pages/Customers/CustomerCreate.vue'
+import CustomerUpdate from './pages/Customers/CustomerUpdate.vue'
 import CustomerProfile from "./pages/Customers/CustomerProfile.vue";
+import UserCreate from "./partials/community/UserCreate.vue";
+import UserUpdate from "./partials/community/UserUpdate.vue";
+import UserProfile from "./partials/community/UserProfile.vue";
 
 const routerHistory = createWebHistory()
 
@@ -86,16 +89,33 @@ const router = createRouter({
     },
     {
       path: '/customers/create',
-      component: Create
+      component: CustomerCreate
     },
     {
       path: '/customers/update/:id',
-      component: Update
+      component: CustomerUpdate
     },
     {
       path: '/customers/profile/:id',
       name: 'customerProfile',
       component: CustomerProfile
+    },
+    {
+      path: '/users',
+      component: UsersTabs
+    },
+    {
+      path: '/users/create',
+      component: UserCreate
+    },
+    {
+      path: '/users/update/:id',
+      component: UserUpdate
+    },
+    {
+      path: '/users/profile/:id',
+      name: 'userProfile',
+      component: UserProfile
     },
     {
       path: '/dashboard/analytics',

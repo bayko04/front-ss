@@ -67,7 +67,7 @@
       <ul class="space-y-3">
         <!-- Item -->
         <li
-            v-for="document in customerStore.customer.documents"
+            v-for="document in usersStore.user.documents"
             class="sm:flex sm:items-center sm:justify-between">
           <div class="sm:grow flex items-center text-sm">
             <!-- Icon -->
@@ -86,7 +86,7 @@
           <div class="sm:ml-2 mt-2 sm:mt-0">
             <ul class="flex flex-wrap sm:justify-end -m-1">
               <li class="m-1">
-                <button @click="customerStore.removeDocument(document.id)" class="inline-flex items-center justify-center text-xs font-medium leading-5 rounded-full px-2.5 py-0.5 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 duration-150 ease-in-out">удалить</button>
+                <button @click="usersStore.removeDocument(document.id)" class="inline-flex items-center justify-center text-xs font-medium leading-5 rounded-full px-2.5 py-0.5 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 duration-150 ease-in-out">удалить</button>
               </li>
             </ul>
           </div>
@@ -97,15 +97,14 @@
 </template>
 
 <script setup>
-import { useCustomerStore } from "../../stores/customer.store.js"
+import { useUsersStore } from "../../stores/user.store.js"
 import {onMounted, ref} from "vue";
 import {Field, Form} from "vee-validate";
 import * as Yup from "yup";
-
 import fileIkon from '../../images/file.svg?component'
-import ClientDatepicker from "./ClientDatepicker.vue";
+import ClientDatepicker from "../../pages/Customers/ClientDatepicker.vue"
 
-const customerStore = useCustomerStore()
+const usersStore = useUsersStore()
 const documentTypes = ref([])
 const expiry_date = ref('')
 const comment = ref('')
@@ -129,7 +128,7 @@ async function onSubmit() {
     comment: comment.value
   }
 
-  customerStore.addDocument(values)
+  usersStore.addDocument(values)
   file.value = ''
   expiry_date.value = ''
   type.value = ''
@@ -143,6 +142,6 @@ const schema = Yup.object().shape({
 });
 
 onMounted(async () => {
-  documentTypes.value = (await customerStore.getReferences())['document_types']
+  documentTypes.value = (await usersStore.getReferences())['document_types']
 })
 </script>

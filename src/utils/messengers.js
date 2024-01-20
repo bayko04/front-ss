@@ -1,9 +1,7 @@
 import { fetchWrapper } from '../helpers/fetch-wrapper.js'
-import { ref, reactive } from "vue";
-import { useAuthStore } from "../stores/auth.store.js";
-import Pusher from "pusher-js";
-import Echo from "laravel-echo";
+import { ref } from "vue";
 import  router  from '../router.js';
+import {getEcho} from "./echo.js";
 
 const accounts = ref(undefined)
 const activeAccount = ref(undefined)
@@ -28,31 +26,8 @@ export const fileModal = ref(false);
 export function useMessangers() {
   const route = ref(router?.currentRoute?.value);
 
-  function defineEcho() {
-    const authStore = useAuthStore()
-    window.Pusher = Pusher
-    echo.value = new Echo({
-      broadcaster: 'pusher',
-      key: import.meta.env.VITE_PUSHER_APP_KEY,
-      cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
-      wsHost: import.meta.env.VITE_PUSHER_HOST,
-      wsPort: import.meta.env.VITE_PUSHER_PORT,
-      wssPort: import.meta.env.VITE_PUSHER_PORT,
-      forceTls: false,
-      disableStats: false,
-      enabledTransports: ['ws', 'wss'],
-      authEndpoint: `http://127.0.0.1:8000/broadcasting/auth`,
-      auth: {
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${authStore.userData.access_token || ''}`,
-        },
-      },
-    })
-  }
-
   const startSocketListeners = async function () {
-    defineEcho()
+    echo.value = getEcho()
     accounts.value = (await fetchWrapper.get('/accounts/all')).data
     if (activeAccount.value === undefined) {
       const accountId = searchParams.get('accountId')

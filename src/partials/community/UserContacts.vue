@@ -46,7 +46,7 @@
       <ul class="space-y-3">
         <!-- Item -->
         <li
-            v-for="contact in customerStore.customer.contacts"
+            v-for="contact in usersStore.user.contacts"
             class="sm:flex sm:items-center sm:justify-between">
           <div class="sm:grow flex items-center text-sm">
             <!-- Icon -->
@@ -68,10 +68,10 @@
             <ul class="flex flex-wrap sm:justify-end -m-1">
               <li class="m-1">
                 <button v-if="contact.is_main" class="inline-flex items-center justify-center text-xs font-medium leading-5 rounded-full px-2.5 py-0.5 border border-slate-200 shadow-sm bg-amber-500 text-white duration-150 ease-in-out">Основной</button>
-                <button v-else @click="customerStore.setContactAsMain(contact.id)" class="inline-flex items-center justify-center text-xs font-medium leading-5 rounded-full px-2.5 py-0.5 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 duration-150 ease-in-out">Сделать основным</button>
+                <button v-else @click="usersStore.setContactAsMain(contact.id)" class="inline-flex items-center justify-center text-xs font-medium leading-5 rounded-full px-2.5 py-0.5 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 duration-150 ease-in-out">Сделать основным</button>
               </li>
               <li class="m-1" v-if="!contact.is_main">
-                <button @click="customerStore.removeContact(contact.id)" class="inline-flex items-center justify-center text-xs font-medium leading-5 rounded-full px-2.5 py-0.5 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 duration-150 ease-in-out">удалить</button>
+                <button @click="usersStore.removeContact(contact.id)" class="inline-flex items-center justify-center text-xs font-medium leading-5 rounded-full px-2.5 py-0.5 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 duration-150 ease-in-out">удалить</button>
               </li>
             </ul>
           </div>
@@ -82,7 +82,7 @@
 </template>
 
 <script setup>
-import { useCustomerStore } from "../../stores/customer.store.js"
+import { useUsersStore } from "../../stores/user.store.js"
 import {onMounted, ref} from "vue";
 import {Field, Form} from "vee-validate";
 import * as Yup from "yup";
@@ -94,7 +94,7 @@ import whatsapp from '../../images/chat/whatsapp-white.svg?component'
 import mail from '../../images/chat/mail-white.svg?component'
 import contact from '../../images/chat/contact-white.svg?component'
 
-const customerStore = useCustomerStore()
+const usersStore = useUsersStore()
 const contactTypes = ref([])
 const value = ref('')
 const comment = ref('')
@@ -125,7 +125,7 @@ async function onSubmit() {
     contact_type_id: type.value
   }
 
-  customerStore.addContact(values)
+  usersStore.addContact(values)
   value.value = ''
   comment.value = ''
   type.value = ''
@@ -138,6 +138,6 @@ const schema = Yup.object().shape({
 });
 
 onMounted(async () => {
-  contactTypes.value = (await customerStore.getReferences())['contact_types']
+  contactTypes.value = (await usersStore.getReferences())['contact_types']
 })
 </script>

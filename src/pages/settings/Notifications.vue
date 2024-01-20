@@ -16,7 +16,7 @@
           <!-- Page header -->
           <div class="mb-8">
             <!-- Title -->
-            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Account Settings ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Настройка уведомлений ✨</h1>
           </div>
 
           <!-- Content --> 
@@ -35,28 +35,12 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 import Sidebar from '../../partials/Sidebar.vue'
 import Header from '../../partials/Header.vue'
 import SettingsSidebar from '../../partials/settings/SettingsSidebar.vue'
 import NotificationsPanel from '../../partials/settings/NotificationsPanel.vue'
 
-export default {
-  name: 'Notifications',
-  components: {
-    Sidebar,
-    Header,
-    SettingsSidebar,
-    NotificationsPanel,    
-  },
-  setup() {
-
-    const sidebarOpen = ref(false)
-
-    return {
-      sidebarOpen,
-    }  
-  }
-}
+const sidebarOpen = ref(false)
 </script>

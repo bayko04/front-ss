@@ -7,7 +7,7 @@ const baseUrl = `${import.meta.env.VITE_API_URL}/auth`;
 export const useAuthStore = defineStore({
     id: 'auth',
     state: () => ({
-        // initialize state from local storage to enable user to stay logged in
+        users: [],
         userData: JSON.parse(localStorage.getItem('userData')),
         returnUrl: null
     }),
@@ -26,6 +26,6 @@ export const useAuthStore = defineStore({
             this.userData = null;
             localStorage.removeItem('userData');
             location.assign('/signin')
-        }
+        },
     }
 });

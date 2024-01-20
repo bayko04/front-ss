@@ -35,7 +35,7 @@
               <svg class="fill-current shrink-0" width="11" height="8" viewBox="0 0 11 8">
                 <path d="m.457 4.516.969-.99 2.516 2.481L9.266.702l.985.99-6.309 6.284z" />
               </svg>
-              <span class="ml-2">{{ customerStore.customer.customer_status.name}}</span>
+              <span class="ml-2">{{ customerStore.customer.customer_status?.name}}</span>
             </button>
           </div>
 

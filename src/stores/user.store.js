@@ -2,38 +2,38 @@ import {defineStore} from 'pinia';
 import {fetchWrapper} from '../helpers/fetch-wrapper.js'
 import router from '../router.js'
 
-const baseUrl = `${import.meta.env.VITE_API_URL}/customers`;
+const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
 
-export const useCustomerStore = defineStore({
-    id: 'customer',
+export const useUsersStore = defineStore({
+    id: 'user',
     state: () => ({
-        customers: [],
-        customer: null,
-        customerReferences: null
+        users: [],
+        user: null,
+        userReferences: null
     }),
     actions: {
-        async getCustomers() {
+        async getUsers() {
             try {
-                this.customers = (await fetchWrapper.get(`${baseUrl}/`)).data;
+                this.users = (await fetchWrapper.get(`${baseUrl}/`)).data;
             } catch (error) {
                 console.log(error)
             }
         },
-        async customersPaginate(url) {
+        async usersPaginate(url) {
             try {
-                this.customers = (await fetchWrapper.get(`${url}`)).data;
+                this.users = (await fetchWrapper.get(`${url}`)).data;
             } catch (error) {
                 console.log(error)
             }
         },
-        async getCustomer(id) {
+        async getUser(id) {
             try {
-                this.customer = (await fetchWrapper.get(`${baseUrl}/${id}`)).data;
+                this.user = (await fetchWrapper.get(`${baseUrl}/${id}`)).data;
             } catch (error) {
                 console.log(error)
             }
         },
-        async addCustomer(data) {
+        async addUser(data) {
             let formData = new FormData()
             formData.append('method', 'POST');
             for (const key in data) {
@@ -42,7 +42,7 @@ export const useCustomerStore = defineStore({
             try {
                 const result = await fetchWrapper.post(`${baseUrl}`, formData);
                 if(!result.errors) {
-                    router.push(`/customers/profile/${result.data.id}`)
+                    router.push(`/users/profile/${result.data.id}`)
                 }
             } catch (error) {
                 console.log(error)
@@ -50,24 +50,24 @@ export const useCustomerStore = defineStore({
         },
         async setContactAsMain(id) {
             try {
-                const result = (await fetchWrapper.post(`${baseUrl}/${this.customer.id}/set-contact-as-main/${id}`, {})).data;
-                this.customer.contacts = result
+                const result = (await fetchWrapper.post(`${baseUrl}/${this.user.id}/set-contact-as-main/${id}`, {})).data;
+                this.user.contacts = result
             } catch (error) {
                 console.log(error)
             }
         },
         async addContact(data) {
             try {
-                const result = (await fetchWrapper.post(`${baseUrl}/${this.customer.id}/add-contact`, data)).data;
-                this.customer.contacts.push(result)
+                const result = (await fetchWrapper.post(`${baseUrl}/${this.user.id}/add-contact`, data)).data;
+                this.user.contacts.push(result)
             } catch (error) {
                 console.log(error)
             }
         },
         async removeContact(id) {
             try {
-                const result = (await fetchWrapper.post(`${baseUrl}/${this.customer.id}/remove-contact/${id}`, {})).data;
-                this.customer.contacts = result
+                const result = (await fetchWrapper.post(`${baseUrl}/${this.user.id}/remove-contact/${id}`, {})).data;
+                this.user.contacts = result
             } catch (error) {
                 console.log(error)
             }
@@ -79,30 +79,30 @@ export const useCustomerStore = defineStore({
                 formData.append(key, data[key]);
             }
             try {
-                const result = (await fetchWrapper.post(`${baseUrl}/${this.customer.id}/add-document`, formData)).data;
-                this.customer.documents.push(result)
+                const result = (await fetchWrapper.post(`${baseUrl}/${this.user.id}/add-document`, formData)).data;
+                this.user.documents.push(result)
             } catch (error) {
                 console.log(error)
             }
         },
         async removeDocument(id) {
             try {
-                const result = (await fetchWrapper.post(`${baseUrl}/${this.customer.id}/remove-document/${id}`, {})).data;
-                this.customer.documents = result
+                const result = (await fetchWrapper.post(`${baseUrl}/${this.user.id}/remove-document/${id}`, {})).data;
+                this.user.documents = result
             } catch (error) {
                 console.log(error)
             }
         },
-        async updateCustomer(data) {
+        async updateUser(data) {
             let formData = new FormData()
             formData.append('method', 'POST');
             for (const key in data) {
                 formData.append(key, data[key]);
             }
             try {
-                const result = await fetchWrapper.post(`${baseUrl}/${this.customer.id}`, formData);
+                const result = await fetchWrapper.post(`${baseUrl}/${this.user.id}`, formData);
                 if(!result.errors) {
-                    router.push(`/customers/profile/${result.data.id}`)
+                    router.push(`/users/profile/${result.data.id}`)
                 }
             } catch (error) {
                 console.log(error)
@@ -110,11 +110,11 @@ export const useCustomerStore = defineStore({
         },
         async getReferences() {
             try {
-                if (this.customerReferences === null) {
-                    this.customerReferences = (await fetchWrapper.get(`${baseUrl}/references`)).data;
+                if (this.userReferences === null) {
+                    this.userReferences = (await fetchWrapper.get(`${baseUrl}/references`)).data;
                 }
 
-                return this.customerReferences;
+                return this.userReferences;
             } catch (error) {
                 console.log(error);
             }
