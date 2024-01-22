@@ -13,12 +13,16 @@
       <img v-else class="rounded-full mr-4" :src="activeChat?.image" width="40" height="40" alt="User 01" />
       <div v-if="message.type === 'text'">
         <div
-            class="text-sm bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 p-3 rounded-lg rounded-tl-none border border-slate-200 dark:border-slate-700 shadow-md mb-1"
+            class="text-sm rounded-lg border shadow-md mb-1 p-3"
+            :class="message.user_id ? 'bg-indigo-500 text-white rounded-tl-none border-transparent' : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-tl-none border-slate-200 dark:border-slate-7001'"
         >
           {{message.text}}
         </div>
         <div class="flex items-center justify-between">
           <div class="text-xs text-slate-500 font-medium">{{timestampToTime(message.date)}}</div>
+          <svg class="w-5 h-3 shrink-0 fill-current text-emerald-500" viewBox="0 0 20 12">
+            <path d="M10.402 6.988l1.586 1.586L18.28 2.28a1 1 0 011.414 1.414l-7 7a1 1 0 01-1.414 0L8.988 8.402l-2.293 2.293a1 1 0 01-1.414 0l-3-3A1 1 0 013.695 6.28l2.293 2.293L12.28 2.28a1 1 0 011.414 1.414l-3.293 3.293z" />
+          </svg>
         </div>
       </div>
       <div v-else-if="message.type === 'image'">
