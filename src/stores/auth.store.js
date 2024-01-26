@@ -14,9 +14,15 @@ export const useAuthStore = defineStore({
     actions: {
         async login(email, password) {
             try {
-                this.userData = (await fetchWrapper.post(`${baseUrl}/login`, { email, password })).data;
-                localStorage.setItem('userData', JSON.stringify(this.userData));
-                location.assign(this.returnUrl || '/')
+                const result = (await fetchWrapper.post(`${baseUrl}/login`, { email, password }));
+                if(result.errors || !result.data.user) {
+                    const alertStore = useAlertStore();
+                    alertStore.error(result);
+                } else {
+                    this.userData = result.data
+                    localStorage.setItem('userData', JSON.stringify(this.userData));
+                    location.assign(this.returnUrl || '/')
+                }
             } catch (error) {
                 const alertStore = useAlertStore();
                 alertStore.error(error);

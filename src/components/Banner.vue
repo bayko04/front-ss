@@ -39,8 +39,20 @@ const typeColor = (type) => {
           <div v-if="!Array.isArray(alert.message) && typeof alert.message !== 'object'" class="font-medium">
             {{alert.message}}
           </div>
-          <div v-else>
+          <div v-else-if="alert.message">
             <div v-for="message in alert.message">
+              <div v-if="!Array.isArray(message) && typeof message !== 'object'">
+                {{ message }}
+              </div>
+              <div v-else>
+                <div v-for="text in message">
+                  {{ text }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-else-if="alert.errors">
+            <div v-for="message in alert.errors">
               <div v-if="!Array.isArray(message) && typeof message !== 'object'">
                 {{ message }}
               </div>
