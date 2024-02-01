@@ -95,16 +95,7 @@ export function useMessangers() {
     };
 
     router?.push(newRoute);
-  }
-
-  async function getMessageById(id) {
-    let foundMessage = activeChat.value.messages[Number(id)];
-    if (!foundMessage) {
-      await getMessages(id)
-      foundMessage = activeChat.value.messages[Number(id)];
-    }
-
-    return foundMessage;
+    scrollToBottom()
   }
 
   const getMessages = async function (messageId = null) {
@@ -135,19 +126,8 @@ export function useMessangers() {
         chat['unread_messages_count']++
         account['unread_messages_count']++
       }
+      scrollToBottom()
     });
-  }
-
-  const chatToTop = function (account, chat) {
-    const index = account.chats.findIndex(item => item.id === chat.id)
-
-    if (index !== -1) {
-      const removedChat = account.chats.splice(index, 1)[0]
-      account.chats.unshift(removedChat)
-      return removedChat
-    }
-
-    return chat
   }
 
   const updateMessageInChat = function (account, chat) {
@@ -162,6 +142,15 @@ export function useMessangers() {
         chat.messages[socketMessage.message.id] = socketMessage.message
       }
     });
+  }
+
+  const scrollToBottom = function() {
+    setTimeout(() => {
+      const messagesBottomElement = window.messagesBottomElement;
+      if (messagesBottomElement) {
+        messagesBottomElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 1000)
   }
 
   const newChatFromSocket = function (account) {
@@ -244,12 +233,12 @@ export function useMessangers() {
   };
 
   return {
+    scrollToBottom,
     activeAccount,
     accounts,
     startSocketListeners,
     setActiveAccount,
     activeChat,
-    getMessageById,
     setActiveChat,
     getMessages,
     setReplyMessage,

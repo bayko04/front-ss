@@ -7,6 +7,7 @@
         <div class="grow mr-3">
           <label for="message-input" class="sr-only">Type a message</label>
           <div
+               @keydown.enter="send()"
                @input="handleInput"
                contenteditable
                id="message-input"
@@ -15,7 +16,7 @@
             {{ activeChat?.message?.text }}
           </div>
         </div>
-        <button @click="send()" type="submit" class="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap h-8 mb-2">Send -&gt;</button>
+        <button @click="send()"  type="submit" class="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap h-8 mb-2">Send -&gt;</button>
       </div>
     </div>
   </div>
