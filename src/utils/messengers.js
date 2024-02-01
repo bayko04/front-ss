@@ -113,16 +113,10 @@ export function useMessangers() {
     echo.value.private(`${account.messenger.name}.${account.id}.chat.${chat.id}`).listen('.NewMessage', function (socketMessage) {
       if (chat.messages && chat.id === activeChat.value.id) {
         chat.messages[socketMessage.message.id] = socketMessage.message
-        setTimeout(() => {
-          if (bottom.value) {
-            bottom.value.scrollIntoView({behavior: "smooth"});
-          }
-        }, 500);
       } else if (chat.messages) {
         chat.messages[socketMessage.message.id] = socketMessage.message
-        chat['unread_messages_count']++
-        account['unread_messages_count']++
-      } else {
+      }
+      if(!socketMessage.message.user_id) {
         chat['unread_messages_count']++
         account['unread_messages_count']++
       }
