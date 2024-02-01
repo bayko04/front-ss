@@ -18,7 +18,7 @@ function defineEcho() {
         forceTls: false,
         disableStats: false,
         enabledTransports: ['ws', 'wss'],
-        authEndpoint: `/broadcasting/auth`,
+        authEndpoint: `${import.meta.env.VITE_APP_URL}/broadcasting/auth`,
         auth: {
             headers: {
                 Accept: 'application/json',
