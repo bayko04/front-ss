@@ -1,8 +1,11 @@
 <script setup>
 import { Form, Field } from 'vee-validate';
 import * as Yup from 'yup';
-
+import messenger from '../images/chat/messenger.svg?component'
 import { useAuthStore } from '../stores/auth.store.js';
+import {onMounted, onBeforeUnmount} from 'vue'
+
+const baseUrl = `${import.meta.env.VITE_API_URL}/auth/redirect`;
 
 const schema = Yup.object().shape({
   email: Yup.string().email('Не правильный формат почты').required('Email адрес не заполнен'),
@@ -14,6 +17,30 @@ async function onSubmit(values) {
   const { email, password } = values;
   await authStore.login(email, password);
 }
+
+function registerSocialAuthEvent(register) {
+  if (register)
+    return window.addEventListener('message', handleAuth)
+  return window.removeEventListener('message', handleAuth)
+}
+
+function handleAuth(userdata) {
+  console.log(userdata)
+}
+
+function socialAuthInit(provider) {
+  const width = 640
+  const height = 660
+  const left = window.screen.width / 2 - (width / 2)
+  const top = window.screen.height / 2 - (height / 2)
+  window.open(`${baseUrl}/${provider}`, 'Log In',
+      `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no,
+      resizable=no, copyhistory=no, width=${width},height=${height},top=${top},left=${left}`)
+}
+
+onMounted(() => registerSocialAuthEvent(true))
+onBeforeUnmount(() => registerSocialAuthEvent(false))
+
 </script>
 <template>
   <main class="bg-white dark:bg-slate-900">
@@ -53,15 +80,19 @@ async function onSubmit(values) {
                   <div v-if="errors.password" class="text-xs mt-1 text-rose-500">{{ errors.password }}</div>
                 </div>
               </div>
+              <div class="mt-4">
+                <div class="flex flex-row items-center justify-center">
+                    <messenger class="cursor-pointer" @click="socialAuthInit('facebook')"/>
+                </div>
+              </div>
               <div class="flex items-center justify-between mt-6">
                 <div class="mr-1">
-                  <button class="text-sm underline hover:no-underline">Забыли пароль?</button>
+                  <button type="button" class="text-sm underline hover:no-underline">Забыли пароль?</button>
                 </div>
                 <button :disabled="isSubmitting" class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3">Войти</button>
               </div>
             </Form>
           </div>
-
         </div>
       </div>
 
