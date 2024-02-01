@@ -48,7 +48,7 @@
       <div v-else-if="message.type === 'audio' && message?.attachments[0]">
         <AudioPlayer :audioPath="message?.attachments[0].path"/>
       </div>
-      <div v-else-if="message.type === 'video' && message?.attachments[0]">
+      <div class="flex items-center" v-else-if="message.type === 'video' && message?.attachments[0]">
         <VideoPlayer :videoPath="message?.attachments[0].path"/>
         <a :href="message?.attachments[0].path" target="_blank" class="p-1.5 rounded-full border border-slate-200 dark:border-slate-700 ml-4 hover:bg-white dark:hover:bg-slate-800 transition duration-150">
           <span class="sr-only">Download</span>
