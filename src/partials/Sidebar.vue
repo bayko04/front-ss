@@ -99,10 +99,6 @@
                       </svg>
                       <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Чаты</span>
                     </div>
-                    <!-- Badge -->
-                    <div class="flex flex-shrink-0 ml-2">
-                      <span class="inline-flex items-center justify-center h-5 text-xs font-medium text-white bg-indigo-500 px-2 rounded">4</span>
-                    </div>
                   </div>
                 </a>
               </li>
