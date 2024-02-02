@@ -29,9 +29,20 @@
         </div>
         <MessageStatus :message="message"/>
       </div>
-      <div v-else-if="message.type === 'file' && message?.attachments[0]">
+      <div v-else-if="(message.type === 'file' || message.type === 'document') && message?.attachments[0]">
         <div class="flex items-center">
-         file
+          <div class="flex text-sm rounded-lg border shadow-md mb-1 p-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+              <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+              <path d="M9 15l2 2l4 -4" />
+            </svg>
+            <span v-if="message?.attachments[0] && message?.attachments[0].name">
+              {{ message?.attachments[0].name }}
+            </span>
+            <span v-else class="mr-2">Без имени</span>
+          </div>
           <MessageFileLink :message="message" />
         </div>
         <MessageStatus :message="message"/>
