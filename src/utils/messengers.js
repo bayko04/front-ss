@@ -23,6 +23,7 @@ const echo = ref(undefined);
 const queryString = window.location.search;
 const searchParams = new URLSearchParams(queryString);
 export const fileModal = ref(false);
+export const checkedMessageData = ref({message:undefined, styles: undefined});
 export function useMessangers() {
   const route = ref(router?.currentRoute?.value);
 

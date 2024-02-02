@@ -34,6 +34,9 @@
         <Suspense>
           <ModalBasicForChatFiles/>
         </Suspense>
+        <Suspense>
+          <ModalForChatDropdawn/>
+        </Suspense>
       </main>
 
     </div> 
@@ -50,6 +53,7 @@
     import MessagesBody from '../partials/messages/MessagesBody.vue'
     import MessagesFooter from '../partials/messages/MessagesFooter.vue'
     import ModalBasicForChatFiles from "../components/ModalBasicForChatFiles.vue";
+    import ModalForChatDropdawn from "../components/ModalForChatDropdawn.vue";
 
     const sidebarOpen = ref(false)
     const msgSidebarOpen = ref(true)

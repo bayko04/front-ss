@@ -33,7 +33,7 @@
             </button>
           </div>
         </div>
-        <slot />       
+        <slot />
       </div>
     </div>
   </transition>
