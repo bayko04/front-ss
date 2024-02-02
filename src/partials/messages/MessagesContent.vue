@@ -14,12 +14,7 @@
       <div v-else-if="message.type === 'image'">
         <div class="flex items-center">
           <img v-if="message?.attachments[0]" class="rounded-lg shadow-md mb-1" :src="message?.attachments[0].path" width="240" height="180" alt="Chat image" />
-          <a :href="message?.attachments[0].path" target="_blank" class="p-1.5 rounded-full border border-slate-200 dark:border-slate-700 ml-4 hover:bg-white dark:hover:bg-slate-800 transition duration-150">
-            <span class="sr-only">Download</span>
-            <svg class="w-4 h-4 shrink-0 fill-current text-slate-400 dark:text-slate-500" viewBox="0 0 16 16">
-              <path d="M15 15H1a1 1 0 01-1-1V2a1 1 0 011-1h4v2H2v10h12V3h-3V1h4a1 1 0 011 1v12a1 1 0 01-1 1zM9 7h3l-4 4-4-4h3V1h2v6z" />
-            </svg>
-          </a>
+          <MessageStatus :message="message"/>
         </div>
         <MessageStatus :message="message"/>
       </div>
@@ -30,12 +25,14 @@
       <div v-else-if="message.type === 'video' && message?.attachments[0]">
         <div class="flex items-center">
           <VideoPlayer :videoPath="message?.attachments[0].path"/>
-          <a :href="message?.attachments[0].path" target="_blank" class="p-1.5 rounded-full border border-slate-200 dark:border-slate-700 ml-4 hover:bg-white dark:hover:bg-slate-800 transition duration-150">
-            <span class="sr-only">Download</span>
-            <svg class="w-4 h-4 shrink-0 fill-current text-slate-400 dark:text-slate-500" viewBox="0 0 16 16">
-              <path d="M15 15H1a1 1 0 01-1-1V2a1 1 0 011-1h4v2H2v10h12V3h-3V1h4a1 1 0 011 1v12a1 1 0 01-1 1zM9 7h3l-4 4-4-4h3V1h2v6z" />
-            </svg>
-          </a>
+          <MessageFileLink :message="message" />
+        </div>
+        <MessageStatus :message="message"/>
+      </div>
+      <div v-else-if="message.type === 'file' && message?.attachments[0]">
+        <div class="flex items-center">
+         file
+          <MessageFileLink :message="message" />
         </div>
         <MessageStatus :message="message"/>
       </div>
@@ -45,11 +42,11 @@
 <script setup>
 import { useMessangers } from "../../utils/messengers.js";
 import { useAuthStore } from '../../stores/auth.store.js';
-import { timestampToTime } from "../../helpers/date-format.js";
 import AudioPlayer from "./AudioPlayer.vue";
 import VideoPlayer from "./VideoPlayer.vue";
 import { onMounted  } from "vue";
 import MessageStatus from "./MessageStatus.vue";
+import MessageFileLink from "./MessageFileLink.vue";
 
 const { activeChat, markAsRead } = useMessangers();
 const authStore = useAuthStore();
