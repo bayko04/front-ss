@@ -20,23 +20,32 @@
         </svg>
       </button>
     </div>
-    <div class="flex items-center justify-between bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 px-4 sm:px-6 md:px-5 h-16">
-      <div class="grow flex items-end">
+    <div class="flex items-center justify-between bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 px-4 sm:px-6 md:px-5" :style="{ height: blockHeight }">
+      <div class="grow flex items-end mt-1">
         <div class="mr-3 mb-1">
           <AddAttachments/>
         </div>
         <div class="grow mr-3">
-          <label for="message-input" class="sr-only">Type a message</label>
-          <div
-               @keydown.enter="send()"
-               @input="handleInput"
-               contenteditable
-               id="message-input"
-               class="form-textarea w-full bg-slate-100 dark:bg-slate-800 border-transparent dark:border-transparent focus:bg-white dark:focus:bg-slate-800 placeholder-slate-500"
-          >
-            {{ activeChat?.message?.text }}
-          </div>
+          <textarea
+              v-model="activeChat.message.text"
+              ref="textarea"
+              @input="handleInput"
+              @keydown="handleKeyDown"
+              id="message-input"
+              :style="{ height: textareaHeight}"
+              class="w-full bg-slate-100 dark:bg-slate-800 overflow-hidden border-transparent dark:border-transparent focus:border-transparent focus:ring-0 focus:outline-none placeholder-slate-500"
+              rows="1"
+          ></textarea>
         </div>
+        <button class="shrink-0 text-slate-400 dark:text-slate-500 hover:text-slate-500 mr-3 mb-1 dark:hover:text-slate-400 cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mood-smile" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+            <path d="M9 10l.01 0" />
+            <path d="M15 10l.01 0" />
+            <path d="M9.5 15a3.5 3.5 0 0 0 5 0" />
+          </svg>
+        </button>
         <button class="shrink-0 text-slate-400 dark:text-slate-500 hover:text-slate-500 mr-3 mb-1 dark:hover:text-slate-400 cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-microphone w-6 h-6" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -46,7 +55,7 @@
             <path d="M12 17l0 4" />
           </svg>
         </button>
-        <button @click="send()"  type="submit" class="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap h-8">
+        <button @click="send()"  type="submit" class="mb-1 btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap h-8">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-send-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
             <path d="M4.698 4.034l16.302 7.966l-16.302 7.966a.503 .503 0 0 1 -.546 -.124a.555 .555 0 0 1 -.12 -.568l2.468 -7.274l-2.468 -7.274a.555 .555 0 0 1 .12 -.568a.503 .503 0 0 1 .546 -.124z" />
@@ -61,15 +70,37 @@
 <script setup>
 import AddAttachments from "./AddAttachments.vue";
 import { useMessangers } from "../../utils/messengers.js"
+import { ref } from "vue";
 
 const { activeChat, saveMessage, removeReplyMessage } = await useMessangers()
+const textareaHeight = ref('auto');
+const textarea = ref(null);
+const blockHeight = ref('auto');
 
 const send = function () {
   saveMessage()
+  textareaHeight.value = 'auto';
+  blockHeight.value = 'auto';
 }
 const handleInput = (event) => {
-  if (activeChat.value) {
-    activeChat.value.message.text = event.target.innerText;
+  adjustTextareaHeight();
+  adjustBlockHeight();
+};
+
+const adjustTextareaHeight = () => {
+  textareaHeight.value = 'auto';
+  textareaHeight.value = `${textarea.value.scrollHeight}px`;
+};
+
+const adjustBlockHeight = () => {
+  blockHeight.value = 'auto';
+  blockHeight.value = `${blockHeight.value.scrollHeight}px`;
+};
+
+const handleKeyDown = (event) => {
+  if (event.key === 'Enter' && !event.shiftKey) {
+    event.preventDefault();
+    send();
   }
 };
 </script>

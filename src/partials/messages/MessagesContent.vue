@@ -7,7 +7,7 @@
           <!--          text message -->
           <div
               v-if="message.type === 'text'"
-              class="text-sm rounded-lg border shadow-md mb-1 p-3 min-w-[100px]"
+              class="whitespace-pre-wrap text-sm rounded-lg border shadow-md mb-1 p-3 min-w-[100px]"
               :class="message.user_id ? 'bg-indigo-500 text-white rounded-tl-none border-transparent' : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-tl-none border-slate-200 dark:border-slate-7001'"
           >
             {{message.text}}
