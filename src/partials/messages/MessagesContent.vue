@@ -42,7 +42,7 @@
           </div>
           <MessageFileLink v-else-if="message?.attachments && message?.attachments.length && message?.attachments[0].path" :message="message" />
           <!-- Icon -->
-        <button @click="(event) => openModal(event, message)" class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 focus:outline-none">
+        <button v-if="!message.errors" @click="(event) => openModal(event, message)" class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 focus:outline-none">
           <svg class="w-3 h-3 ml-1 fill-current text-slate-400" viewBox="0 0 12 12">
             <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
           </svg>
