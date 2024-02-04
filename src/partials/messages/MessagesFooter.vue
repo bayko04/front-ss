@@ -37,7 +37,7 @@
               rows="1"
           ></textarea>
         </div>
-        <button class="shrink-0 text-slate-400 dark:text-slate-500 hover:text-slate-500 mr-3 mb-1 dark:hover:text-slate-400 cursor-pointer">
+        <button @click="openEmoji" class="shrink-0 text-slate-400 dark:text-slate-500 hover:text-slate-500 mr-3 mb-1 dark:hover:text-slate-400 cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mood-smile" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
             <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
@@ -69,7 +69,7 @@
 
 <script setup>
 import AddAttachments from "./AddAttachments.vue";
-import { useMessangers } from "../../utils/messengers.js"
+import { emojiModal, useMessangers } from "../../utils/messengers.js"
 import { ref } from "vue";
 
 const { activeChat, saveMessage, removeReplyMessage } = await useMessangers()
@@ -103,4 +103,9 @@ const handleKeyDown = (event) => {
     send();
   }
 };
+
+const openEmoji = function () {
+  emojiModal.value.stayOpen = true
+  emojiModal.value.status = true
+}
 </script>

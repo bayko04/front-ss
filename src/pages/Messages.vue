@@ -37,6 +37,9 @@
         <Suspense>
           <ModalForChatDropdawn/>
         </Suspense>
+        <Suspense>
+          <ModalForChatEmoji/>
+        </Suspense>
       </main>
 
     </div> 
@@ -54,6 +57,7 @@
     import MessagesFooter from '../partials/messages/MessagesFooter.vue'
     import ModalBasicForChatFiles from "../components/ModalBasicForChatFiles.vue";
     import ModalForChatDropdawn from "../components/ModalForChatDropdawn.vue";
+    import ModalForChatEmoji from "../components/ModalForChatEmoji.vue";
 
     const sidebarOpen = ref(false)
     const msgSidebarOpen = ref(true)
