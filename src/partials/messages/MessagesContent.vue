@@ -2,12 +2,25 @@
   <div>
       <img v-if="message.user_id" class="rounded-full mr-4" :src="authStore?.userData?.user?.image" width="40" height="40" alt="User 01" />
       <img v-else class="rounded-full mr-4" :src="activeChat?.image" width="40" height="40" alt="User 01" />
-    <div class="relative group">
-      <div class="flex items-center">
+    <div class="relative group flex-col ">
+      <div v-if="message.reply_message" @click="scrollToMessage(message.reply_message.id)" class="cursor-pointer flex w-full items-center justify-between bg-gray-100 dark:bg-slate-800 border-t border-l-4 border-gray-300 dark:border-blue-700 px-4 sm:px-6 md:px-5 h-14">
+        <span v-if="message.reply_message.text" class="overflow-hidden whitespace-no-wrap overflow-ellipsis line-clamp-1 min-w-[100px] )]">
+          {{ message.reply_message.text }}
+        </span>
+        <span v-else class="overflow-hidden whitespace-no-wrap overflow-ellipsis line-clamp-1 min-w-[100px]]">
+          <span v-if="message.reply_message?.attachments[0] && message?.reply_message?.attachments[0].name">
+            {{ message?.reply_message?.attachments[0].name }}
+          </span>
+          <span v-else>
+            Без названия
+          </span>
+        </span>
+      </div>
+      <div class="flex items-center flex-col">
           <!--          text message -->
           <div
               v-if="message.type === 'text'"
-              class="whitespace-pre-wrap text-sm rounded-lg border shadow-md mb-1 p-3 min-w-[100px]"
+              class="whitespace-pre-wrap text-sm rounded-lg border shadow-md mb-1 p-3 w-full min-w-[100px]"
               :class="message.user_id ? 'bg-indigo-500 text-white rounded-tl-none border-transparent' : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-tl-none border-slate-200 dark:border-slate-7001'"
           >
             {{message.text}}
@@ -63,7 +76,7 @@ import MessageStatus from "./MessageStatus.vue";
 import MessageFileLink from "./MessageFileLink.vue";
 import Tooltip from '../../components/Tooltip.vue'
 
-const { activeChat, markAsRead } = useMessangers();
+const { activeChat, markAsRead, scrollToMessage } = useMessangers();
 const authStore = useAuthStore();
 const { message } = defineProps(['message']);
 const modalStyle = ref({
