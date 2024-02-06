@@ -18,6 +18,7 @@ import CustomerProfile from "./pages/Customers/CustomerProfile.vue";
 import UserCreate from "./partials/community/UserCreate.vue";
 import UserUpdate from "./partials/community/UserUpdate.vue";
 import UserProfile from "./partials/community/UserProfile.vue";
+import SocialsPanel from "./pages/SocialsPanel.vue";
 
 const routerHistory = createWebHistory()
 
@@ -85,6 +86,10 @@ const router = createRouter({
     {
       path: '/settings/notifications',
       component: Notifications
+    },
+    {
+      path: '/settings/socials-panel',
+      component: SocialsPanel
     },
     {
       path: '/signin',
