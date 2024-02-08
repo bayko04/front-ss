@@ -107,7 +107,6 @@
                   <div>
                     <label class="block text-sm font-medium mb-1" for="customer_status">Уровень клиента</label>
                     <Field v-model="customer_status_id" name="customer_status_id" id="customer_status" as="select" class="form-select w-full" v-if="customerStore.customerReferences && customerStore.customerReferences.customer_statuses">
-                      <option value="">Не выбрано</option>
                       <option v-for="customer_status in customerStore.customerReferences.customer_statuses" :value="customer_status.id" :key="customer_status.id">{{ customer_status.name }}</option>
                     </Field>
                     <div v-if="errors.customer_status_id" class="text-xs mt-1 text-rose-500">{{ errors.customer_status_id }}</div>

@@ -18,6 +18,14 @@ import CustomerProfile from "./pages/Customers/CustomerProfile.vue";
 import UserCreate from "./partials/community/UserCreate.vue";
 import UserUpdate from "./partials/community/UserUpdate.vue";
 import UserProfile from "./partials/community/UserProfile.vue";
+import LoanPortfolio from "./pages/Portfolio/PortfolioList.vue";
+import PortfolioList from "./pages/Portfolio/PortfolioList.vue";
+import PortfolioCreate from "./pages/Portfolio/PortfolioCreate.vue";
+import PortfolioRepay from "./pages/Portfolio/PortfolioRepay.vue";
+import PortfolioProlongation from "./pages/Portfolio/PortfolioProlongation.vue";
+import PortfolioPartrepayment from "./pages/Portfolio/PortfolioPartrepayment.vue";
+import PortfolioAddloan from "./pages/Portfolio/PortfolioAddloan.vue";
+import TransactionsList from "./pages/Transactions/TransactionsList.vue";
 
 const routerHistory = createWebHistory()
 
@@ -97,6 +105,34 @@ const router = createRouter({
     {
       path: '/reset-password',
       component: ResetPassword
+    },
+    {
+      path: '/portfolio',
+      component: PortfolioList
+    },
+    {
+      path: '/portfolio/create',
+      component: PortfolioCreate
+    },
+    {
+      path: '/portfolio/repay',
+      component: PortfolioRepay
+    },
+    {
+      path: '/portfolio/prolongation',
+      component: PortfolioProlongation
+    },
+    {
+      path: '/portfolio/partrepayment',
+      component: PortfolioPartrepayment
+    },
+    {
+      path: '/portfolio/addloan',
+      component: PortfolioAddloan
+    },
+    {
+      path: '/transactions',
+      component: TransactionsList
     },
 
   ]

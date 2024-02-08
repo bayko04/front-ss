@@ -22,7 +22,7 @@
             <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors, isSubmitting }">
             <!-- Components -->
             <div class="space-y-8 mt-8">
-              <h2 class="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">Основная информация</h2>
+              <h2 class="test text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">Основная информация</h2>
 
               <!-- Input Types -->
               <div>
@@ -69,7 +69,7 @@
                   <div>
                     <!-- Start -->
                     <div>
-                      <label class="block text-sm font-medium mb-1" for="passport">Паспортные данные</label>
+                      <label class="block text-sm font-medium mb-1" for="passport">№ паспорта</label>
                       <Field v-model="passport" id="passport" name="passport" class="form-input w-full" type="text" />
                     </div>
                     <div v-if="errors.passport" class="text-xs mt-1 text-rose-500">{{ errors.passport }}</div>
@@ -93,19 +93,49 @@
                     </Field>
                     <div v-if="errors.citizenship_id" class="text-xs mt-1 text-rose-500">{{ errors.citizenship_id }}</div>
                   </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1" for="type_of_client">Тип клиента</label>
+                        <Field v-model="type_of_client" name="type_of_client" as="select" id="type_of_client" class="form-select w-full">
 
+                        </Field>
+                    </div>
+
+                    <div>
+                        <!-- Start -->
+                        <div>
+                            <label class="block text-sm font-medium mb-1" for="phone">№ телефона</label>
+                            <Field v-model="phone" id="phone" name="phone" class="form-input w-full" type="number" />
+                        </div>
+                        <!-- End -->
+                    </div>
+                    <div>
+                        <!-- Start -->
+                        <div>
+                            <label class="block text-sm font-medium mb-1" for="push_chanel">Канал отправки уведомлений</label>
+                            <Field v-model="push_chanel" id="push_chanel" name="push_chanel" class="form-input w-full" type="text" />
+                        </div>
+                        <!-- End -->
+                    </div>
+                    <div>
+                        <!-- Start -->
+                        <div>
+                            <label class="block text-sm font-medium mb-1" for="type_of_activity">Вид деятельности клиента</label>
+                            <Field v-model="type_of_activity" id="type_of_activity" name="type_of_activity" class="form-input w-full" type="text" />
+                        </div>
+                        <!-- End -->
+                    </div>
                   <div>
                     <label class="block text-sm font-medium mb-1" for="sex">Пол</label>
                     <Field v-model="sex" name="sex" as="select" id="sex" class="form-select w-full">
                       <option value="">Не выбрано</option>
-                      <option value="m">Мужчина</option>
-                      <option value="w">Женщина</option>
+                      <option value="m">Мужcкой</option>
+                      <option value="w">Женский</option>
                     </Field>
                     <div v-if="errors.sex" class="text-xs mt-1 text-rose-500">{{ errors.sex }}</div>
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium mb-1" for="customer_status">Уровень клиента</label>
+                    <label class="block text-sm font-medium mb-1" for="customer_status">Статус клиента</label>
                     <Field v-model="customer_status_id" name="customer_status_id" id="customer_status" as="select" class="form-select w-full" v-if="customerStore.customerReferences && customerStore.customerReferences.customer_statuses">
                       <option value="">Не выбрано</option>
                       <option v-for="customer_status in customerStore.customerReferences.customer_statuses" :value="customer_status.id" :key="customer_status.id">{{ customer_status.name }}</option>
@@ -142,6 +172,21 @@
                     <div v-if="errors.comment" class="text-xs mt-1 text-rose-500">{{ errors.comment }}</div>
                     <!-- End -->
                   </div>
+                    <div>
+                        <!-- Start -->
+                        <div>
+                            <label class="block text-sm font-medium mb-1" for="comment">Канал привлечения клиента</label>
+                            <Field v-model="comment" id="comment" name="comment" class="form-input w-full" as="select">
+                            <option value="">Не выбрано</option>
+                            <option value="single">Вывеска ломбарда</option>
+                            <option value="married">По рекомендации друзей</option>
+                            <option value="married">Реклама на сайтах</option>
+                            <option value="married">Интаграм</option>
+                            </Field>
+                        </div>
+                        <div v-if="errors.comment" class="text-xs mt-1 text-rose-500">{{ errors.comment }}</div>
+                        <!-- End -->
+                    </div>
 
                 </div>
               </div>

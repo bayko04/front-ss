@@ -18,7 +18,7 @@
 
             <!-- Left: Title -->
             <div class="mb-4 sm:mb-0">
-              <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Клиенты ✨</h1>
+              <h1 class="test text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Клиенты ✨</h1>
             </div>
 
             <!-- Right: Actions  -->

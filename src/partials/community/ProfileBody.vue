@@ -28,7 +28,7 @@
 
           <!-- Avatar -->
           <div class="inline-flex -ml-1 -mt-1 mb-4 sm:mb-0">
-            <img class="rounded-full border-4 border-white dark:border-slate-900" src="../../images/user-128-01.jpg" width="128" height="128" alt="Avatar" />
+            <img class="123 rounded-full border-4 border-white dark:border-slate-900" src="../../images/user-128-01.jpg" width="128" height="128" alt="Avatar" />
           </div>
 
           <!-- Actions -->
