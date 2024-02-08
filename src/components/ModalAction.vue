@@ -20,7 +20,7 @@
     leave-to-class="opacity-0 translate-y-4"
   >
     <div v-show="modalOpen" :id="id" class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6" role="dialog" aria-modal="true">
-      <div ref="modalContent" class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full">
+      <div ref="modalContent" :style="style" class="test bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full">
         <div class="p-6">
           <div class="relative">
             <!-- Close button -->
@@ -43,7 +43,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 
 export default {
   name: 'ModalAction',
-  props: ['id', 'modalOpen'],
+  props: ['id', 'modalOpen',],
   emits: ['close-modal'],
   setup(props, { emit }) {
 
@@ -70,9 +70,9 @@ export default {
       document.removeEventListener('click', clickHandler)
       document.removeEventListener('keydown', keyHandler)
     })
-
     return {
       modalContent,
+      props
     }    
   }  
 }

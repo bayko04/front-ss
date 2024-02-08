@@ -5,7 +5,7 @@
     <Sidebar :sidebarOpen="sidebarOpen" @close-sidebar="sidebarOpen = false" />
 
     <!-- Content area -->
-    <div ref="contentArea" class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+    <div @scroll="scrolling" ref="contentArea" class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
       
       <!-- Site header -->
       <Header :sidebarOpen="sidebarOpen" @toggle-sidebar="sidebarOpen = !sidebarOpen" />
@@ -34,6 +34,12 @@
         <Suspense>
           <ModalBasicForChatFiles/>
         </Suspense>
+        <Suspense>
+          <ModalForChatDropdawn/>
+        </Suspense>
+        <Suspense>
+          <ModalForChatEmoji/>
+        </Suspense>
       </main>
 
     </div> 
@@ -50,13 +56,25 @@
     import MessagesBody from '../partials/messages/MessagesBody.vue'
     import MessagesFooter from '../partials/messages/MessagesFooter.vue'
     import ModalBasicForChatFiles from "../components/ModalBasicForChatFiles.vue";
+    import ModalForChatDropdawn from "../components/ModalForChatDropdawn.vue";
+    import ModalForChatEmoji from "../components/ModalForChatEmoji.vue";
+    import { useMessangers } from "../utils/messengers.js"
 
     const sidebarOpen = ref(false)
     const msgSidebarOpen = ref(true)
     const contentArea = ref(null)
+    const { getMessages } = useMessangers()
 
     const handleScroll = (top = true) => {
       contentArea.value.scrollTop = top ? 0 : 99999999
+    }
+    const scrolling = async (e) => {
+      const scrollHeight = e.target.scrollHeight
+      const scrollTop = e.target.scrollTop
+      if (scrollTop === 0) {
+        await getMessages()
+        e.target.scrollTop = e.target.scrollHeight - scrollHeight
+      }
     }
 
     onMounted(() => {

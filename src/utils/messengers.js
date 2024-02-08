@@ -23,6 +23,8 @@ const echo = ref(undefined);
 const queryString = window.location.search;
 const searchParams = new URLSearchParams(queryString);
 export const fileModal = ref(false);
+export const emojiModal = ref({status: false});
+export const checkedMessageData = ref({message:undefined, styles: undefined});
 export function useMessangers() {
   const route = ref(router?.currentRoute?.value);
 
@@ -98,6 +100,16 @@ export function useMessangers() {
     scrollToBottom()
   }
 
+  function getMessageById(id) {
+    let foundMessage = activeChat.value.messages[Number(id)];
+    if(!foundMessage) {
+      getMessages(id)
+      foundMessage = activeChat.value.messages[Number(id)];
+    }
+
+    return foundMessage;
+  }
+
   const getMessages = async function (messageId = null) {
     let offset = 0
     if (activeChat.value.messages && Object.keys(activeChat.value.messages).length >= 15) {
@@ -143,6 +155,27 @@ export function useMessangers() {
       const messagesBottomElement = window.messagesBottomElement;
       if (messagesBottomElement) {
         messagesBottomElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 1000)
+  }
+
+  const scrollToMessage = function(messageId) {
+    setTimeout(() => {
+      const message = getMessageById(messageId);
+      if (message && window.messagesRef) {
+        const target = window.messagesRef[message.id];
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'center'
+          });
+          target.classList.add('bg-black', 'bg-opacity-50');
+
+          setTimeout(() => {
+            target.classList.remove('bg-black', 'bg-opacity-50');
+          }, 1000);
+        }
       }
     }, 1000)
   }
@@ -244,5 +277,7 @@ export function useMessangers() {
     sendFiles,
     bottom,
     updateBottomValue,
+    getMessageById,
+    scrollToMessage,
   };
 }
