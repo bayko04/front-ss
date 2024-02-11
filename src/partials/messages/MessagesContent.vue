@@ -67,7 +67,8 @@
 </template>
 
 <script setup>
-import { useMessangers, checkedMessageData } from "../../utils/messengers.js";
+import { useMessangers } from "../../utils/messengers.js";
+import { checkedMessageData } from "../../utils/modalVariables.js";
 import { useAuthStore } from '../../stores/auth.store.js';
 import AudioPlayer from "./AudioPlayer.vue";
 import VideoPlayer from "./VideoPlayer.vue";

@@ -75,7 +75,8 @@
 </template>
 
 <script setup>
-import { fileModal, useMessangers} from "../utils/messengers.js"
+import { useMessangers} from "../utils/messengers.js"
+import { fileModal } from "../utils/modalVariables.js"
 import Delete from '../images/delete.svg?component'
 
 const { activeChat, sendFiles } = await useMessangers()

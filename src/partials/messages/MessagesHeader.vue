@@ -33,7 +33,7 @@
             <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 12c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zm1-3H7V4h2v5z" />
           </svg>
         </button>
-        <button class="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm ml-2">
+        <button v-if="!activeChat.end_status" @click="openModal()" class="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm ml-2">
           <svg class="w-4 h-4 fill-current text-indigo-500" viewBox="0 0 16 16">
             <path d="M14.3 2.3L5 11.6 1.7 8.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z" />
           </svg>
@@ -45,7 +45,13 @@
 
 <script setup>
   import { useMessangers } from "../../utils/messengers.js";
+  import { closingChatModal } from "../../utils/modalVariables.js";
 
   const { activeChat } = await useMessangers()
   const { msgSidebarOpen } = defineProps(['msgSidebarOpen']);
+
+  function openModal() {
+    closingChatModal.value.stayOpen = true
+    closingChatModal.value.status = true
+  }
 </script>

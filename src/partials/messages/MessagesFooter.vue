@@ -69,7 +69,8 @@
 
 <script setup>
 import AddAttachments from "./AddAttachments.vue";
-import { emojiModal, useMessangers } from "../../utils/messengers.js"
+import { useMessangers } from "../../utils/messengers.js"
+import { emojiModal } from "../../utils/modalVariables.js"
 import { ref } from "vue";
 
 const { activeChat, saveMessage, removeReplyMessage } = await useMessangers()

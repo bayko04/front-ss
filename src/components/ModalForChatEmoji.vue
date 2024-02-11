@@ -22,7 +22,8 @@
 </template>
 
 <script setup>
-import { emojiModal, useMessangers } from "../utils/messengers.js";
+import { useMessangers } from "../utils/messengers.js";
+import { emojiModal } from "../utils/modalVariables.js";
 import { onMounted, onUnmounted, ref } from "vue";
 import EmojiPicker from 'vue3-emoji-picker'
 import 'vue3-emoji-picker/css'

@@ -14,7 +14,7 @@
             <div class="w-full flex items-center justify-between">
               <!-- Channel menu -->
               <Suspense>
-                <AccountsMenu/>
+                <ChatStatuses/>
               </Suspense>
               <!-- Edit button -->
               <button class="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm ml-2">
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import AccountsMenu from './AccountsMenu.vue'
+import ChatStatuses from './ChatStatuses.vue'
 import DirectMessages from './DirectMessages.vue'
 import Channels from './Channels.vue'
 
@@ -58,7 +58,7 @@ export default {
   name: 'MessagesSidebar',
   props: ['msgSidebarOpen'],
   components: {
-    AccountsMenu,
+    ChatStatuses,
     DirectMessages,
     Channels
   },

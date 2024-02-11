@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative" v-if="activeChatStatus">
     <button
       ref="trigger"
       class="grow flex items-center truncate"
@@ -7,9 +7,8 @@
       @click.prevent="dropdownOpen = !dropdownOpen"
       :aria-expanded="dropdownOpen"
     >
-      <img class="w-8 h-8 rounded-full mr-2" :src="getMessengerComponent(activeAccount?.messenger?.name)" width="32" height="32" alt="Group 01" />
       <div class="truncate">
-        <span class="font-semibold text-slate-800 dark:text-slate-100">{{activeAccount?.title}}</span>
+        <span class="font-semibold text-slate-800 dark:text-slate-100">{{activeChatStatus?.name}}</span>
       </div>
       <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" viewBox="0 0 12 12">
         <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
@@ -30,20 +29,20 @@
           @focusout="dropdownOpen = false"
         >
           <li
-              v-for="account in accounts"
-              :key="account.id"
+              v-for="chatStatus in references['chat_statuses']"
+              :key="chatStatus.id"
           >
             <button
-                :class="{'bg-slate-300': (account.id === activeAccount.id) }"
+                v-if="!chatStatus.end_status"
+                :class="{'bg-slate-300': (chatStatus.id === activeChatStatus.id) }"
                 class="w-full font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 block py-1.5 px-3" href="#0"
-                @click="checkAccount(account)"
+                @click="checkChatStatus(chatStatus)"
             >
               <div class="flex items-center justify-between">
                 <div class="grow flex items-center truncate">
-                  <img class="w-7 h-7 rounded-full mr-2" :src="getMessengerComponent(account?.messenger?.name)" width="28" height="28" alt="Channel 01" />
-                  <div class="truncate">{{account.title}}</div>
+                  <div class="truncate">{{chatStatus.name}}</div>
                 </div>
-                <svg v-if="account.id === activeAccount.id" class="w-3 h-3 shrink-0 fill-current text-indigo-500 ml-1" viewBox="0 0 12 12">
+                <svg v-if="chatStatus.id === activeChatStatus.id" class="w-3 h-3 shrink-0 fill-current text-indigo-500 ml-1" viewBox="0 0 12 12">
                   <path d="M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z" />
                 </svg>
               </div>
@@ -56,37 +55,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import { useMessangers } from "../../utils/messengers.js"
-import instagram from '../../images/chat/instagram.svg?url'
-import messenger from '../../images/chat/messenger.svg?url'
-import telegram from '../../images/chat/telegram.svg?url'
-import whatsapp from '../../images/chat/whatsapp.svg?url'
-import mail from '../../images/chat/mail.svg?url'
+    import { ref, onMounted, onUnmounted } from 'vue'
+    import { useMessangers } from "../../utils/messengers.js"
 
+    const { references, activeChatStatus, setActiveChatStatus } = await useMessangers()
 
-    const {accounts, activeAccount, setActiveAccount } = await useMessangers()
-
-    function getMessengerComponent (messengerName) {
-      switch (messengerName) {
-        case 'instagram':
-          return instagram;
-        case 'messenger':
-          return messenger;
-        case 'telegram':
-          return telegram;
-        case 'whatsapp':
-          return whatsapp;
-        case 'mail':
-          return mail;
-        default:
-          return whatsapp;
-      }
-    }
-
-    function checkAccount(account) {
+    function checkChatStatus(chatStatus) {
       dropdownOpen.value = false;
-      setActiveAccount(account)
+      setActiveChatStatus(chatStatus)
     }
 
     const dropdownOpen = ref(false)

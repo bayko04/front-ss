@@ -3,6 +3,8 @@ import { ref } from "vue";
 import  router  from '../router.js';
 import {getEcho} from "./echo.js";
 
+const references = ref([]);
+const activeChatStatus = ref(null)
 const accounts = ref(undefined)
 const activeAccount = ref(undefined)
 const activeChat = ref(undefined)
@@ -22,15 +24,32 @@ const emptyMessage = {
 const echo = ref(undefined);
 const queryString = window.location.search;
 const searchParams = new URLSearchParams(queryString);
-export const fileModal = ref(false);
-export const emojiModal = ref({status: false});
-export const checkedMessageData = ref({message:undefined, styles: undefined});
+const userChatStatusId = 6
 export function useMessangers() {
   const route = ref(router?.currentRoute?.value);
 
+  const getReferences = async function () {
+    references.value = (await fetchWrapper.get('/chat/references')).data
+  }
+
+  function setActiveChatStatus(chatStatus) {
+    if(chatStatus === 'default') {
+      references.value['chat_statuses'].forEach(function (chatStatusItem, index) {
+        if(chatStatusItem.id === userChatStatusId) {
+          activeChatStatus.value = chatStatusItem
+        }
+      })
+      return
+    }
+
+    activeChatStatus.value = chatStatus
+  }
+
   const startSocketListeners = async function () {
+    await getReferences()
+    setActiveChatStatus('default')
     echo.value = getEcho()
-    accounts.value = (await fetchWrapper.get('/accounts/all')).data
+    accounts.value = (await fetchWrapper.get('/chat/accounts')).data
     if (activeAccount.value === undefined) {
       const accountId = searchParams.get('accountId')
       accountId ? setActiveAccount(getAccountById(accountId)) : setActiveAccount()
@@ -44,6 +63,7 @@ export function useMessangers() {
     accounts.value.forEach(function (account, index) {
       newChatFromSocket(account)
       account.chats?.forEach(function (chat) {
+        updateChatFromSocket(chat, account)
         account.unread_messages_count = 0
         account.unread_messages_count += chat.unread_messages_count
         addMessageToChat(account, chat)
@@ -108,6 +128,14 @@ export function useMessangers() {
     }
 
     return foundMessage;
+  }
+
+  function getLastMessage() {
+    const keys = Object.keys(activeChat.value.messages)
+    const lastKey = keys.pop()
+    const lastMessage = activeChat.value.messages[lastKey]
+
+    return lastMessage
   }
 
   const getMessages = async function (messageId = null) {
@@ -189,7 +217,7 @@ export function useMessangers() {
       fetchWrapper.get(`/${account.messenger.name}/chats/${chat['id']}/unread-messages/count`)
           .then(function (response) {
             chat['unread_messages_count'] = response.data['count']
-            account['unread_messages_count'] += response.data['count']
+            account['unread_messages_count'] = response.data['count']
           })
     })
   }
@@ -198,7 +226,26 @@ export function useMessangers() {
     echo.value.private(`${account.messenger.name}.${account.id}.chat.${chat.id}`).listen('.UpdateChat', function (socketChat) {
       chat.image = socketChat.chat.image
       chat.name = socketChat.chat.name
+      chat.user_id = socketChat.chat.user_id
+      chat.chat_status_id = socketChat.chat.chat_status_id
+
+      if(socketChat.chat.chat_status?.end_status) {
+        removeChat(account,socketChat.chat)
+      }
     })
+  }
+
+  const removeChat = function (account, chat) {
+    const index = account.chats.findIndex(item => item.id === chat.id)
+    const removedChat = account.chats.splice(index, 1)[0]
+    if(removedChat.id === activeChat.value.id) {
+      setActiveChat()
+    }
+    const channels = echo.privateChannels.filter(channel => channel.name.startsWith(`${account.messenger.name}.${account.id}.chat.${chat.id}`));
+
+    channels.forEach(channel => {
+      echo.value.leave(channel.name);
+    });
   }
 
   const setDraftMessage = function (text) {
@@ -236,6 +283,10 @@ export function useMessangers() {
 
   const addEmojiToMessage = async function (emoji) {
     activeChat.value.message.text += emoji
+  }
+
+  async function closeChat(form) {
+    await fetchWrapper.post(`/${activeAccount.value.messenger.name}/chats/${activeChat.value.id}/close-chat`, form)
   }
 
   const sendFiles = async function () {
@@ -279,5 +330,11 @@ export function useMessangers() {
     updateBottomValue,
     getMessageById,
     scrollToMessage,
+    references,
+    activeChatStatus,
+    setActiveChatStatus,
+    userChatStatusId,
+    getLastMessage,
+    closeChat,
   };
 }

@@ -12,8 +12,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import { fileModal, useMessangers } from "../../utils/messengers.js";
-
+import { useMessangers } from "../../utils/messengers.js";
+import { fileModal } from "../../utils/modalVariables.js";
 const { activeChat } = await useMessangers();
 const fileInput = ref(null);
 

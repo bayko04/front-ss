@@ -2,7 +2,6 @@
   <div
       class="grow px-4 sm:px-6 md:px-5 py-6"
   >
-    <div ref="messagesBottomElement"></div>
     <div
         v-if="activeChat"
         class="flex items-start mb-4 last:mb-0"
@@ -21,7 +20,7 @@ import { useMessangers } from "../../utils/messengers.js";
 import MessagesContent from "./MessagesContent.vue";
 import { onMounted, ref  } from "vue";
 
-const { activeChat, getMessages } = useMessangers();
+const { activeChat } = useMessangers();
 const messagesBottomElement = ref('')
 
 const messagesRef = ref({})

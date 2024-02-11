@@ -34,7 +34,8 @@
 </template>
 
 <script setup>
-import { checkedMessageData, useMessangers } from "../utils/messengers.js";
+import { useMessangers } from "../utils/messengers.js";
+import { checkedMessageData } from "../utils/modalVariables.js";
 import { onMounted, onUnmounted, ref } from "vue";
 const modalContent = ref(null);
 

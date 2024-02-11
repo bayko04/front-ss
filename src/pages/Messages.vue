@@ -28,7 +28,8 @@
               <MessagesFooter />
             </Suspense>
           </div>
-          
+
+          <CustomerInfo/>
         </div>
 
         <Suspense>
@@ -40,6 +41,7 @@
         <Suspense>
           <ModalForChatEmoji/>
         </Suspense>
+          <ModalForClosingChat/>
       </main>
 
     </div> 
@@ -58,7 +60,9 @@
     import ModalBasicForChatFiles from "../components/ModalBasicForChatFiles.vue";
     import ModalForChatDropdawn from "../components/ModalForChatDropdawn.vue";
     import ModalForChatEmoji from "../components/ModalForChatEmoji.vue";
+    import ModalForClosingChat from "../components/ModalForClosingChat.vue";
     import { useMessangers } from "../utils/messengers.js"
+    import CustomerInfo from "../partials/messages/CustomerInfo.vue";
 
     const sidebarOpen = ref(false)
     const msgSidebarOpen = ref(true)

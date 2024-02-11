@@ -64,7 +64,9 @@
                                 </div>
                               </div>
                               <!-- Right side -->
-                              <button class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm flex items-center">
+                              <button class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm flex items-center"
+                                      @click="socialAuthInit('facebook')"
+                              >
                                 <svg class="w-3 h-3 shrink-0 fill-current text-emerald-500 mr-2" viewBox="0 0 12 12">
                                   <path d="M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z" />
                                 </svg>
@@ -90,24 +92,34 @@
   </div>
 </template>
 
-<script>
-import { ref } from 'vue'
+<script setup>
+import {onBeforeUnmount, onMounted, ref} from 'vue'
 import Sidebar from '../partials/Sidebar.vue'
 import Header from '../partials/Header.vue'
 
-export default {
-  name: 'SocialsPanel',
-  components: {
-    Sidebar,
-    Header,
-  },
-  setup() {
+const sidebarOpen = ref(false)
+const baseUrl = `${import.meta.env.VITE_API_URL}/auth/redirect`;
 
-    const sidebarOpen = ref(false)
-
-    return {
-      sidebarOpen,
-    }
-  }
+function registerSocialAuthEvent(register) {
+  if (register)
+    return window.addEventListener('message', handleAuth)
+  return window.removeEventListener('message', handleAuth)
 }
+
+function handleAuth(userdata) {
+  console.log(userdata)
+}
+
+function socialAuthInit(provider) {
+  const width = 640
+  const height = 660
+  const left = window.screen.width / 2 - (width / 2)
+  const top = window.screen.height / 2 - (height / 2)
+  window.open(`${baseUrl}/${provider}`, 'Log In',
+      `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no,
+      resizable=no, copyhistory=no, width=${width},height=${height},top=${top},left=${left}`)
+}
+
+onMounted(() => registerSocialAuthEvent(true))
+onBeforeUnmount(() => registerSocialAuthEvent(false))
 </script>
