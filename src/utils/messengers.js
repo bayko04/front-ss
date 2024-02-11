@@ -2,6 +2,7 @@ import { fetchWrapper } from '../helpers/fetch-wrapper.js'
 import { ref } from "vue";
 import  router  from '../router.js';
 import {getEcho} from "./echo.js";
+import {useCustomerStore} from "../stores/customer.store.js"
 
 const references = ref([]);
 const activeChatStatus = ref(null)
@@ -78,7 +79,7 @@ export function useMessangers() {
   }
 
   function getChatById(id) {
-    const foundChat = activeAccount.value.chats.find((chat) => chat.id === Number(id));
+    const foundChat = activeAccount.value?.chats.find((chat) => chat.id === Number(id));
     return foundChat || undefined;
   }
 
@@ -98,6 +99,7 @@ export function useMessangers() {
   }
 
   const setActiveChat = async function (chat) {
+
     activeChat.value = chat
     if (activeChat.value === undefined) {
       return
@@ -110,6 +112,9 @@ export function useMessangers() {
     if (activeChat.value.message === undefined) {
       activeChat.value.message = JSON.parse(JSON.stringify(emptyMessage))
     }
+
+    const customerStore = useCustomerStore()
+    await customerStore.getCustomer(activeChat.value.customer_id)
 
     const newRoute = {
       path: '/messages',

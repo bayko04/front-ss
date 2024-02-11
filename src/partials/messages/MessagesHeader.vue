@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky top-16">
+  <div class="sticky top-16 z-50">
     <div
         v-if="activeChat"
         class="flex items-center justify-between bg-slate-50 dark:bg-[#161F32] border-b border-slate-200 dark:border-slate-700 px-4 sm:px-6 md:px-5 h-16"
@@ -20,12 +20,13 @@
         </button>
         <!-- People list -->
         <div class="flex -space-x-3 -ml-px items-center">
-          <button class="flex items-center">
+          <button @click="openCustomerModal()" class="flex items-center">
             <img class="rounded-full border-2 border-white dark:border-slate-800 box-content" :src="activeChat.image" width="32" height="32" alt="User 01" />
             <span class="ml-2">{{ activeChat.name }}</span>
           </button>
         </div>
       </div>
+
       <!-- Buttons on the right side -->
       <div class="flex">
         <button class="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm ml-2">
@@ -46,12 +47,18 @@
 <script setup>
   import { useMessangers } from "../../utils/messengers.js";
   import { closingChatModal } from "../../utils/modalVariables.js";
+  import {useCustomerStore} from "../../stores/customer.store.js"
 
   const { activeChat } = await useMessangers()
   const { msgSidebarOpen } = defineProps(['msgSidebarOpen']);
+  const customerStore = useCustomerStore()
 
   function openModal() {
     closingChatModal.value.stayOpen = true
     closingChatModal.value.status = true
+  }
+
+  function openCustomerModal() {
+    customerStore.customer.openModal = true
   }
 </script>
