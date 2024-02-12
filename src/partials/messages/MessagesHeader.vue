@@ -59,6 +59,9 @@
   }
 
   function openCustomerModal() {
+    if(!customerStore.customer) {
+      return
+    }
     customerStore.customer.openModal = true
   }
 </script>

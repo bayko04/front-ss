@@ -26,7 +26,7 @@
                 <img class="inline-flex w-12 h-12 rounded-full -mt-6" :src="customerStore.customer.image" width="48" height="48" alt="Transaction 04" />
               </div>
               <div class="text-2xl font-semibold text-emerald-500 mb-1">+20 179 сом</div>
-              <div class="text-sm font-medium text-slate-800 dark:text-slate-100 mb-3">{{ customerStore.customer.sex === 'w' ? 'Мужчина' : 'Женщина'}}</div>
+              <div class="text-sm font-medium text-slate-800 dark:text-slate-100 mb-3">{{ customerStore.customer.sex === 'm' ? 'Мужчина' : 'Женщина'}}</div>
               <div class="text-xs inline-flex font-medium bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-full text-center px-2.5 py-1">{{ customerStore.customer.customer_status?.name}}</div>
             </div>
             <!-- Divider -->

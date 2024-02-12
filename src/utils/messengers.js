@@ -43,6 +43,7 @@ export function useMessangers() {
       return
     }
 
+    setActiveChat(null)
     activeChatStatus.value = chatStatus
   }
 
@@ -64,8 +65,10 @@ export function useMessangers() {
     accounts.value.forEach(function (account, index) {
       newChatFromSocket(account)
       account.chats?.forEach(function (chat) {
+        if(!account.unread_messages_count) {
+          account.unread_messages_count = 0
+        }
         updateChatFromSocket(chat, account)
-        account.unread_messages_count = 0
         account.unread_messages_count += chat.unread_messages_count
         addMessageToChat(account, chat)
         updateMessageInChat(account, chat)
@@ -114,7 +117,11 @@ export function useMessangers() {
     }
 
     const customerStore = useCustomerStore()
-    await customerStore.getCustomer(activeChat.value.customer_id)
+    if(activeChat.value.customer_id) {
+      await customerStore.getCustomer(activeChat.value.customer_id)
+    } else {
+      customerStore.customer = null
+    }
 
     const newRoute = {
       path: '/messages',
@@ -219,6 +226,7 @@ export function useMessangers() {
       const chat = account.chats[0];
       updateChatFromSocket(chat, account)
       addMessageToChat(account, chat)
+      updateMessageInChat(account, chat)
       fetchWrapper.get(`/${account.messenger.name}/chats/${chat['id']}/unread-messages/count`)
           .then(function (response) {
             chat['unread_messages_count'] = response.data['count']

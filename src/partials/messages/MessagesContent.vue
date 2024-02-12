@@ -16,7 +16,7 @@
           </span>
         </span>
       </div>
-      <div class="flex items-center flex-col">
+      <div class="flex items-center flex-row">
           <!--          text message -->
           <div
               v-if="message.type === 'text'"
