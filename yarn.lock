@@ -1723,6 +1723,11 @@ vue@^3.2.23:
     "@vue/server-renderer" "3.4.15"
     "@vue/shared" "3.4.15"
 
+wavesurfer.js@^7.7.2:
+  version "7.7.2"
+  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-7.7.2.tgz#b90b717be89aca5689db69384fc34fc532df518a"
+  integrity sha512-x7Kx9FS+bkuSTkJrKe/eZ9f30MarDLpucObPVDcGl1npYoq3x/8dspUOUhaUasV3ZBAdcF+BzCMfMX2UVUDhCg==
+
 websocket-driver@>=0.5.1:
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/websocket-driver/-/websocket-driver-0.7.4.tgz#89ad5295bbf64b480abcba31e4953aca706f5760"

@@ -172,7 +172,10 @@ export function useMessangers() {
         chat['unread_messages_count']++
         account['unread_messages_count']++
       }
-      scrollToBottom()
+      chatToTop(account, chat)
+      if(activeChat.value.id === chat.id) {
+        scrollToBottom()
+      }
     });
   }
 
@@ -222,6 +225,9 @@ export function useMessangers() {
 
   const newChatFromSocket = function (account) {
     echo.value.private(`${account.messenger.name}.${account.id}.chat`).listen('.NewChat', function (socketChat) {
+      if(getChatById(socketChat.chat.id)) {
+        return
+      }
       account.chats.unshift(socketChat.chat)
       const chat = account.chats[0];
       updateChatFromSocket(chat, account)
@@ -246,6 +252,18 @@ export function useMessangers() {
         removeChat(account,socketChat.chat)
       }
     })
+  }
+
+  const chatToTop = function(account, chat) {
+    const index = account.chats.findIndex(item => item.id === chat.id)
+
+    if (index !== -1) {
+      const removedChat = account.chats.splice(index, 1)[0]
+      account.chats.unshift(removedChat)
+      return removedChat
+    }
+
+    return chat
   }
 
   const removeChat = function (account, chat) {
@@ -292,6 +310,10 @@ export function useMessangers() {
 
   const markAsRead = async function (message) {
     await fetchWrapper.post(`/${activeAccount.value.messenger.name}/messages/${message.id}/mark-as-read`)
+  }
+
+  const assignChat = async function (userId, chat) {
+    await fetchWrapper.post(`/${activeAccount.value.messenger.name}/chats/${chat.id}/${userId}/assign-chat`)
   }
 
   const addEmojiToMessage = async function (emoji) {
@@ -349,5 +371,6 @@ export function useMessangers() {
     userChatStatusId,
     getLastMessage,
     closeChat,
+    assignChat,
   };
 }

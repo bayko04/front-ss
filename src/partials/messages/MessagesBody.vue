@@ -4,12 +4,19 @@
   >
     <div
         v-if="activeChat"
-        class="flex items-start mb-4 last:mb-0"
         v-for="message in activeChat.messages"
         :key="message.id"
         :ref="el => setMessagesRef(el, message.id)"
     >
-      <MessagesContent :message="message"/>
+      <!-- Date separator -->
+      <div v-if="renderDivider(message.created_at)" class="flex justify-center">
+        <div class="inline-flex items-center justify-center text-xs text-slate-600 font-medium px-2.5 py-1 bg-white border border-slate-200 rounded-full my-5">
+          {{ timestampToDate(message.created_at) }}
+        </div>
+      </div>
+      <div class="flex items-start mb-4 last:mb-0">
+        <MessagesContent :message="message"/>
+      </div>
     </div>
     <div ref="messagesBottomElement"></div>
   </div>
@@ -19,6 +26,7 @@
 import { useMessangers } from "../../utils/messengers.js";
 import MessagesContent from "./MessagesContent.vue";
 import { onMounted, ref  } from "vue";
+import { timestampToDate } from "../../helpers/date-format.js"
 
 const { activeChat } = useMessangers();
 const messagesBottomElement = ref('')
@@ -27,6 +35,18 @@ const messagesRef = ref({})
 const setMessagesRef = function (el, key) {
   messagesRef.value[key] = el
 }
+
+let date = ''
+const renderDivider = (datetime) => {
+  let newDate = timestampToDate(datetime)
+  if(date !== newDate) {
+    date = newDate
+    return true
+  }
+
+  return false
+}
+
 
 onMounted(() => {
   window.messagesBottomElement = messagesBottomElement.value

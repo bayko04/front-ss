@@ -29,12 +29,13 @@
 
       <!-- Buttons on the right side -->
       <div class="flex">
-        <button class="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm ml-2">
-          <svg class="w-4 h-4 fill-current text-slate-400 dark:text-slate-500" viewBox="0 0 16 16">
-            <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 12c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zm1-3H7V4h2v5z" />
+        <button v-if="authStore.userData.user.id != activeChat.user_id" @click="assignChat(authStore.userData.user.id, activeChat)" title="Присвоить чат себе" class="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm ml-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-big-up fill-current text-indigo-500" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 20v-8h-3.586a1 1 0 0 1 -.707 -1.707l6.586 -6.586a1 1 0 0 1 1.414 0l6.586 6.586a1 1 0 0 1 -.707 1.707h-3.586v8a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
           </svg>
         </button>
-        <button v-if="!activeChat.end_status" @click="openModal()" class="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm ml-2">
+        <button title="Завершить чат" v-if="!activeChat.end_status" @click="openModal()" class="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm ml-2">
           <svg class="w-4 h-4 fill-current text-indigo-500" viewBox="0 0 16 16">
             <path d="M14.3 2.3L5 11.6 1.7 8.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z" />
           </svg>
@@ -48,10 +49,12 @@
   import { useMessangers } from "../../utils/messengers.js";
   import { closingChatModal } from "../../utils/modalVariables.js";
   import {useCustomerStore} from "../../stores/customer.store.js"
+  import { useAuthStore } from "../../stores/auth.store.js";
 
-  const { activeChat } = await useMessangers()
-  const { msgSidebarOpen } = defineProps(['msgSidebarOpen']);
+  const { activeChat, assignChat } = await useMessangers()
+  const { msgSidebarOpen } = defineProps(['msgSidebarOpen'])
   const customerStore = useCustomerStore()
+  const authStore = useAuthStore()
 
   function openModal() {
     closingChatModal.value.stayOpen = true

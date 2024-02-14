@@ -1,7 +1,10 @@
 <template>
   <div>
+    <div class="flex flex-row items-center">
       <img v-if="message.user_id" class="rounded-full mr-4" :src="authStore?.userData?.user?.image" width="40" height="40" alt="User 01" />
       <img v-else class="rounded-full mr-4" :src="activeChat?.image" width="40" height="40" alt="User 01" />
+      <div class="text-xs text-slate-500 font-medium ml-2 mr-2">{{ message.user?.name }}</div>
+    </div>
     <div class="relative group flex-col ">
       <div v-if="message.reply_message" @click="scrollToMessage(message.reply_message.id)" class="cursor-pointer flex w-full items-center justify-between bg-gray-100 dark:bg-slate-800 border-t border-l-4 border-gray-300 dark:border-blue-700 px-4 sm:px-6 md:px-5 h-14">
         <span v-if="message.reply_message.text" class="overflow-hidden whitespace-no-wrap overflow-ellipsis line-clamp-1 min-w-[100px] )]">
