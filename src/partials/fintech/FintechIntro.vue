@@ -11,8 +11,8 @@
           </div>
           <!-- User info -->
           <div>
-            <div class="mb-2">Hey <strong class="font-medium text-slate-800 dark:text-slate-100">Mary</strong> 👋, this is your current balance:</div>
-            <div class="text-3xl font-bold text-emerald-500">$47,347.09</div>
+            <div class="mb-2">Привет <strong class="font-medium text-slate-800 dark:text-slate-100">Мээрим</strong> 👋, сумма выданных займов составила:</div>
+            <div class="text-3xl font-bold text-emerald-500">837 450 <strong class="font-medium text-slate-800 dark:text-slate-100">сом</strong></div>
           </div>
         </div>
         <!-- Right side -->

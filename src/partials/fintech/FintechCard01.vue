@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col col-span-full xl:col-span-8 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
     <header class="px-5 py-4 border-b border-slate-100 dark:border-slate-700 flex items-center">
-        <h2 class="font-semibold text-slate-800 dark:text-slate-100">Portfolio Returns</h2>
+        <h2 class="font-semibold text-slate-800 dark:text-slate-100">Доходность портфеля</h2>
     </header>
     <!-- Chart built with Chart.js 3 -->
     <!-- Change the height attribute to adjust the chart height -->
@@ -42,7 +42,7 @@ export default {
       datasets: [
         // Indigo line
         {
-          label: 'Mosaic Portfolio',
+          label: 'Реальная доходность',
           data: [
             0, 2.5, 2.5, 4, 2.5, 3.8, 5, 9, 7.5, 11,
             14, 15, 17, 15, 14, 9, 15, 26, 16, 18,
@@ -65,7 +65,7 @@ export default {
         },
         // Yellow line
         {
-          label: 'Expected Return',
+          label: 'Ожидаемая доходность',
           data: [
             0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
             10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
@@ -81,28 +81,6 @@ export default {
           pointRadius: 0,
           pointHoverRadius: 3,
           pointBackgroundColor: tailwindConfig().theme.colors.amber[400],
-          clip: 20,
-        },
-        // gray line
-        {
-          label: 'Competitors',
-          data: [
-            0.7, 3.5, 4.5, 3.5, 4.2, 4.6, 6, 7, 6, 6,
-            11, 13, 14, 18, 17, 15, 13, 16, 20, 21,
-            24, 22, 20, 22, 25, 18, 21, 23, 24, 32,
-            28, 29, 35, 37, 42, 32, 32, 33, 33, 37,
-            32,
-          ],
-          borderColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
-          fill: false,
-          borderWidth: 2,
-          tension: 0,
-          pointRadius: 0,
-          pointHoverRadius: 3,
-          pointBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
-          pointHoverBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
-          pointBorderWidth: 0,
-          pointHoverBorderWidth: 0,               
           clip: 20,
         },
       ],

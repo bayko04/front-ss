@@ -18,7 +18,7 @@
           
             <!-- Left: Title -->
             <div class="mb-4 sm:mb-0">
-              <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Fintech ✨</h1>
+              <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Показатели сотрудника ✨</h1>
             </div>
 
             <!-- Right: Actions -->
@@ -46,29 +46,8 @@
             <FintechIntro />
             <!-- Line chart (Portfolio Returns) -->
             <FintechCard01 />
-            <!-- Credit Card -->
-            <FintechCard02 />
-            <!-- Bar chart (Cash Flow) -->
-            <FintechCard03 />
-            <!-- Horizontal bar chart (Cash Flow by Account) -->
-            <FintechCard04 />
-            <!-- Table (Recent Expenses) -->
-            <FintechCard05 />
-            <!-- Table (Recent Earnings) -->
-            <FintechCard06 />
-            <!-- Line chart (Saving Goals) -->
-            <FintechCard07 />
             <!-- Line chart (Growth Portfolio) -->
             <FintechCard08 />
-            <!-- Pie chart (Portfolio Value) -->
-            <FintechCard09 />
-            <!-- Line charts (Stock graphs) -->
-            <FintechCard10 />
-            <FintechCard11 />
-            <FintechCard12 />
-            <FintechCard13 />
-            <!-- Table (Market Trends) -->
-            <FintechCard14 />
 
           </div>
 

@@ -4,16 +4,16 @@
       <div class="font-medium text-sky-500">{{invoice.invoice}}</div>
     </td>
       <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-          <div class="font-medium text-sky-500">{{invoice.invoice}}</div>
+          <div class="font-medium text-sky-500">{{invoice.number}}</div>
       </td>
       <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
       <div class="font-medium" :class="totalColor(invoice.status)">{{invoice.total}}</div>
     </td>
       <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-          <div class="font-medium" :class="totalColor(invoice.status)">{{invoice.total}}</div>
+          <div class="font-medium" :class="totalColor(invoice.status)">{{invoice.percent}}</div>
       </td>
       <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-          <div class="font-medium" :class="totalColor(invoice.status)">{{invoice.total}}</div>
+          <div class="font-medium" :class="totalColor(invoice.status)">{{invoice.sum}}</div>
       </td>
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
       <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5" :class="statusColor(invoice.status)">{{invoice.status}}</div>
@@ -22,7 +22,7 @@
       <div class="font-medium text-slate-800 dark:text-slate-100">{{invoice.customer}}</div>
     </td>
       <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-          <div class="font-medium text-slate-800 dark:text-slate-100">{{invoice.customer}}</div>
+          <div class="font-medium text-slate-800 dark:text-slate-100">{{invoice.collateral}}</div>
       </td>
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
       <div>{{invoice.issueddate}}</div>
@@ -30,9 +30,6 @@
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
       <div>{{invoice.paiddate}}</div>
     </td>
-      <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-          <div class="font-medium text-slate-800 dark:text-slate-100">{{invoice.customer}}</div>
-      </td>
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
       <div class="space-x-1">
           <button class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 rounded-full"
@@ -113,11 +110,11 @@ export default {
 
     const statusColor = (status) => {
       switch (status) {
-        case 'Paid':
+        case 'Активный':
           return 'bg-emerald-100 dark:bg-emerald-400/30 text-emerald-600 dark:text-emerald-400'
-        case 'Due':
+        case 'Продажа':
           return 'bg-amber-100 dark:bg-amber-400/30 text-amber-600 dark:text-amber-400'
-        case 'Overdue':
+        case 'Просрочен':
           return 'bg-rose-100 dark:bg-rose-500/30 text-rose-500 dark:text-rose-400'          
         default:
           return 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400'

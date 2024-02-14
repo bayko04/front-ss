@@ -49,22 +49,10 @@
             <DashboardCard02 />
             <!-- Line chart (Acme Professional) -->
             <DashboardCard03 />
-            <!-- Bar chart (Direct vs Indirect) -->
-            <DashboardCard04 />
-            <!-- Line chart (Real Time Value) -->
-            <DashboardCard05 />
-            <!-- Doughnut chart (Top Countries) -->
-            <DashboardCard06 />
-            <!-- Table (Top Channels) -->
-            <DashboardCard07 />
-            <!-- Line chart (Sales Over Time) -->
-            <DashboardCard08 />
-            <!-- Stacked bar chart (Sales VS Refunds) -->
-            <DashboardCard09 />
-            <!-- Card (Recent Activity) -->
-            <DashboardCard10 />
-            <!-- Card (Income/Expenses) -->
-            <DashboardCard11 />
+              <!-- Pie chart (Portfolio Value) -->
+              <FintechCard09 />
+              <!-- Line chart (Analytics) -->
+              <AnalyticsCard01 />
 
           </div>
 
@@ -95,10 +83,14 @@ import DashboardCard08 from '../partials/dashboard/DashboardCard08.vue'
 import DashboardCard09 from '../partials/dashboard/DashboardCard09.vue'
 import DashboardCard10 from '../partials/dashboard/DashboardCard10.vue'
 import DashboardCard11 from '../partials/dashboard/DashboardCard11.vue'
+import FintechCard09 from "../partials/fintech/FintechCard09.vue";
+import AnalyticsCard01 from "../partials/analytics/AnalyticsCard01.vue";
 
 export default {
   name: 'Dashboard',
   components: {
+      AnalyticsCard01,
+      FintechCard09,
     Sidebar,
     Header,
     WelcomeBanner,

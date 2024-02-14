@@ -1,7 +1,7 @@
 <template>
   <div class="col-span-full xl:col-span-8 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
     <header class="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
-      <h2 class="font-semibold text-slate-800 dark:text-slate-100">Top Channels</h2>
+      <h2 class="font-semibold text-slate-800 dark:text-slate-100">Топ чат каналов</h2>
     </header>
     <div class="p-3">
 
@@ -12,7 +12,7 @@
           <thead class="text-xs uppercase text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50 rounded-sm">
             <tr>
               <th class="p-2">
-                <div class="font-semibold text-left">Source</div>
+                <div class="font-semibold text-left">Канал</div>
               </th>
               <th class="p-2">
                 <div class="font-semibold text-center">Visitors</div>

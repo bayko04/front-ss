@@ -30,72 +30,70 @@
                                 <!-- Input Types -->
                                 <div>
                                     <div class="grid gap-5 md:grid-cols-1">
-
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm mb-1 font-bold" for="searchByName">Погашение</label>
-                                                <div>Серия и номер залогового билета, Клиент, Залог клиента</div>
+                                                <p><strong>Погашение: </strong>123139/2 | Мээрим Жумагулова | Техника iphone x 512гб</p>
+                                                <div></div>
                                             </div>
                                             <!-- End -->
                                         </div>
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm mb-1 font-bold" for="inn">Оценочная стоимость залога</label>
-                                                <div>11000</div>
+                                                <p><strong>Оценочная стоимость залога: </strong>50 000</p>
                                             </div>
                                             <!-- End -->
                                         </div>
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm mb-1 font-bold" for="inn">Процентная ставка</label>
-                                                <div>0.35</div>
+                                                <p><strong>Выданная сумма: </strong>15 000</p>
                                             </div>
                                             <!-- End -->
                                         </div>
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm mb-1 font-bold" for="inn">Дата погашения</label>
-                                                <div>05.02.2024</div>
+                                                <p><strong>Процентная ставка: </strong>0.35</p>
                                             </div>
                                             <!-- End -->
                                         </div>
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm mb-1 font-bold" for="inn">Сумма начисленных %</label>
-                                                <div>1120</div>
+                                                <p><strong>Количество дней: </strong>31</p>
                                             </div>
                                             <!-- End -->
                                         </div>
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm mb-1 font-bold" for="inn">Сумма штрафов</label>
-                                                <div>1890</div>
+                                                <p><strong>Дата погашения: </strong>05.02.2024</p>
                                             </div>
                                             <!-- End -->
                                         </div>
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm mb-1 font-bold" for="inn">Итого сумма % и штрафа</label>
-                                                <div>3010</div>
+                                                <p><strong>Сумма начисленных %: </strong>1627.5</p>
                                             </div>
                                             <!-- End -->
                                         </div>
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm mb-1 font-bold" for="inn">Итого сумма к оплате</label>
-                                                <div>14010</div>
+                                                <p><strong>Сумма штрафов: </strong>720 (15000*0.6) x 8 дней</p>
                                             </div>
                                             <!-- End -->
                                         </div>
-
+                                        <div>
+                                            <!-- Start -->
+                                            <div>
+                                                <p><strong>Итого сумма % и штрафа: </strong>2347.5</p>
+                                            </div>
+                                            <!-- End -->
+                                        </div>
                                     </div>
                                 </div>
 
@@ -163,7 +161,7 @@
                                             <!-- Start -->
                                             <div>
                                                 <label class="block text-sm font-medium mb-1" for="searchByName">Сумма процента</label>
-                                                <input id="searchByName" name="searchByName" class="form-input w-full" type="text" readonly value="1120"/>
+                                                <input id="searchByName" name="searchByName" class="form-input w-full" type="text" readonly value="1627.5"/>
                                             </div>
                                             <!-- End -->
                                         </div>
@@ -172,16 +170,16 @@
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm font-medium mb-1" for="searchByName">Дата продления<span class="text-rose-500">*</span></label>
-                                                <ClientDatepicker v-model="comment" id="comment" name="comment" class="form-input w-full"/>
+                                                <label class="block text-sm font-medium mb-1" for="extensionDate">Дата продления<span class="text-rose-500">*</span></label>
+                                                <ClientDatepicker v-model="extensionDate" id="extensionDate" name="extensionDate" class="form-input w-full"/>
                                             </div>
                                             <!-- End -->
                                         </div>
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm font-medium mb-1" for="searchByName">Дата погашения<span class="text-rose-500">*</span></label>
-                                                <ClientDatepicker v-model="comment" id="comment" name="comment" class="form-input w-full"/>
+                                                <label class="block text-sm font-medium mb-1" for="repaymentDate">Дата погашения<span class="text-rose-500">*</span></label>
+                                                <ClientDatepicker v-model="repaymentDate" id="repaymentDate" name="repaymentDate" class="form-input w-full"/>
                                             </div>
                                             <!-- End -->
                                         </div>
