@@ -16,10 +16,10 @@
           </li>
         </EditMenu>
       </header>
-      <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Acme Advanced</h2>
-      <div class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-1">Sales</div>
+      <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Средний размер займа</h2>
+      <div class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-1">сом</div>
       <div class="flex items-start">
-        <div class="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">$17,489</div>
+        <div class="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">53,489</div>
         <div class="text-sm font-semibold text-white px-1.5 bg-amber-500 rounded-full">-14%</div>
       </div>
     </div>

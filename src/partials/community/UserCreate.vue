@@ -105,7 +105,7 @@
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium mb-1" for="role">Роль пользователья</label>
+                    <label class="block text-sm font-medium mb-1" for="role">Роль пользователя</label>
                     <Field v-model="role" name="role" id="role" as="select" class="form-select w-full" v-if="usersStore.userReferences && usersStore.userReferences.roles">
                       <option v-for="role in usersStore.userReferences.roles" :value="role.name" :key="role.name">{{ role.name }}</option>
                     </Field>

@@ -33,64 +33,71 @@
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm mb-1 font-bold" for="searchByName">Погашение</label>
-                                                <div>Серия и номер залогового билета, Клиент, Залог клиента</div>
+                                                <p><strong>Погашение: </strong>123139/2 | Мээрим Жумагулова | Техника iphone x 512гб</p>
+                                                <div></div>
                                             </div>
                                             <!-- End -->
                                         </div>
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm mb-1 font-bold" for="inn">Оценочная стоимость залога</label>
-                                                <div>11000</div>
+                                                <p><strong>Оценочная стоимость залога: </strong>50 000</p>
                                             </div>
                                             <!-- End -->
                                         </div>
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm mb-1 font-bold" for="inn">Процентная ставка</label>
-                                                <div>0.35</div>
+                                                <p><strong>Выданная сумма: </strong>15 000</p>
                                             </div>
                                             <!-- End -->
                                         </div>
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm mb-1 font-bold" for="inn">Дата погашения</label>
-                                                <div>05.02.2024</div>
+                                                <p><strong>Процентная ставка: </strong>0.35</p>
                                             </div>
                                             <!-- End -->
                                         </div>
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm mb-1 font-bold" for="inn">Сумма начисленных %</label>
-                                                <div>1120</div>
+                                                <p><strong>Количество дней: </strong>31</p>
                                             </div>
                                             <!-- End -->
                                         </div>
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm mb-1 font-bold" for="inn">Сумма штрафов</label>
-                                                <div>1890</div>
+                                                <p><strong>Дата погашения: </strong>05.02.2024</p>
                                             </div>
                                             <!-- End -->
                                         </div>
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm mb-1 font-bold" for="inn">Итого сумма % и штрафа</label>
-                                                <div>3010</div>
+                                                <p><strong>Сумма начисленных %: </strong>1627.5</p>
                                             </div>
                                             <!-- End -->
                                         </div>
                                         <div>
                                             <!-- Start -->
                                             <div>
-                                                <label class="block text-sm mb-1 font-bold" for="inn">Итого сумма к оплате</label>
-                                                <div>14010</div>
+                                                <p><strong>Сумма штрафов: </strong>720 (15000*0.6) x 8 дней</p>
+                                            </div>
+                                            <!-- End -->
+                                        </div>
+                                        <div>
+                                            <!-- Start -->
+                                            <div>
+                                                <p><strong>Итого сумма % и штрафа: </strong>2347.5</p>
+                                            </div>
+                                            <!-- End -->
+                                        </div>
+                                        <div>
+                                            <!-- Start -->
+                                            <div>
+                                                <p><strong>Итого сумма к оплате: </strong>17 347.5</p>
                                             </div>
                                             <!-- End -->
                                         </div>
@@ -99,7 +106,7 @@
                                 </div>
                                 <h2 class="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">Погашение залогового билета</h2>
                                 <div>
-                                    <div class="grid gap-5 md:grid-cols-3">
+                                    <div class="grid gap-5 md:grid-cols-4">
 
                                         <div>
                                             <!-- Start -->
@@ -114,6 +121,15 @@
                                             <Field v-model="citizenship_id" name="citizenship_id" as="select" id="citizenship_id" class="form-select w-full" v-if="customerStore.customerReferences && customerStore.customerReferences.citizenships">
                                                 <option value="">Сом</option>
                                                 <option value="usd">Доллар</option>
+                                            </Field>
+                                            <div v-if="errors.citizenship_id" class="text-xs mt-1 text-rose-500">{{ errors.citizenship_id }}</div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="citizenship_id">Тип оплаты</label>
+                                            <Field v-model="citizenship_id" name="citizenship_id" as="select" id="citizenship_id" class="form-select w-full" v-if="customerStore.customerReferences && customerStore.customerReferences.citizenships">
+                                                <option value="">Наличные</option>
+                                                <option value="elsom">Элсом</option>
+                                                <option value="mbank">Мбанк</option>
                                             </Field>
                                             <div v-if="errors.citizenship_id" class="text-xs mt-1 text-rose-500">{{ errors.citizenship_id }}</div>
                                         </div>
