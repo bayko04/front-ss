@@ -221,7 +221,7 @@
                       <path class="fill-current" :class="currentRoute.fullPath.includes('settings') ? 'text-indigo-500' : 'text-slate-600'" d="M5.7 10.714c.195.4.298.84.3 1.286a3 3 0 11-3-3c.446.002.885.105 1.286.3l7.007-7.007 1.414 1.414L5.7 10.714z" />
                       <path class="fill-current" :class="currentRoute.fullPath.includes('settings') ? 'text-indigo-300' : 'text-slate-400'" d="M19.707 9.292a3.012 3.012 0 00-1.415 1.415L13.286 5.7c-.4.195-.84.298-1.286.3a3 3 0 113-3 2.969 2.969 0 01-.3 1.286l5.007 5.006z" />                      
                     </svg>
-                    <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Настройки</span>
+                    <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Настройки аккаунта</span>
                   </div>
                   <!-- Icon -->
                   <div class="flex shrink-0 ml-2">
@@ -250,6 +250,45 @@
                 </ul>
               </div>
             </SidebarLinkGroup>
+            <!-- Guideline -->
+              <SidebarLinkGroup v-slot="parentLink" :activeCondition="currentRoute.fullPath.includes('settings')">
+                  <a class="block text-slate-200 truncate transition duration-150" :class="currentRoute.fullPath.includes('settings') ? 'hover:text-slate-200' : 'hover:text-white'" href="#0" @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
+                      <div class="flex items-center justify-between">
+                          <div class="flex items-center">
+                              <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                                  <path class="fill-current" :class="currentRoute.fullPath.includes('ecommerce') ? 'text-indigo-300' : 'text-slate-400'" d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z" />
+                                  <path class="fill-current" :class="currentRoute.fullPath.includes('ecommerce') ? 'text-indigo-600' : 'text-slate-700'" d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z" />
+                                  <path class="fill-current" :class="currentRoute.fullPath.includes('ecommerce') ? 'text-indigo-500' : 'text-slate-600'" d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z" />
+                              </svg>
+                              <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Настройки системы</span>
+                          </div>
+                          <!-- Icon -->
+                          <div class="flex shrink-0 ml-2">
+                              <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" :class="parentLink.expanded && 'rotate-180'" viewBox="0 0 12 12">
+                                  <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
+                              </svg>
+                          </div>
+                      </div>
+                  </a>
+                  <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                      <ul class="pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
+                          <router-link to="/guideline/interestRate" custom v-slot="{ href, navigate, isExactActive }">
+                              <li class="mb-1 last:mb-0">
+                                  <a class="block transition duration-150 truncate" :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href" @click="navigate">
+                                      <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Процентная ставка</span>
+                                  </a>
+                              </li>
+                          </router-link>
+                          <router-link to="/guideline/сollateralType" custom v-slot="{ href, navigate, isExactActive }">
+                              <li class="mb-1 last:mb-0">
+                                  <a class="block transition duration-150 truncate" :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href" @click="navigate">
+                                      <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Виды залога</span>
+                                  </a>
+                              </li>
+                          </router-link>
+                      </ul>
+                  </div>
+              </SidebarLinkGroup>
           </ul>
         </div>
       </div>

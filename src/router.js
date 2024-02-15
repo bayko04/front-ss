@@ -27,6 +27,8 @@ import PortfolioProlongation from "./pages/Portfolio/PortfolioProlongation.vue";
 import PortfolioPartrepayment from "./pages/Portfolio/PortfolioPartrepayment.vue";
 import PortfolioAddloan from "./pages/Portfolio/PortfolioAddloan.vue";
 import TransactionsList from "./pages/Transactions/TransactionsList.vue";
+import InterestRate from "./pages/guideline/InterestRate.vue";
+import CollateralType from "./pages/guideline/CollateralType.vue";
 
 const routerHistory = createWebHistory()
 
@@ -138,6 +140,14 @@ const router = createRouter({
     {
       path: '/transactions',
       component: TransactionsList
+    },
+    {
+      path: '/guideline/interestRate',
+      component: InterestRate
+    },
+    {
+      path: '/guideline/collateralType',
+      component: CollateralType
     },
 
   ]

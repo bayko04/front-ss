@@ -41,7 +41,7 @@
 
                                 <!-- Input Types -->
                                 <div>
-                                    <div class="grid gap-5 md:grid-cols-3">
+                                    <div class="grid gap-5 md:grid-cols-2">
 
                                         <div>
                                             <!-- Start -->
@@ -82,30 +82,6 @@
                                             <div v-if="errors.passport" class="text-xs mt-1 text-rose-500">{{ errors.passport }}</div>
                                             <!-- End -->
                                         </div>
-                                        <div>
-                                            <!-- Start -->
-                                            <div>
-                                                <label class="block text-sm font-medium mb-1" for="phone">Период залога (в днях)</label>
-                                                <Field v-model="phone" id="phone" name="phone" class="form-input w-full" type="number" />
-                                            </div>
-                                            <!-- End -->
-                                        </div>
-                                        <div>
-                                            <!-- Start -->
-                                            <div>
-                                                <label class="block text-sm font-medium mb-1" for="phone">Процентная ставка</label>
-                                                <Field v-model="phone" id="phone" name="phone" class="form-input w-full" type="number" />
-                                            </div>
-                                            <!-- End -->
-                                        </div>
-                                        <div>
-                                            <!-- Start -->
-                                            <div>
-                                                <label class="block text-sm font-medium mb-1" for="phone">Начисленные проценты</label>
-                                                <Field v-model="phone" id="phone" name="phone" class="form-input w-full" type="number" />
-                                            </div>
-                                            <!-- End -->
-                                        </div>
 
                                         <div>
                                             <!-- Start -->
@@ -129,19 +105,85 @@
                                     </div>
                                 </div>
                             </div>
+                            <h2 class="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">Сумма к выдаче</h2>
+                            <div>
+                                <div class="grid gap-5 md:grid-cols-3">
+
+                                    <div>
+                                        <!-- Start -->
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="searchByName">Сумма займа<span class="text-rose-500">*</span></label>
+                                            <Field v-model="searchByName" id="searchByName" name="searchByName" class="form-input w-full" type="number" />
+                                        </div>
+                                        <!-- End -->
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="citizenship_id">Валюта</label>
+                                        <Field v-model="citizenship_id" name="citizenship_id" as="select" id="citizenship_id" class="form-select w-full" v-if="customerStore.customerReferences && customerStore.customerReferences.citizenships">
+                                            <option value="">Сом</option>
+                                            <option value="usd">Доллар</option>
+                                        </Field>
+                                        <div v-if="errors.citizenship_id" class="text-xs mt-1 text-rose-500">{{ errors.citizenship_id }}</div>
+                                    </div>
+                                    <div>
+                                        <!-- Start -->
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="searchByName">Примечание</label>
+                                            <Field v-model="searchByName" id="searchByName" name="searchByName" class="form-input w-full" type="text" />
+                                        </div>
+                                        <!-- End -->
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br>
+                            <router-link to="/" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                                <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                                    <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                                </svg>
+                                <span class="hidden xs:block ml-2">Добавить запись</span>
+                            </router-link>
+
+                            <br>
+                            <br>
+                            <h2 class="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">Начисленные проценты</h2>
+                            <div class="grid gap-5 md:grid-cols-3">
+                                <div>
+                                    <!-- Start -->
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="phone">Период займа (в днях)</label>
+                                        <Field v-model="phone" id="phone" name="phone" class="form-input w-full" type="number" />
+                                    </div>
+                                    <!-- End -->
+                                </div>
+                                <div>
+                                    <!-- Start -->
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="phone">Процентная ставка</label>
+                                        <Field v-model="phone" id="phone" name="phone" class="form-input w-full" type="number" />
+                                    </div>
+                                    <!-- End -->
+                                </div>
+                                <div>
+                                    <!-- Start -->
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="phone">Начисленные проценты</label>
+                                        <Field v-model="phone" id="phone" name="phone" class="form-input w-full" type="number" />
+                                    </div>
+                                    <!-- End -->
+                                </div>
+                            </div>
+                            <br>
                             <div class="mt-2">
                                 <!-- Start -->
-                                <button type="submit" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">Создать</button>
+                                <button type="submit" class="btn bg-green-500 hover:bg-green-600 text-white">Оформить залоговый билет</button>
                                 <!-- End -->
                             </div>
                         </Form>
                     </div>
-
                 </div>
             </main>
-
         </div>
-
     </div>
 </template>
 <script setup>
