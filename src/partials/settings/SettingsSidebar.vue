@@ -2,7 +2,7 @@
   <div class="flex flex-nowrap overflow-x-scroll no-scrollbar md:block md:overflow-auto px-3 py-6 border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-700 min-w-60 md:space-y-3">
     <!-- Group 1 -->
     <div>
-      <div class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-3">Настройки</div>
+      <div class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-3">Настройки аккаунта</div>
       <ul class="flex flex-nowrap md:block mr-3 md:mr-0">
         <router-link to="/settings/account" custom v-slot="{ href, navigate, isExactActive }">
           <li class="mr-0.5 md:mr-0 md:mb-0.5">
