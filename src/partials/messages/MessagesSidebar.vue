@@ -17,7 +17,7 @@
                 <ChatStatuses/>
               </Suspense>
               <!-- Edit button -->
-              <button class="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm ml-2">
+              <button @click="openNewChatModal()" class="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm ml-2">
                 <svg class="w-4 h-4 fill-current text-slate-500" viewBox="0 0 16 16">
                   <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
                 </svg>
@@ -49,18 +49,17 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import ChatStatuses from './ChatStatuses.vue'
 import DirectMessages from './DirectMessages.vue'
-import Channels from './Channels.vue'
+import {newChatModal} from "../../utils/modalVariables.js";
 
-export default {
-  name: 'MessagesSidebar',
-  props: ['msgSidebarOpen'],
-  components: {
-    ChatStatuses,
-    DirectMessages,
-    Channels
-  },
+const props = defineProps({
+  msgSidebarOpen: Boolean,
+});
+
+function openNewChatModal() {
+  newChatModal.value.stayOpen = true
+  newChatModal.value.status = true
 }
 </script>

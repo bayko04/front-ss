@@ -103,6 +103,9 @@ export function useMessangers() {
 
   const setActiveChat = async function (chat) {
 
+    if(typeof chat === 'number') {
+      chat = getChatById(chat)
+    }
     activeChat.value = chat
     if (activeChat.value === undefined) {
       return
@@ -308,12 +311,22 @@ export function useMessangers() {
     }, 500);
   }
 
+  const searchChat = async function (search) {
+    const chats = (await fetchWrapper.post(`/${activeAccount.value.messenger.name}/chats/search`, {search: search})).data
+
+    return chats
+  }
+
   const markAsRead = async function (message) {
     await fetchWrapper.post(`/${activeAccount.value.messenger.name}/messages/${message.id}/mark-as-read`)
   }
 
   const assignChat = async function (userId, chat) {
     await fetchWrapper.post(`/${activeAccount.value.messenger.name}/chats/${chat.id}/${userId}/assign-chat`)
+  }
+
+  const openChat = async function (chatId) {
+    await fetchWrapper.post(`/${activeAccount.value.messenger.name}/chats/${chatId}/open-chat`)
   }
 
   const addEmojiToMessage = async function (emoji) {
@@ -372,5 +385,7 @@ export function useMessangers() {
     getLastMessage,
     closeChat,
     assignChat,
+    searchChat,
+    openChat
   };
 }

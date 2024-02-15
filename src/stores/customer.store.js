@@ -1,6 +1,7 @@
 import {defineStore} from 'pinia';
 import {fetchWrapper} from '../helpers/fetch-wrapper.js'
 import router from '../router.js'
+import {useMessangers} from "../utils/messengers.js";
 
 const baseUrl = `${import.meta.env.VITE_API_URL}/customers`;
 
@@ -15,6 +16,21 @@ export const useCustomerStore = defineStore({
         async getCustomers() {
             try {
                 this.customers = (await fetchWrapper.get(`${baseUrl}/`)).data;
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async searchCustomers(search) {
+            try {
+                this.customers = (await fetchWrapper.get(`${baseUrl}/search`, {search: search})).data;
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async setChatAsCustomerContact(customerId) {
+            const { activeChat, activeAccount } = useMessangers();
+            try {
+                this.customer = (await fetchWrapper.post(`/${activeAccount.value.messenger.name}/chats/${activeChat.value.id}/${customerId}/set-as-contact`)).data;
             } catch (error) {
                 console.log(error)
             }

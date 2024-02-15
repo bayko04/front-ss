@@ -41,7 +41,9 @@
         <Suspense>
           <ModalForChatEmoji/>
         </Suspense>
-          <ModalForClosingChat/>
+        <ModalForClosingChat/>
+        <ModalContactsSearchForChat/>
+        <ModalForNewChat/>
       </main>
 
     </div> 
@@ -63,6 +65,8 @@
     import ModalForClosingChat from "../components/ModalForClosingChat.vue";
     import { useMessangers } from "../utils/messengers.js"
     import CustomerInfo from "../partials/messages/CustomerInfo.vue";
+    import ModalContactsSearchForChat from "../components/ModalContactsSearchForChat.vue";
+    import ModalForNewChat from "../components/ModalForNewChat.vue";
 
     const sidebarOpen = ref(false)
     const msgSidebarOpen = ref(true)
