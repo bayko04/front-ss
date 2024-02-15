@@ -45,7 +45,7 @@
                     <span>{{ chat.name }} {{ chat.phone }}</span>
                     <span class="ml-5 text">{{ chat.customer.last_name }} {{ chat.customer.name }} {{ chat.customer.middle_name }}</span>
                   </button>
-                  <button @click="openChat(chat.id)" class="w-20 flex justify-center p-2 dark:text-slate-100 text-white bg-indigo-500 rounded group">
+                  <button @click="open(chat.id)" class="w-20 flex justify-center p-2 dark:text-slate-100 text-white bg-indigo-500 rounded group">
                     <span>написать</span>
                   </button>
                 </div>
