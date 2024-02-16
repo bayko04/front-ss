@@ -52,6 +52,10 @@
             </ul>
           </div>
         </div>
+        <div v-if="searchInput && searchInput.value && searchInput.value.length >= 2" class="mb-3 last:mb-0 ml-2">
+          <div class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase px-2 mb-4">Не нашли нужного клиента?</div>
+          <router-link class="text-slate-400 underline focus:outline-none px-2 mb-4" :to="'/customers/create'">Добавить клиента</router-link>
+        </div>
       </div>
     </div>
   </transition>

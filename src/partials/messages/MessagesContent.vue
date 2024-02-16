@@ -78,7 +78,7 @@ import VideoPlayer from "./VideoPlayer.vue";
 import { onMounted, ref } from "vue";
 import MessageStatus from "./MessageStatus.vue";
 import MessageFileLink from "./MessageFileLink.vue";
-import Tooltip from '../../components/Tooltip.vue'
+import Tooltip from '../../components/RedTooltip.vue'
 
 const { activeChat, markAsRead, scrollToMessage } = useMessangers();
 const authStore = useAuthStore();
