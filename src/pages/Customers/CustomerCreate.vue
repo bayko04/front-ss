@@ -22,244 +22,60 @@
             <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors, isSubmitting }">
             <!-- Components -->
             <div class="space-y-8 mt-8">
-              <h2 class="test text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">Основная информация</h2>
-
               <!-- Input Types -->
-              <div>
-                <div class="grid gap-5 md:grid-cols-3">
+              <div class="mx-auto max-w-lg">
+                <div class="grid gap-5 md:grid-cols-1">
 
-                  <div>
-                    <!-- Start -->
                     <div>
-                      <label class="block text-sm font-medium mb-1" for="name">Имя <span class="text-rose-500">*</span></label>
-                      <Field v-model="name" id="name" name="name" class="form-input w-full" type="text" />
+                        <!-- Start -->
+                        <div>
+                            <label class="block text-sm font-medium mb-1" for="name">Полное имя клиента <span
+                                    class="text-rose-500">*</span></label>
+                            <Field v-model="name" id="name" name="name" class="form-input w-full" type="text"/>
+                        </div>
+                        <div v-if="errors.name" class="text-xs mt-1 text-rose-500">{{ errors.name }}</div>
+                        <!-- End -->
                     </div>
-                    <div v-if="errors.name" class="text-xs mt-1 text-rose-500">{{ errors.name }}</div>
-                    <!-- End -->
-                  </div>
-                  <div>
-                    <!-- Start -->
-                    <div>
-                      <label class="block text-sm font-medium mb-1" for="last_name">Фамилия <span class="text-rose-500">*</span></label>
-                      <Field v-model="last_name" id="last_name" name="last_name" class="form-input w-full" type="text" />
-                    </div>
-                    <div v-if="errors.last_name" class="text-xs mt-1 text-rose-500">{{ errors.last_name }}</div>
-                    <!-- End -->
-                  </div>
-                  <div>
-                    <!-- Start -->
-                    <div>
-                      <label class="block text-sm font-medium mb-1" for="middle_name">Отчество</label>
-                      <Field v-model="middle_name" id="middle_name" name="middle_name" class="form-input w-full" type="text" />
-                    </div>
-                    <div v-if="errors.middle_name" class="text-xs mt-1 text-rose-500">{{ errors.middle_name }}</div>
-                    <!-- End -->
-                  </div>
 
-                  <div>
-                    <!-- Start -->
                     <div>
-                      <label class="block text-sm font-medium mb-1" for="inn">ИНН</label>
-                      <Field v-model="inn" id="inn" name="inn" class="form-input w-full" type="number" />
-                    </div>
-                    <div v-if="errors.inn" class="text-xs mt-1 text-rose-500">{{ errors.inn }}</div>
-                    <!-- End -->
-                  </div>
-
-                  <div>
-                    <!-- Start -->
-                    <div>
-                      <label class="block text-sm font-medium mb-1" for="passport">№ паспорта</label>
-                      <Field v-model="passport" id="passport" name="passport" class="form-input w-full" type="text" />
-                    </div>
-                    <div v-if="errors.passport" class="text-xs mt-1 text-rose-500">{{ errors.passport }}</div>
-                    <!-- End -->
-                  </div>
-
-                  <div>
-                    <!-- Start -->
-                    <div>
-                      <label class="block text-sm font-medium mb-1" for="date_of_birth">Дата рождения</label>
-                      <ClientDatepicker id="date_of_birth" :value="dateOfBirth" align="right" v-model="dateOfBirth"/>
-                    </div>
-                    <!-- End -->
-                  </div>
-
-                  <div>
-                    <label class="block text-sm font-medium mb-1" for="citizenship_id">Гражданство</label>
-                    <Field v-model="citizenship_id" name="citizenship_id" as="select" id="citizenship_id" class="form-select w-full" v-if="customerStore.customerReferences && customerStore.customerReferences.citizenships">
-                      <option value="">Не выбрано</option>
-                      <option v-for="citizenship in customerStore.customerReferences.citizenships" :value="citizenship.id" :key="citizenship.id">{{ citizenship.name }}</option>
-                    </Field>
-                    <div v-if="errors.citizenship_id" class="text-xs mt-1 text-rose-500">{{ errors.citizenship_id }}</div>
-                  </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-1" for="type_of_client">Тип клиента</label>
-                        <Field v-model="type_of_client" name="type_of_client" as="select" id="type_of_client" class="form-select w-full">
-
-                        </Field>
+                        <!-- Start -->
+                        <div>
+                            <label class="block text-sm font-medium mb-1" for="inn">Email</label>
+                            <Field v-model="inn" id="inn" name="inn" class="form-input w-full" type="text"/>
+                        </div>
+                        <div v-if="errors.inn" class="text-xs mt-1 text-rose-500">{{ errors.inn }}</div>
+                        <!-- End -->
                     </div>
 
                     <div>
                         <!-- Start -->
                         <div>
                             <label class="block text-sm font-medium mb-1" for="phone">№ телефона</label>
-                            <Field v-model="phone" id="phone" name="phone" class="form-input w-full" type="number" />
+                            <Field v-model="phone" id="phone" name="phone" class="form-input w-full" type="number"/>
                         </div>
                         <!-- End -->
                     </div>
+
                     <div>
                         <!-- Start -->
                         <div>
-                            <label class="block text-sm font-medium mb-1" for="push_chanel">Канал отправки уведомлений</label>
-                            <Field v-model="push_chanel" id="push_chanel" name="push_chanel" class="form-input w-full" type="text" />
+                            <label class="block text-sm font-medium mb-1" for="passport">Примечание</label>
+                            <Field v-model="passport" id="passport" name="passport" class="form-input w-full"
+                                   type="text"/>
                         </div>
+                        <div v-if="errors.passport" class="text-xs mt-1 text-rose-500">{{ errors.passport }}</div>
                         <!-- End -->
                     </div>
-                    <div>
-                        <!-- Start -->
-                        <div>
-                            <label class="block text-sm font-medium mb-1" for="type_of_activity">Вид деятельности клиента</label>
-                            <Field v-model="type_of_activity" id="type_of_activity" name="type_of_activity" class="form-input w-full" type="text" />
-                        </div>
-                        <!-- End -->
-                    </div>
-                  <div>
-                    <label class="block text-sm font-medium mb-1" for="sex">Пол</label>
-                    <Field v-model="sex" name="sex" as="select" id="sex" class="form-select w-full">
-                      <option value="">Не выбрано</option>
-                      <option value="m">Мужcкой</option>
-                      <option value="w">Женский</option>
-                    </Field>
-                    <div v-if="errors.sex" class="text-xs mt-1 text-rose-500">{{ errors.sex }}</div>
-                  </div>
-
-                  <div>
-                    <label class="block text-sm font-medium mb-1" for="customer_status">Статус клиента</label>
-                    <Field v-model="customer_status_id" name="customer_status_id" id="customer_status" as="select" class="form-select w-full" v-if="customerStore.customerReferences && customerStore.customerReferences.customer_statuses">
-                      <option value="">Не выбрано</option>
-                      <option v-for="customer_status in customerStore.customerReferences.customer_statuses" :value="customer_status.id" :key="customer_status.id">{{ customer_status.name }}</option>
-                    </Field>
-                    <div v-if="errors.customer_status_id" class="text-xs mt-1 text-rose-500">{{ errors.customer_status_id }}</div>
-                  </div>
-
-                  <div>
-                    <label class="block text-sm font-medium mb-1" for="family_status">Семейное положение</label>
-                    <Field v-model="family_status" name="family_status" id="family_status" as="select" class="form-select w-full">
-                      <option value="">Не выбрано</option>
-                      <option value="single">Холост/Вдова/Вдовец</option>
-                      <option value="married">Женат/Замужем</option>
-                    </Field>
-                    <div v-if="errors.family_status" class="text-xs mt-1 text-rose-500">{{ errors.family_status }}</div>
-                  </div>
-
-                  <div>
-                    <!-- Start -->
-                    <div>
-                      <label class="block text-sm font-medium mb-1" for="address">Адрес</label>
-                      <Field v-model="address" id="address" name="address" class="form-input w-full" type="text" />
-                    </div>
-                    <div v-if="errors.address" class="text-xs mt-1 text-rose-500">{{ errors.address }}</div>
-                    <!-- End -->
-                  </div>
-
-                  <div>
-                    <!-- Start -->
-                    <div>
-                      <label class="block text-sm font-medium mb-1" for="comment">Примечание</label>
-                      <Field v-model="comment" id="comment" name="comment" class="form-input w-full" type="text" />
-                    </div>
-                    <div v-if="errors.comment" class="text-xs mt-1 text-rose-500">{{ errors.comment }}</div>
-                    <!-- End -->
-                  </div>
-                    <div>
-                        <!-- Start -->
-                        <div>
-                            <label class="block text-sm font-medium mb-1" for="comment">Канал привлечения клиента</label>
-                            <Field v-model="comment" id="comment" name="comment" class="form-input w-full" as="select">
-                            <option value="">Не выбрано</option>
-                            <option value="single">Вывеска ломбарда</option>
-                            <option value="married">По рекомендации друзей</option>
-                            <option value="married">Реклама на сайтах</option>
-                            <option value="married">Интаграм</option>
-                            </Field>
-                        </div>
-                        <div v-if="errors.comment" class="text-xs mt-1 text-rose-500">{{ errors.comment }}</div>
-                        <!-- End -->
-                    </div>
-
                 </div>
-              </div>
-
-              <div>
-                <h2 class="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">Данные учетной записи</h2>
-                <div class="grid gap-5 md:grid-cols-3">
-
-                  <div>
-                    <!-- Start -->
-                    <div>
-                      <div class="flex items-center justify-between">
-                        <label class="block text-sm font-medium mb-1" for="login">Логин <span class="text-rose-500">*</span></label>
-                        <Tooltip class="ml-2" bg="dark" size="md">
-                          <div class="text-sm text-slate-200">Логин нужен чтобы клиент мог зайти в личный кабинет.</div>
-                        </Tooltip>
-                      </div>
-                      <Field v-model="login" id="login" name="login" class="form-input w-full" type="text" />
-                    </div>
-                    <div v-if="errors.login" class="text-xs mt-1 text-rose-500">{{ errors.login }}</div>
-                    <!-- End -->
+                  <br>
+                  <div class="mt-2">
+                      <!-- Start -->
+                      <button type="submit" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">Сохранить</button>
+                      <!-- End -->
                   </div>
-
-                  <div>
-                    <!-- Start -->
-                    <div>
-                      <div class="flex items-center justify-between">
-                        <label class="block text-sm font-medium mb-1" for="password">Пароль <span class="text-rose-500">*</span></label>
-                        <Tooltip class="ml-2" bg="dark" size="md">
-                          <div class="text-sm text-slate-200">Пароль от личного кабинета. Этот пароль необходимо передать клиенту, и предупредить чтобы его поменяли.</div>
-                        </Tooltip>
-                      </div>
-                      <Field v-model="password" id="password" name="password" class="form-input w-full" type="password" />
-                    </div>
-                    <div v-if="errors.password" class="text-xs mt-1 text-rose-500">{{ errors.password }}</div>
-                    <!-- End -->
-                  </div>
-
-                  <div>
-                    <!-- Start -->
-                    <div>
-                      <div class="flex items-center justify-between">
-                        <label class="block text-sm font-medium mb-1" for="avatar">Аватар</label>
-                        <Tooltip class="ml-2" bg="dark" size="md">
-                          <div class="text-sm text-slate-200">Аватар для личного кабинета клиента.</div>
-                        </Tooltip>
-                      </div>
-                      <div class="relative mt-1">
-                        <input
-                            id="avatar"
-                            class="hidden"
-                            type="file"
-                            @change="handleFileChange"
-                        />
-                        <label
-                            for="avatar"
-                            class="form-file w-full py-2 px-4 border border-gray-300 rounded-md bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-rose-500 focus:ring focus:ring-rose-200 focus:ring-opacity-50 cursor-pointer"
-                        >
-                          Выберите файл
-                        </label>
-                        <span v-if="avatar?.name" class="block mt-2 text-sm text-gray-500">{{ avatar.name }}</span>
-                      </div>
-                    </div>
-                    <!-- End -->
-                  </div>
-                </div>
               </div>
             </div>
-            <div class="mt-2">
-              <!-- Start -->
-              <button type="submit" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">Сохранить</button>
-              <!-- End -->
-            </div>
+
             </Form>
           </div>
 
