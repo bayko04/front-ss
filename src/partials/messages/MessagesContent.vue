@@ -35,7 +35,7 @@
           <!--          video message -->
           <VideoPlayer  v-else-if="message.type === 'video'" :videoPath="message?.attachments[0].path"/>
           <!--          file message -->
-          <div  v-else-if="message.type === 'file' || message.type === 'document'" class="flex text-sm rounded-lg border shadow-md mb-1 p-3 min-w-[100px]">
+          <div  v-else-if="message.type === 'file' || message.type === 'document' || message.type === 'media'" class="flex text-sm rounded-lg border shadow-md mb-1 p-3 min-w-[100px]">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
               <path d="M14 3v4a1 1 0 0 0 1 1h4" />
@@ -78,7 +78,7 @@ import VideoPlayer from "./VideoPlayer.vue";
 import { onMounted, ref } from "vue";
 import MessageStatus from "./MessageStatus.vue";
 import MessageFileLink from "./MessageFileLink.vue";
-import Tooltip from '../../components/Tooltip.vue'
+import Tooltip from '../../components/RedTooltip.vue'
 
 const { activeChat, markAsRead, scrollToMessage } = useMessangers();
 const authStore = useAuthStore();

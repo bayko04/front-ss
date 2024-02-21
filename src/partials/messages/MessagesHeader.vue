@@ -29,8 +29,19 @@
 
       <!-- Buttons on the right side -->
       <div class="flex">
+        <button title="Добавить в контакты" v-if="!customerStore.customer" @click="openSearchModal()" class="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm ml-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-address-book fill-current text-indigo-500 w-4 h-4" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M20 6v12a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2z" />
+            <path d="M10 16h6" />
+            <path d="M13 11m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+            <path d="M4 8h3" />
+            <path d="M4 12h3" />
+            <path d="M4 16h3" />
+          </svg>
+        </button>
         <button v-if="authStore.userData.user.id != activeChat.user_id" @click="assignChat(authStore.userData.user.id, activeChat)" title="Присвоить чат себе" class="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm ml-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-big-up fill-current text-indigo-500" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-big-up fill-current text-indigo-500 w-4 h-4" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
             <path d="M9 20v-8h-3.586a1 1 0 0 1 -.707 -1.707l6.586 -6.586a1 1 0 0 1 1.414 0l6.586 6.586a1 1 0 0 1 -.707 1.707h-3.586v8a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
           </svg>
@@ -47,7 +58,7 @@
 
 <script setup>
   import { useMessangers } from "../../utils/messengers.js";
-  import { closingChatModal } from "../../utils/modalVariables.js";
+  import { closingChatModal, searchContactModal } from "../../utils/modalVariables.js";
   import {useCustomerStore} from "../../stores/customer.store.js"
   import { useAuthStore } from "../../stores/auth.store.js";
 
@@ -59,6 +70,11 @@
   function openModal() {
     closingChatModal.value.stayOpen = true
     closingChatModal.value.status = true
+  }
+
+  function openSearchModal() {
+    searchContactModal.value.stayOpen = true
+    searchContactModal.value.status = true
   }
 
   function openCustomerModal() {
