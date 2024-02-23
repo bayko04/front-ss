@@ -20,7 +20,7 @@
         </svg>
       </button>
     </div>
-    <div v-show="activeChat" class="flex items-center justify-between bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 px-4 sm:px-6 md:px-5" :style="{ height: blockHeight }">
+    <div class="flex items-center justify-between bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 px-4 sm:px-6 md:px-5" :style="{ height: blockHeight }">
       <div class="grow flex items-end mt-1">
         <div class="mr-3 mb-1" v-if="!activeChat?.message.text && !recording">
           <AddAttachments/>

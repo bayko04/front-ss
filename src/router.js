@@ -29,6 +29,7 @@ import PortfolioAddloan from "./pages/Portfolio/PortfolioAddloan.vue";
 import TransactionsList from "./pages/Transactions/TransactionsList.vue";
 import InterestRate from "./pages/guideline/InterestRate.vue";
 import CollateralType from "./pages/guideline/CollateralType.vue";
+import Comments from "./pages/Comments.vue";
 
 const routerHistory = createWebHistory()
 
@@ -88,6 +89,10 @@ const router = createRouter({
     {
       path: '/messages',
       component: Messages
+    },
+    {
+      path: '/comments',
+      component: Comments
     },
     {
       path: '/settings/account',
