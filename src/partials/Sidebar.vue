@@ -128,65 +128,17 @@
                 </a>
               </li>
             </router-link>
-            <!-- Loan portfolio -->
-              <SidebarLinkGroup v-slot="parentLink" :activeCondition="currentRoute.fullPath === '/' || currentRoute.fullPath.includes('dashboard')">
-                  <a class="block text-slate-200 truncate transition duration-150" :class="(currentRoute.fullPath === '/' || currentRoute.fullPath.includes('dashboard')) ? 'hover:text-slate-200' : 'hover:text-white'" href="#0" @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
-                      <div class="flex items-center justify-between">
-                          <div class="flex items-center">
-                              <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                                  <path class="fill-current" :class="currentRoute.fullPath.includes('customers') ? 'text-indigo-500' : 'text-slate-600'" d="M1 3h22v20H1z" />
-                                  <path class="fill-current" :class="currentRoute.fullPath.includes('customers') ? 'text-indigo-300' : 'text-slate-400'" d="M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z" />
-                              </svg>
-                              <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Портфель</span>
-                          </div>
-                          <!-- Icon -->
-                          <div class="flex shrink-0 ml-2">
-                              <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" :class="parentLink.expanded && 'rotate-180'" viewBox="0 0 12 12">
-                                  <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                              </svg>
-                          </div>
-                      </div>
-                  </a>
-                  <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                      <ul class="pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                          <router-link to="/portfolio" custom v-slot="{ href, navigate, isExactActive }">
-                              <li class="mb-1 last:mb-0">
-                                  <a class="block transition duration-150 truncate" :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href" @click="navigate">
-                                      <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Активный портфель</span>
-                                  </a>
-                              </li>
-                          </router-link>
-                          <router-link to="/" custom v-slot="{ href, navigate, isExactActive }">
-                              <li class="mb-1 last:mb-0">
-                                  <a class="block transition duration-150 truncate" :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href" @click="navigate">
-                                      <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Пассивный портфель</span>
-                                  </a>
-                              </li>
-                          </router-link>
-                          <router-link to="/" custom v-slot="{ href, navigate, isExactActive }">
-                              <li class="mb-1 last:mb-0">
-                                  <a class="block transition duration-150 truncate" :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href" @click="navigate">
-                                      <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Портфель продаж</span>
-                                  </a>
-                              </li>
-                          </router-link>
-                      </ul>
-                  </div>
-              </SidebarLinkGroup>
 
-            <!-- Transactions -->
-              <router-link to="/transactions" custom v-slot="{ href, navigate, isExactActive }">
+              <!-- Calendar -->
+              <router-link to="/calendar" custom v-slot="{ href, navigate, isExactActive }">
                   <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" :class="isExactActive && 'bg-slate-900'">
                       <a class="block text-slate-200 truncate transition duration-150" :class="isExactActive ? 'hover:text-slate-200' : 'hover:text-white'" :href="href" @click="navigate">
-                          <div class="flex items-center justify-between">
-                              <div class="grow flex items-center">
-                                  <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                                      <path class="fill-current" :class="currentRoute.fullPath.includes('finance') ? 'text-indigo-300' : 'text-slate-400'" d="M13 6.068a6.035 6.035 0 0 1 4.932 4.933H24c-.486-5.846-5.154-10.515-11-11v6.067Z" />
-                                      <path class="fill-current" :class="currentRoute.fullPath.includes('finance') ? 'text-indigo-500' : 'text-slate-700'" d="M18.007 13c-.474 2.833-2.919 5-5.864 5a5.888 5.888 0 0 1-3.694-1.304L4 20.731C6.131 22.752 8.992 24 12.143 24c6.232 0 11.35-4.851 11.857-11h-5.993Z" />
-                                      <path class="fill-current" :class="currentRoute.fullPath.includes('finance') ? 'text-indigo-600' : 'text-slate-600'" d="M6.939 15.007A5.861 5.861 0 0 1 6 11.829c0-2.937 2.167-5.376 5-5.85V0C4.85.507 0 5.614 0 11.83c0 2.695.922 5.174 2.456 7.17l4.483-3.993Z" />
-                                  </svg>
-                                  <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Кассовые операции</span>
-                              </div>
+                          <div class="flex items-center">
+                              <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                                  <path class="fill-current" :class="isExactActive ? 'text-indigo-500' : 'text-slate-600'" d="M1 3h22v20H1z" />
+                                  <path class="fill-current" :class="isExactActive ? 'text-indigo-300' : 'text-slate-400'" d="M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z" />
+                              </svg>
+                              <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Задачи</span>
                           </div>
                       </a>
                   </li>
@@ -266,7 +218,7 @@
                 </ul>
               </div>
             </SidebarLinkGroup>
-            <!-- Guideline -->
+            <!-- SystemSettings -->
               <SidebarLinkGroup v-slot="parentLink" :activeCondition="currentRoute.fullPath.includes('settings')">
                   <a class="block text-slate-200 truncate transition duration-150" :class="currentRoute.fullPath.includes('settings') ? 'hover:text-slate-200' : 'hover:text-white'" href="#0" @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
                       <div class="flex items-center justify-between">
@@ -288,10 +240,10 @@
                   </a>
                   <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
                       <ul class="pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                          <router-link to="/guideline/interestRate" custom v-slot="{ href, navigate, isExactActive }">
+                          <router-link to="/systemSettings/requestStatus" custom v-slot="{ href, navigate, isExactActive }">
                               <li class="mb-1 last:mb-0">
                                   <a class="block transition duration-150 truncate" :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href" @click="navigate">
-                                      <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Процентная ставка</span>
+                                      <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Статус обращений</span>
                                   </a>
                               </li>
                           </router-link>
