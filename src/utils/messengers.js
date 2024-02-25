@@ -155,11 +155,11 @@ export function useMessangers() {
       chat = getChatById(chat)
     }
     activeChat.value = chat
-    if (activeChat.value === undefined) {
+    if (activeChat.value === undefined || activeChat.value === null) {
       return
     }
 
-    if (activeChat.value !== undefined && !activeChat.value.messages) {
+    if (!activeChat.value.messages) {
       getMessages()
     }
 
@@ -185,10 +185,10 @@ export function useMessangers() {
 
   const setActiveCommentsChat = async function (chat) {
     activeCommentsChat.value = chat
-    if (activeCommentsChat.value === undefined) {
+    if (activeCommentsChat.value === undefined || activeCommentsChat.value === null) {
       return
     }
-    if (activeCommentsChat.value !== undefined && !activeCommentsChat.value.comments) {
+    if (!activeCommentsChat.value.comments) {
       getComments()
     }
 
