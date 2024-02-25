@@ -48,8 +48,10 @@ export const useCustomerStore = defineStore({
             } catch (error) {
                 console.log(error)
             }
+
+            return this.customer;
         },
-        async addCustomer(data) {
+        async addOrUpdateCustomer(data) {
             let formData = new FormData()
             formData.append('method', 'POST');
             for (const key in data) {
@@ -105,21 +107,6 @@ export const useCustomerStore = defineStore({
             try {
                 const result = (await fetchWrapper.post(`${baseUrl}/${this.customer.id}/remove-document/${id}`, {})).data;
                 this.customer.documents = result
-            } catch (error) {
-                console.log(error)
-            }
-        },
-        async updateCustomer(data) {
-            let formData = new FormData()
-            formData.append('method', 'POST');
-            for (const key in data) {
-                formData.append(key, data[key]);
-            }
-            try {
-                const result = await fetchWrapper.post(`${baseUrl}/${this.customer.id}`, formData);
-                if(!result.errors) {
-                    router.push(`/customers/profile/${result.data.id}`)
-                }
             } catch (error) {
                 console.log(error)
             }

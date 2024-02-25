@@ -41,9 +41,9 @@
                         <!-- Start -->
                         <div>
                             <label class="block text-sm font-medium mb-1" for="inn">Email</label>
-                            <Field v-model="inn" id="inn" name="inn" class="form-input w-full" type="text"/>
+                            <Field v-model="email" id="inn" name="inn" class="form-input w-full" type="text"/>
                         </div>
-                        <div v-if="errors.inn" class="text-xs mt-1 text-rose-500">{{ errors.inn }}</div>
+                        <div v-if="errors.email" class="text-xs mt-1 text-rose-500">{{ errors.email }}</div>
                         <!-- End -->
                     </div>
 
@@ -51,19 +51,19 @@
                         <!-- Start -->
                         <div>
                             <label class="block text-sm font-medium mb-1" for="phone">№ телефона</label>
-                            <Field v-model="phone" id="phone" name="phone" class="form-input w-full" type="number"/>
+                            <Field v-model="phone" id="phone" name="phone" class="form-input w-full" type="text"/>
                         </div>
-                        <!-- End -->
+                      <!-- End -->
                     </div>
 
                     <div>
                         <!-- Start -->
                         <div>
                             <label class="block text-sm font-medium mb-1" for="passport">Примечание</label>
-                            <Field v-model="passport" id="passport" name="passport" class="form-input w-full"
+                            <Field v-model="comment" id="passport" name="passport" class="form-input w-full"
                                    type="text"/>
                         </div>
-                        <div v-if="errors.passport" class="text-xs mt-1 text-rose-500">{{ errors.passport }}</div>
+                        <div v-if="errors.comment" class="text-xs mt-1 text-rose-500">{{ errors.comment }}</div>
                         <!-- End -->
                     </div>
                 </div>
@@ -91,76 +91,52 @@ import {onMounted, ref} from 'vue'
 import { useCustomerStore } from '../../stores/customer.store.js'
 import Sidebar from '../../partials/Sidebar.vue'
 import Header from '../../partials/Header.vue'
-import Tooltip from '../../components/Tooltip.vue'
-import ClientDatepicker from "./ClientDatepicker.vue"
 import * as Yup from "yup"
 import { Form, Field } from 'vee-validate'
+import router from '../../router.js'
 
+const route = router?.currentRoute?.value
 const sidebarOpen = ref(false)
-const avatar = ref('')
 const customerStore = useCustomerStore()
-const dateOfBirth = ref('');
 const name = ref('')
-const last_name = ref('')
-const middle_name = ref('')
-const inn = ref('')
-const passport = ref('')
-const citizenship_id = ref('')
-const sex = ref('')
-const customer_status_id = ref('')
-const login = ref('')
-const password = ref('')
-const family_status = ref('')
-const address = ref('')
+const phone = ref('')
+const email = ref('')
 const comment = ref('')
+const id = ref(undefined)
 
 onMounted(async () => {
   await customerStore.getReferences()
+  await setCustomer()
 })
 
-function handleFileChange(event) {
-  const fileInput = event.target;
-  if (fileInput.files.length > 0) {
-    avatar.value = fileInput.files[0];
-  } else {
-    avatar.value = null;
+async function setCustomer() {
+  if (route.params.id) {
+    const customer = await customerStore.getCustomer(route.params.id)
+    name.value = customer.name
+    phone.value = customer.phone
+    email.value = customer.email
+    comment.value = customer.comment
+    id.value = customer.id
   }
 }
 
 async function onSubmit() {
   const values = {
     name: name.value,
-    last_name: last_name.value,
-    middle_name: middle_name.value,
-    inn: inn.value,
-    passport: passport.value,
-    citizenship_id: citizenship_id.value,
-    sex: sex.value,
-    customer_status_id: customer_status_id.value,
-    login: login.value,
-    password: password.value,
-    date_of_birth: dateOfBirth.value,
-    image: avatar.value,
-    family_status: family_status.value,
-    address: address.value,
+    phone: phone.value,
     comment: comment.value,
+    email: email.value,
   }
-  customerStore.addCustomer(values)
+  if (id.value) {
+    values.id = id.value
+  }
+  customerStore.addOrUpdateCustomer(values)
 }
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Имя клиента обязательно').min(2, 'Должно быть не менее 2 символов').max(256, 'Должно быть не более 256 символов'),
-  last_name: Yup.string().required('Фамилия клиента обязательно').min(2, 'Должно быть не менее 2 символов').max(256, 'Должно быть не более 256 символов'),
-  middle_name: Yup.string(),
-  inn: Yup.string(),
-  passport: Yup.string(),
-  citizenship_id: Yup.string(),
-  sex: Yup.string(),
-  customer_status_id: Yup.string(),
-  family_status: Yup.string(),
+  email: Yup.string().email('Введите корректный email'),
   comment: Yup.string(),
-  address: Yup.string(),
-  login: Yup.string().required('Логин клиента обязательно').min(4, 'Должно быть не менее 4 символов').max(256, 'Должно быть не более 256 символов'),
-  password: Yup.string().required('Пароль клиента обязательно').min(4, 'Должно быть не менее 4 символов').max(256, 'Должно быть не более 256 символов'),
+  phone: Yup.string(),
 });
 </script>

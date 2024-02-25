@@ -13,7 +13,6 @@ import Signup from './pages/Signup.vue'
 import ResetPassword from './pages/ResetPassword.vue'
 import CustomersList from './pages/Customers/CustomersList.vue'
 import CustomerCreate from './pages/Customers/CustomerCreate.vue'
-import CustomerUpdate from './pages/Customers/CustomerUpdate.vue'
 import CustomerProfile from "./pages/Customers/CustomerProfile.vue";
 import UserCreate from "./partials/community/UserCreate.vue";
 import UserUpdate from "./partials/community/UserUpdate.vue";
@@ -49,7 +48,7 @@ const router = createRouter({
     },
     {
       path: '/customers/update/:id',
-      component: CustomerUpdate
+      component: CustomerCreate
     },
     {
       path: '/customers/profile/:id',
