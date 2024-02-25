@@ -21,7 +21,7 @@
         <!-- People list -->
         <div class="flex -space-x-3 -ml-px items-center">
           <button class="flex items-center">
-            <img class="rounded-full border-2 border-white dark:border-slate-800 box-content" :src="activeCommentsChat.media_url ?? activeCommentsChat.thumbnail_url" width="32" height="32" alt="User 01" />
+            <img class="rounded-full border-2 border-white dark:border-slate-800 box-content" :src="activeCommentsChat.media_type === 'VIDEO' ? activeCommentsChat.thumbnail_url : activeCommentsChat.media_url" width="32" height="32" alt="User 01" />
             <span class="ml-2">{{ activeCommentsChat.caption }}</span>
           </button>
         </div>

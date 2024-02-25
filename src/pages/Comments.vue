@@ -29,6 +29,8 @@
             </Suspense>
           </div>
         </div>
+
+        <ModalForReplyToDirect/>
       </main>
 
     </div> 
@@ -44,6 +46,7 @@
     import MessagesHeader from '../partials/comments/MessagesHeader.vue'
     import MessagesBody from '../partials/comments/MessagesBody.vue'
     import MessagesFooter from '../partials/comments/MessagesFooter.vue'
+    import ModalForReplyToDirect from "../components/ModalForReplyToDirect.vue";
 
     const sidebarOpen = ref(false)
     const msgSidebarOpen = ref(true)

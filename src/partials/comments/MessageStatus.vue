@@ -1,22 +1,50 @@
 <template>
-  <div class="flex items-center justify-between">
-    <div class="text-xs text-slate-500 font-medium">{{timestampToTime(message.created_at)}}</div>
-    <div v-if="message.user_id">
-      <svg v-if="message.message_status_id === 1" class="w-3 h-3 shrink-0 fill-current text-slate-400" viewBox="0 0 12 12">
-        <path d="M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z" />
-      </svg>
-      <svg v-else-if="message.message_status_id === 4" class="w-5 h-3 shrink-0 fill-current text-slate-400" viewBox="0 0 20 12">
-        <path d="M10.402 6.988l1.586 1.586L18.28 2.28a1 1 0 011.414 1.414l-7 7a1 1 0 01-1.414 0L8.988 8.402l-2.293 2.293a1 1 0 01-1.414 0l-3-3A1 1 0 013.695 6.28l2.293 2.293L12.28 2.28a1 1 0 011.414 1.414l-3.293 3.293z" />
-      </svg>
-      <svg v-else-if="message.message_status_id === 2" class="w-5 h-3 shrink-0 fill-current text-emerald-500" viewBox="0 0 20 12">
-        <path d="M10.402 6.988l1.586 1.586L18.28 2.28a1 1 0 011.414 1.414l-7 7a1 1 0 01-1.414 0L8.988 8.402l-2.293 2.293a1 1 0 01-1.414 0l-3-3A1 1 0 013.695 6.28l2.293 2.293L12.28 2.28a1 1 0 011.414 1.414l-3.293 3.293z" />
-      </svg>
+  <div class="flex flex-col min-w-72">
+    <div class="flex items-center justify-between">
+      <div class="text-xs text-slate-500 font-medium">{{timestampToTime(message.created_at)}}</div>
+      <div class="text-xs text-slate-500 font-medium ml-2 cursor-pointer" @click="openReply">ответить</div>
+      <div class="text-xs text-slate-500 font-medium ml-2 cursor-pointer" @click="openReplyToDirectModal">ответить лично</div>
+    </div>
+    <div v-if="replyInputOpen" class="mt-2 min-w-72">
+      <input @keydown="handleKeyDown" type="text" v-model="reply" class="py-2 min-w-72 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" placeholder="Введите ответ">
     </div>
   </div>
 </template>
 
 <script setup>
 import { timestampToTime } from "../../helpers/date-format.js";
+import {ref} from "vue";
+import { useMessangers } from "../../utils/messengers.js";
+import {replyToDirectModal} from "../../utils/modalVariables.js";
 
+const { replyComment } = await useMessangers();
 const { message } = defineProps(['message']);
+const reply = ref('');
+const openReply = () => {
+  replyInputOpen.value = !replyInputOpen.value;
+  if(replyInputOpen.value) {
+    reply.value = `@${message.username} `;
+  }
+  else {
+    reply.value = '';
+  }
+}
+
+function handleKeyDown(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    replyComment(reply.value, message.id_from_comment, message.instagram_content_id);
+    reply.value = '';
+    replyInputOpen.value = false;
+  }
+}
+
+const openReplyToDirectModal = () => {
+  replyToDirectModal.value.stayOpen = true
+  replyToDirectModal.value.status = true
+  replyToDirectModal.value.repliedCommentId = message.id_from_comment
+  replyToDirectModal.value.contentId = message.instagram_content_id
+}
+
+const replyInputOpen = ref(false);
 </script>

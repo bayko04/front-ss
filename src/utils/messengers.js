@@ -69,6 +69,11 @@ export function useMessangers() {
       chatId ? setActiveChat(getChatById(chatId)) : setActiveChat(undefined)
     }
 
+    if (activeCommentsChat.value === undefined) {
+      const chatId = searchParams.get('commentsChatId')
+      chatId ? setActiveCommentsChat(getCommentsChatById(chatId)) : setActiveCommentsChat(undefined)
+    }
+
     accounts.value.forEach(function (account, index) {
       newChatFromSocket(account)
       account.chats?.forEach(function (chat) {
@@ -106,7 +111,7 @@ export function useMessangers() {
   }
 
   function getCommentsChatById(id) {
-    const foundChat = activeCommentsAccount.value?.comments.find((chat) => chat.id === Number(id));
+    const foundChat = activeCommentsAccount.value?.contents.find((chat) => chat.id === Number(id));
     return foundChat || undefined;
   }
 
@@ -127,9 +132,10 @@ export function useMessangers() {
 
   const setActiveCommentsAccount = async function (account = undefined) {
     if(!account) {
-        account = accounts.value.find((account) => account.messenger.id === 3)
+      activeCommentsAccount.value = accounts.value.find((account) => account.messenger.id === 3)
+    } else {
+      ctiveCommentsAccount.value = account
     }
-    activeCommentsAccount.value = account
     activeCommentsChat.value = undefined
 
     if(!account) {
@@ -256,6 +262,9 @@ export function useMessangers() {
   const addCommentToCommentsChat = function (account, content) {
     echo.value.private(`${account.messenger.name}.${account.id}.content.${content.id}`).listen('.NewComment', function (socketComment) {
       if (content.comments && content.id === activeCommentsChat.value.id && socketComment.comment.parent_id != '' && content.comments[socketComment.comment.parent_id]) {
+        if(!content.comments[socketComment.comment.parent_id]['replies']) {
+            content.comments[socketComment.comment.parent_id]['replies'] = []
+        }
         content.comments[socketComment.comment.parent_id]['replies'].push(socketComment.comment)
       } else if (content.comments) {
         content.comments[socketComment.comment.id_from_comment] = socketComment.comment
@@ -352,7 +361,7 @@ export function useMessangers() {
   }
 
   const updateCommentsChatFromSocket = function (content, account) {
-    echo.value.private(`${account.messenger.name}.${account.id}.content.${content.id}`).listen('.UpdateChat', function (socketContent) {
+    echo.value.private(`${account.messenger.name}.${account.id}.content.${content.id}`).listen('.UpdateContent', function (socketContent) {
       content.media_type = socketContent.content.media_type
       content.media_url = socketContent.content.media_url
       content.thumbnail_url = socketContent.content.thumbnail_url
@@ -360,6 +369,7 @@ export function useMessangers() {
       content.timestamp = socketContent.content.timestamp
       content.username = socketContent.content.username
       content.caption = socketContent.content.caption
+      console.log(content)
     })
   }
 
@@ -427,6 +437,23 @@ export function useMessangers() {
         bottom.value.scrollIntoView({behavior: "smooth"});
       }
     }, 500);
+  }
+
+  const replyComment = async function (text, repliedCommentId, contentId) {
+    await fetchWrapper.post(`/${activeCommentsAccount.value.messenger.name}/new-comment`, {text: text, repliedComment: repliedCommentId, contentId: contentId})
+  }
+
+  const replyToDirect = async function (form) {
+    const result = (await fetchWrapper.post(`/${activeCommentsAccount.value.messenger.name}/reply-to-direct`, form)).data
+
+    const newRoute = {
+      path: '/messages',
+      query: { accountId: result.account_id, chatId: result.id },
+    };
+
+    setTimeout(() => {
+      router?.push(newRoute);
+    }, 2000);
   }
 
   const searchChat = async function (search) {
@@ -510,5 +537,7 @@ export function useMessangers() {
     setActiveCommentsChat,
     activeCommentsChat,
     getComments,
+    replyComment,
+    replyToDirect
   };
 }

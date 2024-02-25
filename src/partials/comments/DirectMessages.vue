@@ -14,7 +14,7 @@
             :class="{'bg-indigo-500/30': (content.id === activeCommentsChat?.id) }"
         >
           <div class="flex items-center truncate">
-            <img class="w-8 h-8 rounded-full mr-2" :src="content.media_url ?? content.thumbnail_url" width="32" height="32" alt="User 01" />
+            <img class="w-8 h-8 rounded-full mr-2" :src="content.media_type === 'VIDEO' ? content.thumbnail_url : content.media_url" width="32" height="32" alt="User 01" />
             <div class="truncate">
               <span class="text-sm font-medium text-slate-800 dark:text-slate-100">{{content.caption}}</span>
             </div>
