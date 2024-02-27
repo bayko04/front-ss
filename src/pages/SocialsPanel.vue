@@ -36,12 +36,12 @@
                         <div class="flex flex-col h-full p-5">
                           <div class="grow">
                             <header class="flex items-center mb-4">
-                              <div class="w-10 h-10 rounded-full shrink-0 bg-gradient-to-tr from-indigo-500 to-indigo-300 mr-3">
-                                <svg class="w-10 h-10 fill-current text-white" viewBox="0 0 40 40">
-                                  <path d="M26.946 18.005a.583.583 0 00-.53-.34h-6.252l.985-3.942a.583.583 0 00-1.008-.52l-7 8.167a.583.583 0 00.442.962h6.252l-.984 3.943a.583.583 0 001.008.52l7-8.167a.583.583 0 00.087-.623z" />
-                                </svg>
-                              </div>
-                              <h3 class="text-lg text-slate-800 dark:text-slate-100 font-semibold">MaterialStack</h3>
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-whatsapp" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00b341" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+                                <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
+                              </svg>
+                              <h3 class="text-lg text-slate-800 dark:text-slate-100 font-semibold">Whatsapp</h3>
                             </header>
                             <div class="text-sm">Lorem ipsum dolor sit amet eiusmod sed do eiusmod tempor.</div>
                           </div>
@@ -70,7 +70,7 @@
                                 <svg class="w-3 h-3 shrink-0 fill-current text-emerald-500 mr-2" viewBox="0 0 12 12">
                                   <path d="M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z" />
                                 </svg>
-                                <span>Connected</span>
+                                <span>Добавить</span>
                               </button>
                             </div>
                           </footer>

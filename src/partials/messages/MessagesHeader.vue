@@ -20,9 +20,9 @@
         </button>
         <!-- People list -->
         <div class="flex -space-x-3 -ml-px items-center">
-          <button @click="openCustomerModal()" class="flex items-center">
+          <button class="flex items-center">
             <img class="rounded-full border-2 border-white dark:border-slate-800 box-content" :src="activeChat.image" width="32" height="32" alt="User 01" />
-            <span class="ml-2">{{ activeChat.name }}</span>
+            <span class="ml-2">{{ customerStore.customer?.name ?? activeChat.name }}</span>
           </button>
         </div>
       </div>
@@ -77,10 +77,4 @@
     searchContactModal.value.status = true
   }
 
-  function openCustomerModal() {
-    if(!customerStore.customer) {
-      return
-    }
-    customerStore.customer.openModal = true
-  }
 </script>

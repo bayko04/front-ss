@@ -29,7 +29,9 @@
             </Suspense>
           </div>
 
-          <CustomerInfo/>
+          <Suspense>
+            <CustomerInfo/>
+          </Suspense>
         </div>
 
         <Suspense>

@@ -168,9 +168,9 @@ export function useMessangers() {
     }
 
     const customerStore = useCustomerStore()
-    if(activeChat.value.customer_id) {
+    if(activeChat.value.customer_id && activeChat.value.customer_id !== customerStore.customer?.id) {
       await customerStore.getCustomer(activeChat.value.customer_id)
-    } else {
+    } else if(!activeChat.value.customer_id) {
       customerStore.customer = null
     }
 
