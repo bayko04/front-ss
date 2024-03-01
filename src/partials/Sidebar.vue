@@ -101,7 +101,7 @@
                   </li>
               </router-link>
               <!-- Marketing -->
-              <router-link to="/calendar" custom v-slot="{ href, navigate, isExactActive }">
+              <router-link to="/marketing/newsletters" custom v-slot="{ href, navigate, isExactActive }">
                   <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" :class="isExactActive && 'bg-slate-900'">
                       <a class="block text-slate-200 truncate transition duration-150" :class="isExactActive ? 'hover:text-slate-200' : 'hover:text-white'" :href="href" @click="navigate">
                           <div class="flex items-center">
@@ -112,6 +112,39 @@
                                   <circle class="fill-current" :class="currentRoute.fullPath.includes('utility') ? 'text-indigo-300' : 'text-slate-400'" cx="5.5" cy="18.5" r="4.5" />
                               </svg>
                               <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Маркетинг</span>
+                          </div>
+                      </a>
+                  </li>
+              </router-link>
+              <!-- Products -->
+              <router-link to="/products/customers" custom v-slot="{ href, navigate, isExactActive }">
+                  <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" :class="isExactActive && 'bg-slate-900'">
+                      <a class="block text-slate-200 truncate transition duration-150" :class="isExactActive ? 'hover:text-slate-200' : 'hover:text-white'" :href="href" @click="navigate">
+                          <div class="flex items-center justify-between">
+                              <div class="grow flex items-center">
+                                  <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                                      <path class="fill-current" :class="currentRoute.fullPath.includes('ecommerce') ? 'text-indigo-300' : 'text-slate-400'" d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z" />
+                                      <path class="fill-current" :class="currentRoute.fullPath.includes('ecommerce') ? 'text-indigo-600' : 'text-slate-700'" d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z" />
+                                      <path class="fill-current" :class="currentRoute.fullPath.includes('ecommerce') ? 'text-indigo-500' : 'text-slate-600'" d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z" />
+                                  </svg>
+                                  <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Продукты</span>
+                              </div>
+                          </div>
+                      </a>
+                  </li>
+              </router-link>
+              <!-- Sales -->
+              <router-link to="/transactions" custom v-slot="{ href, navigate, isExactActive }">
+                  <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" :class="isExactActive && 'bg-slate-900'">
+                      <a class="block text-slate-200 truncate transition duration-150" :class="isExactActive ? 'hover:text-slate-200' : 'hover:text-white'" :href="href" @click="navigate">
+                          <div class="flex items-center justify-between">
+                              <div class="grow flex items-center">
+                                  <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                                      <circle class="fill-current" :class="currentRoute.fullPath.includes('component') ? 'text-indigo-500' : 'text-slate-600'" cx="16" cy="8" r="8" />
+                                      <circle class="fill-current" :class="currentRoute.fullPath.includes('component') ? 'text-indigo-300' : 'text-slate-400'" cx="8" cy="16" r="8" />
+                                  </svg>
+                                  <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Продажи</span>
+                              </div>
                           </div>
                       </a>
                   </li>
@@ -176,9 +209,8 @@
                           <div class="flex items-center justify-between">
                               <div class="grow flex items-center">
                                   <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                                      <path class="fill-current" :class="currentRoute.fullPath.includes('ecommerce') ? 'text-indigo-300' : 'text-slate-400'" d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z" />
-                                      <path class="fill-current" :class="currentRoute.fullPath.includes('ecommerce') ? 'text-indigo-600' : 'text-slate-700'" d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z" />
-                                      <path class="fill-current" :class="currentRoute.fullPath.includes('ecommerce') ? 'text-indigo-500' : 'text-slate-600'" d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z" />
+                                      <path class="fill-current" :class="isExactActive ? 'text-indigo-500' : 'text-slate-600'" d="M20 7a.75.75 0 01-.75-.75 1.5 1.5 0 00-1.5-1.5.75.75 0 110-1.5 1.5 1.5 0 001.5-1.5.75.75 0 111.5 0 1.5 1.5 0 001.5 1.5.75.75 0 110 1.5 1.5 1.5 0 00-1.5 1.5A.75.75 0 0120 7zM4 23a.75.75 0 01-.75-.75 1.5 1.5 0 00-1.5-1.5.75.75 0 110-1.5 1.5 1.5 0 001.5-1.5.75.75 0 111.5 0 1.5 1.5 0 001.5 1.5.75.75 0 110 1.5 1.5 1.5 0 00-1.5 1.5A.75.75 0 014 23z" />
+                                      <path class="fill-current" :class="isExactActive ? 'text-indigo-300' : 'text-slate-400'" d="M17 23a1 1 0 01-1-1 4 4 0 00-4-4 1 1 0 010-2 4 4 0 004-4 1 1 0 012 0 4 4 0 004 4 1 1 0 010 2 4 4 0 00-4 4 1 1 0 01-1 1zM7 13a1 1 0 01-1-1 4 4 0 00-4-4 1 1 0 110-2 4 4 0 004-4 1 1 0 112 0 4 4 0 004 4 1 1 0 010 2 4 4 0 00-4 4 1 1 0 01-1 1z" />
                                   </svg>
                                   <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Настройки системы</span>
                               </div>

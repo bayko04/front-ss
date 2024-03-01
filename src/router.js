@@ -28,6 +28,10 @@ import TransactionsList from "./pages/Transactions/TransactionsList.vue";
 import RequestStatus from "./pages/systemSettings/RequestStatus.vue";
 import Calendar from "./pages/Calendar.vue";
 import Comments from "./pages/Comments.vue";
+import Customers from "./pages/Products/Customers.vue";
+import Newsletters from "./pages/marketing/Newsletters.vue";
+import Triggers from "./pages/marketing/Triggers.vue";
+import Questionnaire from "./pages/marketing/Questionnaire.vue";
 
 const routerHistory = createWebHistory()
 
@@ -151,6 +155,22 @@ const router = createRouter({
     {
       path: '/calendar',
       component: Calendar
+    },
+    {
+      path: '/products/customers',
+      component: Customers
+    },
+    {
+      path: '/marketing/newsletters',
+      component: Newsletters
+    },
+    {
+      path: '/marketing/triggers',
+      component: Triggers
+    },
+    {
+      path: '/marketing/questionnaire',
+      component: Questionnaire
     },
 
   ]
