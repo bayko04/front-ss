@@ -27,7 +27,7 @@ const emptyMessage = {
 const echo = ref(undefined);
 const queryString = window.location.search;
 const searchParams = new URLSearchParams(queryString);
-const userChatStatusId = 6
+const userChatStatusId = 3
 export function useMessangers() {
   const route = ref(router?.currentRoute?.value);
 
