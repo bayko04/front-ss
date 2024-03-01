@@ -92,6 +92,6 @@
     })
 
     watch(msgSidebarOpen, () => {
-      msgSidebarOpen.value ? handleScroll() : handleScroll(false)
+      false
     })
 </script>

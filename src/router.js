@@ -28,6 +28,9 @@ import TransactionsList from "./pages/Transactions/TransactionsList.vue";
 import RequestStatus from "./pages/systemSettings/RequestStatus.vue";
 import Calendar from "./pages/Calendar.vue";
 import Comments from "./pages/Comments.vue";
+import Onboarding01 from "./pages/Onboarding01.vue";
+import Onboarding02 from "./pages/Onboarding02.vue";
+import Onboarding03 from "./pages/Onboarding03.vue";
 import Customers from "./pages/Products/Customers.vue";
 import Newsletters from "./pages/marketing/Newsletters.vue";
 import Triggers from "./pages/marketing/Triggers.vue";
@@ -44,7 +47,7 @@ const router = createRouter({
     },
     {
       path: '/customers',
-      component: CustomersList
+      component: CustomersList,
     },
     {
       path: '/customers/create',
@@ -61,15 +64,18 @@ const router = createRouter({
     },
     {
       path: '/users',
-      component: UsersTabs
+      component: UsersTabs,
+      meta: {permission:'users.view'}
     },
     {
       path: '/users/create',
-      component: UserCreate
+      component: UserCreate,
+      meta: {permission :'users.add'}
     },
     {
       path: '/users/update/:id',
-      component: UserUpdate
+      component: UserUpdate,
+      meta: {permission:'users.change'}
     },
     {
       path: '/users/profile/:id',
@@ -157,6 +163,21 @@ const router = createRouter({
       component: Calendar
     },
     {
+      path: '/onboarding01',
+      component: Onboarding01,
+      meta: {permission:'companies.add'}
+    },
+    {
+      path: '/onboarding02',
+      component: Onboarding02,
+      meta: {permission:'companies.add'}
+    },
+    {
+      path: '/onboarding03',
+      component: Onboarding03,
+      meta: {permission:'companies.add'}
+    },
+    {
       path: '/products/customers',
       component: Customers
     },
@@ -190,6 +211,11 @@ router.beforeEach(async (to) => {
     authStore.returnUrl = to.fullPath;
     return '/signin';
   }
+
+  // const permission = to.meta.permission;
+  // if (permission && !authStore.hasPermission(permission)) {
+  //   return '/';
+  // }
 });
 
 export default router

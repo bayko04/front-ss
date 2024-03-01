@@ -48,5 +48,8 @@ export const useAuthStore = defineStore({
             localStorage.removeItem('userData');
             location.assign('/signin')
         },
+        hasPermission(permission) {
+            return this.userData && this.userData.permissions && this.userData.permissions.includes(permission);
+        }
     }
 });
