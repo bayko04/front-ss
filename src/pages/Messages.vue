@@ -46,6 +46,9 @@
         <ModalForClosingChat/>
         <ModalContactsSearchForChat/>
         <ModalForNewChat/>
+        <Suspense>
+          <ModalForNewTask/>
+        </Suspense>
       </main>
 
     </div> 
@@ -67,8 +70,9 @@
     import ModalForClosingChat from "../components/ModalForClosingChat.vue";
     import { useMessangers } from "../utils/messengers.js"
     import CustomerInfo from "../partials/messages/CustomerInfo.vue";
-    import ModalContactsSearchForChat from "../components/ModalContactsSearchForChat.vue";
+    import ModalContactsSearchForChat from "../partials/messages/ModalContactsSearchForChat.vue";
     import ModalForNewChat from "../components/ModalForNewChat.vue";
+    import ModalForNewTask from "../partials/messages/ModalForNewTask.vue";
 
     const sidebarOpen = ref(false)
     const msgSidebarOpen = ref(true)

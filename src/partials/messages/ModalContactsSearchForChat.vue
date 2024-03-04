@@ -63,8 +63,8 @@
 
 <script setup>
 import { ref, nextTick, onMounted, onUnmounted, watch } from 'vue'
-import {searchContactModal} from "../utils/modalVariables.js"
-import {useCustomerStore} from "../stores/customer.store.js";
+import {searchContactModal} from "../../utils/modalVariables.js"
+import {useCustomerStore} from "../../stores/customer.store.js";
 
 const modalContent = ref(null)
 const searchInput = ref(null)

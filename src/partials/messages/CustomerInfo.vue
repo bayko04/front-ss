@@ -3,19 +3,17 @@
   <div v-if="activeChat">
     <div class="lg:sticky lg:top-16 bg-slate-50 dark:bg-slate-800/20 lg:overflow-x-hidden lg:overflow-y-auto no-scrollbar lg:shrink-0 border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-slate-700 lg:w-[320px] xl:w-[352px] 2xl:w-[calc(352px+80px)] lg:h-[calc(100dvh-64px)]">
       <div class="py-8 px-4 lg:px-8 2xl:px-12">
-        <div class="text-slate-800 dark:text-slate-100 font-semibold mb-2">Детали клиента</div>
+        <div class="text-slate-800 dark:text-slate-100 font-semibold mb-2">Детали обращения</div>
         <div class="max-w-sm mx-auto lg:max-w-none">
-<!--          <h2 class="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">Review & Pay</h2>-->
           <div class="space-y-6">
 
-              <!-- Order summary -->
               <div>
-                  <ul class="mb-4">
+                  <ul v-if="customerStore.customer" class="mb-4">
                       <li class="text-sm w-full flex justify-between py-3 border-b border-slate-200 dark:border-slate-700">
-                          <div>Генадий Иосипович</div>
+                          <div>{{ customerStore.customer.name }}</div>
                       </li>
 
-                      <div class="grow flex items-center">
+                      <div v-if="customerStore.customer.phone" class="grow flex items-center">
                           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-address-book" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                               <path d="M20 6v12a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2z" />
@@ -25,15 +23,15 @@
                               <path d="M4 12h3" />
                               <path d="M4 16h3" />
                           </svg>
-                          <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">+996 777 123-456</span>
+                          <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">{{ customerStore.customer.phone }}</span>
                       </div>
-                      <div class="grow flex items-center">
+                      <div v-if="customerStore.customer.email" class="grow flex items-center">
                           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                               <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
                               <path d="M3 7l9 6l9 -6" />
                           </svg>
-                          <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">gentester@gmail.com</span>
+                          <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">{{ customerStore.customer.email }}</span>
                       </div>
 
                       <li class="text-sm w-full flex justify-between py-3 border-b border-slate-200 dark:border-slate-700">
@@ -92,93 +90,18 @@
               <!-- Create task -->
               <div>
                   <ul class="mb-4">
-                      <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white" aria-controls="feedback-modal" @click.stop="feedbackModalOpen = true">Создать задачу</button>
-
-                      <div class="grow flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-neutral" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                              <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                              <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2zm-7 -7h.01m3.99 0h.01m-4.01 3h4" />
-                          </svg>
-
-                          <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Создать задачу</span>
-                      </div>
-                      <li class="text-sm w-full flex justify-between py-3 border-b border-slate-200 dark:border-slate-700">
-
-                      </li>
+                    <div @click="openTaskModal()" class="grow flex items-center cursor-pointer">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checklist w-6 h-6" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8" />
+                        <path d="M14 19l2 2l4 -4" />
+                        <path d="M9 8h4" />
+                        <path d="M9 12h2" />
+                      </svg>
+                      <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">Создать задачу</span>
+                    </div>
                   </ul>
               </div>
-            <!-- Order summary -->
-            <div>
-              <div class="text-slate-800 dark:text-slate-100 font-semibold mb-2">Order Summary</div>
-              <ul class="mb-4">
-                <li class="text-sm w-full flex justify-between py-3 border-b border-slate-200 dark:border-slate-700">
-                  <div>Subtotal</div>
-                  <div class="font-medium text-slate-800 dark:text-slate-100">$205</div>
-                </li>
-                <li class="text-sm w-full flex justify-between py-3 border-b border-slate-200 dark:border-slate-700">
-                  <div>Total due (including taxes)</div>
-                  <div class="font-medium text-emerald-600">$253</div>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Payment Details -->
-            <div>
-              <div class="text-slate-800 dark:text-slate-100 font-semibold mb-4">Payment Details</div>
-              <div class="space-y-4">
-                <!-- Card Number -->
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="card-nr">Card Number <span class="text-rose-500">*</span></label>
-                  <input id="card-nr" class="form-input w-full" type="text" placeholder="1234 1234 1234 1234" />
-                </div>
-                <!-- Expiry and CVC -->
-                <div class="flex space-x-4">
-                  <div class="flex-1">
-                    <label class="block text-sm font-medium mb-1" for="card-expiry">Expiry Date <span class="text-rose-500">*</span></label>
-                    <input id="card-expiry" class="form-input w-full" type="text" placeholder="MM/YY" />
-                  </div>
-                  <div class="flex-1">
-                    <label class="block text-sm font-medium mb-1" for="card-cvc">CVC <span class="text-rose-500">*</span></label>
-                    <input id="card-cvc" class="form-input w-full" type="text" placeholder="CVC" />
-                  </div>
-                </div>
-                <!-- Name on Card -->
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="card-name">Name on Card <span class="text-rose-500">*</span></label>
-                  <input id="card-name" class="form-input w-full" type="text" placeholder="John Doe" />
-                </div>
-              </div>
-            </div>
-
-            <!-- Additional Details -->
-            <div>
-              <div class="text-slate-800 dark:text-slate-100 font-semibold mb-4">Additional Details</div>
-              <div class="space-y-4">
-                <!-- Email -->
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="card-email">Email <span class="text-rose-500">*</span></label>
-                  <input id="card-email" class="form-input w-full" type="email" placeholder="john@company.com" />
-                </div>
-                <!-- Country -->
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="card-country">Country <span class="text-rose-500">*</span></label>
-                  <select id="card-country" class="form-select w-full">
-                    <option>Italy</option>
-                    <option>USA</option>
-                    <option>United Kingdom</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-6">
-              <div class="mb-4">
-                <button class="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white">Pay $253.00</button>
-              </div>
-              <div class="text-xs text-slate-500 italic text-center">You'll be charged $253, including $48 for VAT in Italy</div>
-            </div>
-
           </div>
         </div>
       </div>
@@ -188,8 +111,16 @@
 
 <script setup>
 import { useMessangers } from "../../utils/messengers.js";
+import {useCustomerStore} from "../../stores/customer.store.js"
+import { createTaskModal } from "../../utils/modalVariables.js"
 
+const customerStore = useCustomerStore()
 const { activeChat } = await useMessangers()
+
+function openTaskModal() {
+    createTaskModal.value.stayOpen = true
+    createTaskModal.value.status = true
+}
 </script>
 
 <script>
