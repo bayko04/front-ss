@@ -20,26 +20,22 @@
                             </div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Order</div>
+                            <div class="font-semibold text-left">Тема рассылки</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Date</div>
+                            <div class="font-semibold text-left">Дата отправки</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Customer</div>
+                            <div class="font-semibold text-left">Статус рассылки</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Total</div>
+                            <div class="font-semibold text-left">Количество получателей</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Status</div>
+                            <div class="font-semibold text-left">Тип рассылки</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold">Items</div>
-                        </th>
-
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <span class="sr-only">Menu</span>
+                            <div class="font-semibold">Примечание</div>
                         </th>
                     </tr>
                     </thead>
@@ -60,7 +56,7 @@
 
 <script>
 import { ref, watch } from 'vue'
-import Order from './OrdersTableItem.vue'
+import Newsletter from './NewslettersTableItem.vue'
 
 import Image01 from '../../images/icon-01.svg'
 import Image02 from '../../images/icon-02.svg'
@@ -69,7 +65,7 @@ import Image03 from '../../images/icon-03.svg'
 export default {
     name: 'OrdersTable',
     components: {
-        Order,
+        Newsletter,
     },
     props: ['selectedItems'],
     setup(props, { emit }) {

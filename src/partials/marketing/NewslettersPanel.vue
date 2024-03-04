@@ -24,7 +24,7 @@
     </div>
 
       <!-- Table -->
-      <OrdersTable @change-selection="updateSelectedItems($event)"/>
+      <NewslettersTable @change-selection="updateSelectedItems($event)"/>
     <!-- Panel footer -->
     <footer>
       <div class="flex flex-col px-6 py-5 border-t border-slate-200 dark:border-slate-700">
@@ -49,7 +49,7 @@ import Header from '../../partials/Header.vue'
 import DeleteButton from '../../partials/actions/DeleteButton.vue'
 import DateSelect from '../../components/DateSelect.vue'
 import FilterButton from '../../components/DropdownFilter.vue'
-import OrdersTable from '../../partials/orders/OrdersTable.vue'
+import NewslettersTable from '../../partials/marketing/NewslettersTable.vue'
 import PaginationClassic from '../../components/PaginationClassic.vue'
 
 export default {
@@ -60,7 +60,7 @@ export default {
         DeleteButton,
         DateSelect,
         FilterButton,
-        OrdersTable,
+        NewslettersTable,
         PaginationClassic,
     },
     setup() {

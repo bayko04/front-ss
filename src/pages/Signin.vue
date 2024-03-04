@@ -57,7 +57,6 @@ onBeforeUnmount(() => registerSocialAuthEvent(false))
               <router-link class="block" to="/">
                 <img src="../images/logo2.png" class="w-14" alt="">
               </router-link>
-                <img src="../images/e-lombard.png" class="w-60" alt="">
             </div>
           </div>          
 
