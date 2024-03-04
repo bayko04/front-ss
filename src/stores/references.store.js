@@ -6,7 +6,8 @@ const baseUrl = `${import.meta.env.VITE_API_URL}/references`;
 export const useReferencesStore = defineStore({
     id: 'references',
     state: () => ({
-        chatStatuses: []
+        chatStatuses: [],
+        taskTypes: [],
     }),
     actions: {
         async getChatStatuses() {
@@ -31,6 +32,26 @@ export const useReferencesStore = defineStore({
         },
         getItemIndex(id) {
             return this.chatStatuses.findIndex(item => item.id === id)
+        },
+        async getTaskTypes() {
+            const result = await fetchWrapper.get(`${baseUrl}/task-types`);
+            if(result.data) {
+                this.taskTypes = result.data
+            }
+        },
+        async setOrUpdateTaskType(form) {
+            const result = await fetchWrapper.post(`${baseUrl}/task-types`, form);
+            if(result.data && form.id) {
+                const index = this.getItemIndex(form.id)
+                this.taskTypes[index] = result.data
+            } else if(result.data) {
+                this.taskTypes.push(result.data)
+            }
+        },
+        async deleteTaskType(id) {
+            await fetchWrapper.delete(`${baseUrl}/task-types/${id}`);
+            const index = this.getItemIndex(id)
+            this.taskTypes.splice(index, 1)
         }
     }
 });

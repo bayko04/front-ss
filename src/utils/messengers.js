@@ -3,6 +3,7 @@ import { ref } from "vue";
 import  router  from '../router.js';
 import {getEcho} from "./echo.js";
 import {useCustomerStore} from "../stores/customer.store.js"
+import { useCustomerRequestStore } from "../stores/customer-request.store.js"
 
 const references = ref([]);
 const activeChatStatus = ref(null)
@@ -28,6 +29,7 @@ const echo = ref(undefined);
 const queryString = window.location.search;
 const searchParams = new URLSearchParams(queryString);
 const userChatStatusId = 3
+
 export function useMessangers() {
   const route = ref(router?.currentRoute?.value);
 
@@ -168,11 +170,14 @@ export function useMessangers() {
     }
 
     const customerStore = useCustomerStore()
+    const customerRequestStore = useCustomerRequestStore()
+    customerRequestStore.getCustomerRequest()
     if(activeChat.value.customer_id && activeChat.value.customer_id !== customerStore.customer?.id) {
       await customerStore.getCustomer(activeChat.value.customer_id)
     } else if(!activeChat.value.customer_id) {
       customerStore.customer = null
     }
+
 
     const newRoute = {
       path: '/messages',
