@@ -1,7 +1,7 @@
 <template>
     <div class="bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700 relative">
         <header class="px-5 py-4">
-            <h2 class="font-semibold text-slate-800 dark:text-slate-100">All Orders <span class="text-slate-400 dark:text-slate-500 font-medium">442</span></h2>
+            <h2 class="font-semibold text-slate-800 dark:text-slate-100">Количество рассылок <span class="text-slate-400 dark:text-slate-500 font-medium">442</span></h2>
         </header>
         <div>
 

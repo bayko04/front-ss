@@ -22,7 +22,7 @@
           <!-- Content --> 
           <div class="bg-white dark:bg-slate-800 shadow-lg rounded-sm mb-8">
             <div class="flex flex-col md:flex-row md:-mr-px">
-              <SettingsSidebar />
+              <SettingsSystem />
               <NotificationsPanel />
             </div>
           </div>
@@ -39,7 +39,7 @@
 import { ref } from 'vue'
 import Sidebar from '../../partials/Sidebar.vue'
 import Header from '../../partials/Header.vue'
-import SettingsSidebar from '../../partials/settings/SettingsSidebar.vue'
+import SettingsSystem from '../../partials/settings/SettingsSystem.vue'
 import NotificationsPanel from '../../partials/settings/NotificationsPanel.vue'
 
 const sidebarOpen = ref(false)

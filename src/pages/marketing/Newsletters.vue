@@ -22,7 +22,7 @@
           <!-- Content --> 
           <div class="bg-white dark:bg-slate-800 shadow-lg rounded-sm mb-8">
             <div class="flex flex-col md:flex-row md:-mr-px">
-              <SettingsSidebar />
+              <MarketingSidebar />
               <NewslettersPanel />
             </div>
           </div>
@@ -39,7 +39,7 @@
 import { ref } from 'vue'
 import Sidebar from '../../partials/Sidebar.vue'
 import Header from '../../partials/Header.vue'
-import SettingsSidebar from '../../partials/settings/SettingsSidebar.vue'
+import MarketingSidebar from '../../partials/marketing/MarketingSidebar.vue'
 import NewslettersPanel from '../../partials/marketing/NewslettersPanel.vue'
 
 export default {
@@ -47,7 +47,7 @@ export default {
     components: {
         Sidebar,
         Header,
-        SettingsSidebar,
+        MarketingSidebar,
         NewslettersPanel,
     },
   setup() {
