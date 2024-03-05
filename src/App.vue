@@ -11,7 +11,6 @@ import { onMounted, ref } from 'vue';
 import Banner from './components/Banner.vue';
 import { useAuthStore } from './stores/auth.store.js';
 import { useMessangers } from "./utils/messengers.js"
-
 export default {
   components: {
     Banner

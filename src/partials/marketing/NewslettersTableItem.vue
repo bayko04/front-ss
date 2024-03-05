@@ -31,6 +31,12 @@
             <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5" :class="statusColor(order.status)">{{order.status}}</div>
         </td>
         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+            <div class="text-center">{{order.items}}</div>
+        </td>
+        <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+            <div class="text-left">{{order.location}}</div>
+        </td>
+        <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
             <div class="flex items-center">
                 <div v-html="typeIcon(order.type)"></div>
                 <div>{{order.type}}</div>

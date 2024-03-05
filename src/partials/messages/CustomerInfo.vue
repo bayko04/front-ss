@@ -7,6 +7,7 @@
         <div class="max-w-sm mx-auto lg:max-w-none">
           <div class="space-y-6">
 
+              <!-- Order summary -->
               <div>
                   <ul v-if="customerStore.customer" class="mb-4">
                       <li class="text-sm w-full flex justify-between py-3 border-b border-slate-200 dark:border-slate-700">
