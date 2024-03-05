@@ -143,9 +143,11 @@
 import {onBeforeUnmount, onMounted, ref} from 'vue'
 import Sidebar from '../partials/Sidebar.vue'
 import Header from '../partials/Header.vue'
+import { useAuthStore } from "../stores/auth.store.js";
 
 const sidebarOpen = ref(false)
 const baseUrl = `${import.meta.env.VITE_API_URL}/auth/redirect`;
+const authStore = useAuthStore()
 
 function registerSocialAuthEvent(register) {
   if (register)
@@ -153,8 +155,10 @@ function registerSocialAuthEvent(register) {
   return window.removeEventListener('message', handleAuth)
 }
 
-function handleAuth(userdata) {
-  console.log(userdata)
+function handleAuth(accountData) {
+  if(accountData.data?.accountId) {
+    window.location.href = `/messages?accountId=${accountData.data.accountId}`
+  }
 }
 
 function socialAuthInit(provider) {
@@ -162,7 +166,7 @@ function socialAuthInit(provider) {
   const height = 660
   const left = window.screen.width / 2 - (width / 2)
   const top = window.screen.height / 2 - (height / 2)
-  window.open(`${baseUrl}/${provider}`, 'Log In',
+  window.open(`${baseUrl}/${provider}/${authStore.userData.user.company_id}`, 'Log In',
       `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no,
       resizable=no, copyhistory=no, width=${width},height=${height},top=${top},left=${left}`)
 }
