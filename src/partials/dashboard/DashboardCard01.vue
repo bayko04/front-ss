@@ -16,7 +16,7 @@
           </li>
         </EditMenu>
       </header>
-      <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Объем выданных займов</h2>
+      <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Cумма проданных товаров</h2>
       <div class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-1">сом</div>
       <div class="flex items-start">
         <div class="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">2,486,780</div>

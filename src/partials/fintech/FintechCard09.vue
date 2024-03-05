@@ -1,11 +1,10 @@
 <template>
   <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
     <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700 flex items-center">
-      <h2 className="font-semibold text-slate-800 dark:text-slate-100">Типы залоговых обеспечений</h2>
+      <h2 className="font-semibold text-slate-800 dark:text-slate-100">Типы клиентов по сегментам</h2>
     </header>
     <div className="px-5 py-3">
-      <div className="text-sm italic mb-2">Оценочная стоимость залогового имущества:</div>
-      <div className="text-3xl font-bold text-slate-800 dark:text-slate-100">3,240,807 сом</div>
+      <div className="text-3xl font-bold text-slate-800 dark:text-slate-100">5 349 клиентов</div>
     </div>
     <!-- Chart built with Chart.js 3 -->
     <!-- Change the height attribute to adjust the chart height -->
