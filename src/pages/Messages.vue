@@ -72,7 +72,7 @@
     import CustomerInfo from "../partials/messages/CustomerInfo.vue";
     import ModalContactsSearchForChat from "../partials/messages/ModalContactsSearchForChat.vue";
     import ModalForNewChat from "../components/ModalForNewChat.vue";
-    import ModalForNewTask from "../partials/messages/ModalForNewTask.vue";
+    import ModalForNewTask from "../partials/calendar/ModalForNewTask.vue";
 
     const sidebarOpen = ref(false)
     const msgSidebarOpen = ref(true)

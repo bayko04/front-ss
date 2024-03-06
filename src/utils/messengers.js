@@ -4,6 +4,7 @@ import  router  from '../router.js';
 import {getEcho} from "./echo.js";
 import {useCustomerStore} from "../stores/customer.store.js"
 import { useCustomerRequestStore } from "../stores/customer-request.store.js"
+import {useTaskStore} from "../stores/task.store.js";
 
 const references = ref([]);
 const activeChatStatus = ref(null)
@@ -171,7 +172,10 @@ export function useMessangers() {
 
     const customerStore = useCustomerStore()
     const customerRequestStore = useCustomerRequestStore()
-    customerRequestStore.getCustomerRequest()
+    const taskStore = useTaskStore()
+
+    await customerRequestStore.getCustomerRequest()
+    taskStore.getTasksForCustomerRequest(customerRequestStore.customerRequest.id)
     if(activeChat.value.customer_id && activeChat.value.customer_id !== customerStore.customer?.id) {
       await customerStore.getCustomer(activeChat.value.customer_id)
     } else if(!activeChat.value.customer_id) {

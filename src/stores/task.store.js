@@ -5,20 +5,35 @@ export const useTaskStore = defineStore({
     id: 'task',
     state: () => ({
         tasks: [],
-        task: {},
+        task: {
+            due_date: new Date().toISOString().split('T')[0],
+        },
     }),
     actions: {
-        async getTasks(date) {
-            this.tasks = (await fetchWrapper.get(`/tasks`, date)).data;
+        async getTasksForUser(userId, month, year) {
+            this.tasks = (await fetchWrapper.get(`/tasks/${userId}/${month}/${year}`)).data;
         },
-        async getTask(id) {
-            this.task = (await fetchWrapper.get(`/tasks/${id}`)).data;
+        async getTasksForCustomerRequest(customerRequestId) {
+            this.tasks = (await fetchWrapper.get(`/tasks/customer-request/${customerRequestId}`)).data;
         },
         async createOrUpdateTask() {
-            return (await fetchWrapper.post(`/tasks`, this.task)).data;
+            this.task = (await fetchWrapper.post(`/tasks`, this.task)).data;
+            this.updateTaskInArray(this.task);
         },
-        async deleteTask(id) {
-            return (await fetchWrapper.delete(`/tasks/${id}`)).data;
+        async deleteTask() {
+            await fetchWrapper.delete(`/tasks/${this.task.id}`);
+            this.tasks = this.tasks.filter(x => x.id !== this.task.id);
+            this.task = {
+                due_date: new Date().toISOString().split('T')[0],
+            };
+        },
+        updateTaskInArray(task) {
+            const index = this.tasks.findIndex(t => t.id === task.id);
+            if (index !== -1) {
+                this.tasks[index] = task;
+            } else {
+                this.tasks.push(task);
+            }
         }
     }
 });

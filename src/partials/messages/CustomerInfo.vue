@@ -103,6 +103,13 @@
                     </div>
                   </ul>
               </div>
+            <div>
+              <ul class="mb-4">
+                <li v-for="task in taskStore.tasks" @click.stop="openTaskInfo(task)" class="text-sm w-full flex cursor-pointer w-full justify-between py-3 border-b border-slate-200 dark:border-slate-700">
+                  <div>{{task.name}}</div>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -114,13 +121,22 @@
 import { useMessangers } from "../../utils/messengers.js";
 import {useCustomerStore} from "../../stores/customer.store.js"
 import { createTaskModal } from "../../utils/modalVariables.js"
+import {useTaskStore} from "../../stores/task.store.js"
+import {useCustomerRequestStore} from "../../stores/customer-request.store.js";
 
+const customerRequestStore = useCustomerRequestStore()
 const customerStore = useCustomerStore()
 const { activeChat } = await useMessangers()
+const taskStore = useTaskStore()
 
 function openTaskModal() {
     createTaskModal.value.stayOpen = true
-    createTaskModal.value.status = true
+    createTaskModal.value.status = 'create-update'
+}
+
+function openTaskInfo(task) {
+  taskStore.task = task
+  createTaskModal.value.status = 'info'
 }
 </script>
 

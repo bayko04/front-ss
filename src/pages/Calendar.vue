@@ -17,18 +17,12 @@
           <div class="sm:flex sm:justify-between sm:items-center mb-4">
 
             <!-- Left: Title -->
-            <div class="mb-4 sm:mb-0">
-              <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold"><span>{{`${monthNames[month]} ${year}`}}</span> ✨</h1>
-            </div>
-
-            <!-- Right: Actions -->
-            <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-
+            <div class="flex flex-row mb-4 sm:mb-0">
               <!-- Previous month button -->
               <button
-                class="btn px-2.5 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300 disabled:border-slate-200 dark:disabled:border-slate-700 disabled:bg-slate-100 dark:disabled:bg-slate-800 disabled:text-slate-400 dark:disabled:text-slate-600 disabled:cursor-not-allowed"
-                :disabled="month === 0 ? true : false"
-                @click="month--;getDays()"
+                  class="mr-2 btn px-2.5 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300 disabled:border-slate-200 dark:disabled:border-slate-700 disabled:bg-slate-100 dark:disabled:bg-slate-800 disabled:text-slate-400 dark:disabled:text-slate-600 disabled:cursor-not-allowed"
+                  :disabled="month === 0 ? true : false"
+                  @click="prevMonth()"
               >
                 <span class="sr-only">Previous month</span><wbr />
                 <svg class="h-4 w-4 fill-current" viewBox="0 0 16 16">
@@ -36,11 +30,13 @@
                 </svg>
               </button>
 
+              <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold"><span>{{`${monthNames[month]} ${year}`}}</span> ✨</h1>
+
               <!-- Next month button -->
               <button
-                class="btn px-2.5 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300 disabled:border-slate-200 dark:disabled:border-slate-700 disabled:bg-slate-100 dark:disabled:bg-slate-800 disabled:text-slate-400 dark:disabled:text-slate-600 disabled:cursor-not-allowed"
-                :disabled="month === 11 ? true : false"
-                @click="month++;getDays()"
+                  class="ml-2 btn px-2.5 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300 disabled:border-slate-200 dark:disabled:border-slate-700 disabled:bg-slate-100 dark:disabled:bg-slate-800 disabled:text-slate-400 dark:disabled:text-slate-600 disabled:cursor-not-allowed"
+                  :disabled="month === 11 ? true : false"
+                  @click="nextMonth()"
               >
                 <span class="sr-only">Next month</span><wbr />
                 <svg class="h-4 w-4 fill-current" viewBox="0 0 16 16">
@@ -48,14 +44,16 @@
                 </svg>
               </button>
 
-              <hr class="w-px h-full bg-slate-200 dark:bg-slate-700 border-none mx-1" />
+            </div>
 
+            <!-- Right: Actions -->
+            <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
               <!-- Create event button -->
-              <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+              <button @click.stop="newTaskModal()" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                 <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                   <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                 </svg>
-                <span class="hidden xs:block ml-2">Create Event</span>
+                <span class="hidden xs:block ml-2">Добавить задачу</span>
               </button>
 
             </div>
@@ -68,48 +66,15 @@
             <!-- Filters  -->
             <div class="mb-4 sm:mb-0 mr-2">
               <ul class="flex flex-wrap items-center -m-1">
-                <li class="m-1">
+                <li class="m-1" v-for="taskType in referencesStore.taskTypes">
                   <button class="btn-sm bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-500 dark:text-slate-400">
-                    <div class="w-1 h-3.5 bg-sky-500 shrink-0"></div>
-                    <span class="ml-1.5">Acme Inc.</span>
+                    <div class="w-1 h-3.5 shrink-0" :class="eventColor(taskType.color)"></div>
+                    <span class="ml-1.5">{{ taskType.name }}</span>
                   </button>
-                </li>
-                <li class="m-1">
-                  <button class="btn-sm bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-500 dark:text-slate-400">
-                    <div class="w-1 h-3.5 bg-emerald-500 shrink-0"></div>
-                    <span class="ml-1.5">Life & Family</span>
-                  </button>
-                </li>
-                <li class="m-1">
-                  <button class="btn-sm bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-500 dark:text-slate-400">
-                    <div class="w-1 h-3.5 bg-indigo-500 shrink-0"></div>
-                    <span class="ml-1.5">Reservations</span>
-                  </button>
-                </li>
-                <li class="m-1">
-                  <button class="btn-sm bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-500 dark:text-slate-400">
-                    <div class="w-1 h-3.5 bg-rose-400 shrink-0"></div>
-                    <span class="ml-1.5">Events</span>
-                  </button>
-                </li>
-                <li class="m-1">
-                  <button class="btn-sm bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-500 dark:text-slate-400">
-                    <div class="w-1 h-3.5 bg-amber-500 shrink-0"></div>
-                    <span class="ml-1.5">Misc</span>
-                  </button>
-                </li>
-                <li class="m-1">
-                  <button class="btn-sm bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-indigo-500">+Add New</button>
                 </li>
               </ul>
             </div>
 
-            <!-- View buttons (requires custom integration) -->
-            <div class="flex flex-nowrap -space-x-px">
-              <button class="btn bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:bg-slate-50 text-indigo-500 rounded-none first:rounded-l last:rounded-r">Month</button>
-              <button class="btn bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900 text-slate-600 dark:text-slate-300 rounded-none first:rounded-l last:rounded-r">Week</button>
-              <button class="btn bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900 text-slate-600 dark:text-slate-300 rounded-none first:rounded-l last:rounded-r">Day</button>
-            </div>
           </div>
 
           <!-- Calendar table -->
@@ -146,20 +111,17 @@
                   <div class="grow flex flex-col relative p-0.5 sm:p-1.5 overflow-hidden">
                     <button
                       class="relative w-full text-left mb-1"
-                      v-for="(event, index) in getEvents(day)"
+                      v-for="(task, index) in getEvents(day)"
+                      @click.stop="openTaskModal(task)"
                       :key="index"
                     >
-                      <div class="px-2 py-0.5 rounded overflow-hidden" :class="eventColor(event.eventColor)">
+                      <div class="px-2 py-0.5 rounded overflow-hidden" :class="eventColor(task.task_type.color)">
                         <!-- Event name -->
-                        <div class="text-xs font-semibold truncate">{{event.eventName}}</div>
+                        <div class="text-xs font-semibold truncate">{{task.name}}</div>
                         <!-- Event time -->
                         <div class="text-xs uppercase truncate hidden sm:block">
                           <!-- Start date -->
-                          <span v-if="event.eventStart">{{event.eventStart.toLocaleTimeString([], {hour12: true, hour: 'numeric', minute:'numeric'})}}</span>
-                          <!-- End date -->
-                          <span v-if="event.eventEnd">
-                            - <span>{{event.eventEnd.toLocaleTimeString([], {hour12: true, hour: 'numeric', minute:'numeric'})}}</span>
-                          </span>
+                          <span>{{task.due_date}}</span>
                         </div>
                       </div>
                     </button>
@@ -172,7 +134,7 @@
                       v-if="getEvents(day).length > 2"
                       class="text-xs text-slate-500 dark:text-slate-300 font-medium whitespace-nowrap text-center sm:py-0.5 px-0.5 sm:px-2 border border-slate-200 dark:border-slate-700 rounded"
                     >
-                      <span class="md:hidden">+</span><span>{{getEvents(day).length - 2}}</span> <span class="hidden md:inline">more</span>
+                      <span class="md:hidden">+</span><span>{{getEvents(day).length - 2}}</span> <span class="hidden md:inline">больше</span>
                     </button>
                     <!-- Day number -->
                     <button class="inline-flex ml-auto w-6 h-6 items-center justify-center text-xs sm:text-sm dark:text-slate-300 font-medium text-center rounded-full hover:bg-indigo-100 dark:hover:bg-slate-600" :class="{'text-indigo-500': isToday(day) }">{{day}}</button>
@@ -188,6 +150,9 @@
             </div>
           </div>
 
+          <Suspense>
+            <ModalForNewTask/>
+          </Suspense>
         </div>
       </main>
 
@@ -200,178 +165,34 @@
 import { ref, onMounted } from 'vue'
 import Sidebar from '../partials/Sidebar.vue'
 import Header from '../partials/Header.vue'
+import { useTaskStore } from "../stores/task.store.js";
+import { useAuthStore } from "../stores/auth.store.js";
+import { useReferencesStore } from "../stores/references.store.js";
+import ModalBlank from "../components/ModalBlank.vue";
+import { createTaskModal } from "../utils/modalVariables.js"
+import ModalForNewTask from "../partials/calendar/ModalForNewTask.vue";
 
 export default {
   name: 'Calendar',
   components: {
+    ModalForNewTask,
+    ModalBlank,
     Sidebar,
     Header,
   },
   setup() {
     const today = new Date()
     const sidebarOpen = ref(false)
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    const monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+    const dayNames = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
     const month = ref(today.getMonth())
     const year = ref(today.getFullYear())
     const daysInMonth = ref([])
     const startingBlankDays = ref([])
     const endingBlankDays = ref([])
-    const events = ref([
-      // Previous month
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth() - 1, 8, 3),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth() - 1, 8, 7),
-        eventName: '⛱️ Relax for 2 at Marienbad',
-        eventColor: 'indigo'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth() - 1, 12, 10),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 12, 11),
-        eventName: 'Team Catch-up',
-        eventColor: 'sky'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth() - 1, 18, 2),
-        eventEnd: '',
-        eventName: '✍️ New Project (2)',
-        eventColor: 'yellow'
-      },                    
-      // Current month
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 1, 10),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 1, 11),
-        eventName: 'Meeting w/ Patrick Lin',
-        eventColor: 'sky'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 1, 19),
-        eventEnd: '',
-        eventName: 'Reservation at La Ginestre',
-        eventColor: 'indigo'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 3, 9),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 3, 10),
-        eventName: '✍️ New Project',
-        eventColor: 'yellow'
-      }, 
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 7, 21),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 7, 22),
-        eventName: '⚽ 2021 - Semi-final',
-        eventColor: 'red'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 9, 10),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 9, 11),
-        eventName: 'Meeting w/Carolyn',
-        eventColor: 'sky'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 9, 13),
-        eventEnd: '',
-        eventName: 'Pick up Marta at school',
-        eventColor: 'emerald'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 9, 14),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 9, 15),
-        eventName: 'Meeting w/ Patrick Lin',
-        eventColor: 'emerald'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 9, 19),
-        eventEnd: '',
-        eventName: 'Reservation at La Ginestre',
-        eventColor: 'indigo'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 11, 10),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 11, 11),
-        eventName: '⛱️ Relax for 2 at Marienbad',
-        eventColor: 'indigo'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 11, 19),
-        eventEnd: '',
-        eventName: '⚽ 2021 - Semi-final',
-        eventColor: 'red'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 14, 10),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 14, 11),
-        eventName: 'Team Catch-up',
-        eventColor: 'sky'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 21, 2),
-        eventEnd: '',
-        eventName: 'Pick up Marta at school',
-        eventColor: 'emerald'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 21, 3),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 21, 7),
-        eventName: '✍️ New Project (2)',
-        eventColor: 'yellow'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 22, 10),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 22, 11),
-        eventName: 'Team Catch-up',
-        eventColor: 'sky'
-      },                     
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 22, 19),
-        eventEnd: '',
-        eventName: '⚽ 2021 - Semi-final',
-        eventColor: 'red'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 23, 0),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 23, 23),
-        eventName: 'You stay at Meridiana B&B',
-        eventColor: 'indigo'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 25, 10),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 25, 11),
-        eventName: 'Meeting w/ Kylie Joh',
-        eventColor: 'sky'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 29, 10),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 29, 11),
-        eventName: 'Call Request ->',
-        eventColor: 'sky'
-      },
-      // Next month
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 2, 3),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 2, 7),
-        eventName: '✍️ New Project (2)',
-        eventColor: 'yellow'
-      },                    
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 14, 10),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 14, 11),
-        eventName: 'Team Catch-up',
-        eventColor: 'sky'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 25, 2),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 25, 3),
-        eventName: 'Pick up Marta at school',
-        eventColor: 'emerald'
-      },
-      {
-        eventStart: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 27, 21),
-        eventEnd: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 27, 22),
-        eventName: '⚽ 2021 - Semi-final',
-        eventColor: 'red'
-      },
-    ])
+    const taskStore = useTaskStore()
+    const authStore = useAuthStore()
+    const referencesStore = useReferencesStore()
 
     const isToday = (date) => {
       const day = new Date(year.value, month.value, date)
@@ -379,7 +200,7 @@ export default {
     }
 
     const getEvents = (date) => {
-      return events.value.filter(e => new Date(e.eventStart).toDateString() === new Date(year.value, month.value, date).toDateString())
+      return taskStore.tasks.filter(e => new Date(e.due_date).toDateString() === new Date(year.value, month.value, date).toDateString())
     }
 
     const getDays = () => {
@@ -425,10 +246,43 @@ export default {
         default:
           return '';
       }
-    }    
+    }
+
+    const nextMonth = () => {
+      if (month.value === 11) {
+        month.value = 0
+        year.value++
+      } else {
+        month.value++
+      }
+      getDays()
+      taskStore.getTasksForUser(authStore.userData.user.id, month.value + 1, year.value)
+    }
+
+    const prevMonth = () => {
+      if (month.value === 0) {
+        month.value = 11
+        year.value--
+      } else {
+        month.value--
+      }
+      getDays()
+      taskStore.getTasksForUser(authStore.userData.user.id, month.value + 1, year.value)
+    }
+
+    function openTaskModal(task) {
+      taskStore.task = task
+      createTaskModal.value.status = 'info'
+    }
+
+    function newTaskModal() {
+      createTaskModal.value.status = 'create-update'
+    }
 
     onMounted(() => {
       getDays()
+      referencesStore.getTaskTypes()
+      taskStore.getTasksForUser(authStore.userData.user.id, month.value + 1, year.value)
     })
 
     return {
@@ -440,12 +294,17 @@ export default {
       daysInMonth,
       startingBlankDays,
       endingBlankDays,
-      events,
       isToday,
       getEvents,
       getDays,
       eventColor,
-    }  
+      taskStore,
+      referencesStore,
+      nextMonth,
+      prevMonth,
+      openTaskModal,
+      newTaskModal,
+    }
   }
 }
 </script>
