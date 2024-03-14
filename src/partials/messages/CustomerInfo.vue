@@ -61,6 +61,9 @@
               <!-- Add new client -->
               <div v-if="!customerStore.customer">
                   <div class="text-slate-800 dark:text-slate-100 font-semibold mb-4">Клиента нет базе. Добавить?</div>
+                  <div class="mb-4 mt-4">
+                      <button @click="onSubmit" class="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white">Привязать к существующему клиенту</button>
+                  </div>
                   <div class="space-y-4">
                       <!-- Name -->
                       <div>
@@ -76,7 +79,7 @@
                       <!-- Email -->
                       <div>
                           <label class="block text-sm font-medium mb-1" for="email">Email </label>
-                          <Field v-model="email" id="email" class="form-input w-full" type="email" placeholder="john@company.com"  name="email"/>
+                          <Field v-model="email" id="email" class="form-input w-full" type="email" placeholder="team@cerera.io"  name="email"/>
                       </div>
                       <!-- Comments -->
                       <div>
@@ -149,13 +152,15 @@
                     </div>
                   </ul>
               </div>
-            <div>
-              <ul class="mb-4">
-                <li v-for="task in taskStore.tasks" @click.stop="openTaskInfo(task)" class="text-sm w-full flex cursor-pointer w-full justify-between py-3 border-b border-slate-200 dark:border-slate-700">
-                  <div>{{task.name}}</div>
-                </li>
-              </ul>
-            </div>
+              <div>
+                  <ul class="grid grid-cols-2 gap-1">
+                      <li v-for="task in taskStore.tasks" @click.stop="openTaskInfo(task)"
+                          class="text-xs text-slate-600 font-medium px-2.5 py-2 bg-white border border-slate-200 rounded-lg my-5 cursor-pointer" style="margin-top: -7px;">
+                          <div><strong>{{ task.name }}</strong></div>
+                          <div class="text-xs">{{ formatDatefunc(task.due_date) }}</div>
+                      </li>
+                  </ul>
+              </div>
               <!-- Chat status -->
               <div>
                   <label class="block text-sm font-medium mb-1" for="card-country">Статус обращения</label>
@@ -190,6 +195,7 @@ import {onMounted, ref} from "vue";
 import { useAuthStore } from "../../stores/auth.store.js";
 import {Field} from "vee-validate";
 import DropdownFull from "../../components/DropdownFull.vue";
+import {timestampToDate} from "../../helpers/date-format.js";
 
 
 const customerRequestStore = useCustomerRequestStore()
@@ -278,4 +284,11 @@ export default {
         }
     }
 };
+
+function formatDatefunc(dateString) {
+    const date = new Date(dateString);
+    const options = { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' };
+    const formattedDate = date.toLocaleDateString('en-GB', options).replace(/\//g, '.');
+    return formattedDate;
+}
 </script>

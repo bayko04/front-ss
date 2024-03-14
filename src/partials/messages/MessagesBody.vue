@@ -15,7 +15,7 @@
         </div>
       </div>
         <!-- Check message type and render corresponding content -->
-        <div v-if="message.type === 'log'" class="flex items-start mb-4 last:mb-0">
+        <div v-if="message.type === 'log'" class="flex justify-center mb-4 last:mb-0">
             <StatusLogContent :message="message"/>
         </div>
         <div v-else class="flex items-start mb-4 last:mb-0">
