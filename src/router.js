@@ -34,6 +34,7 @@ import Customers from "./pages/Products/Customers.vue";
 import Newsletters from "./pages/marketing/Newsletters.vue";
 import Triggers from "./pages/marketing/Triggers.vue";
 import Questionnaire from "./pages/marketing/Questionnaire.vue";
+import Archive from "./partials/archive/Archive.vue";
 
 const routerHistory = createWebHistory()
 
@@ -191,6 +192,10 @@ const router = createRouter({
     {
       path: '/marketing/questionnaire',
       component: Questionnaire
+    },
+    {
+      path: '/archive',
+      component: Archive
     },
 
   ]

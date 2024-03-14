@@ -30,11 +30,7 @@
           <div class="mb-4">
             <label for="reason" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Причина завершения чата</label>
             <select  v-model="form.reason" id="reason" name="status" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-              <template v-for="status in references['chat_statuses']">
-                <option v-if="status.end_status" :key="status.id" :value="status.id">
-                  {{ status.name }}
-                </option>
-              </template>
+
             </select>
           </div>
           <div>
@@ -53,12 +49,12 @@
 </template>
 
 <script setup>
-import { useMessangers } from "../utils/messengers.js";
-import { closingChatModal } from "../utils/modalVariables.js";
+import { useMessangers } from "../../utils/messengers.js";
+import { closingChatModal } from "../../utils/modalVariables.js";
 import { onMounted, onUnmounted, ref } from "vue";
 const modalContent = ref(null);
 
-const { references, closeChat } = useMessangers()
+const { closeChat } = useMessangers()
 const form = ref({
   reason: null,
   comment: ''
