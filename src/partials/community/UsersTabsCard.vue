@@ -16,24 +16,12 @@
             </router-link>
           </div>
           <div class="text-center">
-            <router-link class="inline-flex text-slate-800 dark:text-slate-100 hover:text-slate-900 dark:hover:text-white" :to="{ name: 'userProfile', params: { id: user.id } }">
-              <h2 class="text-xl leading-snug justify-center font-semibold">{{user.last_name}} {{user.name}} {{user.middle_name}}</h2>
-            </router-link>
+            <div class="inline-flex text-slate-800 dark:text-slate-100 hover:text-slate-900 dark:hover:text-white" :to="{ name: 'userProfile', params: { id: user.id } }">
+              <h2 class="text-xl leading-snug justify-center font-semibold">{{user.name}}</h2>
+            </div>
           </div>
-          <div class="flex justify-center items-center" v-if="user.citizenship"><span class="text-sm font-medium text-slate-400 -mt-0.5 mr-1">-&gt;</span> <span>{{ user.citizenship?.image }}</span></div>
+          <div class="flex justify-center items-center"><span>{{ user.email }}</span></div>
         </header>
-        <!-- Bio -->
-        <div class="text-center mt-2" v-if="user.comment">
-          <div class="text-sm">{{ user.comment }}</div>
-        </div>
-      </div>
-      <!-- Card footer -->
-      <div class="border-t border-slate-200 dark:border-slate-700">
-        <router-link class="block text-center text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-3 py-4" :to="{ name: 'userProfile', params: { id: user.id } }">
-          <div class="flex items-center justify-center">
-            <span>Открыть</span>
-          </div>
-        </router-link>
       </div>
     </div>
   </div>

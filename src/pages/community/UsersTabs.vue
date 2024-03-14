@@ -41,15 +41,10 @@
               v-if="userStore.users"
               class="grid grid-cols-12 gap-6">
             <UsersTabsCard
-                v-for="user in userStore.users.data"
+                v-for="user in userStore.users"
                 :key="user.id"
                 :user="user"
             />
-          </div>
-
-          <!-- Pagination -->
-          <div class="mt-8">
-            <PaginationNumeric :paginateData="userStore.users" :paginateAction="userStore.usersPaginate"/>
           </div>
 
         </div>
