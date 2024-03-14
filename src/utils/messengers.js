@@ -3,7 +3,6 @@ import { ref } from "vue";
 import  router  from '../router.js';
 import {getEcho} from "./echo.js";
 import {useCustomerStore} from "../stores/customer.store.js"
-import { useCustomerRequestStore } from "../stores/customer-request.store.js"
 import {useTaskStore} from "../stores/task.store.js";
 
 const accounts = ref(undefined)
@@ -147,11 +146,9 @@ export function useMessangers() {
     }
 
     const customerStore = useCustomerStore()
-    const customerRequestStore = useCustomerRequestStore()
     const taskStore = useTaskStore()
 
-    await customerRequestStore.getCustomerRequest()
-    taskStore.getTasksForCustomerRequest(customerRequestStore.customerRequest?.id)
+    taskStore.getTasksForCustomerRequest(activeChat.value.latest_customer_request.id)
     if(activeChat.value.customer_id && activeChat.value.customer_id !== customerStore.customer?.id) {
       await customerStore.getCustomer(activeChat.value.customer_id)
     } else if(!activeChat.value.customer_id) {
@@ -338,6 +335,7 @@ export function useMessangers() {
       chat.name = socketChat.chat.name
       chat.user_id = socketChat.chat.user_id
       chat.chat_status_id = socketChat.chat.chat_status_id
+      chat.latest_customer_request = socketChat.chat.latest_customer_request
     })
   }
 
@@ -433,10 +431,6 @@ export function useMessangers() {
     await fetchWrapper.post(`/${activeAccount.value.messenger.name}/messages/${message.id}/mark-as-read`)
   }
 
-  const assignChat = async function (userId, chat) {
-    await fetchWrapper.post(`/${activeAccount.value.messenger.name}/chats/${chat.id}/${userId}/assign-chat`)
-  }
-
   const openChat = async function (chatId) {
     await fetchWrapper.post(`/${activeAccount.value.messenger.name}/chats/${chatId}/open-chat`)
   }
@@ -447,10 +441,6 @@ export function useMessangers() {
 
   async function closeChat(form) {
     await fetchWrapper.post(`/${activeAccount.value.messenger.name}/chats/${activeChat.value.id}/close-chat`, form)
-  }
-
-  async function changeChatStatus(status) {
-    await fetchWrapper.post(`/${activeAccount.value.messenger.name}/chats/${activeChat.value.id}/change-chat-status`, {'statusId': status})
   }
 
   const sendFiles = async function () {
@@ -496,8 +486,6 @@ export function useMessangers() {
     scrollToMessage,
     getLastMessage,
     closeChat,
-    changeChatStatus,
-    assignChat,
     searchChat,
     openChat,
     setActiveCommentsAccount,
