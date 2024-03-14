@@ -9,12 +9,20 @@ export const useUsersStore = defineStore({
     state: () => ({
         users: [],
         user: null,
-        userReferences: null
+        userReferences: null,
+        availableUsers: [],
     }),
     actions: {
         async getUsers() {
             try {
                 this.users = (await fetchWrapper.get(`${baseUrl}/`)).data;
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async getAvailableUsers() {
+            try {
+                this.availableUsers = (await fetchWrapper.get(`${baseUrl}/available-users`)).data;
             } catch (error) {
                 console.log(error)
             }

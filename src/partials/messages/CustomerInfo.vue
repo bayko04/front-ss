@@ -100,10 +100,6 @@
                   </svg>
               </button>
 
-
-
-
-
               <!-- Live time value -->
               <div>
                   <ul class="mb-4">
@@ -159,18 +155,17 @@
               <!-- Chat status -->
               <div>
                   <label class="block text-sm font-medium mb-1" for="card-country">Статус обращения</label>
-                  <select id="card-country" class="form-select w-full" @change="handleStatusChange">
-                      <option value="" selected disabled>Выберите статус</option>
+                  <select v-model="activeChat.latest_customer_request.chat_status_id" id="card-country" class="form-select w-full" @change="handleStatusChange">
                       <option v-for="status in referenceStore.chatStatuses" :value="status.id">{{status.name}}</option>
                   </select>
               </div>
-              <!-- Take chat -->
-              <button v-if="authStore.userData.user.id != activeChat.user_id" @click="assignChat(authStore.userData.user.id, activeChat)" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
-                  <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                      <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-                  </svg>
-                  <span class="ml-2">Принять чат</span>
-              </button>
+              <!-- User -->
+              <div>
+                <label class="block text-sm font-medium mb-1" for="card-country">Ответственный</label>
+                <select v-model="activeChat.latest_customer_request.user_id" id="card-country" class="form-select w-full" @change="handleUserChange">
+                  <option v-for="user in usersStore.availableUsers" :value="user.id">{{user.name}}</option>
+                </select>
+              </div>
           </div>
         </div>
       </div>
@@ -188,6 +183,8 @@ import {useCustomerRequestStore} from "../../stores/customer-request.store.js";
 import {useReferencesStore} from "../../stores/references.store.js";
 import {onMounted, ref} from "vue";
 import { useAuthStore } from "../../stores/auth.store.js";
+import { useUsersStore} from "../../stores/user.store.js";
+
 import {Field} from "vee-validate";
 import DropdownFull from "../../components/DropdownFull.vue";
 
@@ -195,10 +192,10 @@ import DropdownFull from "../../components/DropdownFull.vue";
 const customerRequestStore = useCustomerRequestStore()
 const customerStore = useCustomerStore()
 const referenceStore = useReferencesStore()
-const { activeChat, assignChat, activeAccount } = await useMessangers()
+const { activeChat, activeAccount } = await useMessangers()
 const taskStore = useTaskStore()
-const { changeChatStatus } = useMessangers()
 const authStore = useAuthStore()
+const usersStore = useUsersStore()
 
 const name = ref('')
 const phone = ref('')
@@ -206,7 +203,6 @@ const email = ref('')
 const comment = ref('')
 
 async function onSubmit() {
-    console.log(name.value)
     const values = {
         name: name.value,
         phone: phone.value,
@@ -230,7 +226,12 @@ function openTaskInfo(task) {
 
 async function handleStatusChange(event) {
     const selectedStatus = event.target.value
-    await changeChatStatus(selectedStatus)
+    await customerRequestStore.changeChatStatus(selectedStatus, activeChat.value.latest_customer_request.id)
+}
+
+async function handleUserChange(event) {
+  const selectedUser = event.target.value
+  await customerRequestStore.changeUser(selectedUser, activeChat.value.latest_customer_request.id)
 }
 
 onMounted(() => {
