@@ -11,10 +11,12 @@ export const useReferencesStore = defineStore({
     }),
     actions: {
         async getChatStatuses() {
-            const result = await fetchWrapper.get(`${baseUrl}/chat-statuses`);
-            if(result.data) {
+            if(this.chatStatuses.length === 0) {
+                const result = await fetchWrapper.get(`${baseUrl}/chat-statuses`);
                 this.chatStatuses = result.data
             }
+
+            return this.chatStatuses
         },
         async setOrUpdateChatStatus(form) {
             const result = await fetchWrapper.post(`${baseUrl}/chat-statuses`, form);

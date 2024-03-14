@@ -35,29 +35,75 @@
                           <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">{{ customerStore.customer.email }}</span>
                       </div>
 
-                      <li class="text-sm w-full flex justify-between py-3 border-b border-slate-200 dark:border-slate-700">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-whatsapp" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#41cc41" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                              <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
-                              <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
-                          </svg>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-telegram" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#4298ed" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                              <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" />
-                          </svg>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#124578" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                              <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
-                          </svg>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-instagram" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#d93848" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                              <path d="M4 4m0 4a4 4 0 0 1 4 -4h8a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z" />
-                              <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-                              <path d="M16.5 7.5l0 .01" />
-                          </svg>
-                      </li>
+<!--                      <li class="text-sm w-full flex justify-between py-3 border-b border-slate-200 dark:border-slate-700">-->
+<!--                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-whatsapp" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#41cc41" fill="none" stroke-linecap="round" stroke-linejoin="round">-->
+<!--                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>-->
+<!--                              <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />-->
+<!--                              <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />-->
+<!--                          </svg>-->
+<!--                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-telegram" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#4298ed" fill="none" stroke-linecap="round" stroke-linejoin="round">-->
+<!--                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>-->
+<!--                              <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" />-->
+<!--                          </svg>-->
+<!--                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#124578" fill="none" stroke-linecap="round" stroke-linejoin="round">-->
+<!--                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>-->
+<!--                              <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />-->
+<!--                          </svg>-->
+<!--                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-instagram" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#d93848" fill="none" stroke-linecap="round" stroke-linejoin="round">-->
+<!--                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>-->
+<!--                              <path d="M4 4m0 4a4 4 0 0 1 4 -4h8a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z" />-->
+<!--                              <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />-->
+<!--                              <path d="M16.5 7.5l0 .01" />-->
+<!--                          </svg>-->
+<!--                      </li>-->
                   </ul>
               </div>
+              <!-- Add new client -->
+              <div v-if="!customerStore.customer">
+                  <div class="text-slate-800 dark:text-slate-100 font-semibold mb-4">Клиента нет базе. Добавить?</div>
+                  <div class="space-y-4">
+                      <!-- Name -->
+                      <div>
+                          <label class="block text-sm font-medium mb-1" for="name">Полное имя клиента <span
+                                  class="text-rose-500">*</span></label>
+                          <Field v-model="name" id="name" name="name" class="form-input w-full" type="text"/>
+                      </div>
+                      <!-- Number -->
+                      <div>
+                          <label class="block text-sm font-medium mb-1" for="phone">Номер телефона </label>
+                          <Field v-model="phone" id="phone" class="form-input w-full" type="tel" placeholder="0 779 779 979"  name="phone"/>
+                      </div>
+                      <!-- Email -->
+                      <div>
+                          <label class="block text-sm font-medium mb-1" for="email">Email </label>
+                          <Field v-model="email" id="email" class="form-input w-full" type="email" placeholder="john@company.com"  name="email"/>
+                      </div>
+                      <!-- Comments -->
+                      <div>
+                          <label class="block text-sm font-medium mb-1" for="comment">Примечание </label>
+                          <Field v-model="comment" id="comment" class="form-input w-full" type="text" placeholder="" name="comment"/>
+                      </div>
+                  </div>
+                  <div class="mb-4 mt-4">
+                      <button @click="onSubmit" class="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white">Добавить клиента</button>
+                  </div>
+              </div>
+              <button title="Добавить в контакты" v-if="!customerStore.customer" @click="openSearchModal()" class="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-address-book fill-current text-indigo-500 w-4 h-4" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <path d="M20 6v12a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2z" />
+                      <path d="M10 16h6" />
+                      <path d="M13 11m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                      <path d="M4 8h3" />
+                      <path d="M4 12h3" />
+                      <path d="M4 16h3" />
+                  </svg>
+              </button>
+
+
+
+
+
               <!-- Live time value -->
               <div>
                   <ul class="mb-4">
@@ -110,6 +156,21 @@
                 </li>
               </ul>
             </div>
+              <!-- Chat status -->
+              <div>
+                  <label class="block text-sm font-medium mb-1" for="card-country">Статус обращения</label>
+                  <select id="card-country" class="form-select w-full" @change="handleStatusChange">
+                      <option value="" selected disabled>Выберите статус</option>
+                      <option v-for="status in referenceStore.chatStatuses" :value="status.id">{{status.name}}</option>
+                  </select>
+              </div>
+              <!-- Take chat -->
+              <button v-if="authStore.userData.user.id != activeChat.user_id" @click="assignChat(authStore.userData.user.id, activeChat)" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                  <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                      <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                  </svg>
+                  <span class="ml-2">Принять чат</span>
+              </button>
           </div>
         </div>
       </div>
@@ -117,17 +178,45 @@
   </div>
 </template>
 
+
 <script setup>
 import { useMessangers } from "../../utils/messengers.js";
 import {useCustomerStore} from "../../stores/customer.store.js"
 import { createTaskModal } from "../../utils/modalVariables.js"
 import {useTaskStore} from "../../stores/task.store.js"
 import {useCustomerRequestStore} from "../../stores/customer-request.store.js";
+import {useReferencesStore} from "../../stores/references.store.js";
+import {onMounted, ref} from "vue";
+import { useAuthStore } from "../../stores/auth.store.js";
+import {Field} from "vee-validate";
+import DropdownFull from "../../components/DropdownFull.vue";
+
 
 const customerRequestStore = useCustomerRequestStore()
 const customerStore = useCustomerStore()
-const { activeChat } = await useMessangers()
+const referenceStore = useReferencesStore()
+const { activeChat, assignChat, activeAccount } = await useMessangers()
 const taskStore = useTaskStore()
+const { changeChatStatus } = useMessangers()
+const authStore = useAuthStore()
+
+const name = ref('')
+const phone = ref('')
+const email = ref('')
+const comment = ref('')
+
+async function onSubmit() {
+    console.log(name.value)
+    const values = {
+        name: name.value,
+        phone: phone.value,
+        comment: comment.value,
+        email: email.value,
+        chat_id: activeChat.value.id,
+        messenger: activeAccount.value.messenger.name
+    }
+    customerStore.addCustomerToChat(values)
+}
 
 function openTaskModal() {
     createTaskModal.value.stayOpen = true
@@ -138,6 +227,15 @@ function openTaskInfo(task) {
   taskStore.task = task
   createTaskModal.value.status = 'info'
 }
+
+async function handleStatusChange(event) {
+    const selectedStatus = event.target.value
+    await changeChatStatus(selectedStatus)
+}
+
+onMounted(() => {
+    referenceStore.getChatStatuses()
+})
 </script>
 
 <script>

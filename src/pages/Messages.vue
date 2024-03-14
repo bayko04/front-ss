@@ -67,7 +67,7 @@
     import ModalBasicForChatFiles from "../components/ModalBasicForChatFiles.vue";
     import ModalForChatDropdawn from "../components/ModalForChatDropdawn.vue";
     import ModalForChatEmoji from "../components/ModalForChatEmoji.vue";
-    import ModalForClosingChat from "../components/ModalForClosingChat.vue";
+    import ModalForClosingChat from "../partials/messages/ModalForClosingChat.vue";
     import { useMessangers } from "../utils/messengers.js"
     import CustomerInfo from "../partials/messages/CustomerInfo.vue";
     import ModalContactsSearchForChat from "../partials/messages/ModalContactsSearchForChat.vue";

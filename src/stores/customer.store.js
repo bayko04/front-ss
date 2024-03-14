@@ -66,6 +66,20 @@ export const useCustomerStore = defineStore({
                 console.log(error)
             }
         },
+        async addCustomerToChat(data) {
+            let formData = new FormData()
+            formData.append('method', 'POST');
+            for (const key in data) {
+                formData.append(key, data[key]);
+            }
+            try {
+                const result = await fetchWrapper.post(`${baseUrl}`, formData);
+                this.customer = result.data
+
+            } catch (error) {
+                console.log(error)
+            }
+        },
         async setContactAsMain(id) {
             try {
                 const result = (await fetchWrapper.post(`${baseUrl}/${this.customer.id}/set-contact-as-main/${id}`, {})).data;

@@ -6,8 +6,6 @@ import {useCustomerStore} from "../stores/customer.store.js"
 import { useCustomerRequestStore } from "../stores/customer-request.store.js"
 import {useTaskStore} from "../stores/task.store.js";
 
-const references = ref([]);
-const activeChatStatus = ref(null)
 const accounts = ref(undefined)
 const activeAccount = ref(undefined)
 const activeCommentsAccount = ref(undefined)
@@ -29,32 +27,11 @@ const emptyMessage = {
 const echo = ref(undefined);
 const queryString = window.location.search;
 const searchParams = new URLSearchParams(queryString);
-const userChatStatusId = 3
 
 export function useMessangers() {
   const route = ref(router?.currentRoute?.value);
 
-  const getReferences = async function () {
-    references.value = (await fetchWrapper.get('/chat/references')).data
-  }
-
-  function setActiveChatStatus(chatStatus) {
-    if(chatStatus === 'default') {
-      references.value['chat_statuses'].forEach(function (chatStatusItem, index) {
-        if(chatStatusItem.id === userChatStatusId) {
-          activeChatStatus.value = chatStatusItem
-        }
-      })
-      return
-    }
-
-    setActiveChat(null)
-    activeChatStatus.value = chatStatus
-  }
-
   const startSocketListeners = async function () {
-    await getReferences()
-    setActiveChatStatus('default')
     echo.value = getEcho()
     accounts.value = (await fetchWrapper.get('/chat/accounts')).data
     if (activeAccount.value === undefined) {
@@ -153,7 +130,6 @@ export function useMessangers() {
   }
 
   const setActiveChat = async function (chat) {
-
     if(typeof chat === 'number') {
       chat = getChatById(chat)
     }
@@ -175,7 +151,7 @@ export function useMessangers() {
     const taskStore = useTaskStore()
 
     await customerRequestStore.getCustomerRequest()
-    taskStore.getTasksForCustomerRequest(customerRequestStore.customerRequest.id)
+    taskStore.getTasksForCustomerRequest(customerRequestStore.customerRequest?.id)
     if(activeChat.value.customer_id && activeChat.value.customer_id !== customerStore.customer?.id) {
       await customerStore.getCustomer(activeChat.value.customer_id)
     } else if(!activeChat.value.customer_id) {
@@ -362,10 +338,6 @@ export function useMessangers() {
       chat.name = socketChat.chat.name
       chat.user_id = socketChat.chat.user_id
       chat.chat_status_id = socketChat.chat.chat_status_id
-
-      if(socketChat.chat.chat_status?.end_status) {
-        removeChat(account,socketChat.chat)
-      }
     })
   }
 
@@ -378,7 +350,6 @@ export function useMessangers() {
       content.timestamp = socketContent.content.timestamp
       content.username = socketContent.content.username
       content.caption = socketContent.content.caption
-      console.log(content)
     })
   }
 
@@ -404,19 +375,6 @@ export function useMessangers() {
     }
 
     return chat
-  }
-
-  const removeChat = function (account, chat) {
-    const index = account.chats.findIndex(item => item.id === chat.id)
-    const removedChat = account.chats.splice(index, 1)[0]
-    if(removedChat.id === activeChat.value.id) {
-      setActiveChat()
-    }
-    const channels = echo.privateChannels.filter(channel => channel.name.startsWith(`${account.messenger.name}.${account.id}.chat.${chat.id}`));
-
-    channels.forEach(channel => {
-      echo.value.leave(channel.name);
-    });
   }
 
   const setDraftMessage = function (text) {
@@ -491,6 +449,10 @@ export function useMessangers() {
     await fetchWrapper.post(`/${activeAccount.value.messenger.name}/chats/${activeChat.value.id}/close-chat`, form)
   }
 
+  async function changeChatStatus(status) {
+    await fetchWrapper.post(`/${activeAccount.value.messenger.name}/chats/${activeChat.value.id}/change-chat-status`, {'statusId': status})
+  }
+
   const sendFiles = async function () {
     let formData = new FormData()
     formData.append('method', 'POST');
@@ -532,12 +494,9 @@ export function useMessangers() {
     updateBottomValue,
     getMessageById,
     scrollToMessage,
-    references,
-    activeChatStatus,
-    setActiveChatStatus,
-    userChatStatusId,
     getLastMessage,
     closeChat,
+    changeChatStatus,
     assignChat,
     searchChat,
     openChat,

@@ -1,5 +1,5 @@
 <template>
-  <div class="relative inline-flex w-full">
+  <div class="relative inline-flex w-full" v-if="options">
     <button
       ref="trigger"
       class="btn w-full justify-between min-w-44 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-500 hover:text-slate-600 dark:text-slate-300 dark:hover:text-slate-200"
@@ -9,7 +9,7 @@
       :aria-expanded="dropdownOpen"
     >
       <span class="flex items-center">
-        <span>{{options[selected].period}}</span>
+        <span>{{getOptionById().name}}</span>
       </span>
       <svg class="shrink-0 ml-1 fill-current text-slate-400" width="11" height="7" viewBox="0 0 11 7">
         <path d="M5.4 6.8L0 1.4 1.4 0l4 4 4-4 1.4 1.4z" />
@@ -36,9 +36,10 @@
             :key="option.id"
             class="flex items-center justify-between w-full hover:bg-slate-50 dark:hover:bg-slate-700/20 py-2 px-3 cursor-pointer"
             :class="option.id === selected && 'text-indigo-500'"
-            @click="selected = option.id; dropdownOpen = false"
+              @click="selectOption(option.id)"
           >
-            <span>{{option.period}}</span>
+
+            <span>{{option.name}}</span>
             <svg class="shrink-0 ml-2 fill-current text-indigo-400" :class="option.id !== selected && 'invisible'" width="12" height="9" viewBox="0 0 12 9">
               <path d="M10.28.28L3.989 6.575 1.695 4.28A1 1 0 00.28 5.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28.28z" />
             </svg>
@@ -49,66 +50,63 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
-export default {
-  name: 'DropdownFull',
-  setup() {
+const {options, value} = defineProps(['options', 'value'])
+const dropdownOpen = ref(false)
+const trigger = ref(null)
+const dropdown = ref(null)
+const selected = ref(null)
+const emits = defineEmits(['update-value'])
 
-    const dropdownOpen = ref(false)
-    const trigger = ref(null)
-    const dropdown = ref(null)    
-    const selected = ref(0)
+function selectOption(id)
+{
+    selected.value = id;
+    emits('update-value', id);
+    dropdownOpen.value = false
+}
 
-    const options = ref([
-      {
-        id: 0,
-        period: 'Most Popular'
-      },
-      {
-        id: 1,
-        period: 'Newest'
-      },
-      {
-        id: 2,
-        period: 'Lowest Price'
-      },
-      {
-        id: 3,
-        period: 'Highest Price'
-      }
-    ])
-
-    // close on click outside
-    const clickHandler = ({ target }) => {
-      if (!dropdownOpen.value || dropdown.value.contains(target) || trigger.value.contains(target)) return
-      dropdownOpen.value = false
+function getOptionById()
+{
+    if(selected.value === null) {
+        return options[0]
     }
-
-    // close if the esc key is pressed
-    const keyHandler = ({ keyCode }) => {
-      if (!dropdownOpen.value || keyCode !== 27) return
-      dropdownOpen.value = false
-    }
-
-    onMounted(() => {
-      document.addEventListener('click', clickHandler)
-      document.addEventListener('keydown', keyHandler)
+    let item = null;
+    options.every(function (val) {
+        if(val.id === selected.value) {
+            item = val
+            return false
+        }
+        return true
     })
 
-    onUnmounted(() => {
-      document.removeEventListener('click', clickHandler)
-      document.removeEventListener('keydown', keyHandler)
-    })    
-    
-    return {
-      dropdownOpen,
-      trigger,
-      dropdown,
-      selected,
-      options,
-    }
-  }
+    return item
 }
+const clickHandler = ({ target }) => {
+    if (!dropdownOpen.value || dropdown.value.contains(target) || trigger.value.contains(target)) return
+    dropdownOpen.value = false
+}
+
+// close if the esc key is pressed
+const keyHandler = ({ keyCode }) => {
+    if (!dropdownOpen.value || keyCode !== 27) return
+    dropdownOpen.value = false
+}
+
+onMounted(() => {
+    if (value) {
+        selected.value = value
+    } else {
+        selected.value = 1;
+        emits('update-value', 1);
+    }
+    document.addEventListener('click', clickHandler)
+    document.addEventListener('keydown', keyHandler)
+})
+
+onUnmounted(() => {
+    document.removeEventListener('click', clickHandler)
+    document.removeEventListener('keydown', keyHandler)
+})
 </script>

@@ -14,9 +14,13 @@
           {{ timestampToDate(message.created_at) }}
         </div>
       </div>
-      <div class="flex items-start mb-4 last:mb-0">
-        <MessagesContent :message="message"/>
-      </div>
+        <!-- Check message type and render corresponding content -->
+        <div v-if="message.type === 'log'" class="flex items-start mb-4 last:mb-0">
+            <StatusLogContent :message="message"/>
+        </div>
+        <div v-else class="flex items-start mb-4 last:mb-0">
+            <MessagesContent :message="message"/>
+        </div>
     </div>
     <div ref="messagesBottomElement"></div>
   </div>
@@ -27,6 +31,7 @@ import { useMessangers } from "../../utils/messengers.js";
 import MessagesContent from "./MessagesContent.vue";
 import { onMounted, ref  } from "vue";
 import { timestampToDate } from "../../helpers/date-format.js"
+import StatusLogContent from "./StatusLogContent.vue";
 
 const { activeChat } = useMessangers();
 const messagesBottomElement = ref('')

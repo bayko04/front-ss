@@ -12,7 +12,7 @@
             @click.stop="$emit('close-msgsidebar')"
             @click="setActiveChat(chat)"
             :class="{'bg-indigo-500/30': (chat.id === activeChat?.id) }"
-            v-if="(activeChatStatus.id === userChatStatusId && chat.user_id === authStore.userData?.user.id) || (activeChatStatus.id === chat.chat_status_id)"
+
         >
           <div class="flex items-center truncate">
             <img class="w-8 h-8 rounded-full mr-2" :src="chat.image" width="32" height="32" alt="User 01" />
@@ -35,7 +35,7 @@
 import { useMessangers } from "../../utils/messengers.js";
 import { useAuthStore} from "../../stores/auth.store.js";
 
-const {activeChat, activeAccount, setActiveChat, activeChatStatus, userChatStatusId} = await useMessangers()
+const {activeChat, activeAccount, setActiveChat} = await useMessangers()
 
 const authStore = useAuthStore()
 </script>
