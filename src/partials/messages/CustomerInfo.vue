@@ -61,57 +61,75 @@
               <!-- Add new client -->
               <div v-if="!customerStore.customer">
                   <div class="text-slate-800 dark:text-slate-100 font-semibold mb-4">Клиента нет базе. Добавить?</div>
-                  <div class="mb-4 mt-4">
-                      <button @click="onSubmit" class="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white">Привязать к существующему клиенту</button>
+                  <!-- Add or connect user -->
+                  <div>
+                      <ul class="mb-4">
+                          <div @click="toggleAddClientForm" class="grow flex items-center cursor-pointer">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checklist w-6 h-6" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                  <path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8" />
+                                  <path d="M14 19l2 2l4 -4" />
+                                  <path d="M9 8h4" />
+                                  <path d="M9 12h2" />
+                              </svg>
+                              <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">Добавить клиента</span>
+                          </div>
+                      </ul>
+                      <!-- Form -->
+                      <div v-if="showAddClientForm">
+                          <div class="space-y-4">
+                              <!-- Name -->
+                              <div>
+                                  <label class="block text-sm font-medium mb-1" for="name">Полное имя клиента <span class="text-rose-500">*</span></label>
+                                  <Field v-model="name" id="name" name="name" class="form-input w-full" type="text"/>
+                              </div>
+                              <!-- Number -->
+                              <div>
+                                  <label class="block text-sm font-medium mb-1" for="phone">Номер телефона </label>
+                                  <Field v-model="phone" id="phone" class="form-input w-full" type="tel" placeholder="0 779 779 979"  name="phone"/>
+                              </div>
+                              <!-- Email -->
+                              <div>
+                                  <label class="block text-sm font-medium mb-1" for="email">Email </label>
+                                  <Field v-model="email" id="email" class="form-input w-full" type="email" placeholder="team@cerera.io"  name="email"/>
+                              </div>
+                              <!-- Comments -->
+                              <div>
+                                  <label class="block text-sm font-medium mb-1" for="comment">Примечание </label>
+                                  <Field v-model="comment" id="comment" class="form-input w-full" type="text" placeholder="" name="comment"/>
+                              </div>
+                          </div>
+                          <div class="mb-4 mt-4">
+                              <button @click="onSubmit" class="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white">Добавить клиента</button>
+                          </div>
+                      </div>
                   </div>
-                  <div class="space-y-4">
-                      <!-- Name -->
-                      <div>
-                          <label class="block text-sm font-medium mb-1" for="name">Полное имя клиента <span
-                                  class="text-rose-500">*</span></label>
-                          <Field v-model="name" id="name" name="name" class="form-input w-full" type="text"/>
-                      </div>
-                      <!-- Number -->
-                      <div>
-                          <label class="block text-sm font-medium mb-1" for="phone">Номер телефона </label>
-                          <Field v-model="phone" id="phone" class="form-input w-full" type="tel" placeholder="0 779 779 979"  name="phone"/>
-                      </div>
-                      <!-- Email -->
-                      <div>
-                          <label class="block text-sm font-medium mb-1" for="email">Email </label>
-                          <Field v-model="email" id="email" class="form-input w-full" type="email" placeholder="team@cerera.io"  name="email"/>
-                      </div>
-                      <!-- Comments -->
-                      <div>
-                          <label class="block text-sm font-medium mb-1" for="comment">Примечание </label>
-                          <Field v-model="comment" id="comment" class="form-input w-full" type="text" placeholder="" name="comment"/>
-                      </div>
+                  <div>
+                      <ul class="mb-4">
+                          <div @click="openSearchModal()" class="grow flex items-center cursor-pointer">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checklist w-6 h-6" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                  <path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8" />
+                                  <path d="M14 19l2 2l4 -4" />
+                                  <path d="M9 8h4" />
+                                  <path d="M9 12h2" />
+                              </svg>
+                              <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">Привязать к существующему клиенту</span>
+                          </div>
+                      </ul>
                   </div>
-                  <div class="mb-4 mt-4">
-                      <button @click="onSubmit" class="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white">Добавить клиента</button>
-                  </div>
+                  <!-- -->
               </div>
-              <button title="Добавить в контакты" v-if="!customerStore.customer" @click="openSearchModal()" class="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm ml-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-address-book fill-current text-indigo-500 w-4 h-4" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                      <path d="M20 6v12a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2z" />
-                      <path d="M10 16h6" />
-                      <path d="M13 11m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                      <path d="M4 8h3" />
-                      <path d="M4 12h3" />
-                      <path d="M4 16h3" />
-                  </svg>
-              </button>
 
               <!-- Live time value -->
-              <div>
-                  <ul class="mb-4">
-                      <li class="text-sm w-full flex justify-between py-3 border-b border-slate-200 dark:border-slate-700">
-                          <div>LTV</div>
-                          <div class="font-medium text-emerald-600">$253</div>
-                      </li>
-                  </ul>
-              </div>
+<!--              <div>-->
+<!--                  <ul class="mb-4">-->
+<!--                      <li class="text-sm w-full flex justify-between py-3 border-b border-slate-200 dark:border-slate-700">-->
+<!--                          <div>LTV</div>-->
+<!--                          <div class="font-medium text-emerald-600">$253</div>-->
+<!--                      </li>-->
+<!--                  </ul>-->
+<!--              </div>-->
               <!-- Choose segment -->
               <div>
                   <label class="block text-sm font-medium mb-1" for="card-country">Сегмент клиента</label>
@@ -166,7 +184,7 @@
               </div>
               <!-- User -->
               <div>
-                <label class="block text-sm font-medium mb-1" for="card-country">Ответственный</label>
+                <label class="block text-sm font-medium mb-1" for="card-country">Назначить на</label>
                 <select v-model="activeChat.latest_customer_request.user_id" id="card-country" class="form-select w-full" @change="handleUserChange">
                   <option v-for="user in usersStore.availableUsers" :value="user.id">{{user.name}}</option>
                 </select>
@@ -189,6 +207,7 @@ import {useReferencesStore} from "../../stores/references.store.js";
 import {onMounted, ref} from "vue";
 import { useAuthStore } from "../../stores/auth.store.js";
 import { useUsersStore} from "../../stores/user.store.js";
+import { searchContactModal } from "../../utils/modalVariables.js";
 
 import {Field} from "vee-validate";
 import DropdownFull from "../../components/DropdownFull.vue";
@@ -207,6 +226,11 @@ const name = ref('')
 const phone = ref('')
 const email = ref('')
 const comment = ref('')
+
+function openSearchModal() {
+    searchContactModal.value.stayOpen = true
+    searchContactModal.value.status = true
+}
 
 async function onSubmit() {
     const values = {
@@ -251,7 +275,12 @@ onMounted(() => {
 export default {
     data() {
         return {
-            tags: []
+            tags: [],
+            showAddClientForm: false,
+            name: '',
+            phone: '',
+            email: '',
+            comment: ''
         };
     },
     methods: {
@@ -275,6 +304,9 @@ export default {
         },
         removeTag(index) {
             this.tags.splice(index, 1);
+        },
+        toggleAddClientForm() {
+            this.showAddClientForm = !this.showAddClientForm;
         }
     },
     setup() {
