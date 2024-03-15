@@ -80,11 +80,6 @@ onBeforeUnmount(() => registerSocialAuthEvent(false))
                   <div v-if="errors.password" class="text-xs mt-1 text-rose-500">{{ errors.password }}</div>
                 </div>
               </div>
-              <div class="mt-4">
-                <div class="flex flex-row items-center justify-center">
-                    <messenger class="cursor-pointer" @click="socialAuthInit('facebook')"/>
-                </div>
-              </div>
               <div class="flex items-center justify-between mt-6">
                 <div class="mr-1">
                   <button type="button" class="text-sm underline hover:no-underline">Забыли пароль?</button>
