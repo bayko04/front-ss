@@ -28,6 +28,7 @@
           <Notifications align="right" />
           <Help align="right" />
           <ThemeToggle />
+          <WorkSessionButton />
           <!-- Divider -->
           <hr class="w-px h-6 bg-slate-200 dark:bg-slate-700 border-none" />
           <UserMenu align="right" />
@@ -48,11 +49,13 @@ import Help from '../components/DropdownHelp.vue'
 import ThemeToggle from '../components/ThemeToggle.vue'
 import UserMenu from '../components/DropdownProfile.vue'
 import HeaderButtons from "../partials/messages/HeaderButtons.vue"
+import WorkSessionButton from "./settings/WorkSessionButton.vue";
 
 export default {
   name: 'Header',
   props: ['sidebarOpen'],
   components: {
+    WorkSessionButton,
     HeaderButtons,
     SearchModal,
     Notifications,

@@ -186,7 +186,7 @@
               <div>
                 <label class="block text-sm font-medium mb-1" for="card-country">Назначить на</label>
                 <select v-model="activeChat.latest_customer_request.user_id" id="card-country" class="form-select w-full" @change="handleUserChange">
-                  <option v-for="user in usersStore.availableUsers" :value="user.id">{{user.name}}</option>
+                  <option v-for="user in usersStore.users" :value="user.id">{{user.name}}</option>
                 </select>
               </div>
           </div>

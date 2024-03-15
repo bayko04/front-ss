@@ -14,7 +14,7 @@
             </a>
           </li>
         </router-link>
-        <router-link to="/systemSettings/requestStatus" custom v-slot="{ href, navigate, isExactActive }">
+        <router-link to="/systemSettings/AssignerSettings" custom v-slot="{ href, navigate, isExactActive }">
           <li class="mr-0.5 md:mr-0 md:mb-0.5">
             <a class="flex items-center px-2.5 py-2 rounded whitespace-nowrap" :class="isExactActive && 'bg-indigo-50 dark:bg-indigo-500/30'" :href="href" @click="navigate">
               <svg class="w-4 h-4 shrink-0 fill-current mr-2" :class="isExactActive ? 'text-indigo-500 dark:text-indigo-400' : 'text-slate-400 dark:text-slate-500'" viewBox="0 0 16 16">

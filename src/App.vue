@@ -27,13 +27,12 @@ export default {
       if (authStore.userData && !isSocketInitialized.value) {
         await startSocketListeners();
         isSocketInitialized.value = true;
+        usersStore.getUsers()
       }
     };
 
     onMounted(async () => {
-      usersStore.getAvailableUsers()
       await initWebSocket();
-
     });
 
     return {
