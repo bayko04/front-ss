@@ -30,53 +30,33 @@
 
                   <!-- Toggle Switch -->
                   <div>
-                    <h2 class="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">Toggle Switch</h2>
                     <div class="flex flex-wrap items-center -m-3">
 
-                      <div class="m-3 w-24">
+                      <div class="m-3 w-40">
                         <!-- Start -->
                         <div class="flex items-center mt-5">
                           <div class="form-switch">
-                            <input type="checkbox" id="toggle1" class="sr-only" v-model="toggle1" true-value="On" false-value="Off" />
+                            <input type="checkbox" id="toggle1" class="sr-only" v-model="isActive" true-value="Включен" false-value="Выключен" />
                             <label class="bg-slate-400 dark:bg-slate-700" for="toggle1">
                               <span class="bg-white shadow-sm" aria-hidden="true"></span>
                               <span class="sr-only">Toggle</span>
                             </label>
                           </div>
-                          <div class="text-sm text-slate-400 dark:text-slate-500 italic ml-2">{{toggle1}}</div>
+                          <div class="text-sm text-slate-400 dark:text-slate-500 italic ml-2">{{isActive}}</div>
                         </div>
                         <!-- End -->
                       </div>
 
-                      <div class="m-3 w-24">
+                      <div>
                         <!-- Start -->
-                        <div class="flex items-center mt-5">
-                          <div class="form-switch">
-                            <input type="checkbox" id="toggle2" class="sr-only" v-model="toggle2" true-value="On" false-value="Off" />
-                            <label class="bg-slate-400 dark:bg-slate-700" for="toggle2">
-                              <span class="bg-white shadow-sm" aria-hidden="true"></span>
-                              <span class="sr-only">Toggle</span>
-                            </label>
-                          </div>
-                          <div class="text-sm text-slate-400 dark:text-slate-500 italic ml-2">{{toggle2}}</div>
+                        <div class="flex max-h-8 items-end">
+                          <input v-model="maxCount" id="small" class="form-input px-2 py-1 mr-4 w-20" type="number" />
+                          <label class="block text-sm font-medium mb-1" for="small">Максимальное количество</label>
                         </div>
                         <!-- End -->
                       </div>
 
-                      <div class="m-3 w-32">
-                        <!-- Start -->
-                        <div class="flex items-center mt-5">
-                          <div class="form-switch">
-                            <input type="checkbox" id="toggle3" class="sr-only" v-model="toggle3" true-value="On" false-value="Off" disabled />
-                            <label class="bg-slate-400 dark:bg-slate-700" for="toggle3">
-                              <span class="bg-white shadow-sm" aria-hidden="true"></span>
-                              <span class="sr-only">Toggle</span>
-                            </label>
-                          </div>
-                          <div class="text-sm text-slate-400 dark:text-slate-500 italic ml-2">Disabled</div>
-                        </div>
-                        <!-- End -->
-                      </div>
+                      <button @click="save()" class="ml-10 cursor-pointer bg-blue-700 text-amber-50">Сохранить</button>
 
                     </div>
                   </div>
@@ -98,8 +78,8 @@ import { ref } from 'vue'
 import Sidebar from '../../partials/Sidebar.vue'
 import Header from '../../partials/Header.vue'
 import SettingsSidebar from '../../partials/settings/SettingsSidebar.vue'
-import InterestRatePanel from '../../partials/settings/InterestRatePanel.vue'
 import SettingsSystem from '../../partials/settings/SettingsSystem.vue'
+import {useAuthStore} from "../../stores/auth.store.js";
 
 export default {
   name: 'Account',
@@ -107,15 +87,28 @@ export default {
     Sidebar,
     Header,
     SettingsSidebar,
-    InterestRatePanel,
-      SettingsSystem
+    SettingsSystem
   },
   setup() {
 
-    const sidebarOpen = ref(false)
+    const authStore = useAuthStore();
+    const settings = authStore.userData.company.assigner_settings;
+    const sidebarOpen = ref()
+    const isActive = ref(settings.is_active ? 'Включен' : 'Выключен')
+    const maxCount = ref(settings.max_count ?? 10)
+
+    function save() {
+      authStore.updateAssignerSettings({
+        is_active: isActive.value === 'Включен',
+        max_count: maxCount.value
+      })
+    }
 
     return {
       sidebarOpen,
+      isActive,
+      maxCount,
+      save
     }  
   }
 }

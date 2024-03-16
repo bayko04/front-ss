@@ -330,12 +330,11 @@ export function useMessangers() {
   }
 
   const updateChatFromSocket = function (chat, account) {
-    echo.value.private(`${account.messenger.name}.${account.id}.chat.${chat.id}`).listen('.UpdateContent', function (socketChat) {
+    echo.value.private(`${account.messenger.name}.${account.id}.chat.${chat.id}`).listen('.UpdateChat', function (socketChat) {
       chat.image = socketChat.chat.image
       chat.name = socketChat.chat.name
       chat.user_id = socketChat.chat.user_id
       chat.chat_status_id = socketChat.chat.chat_status_id
-      chat.latest_customer_request = socketChat.chat.latest_customer_request
     })
   }
 

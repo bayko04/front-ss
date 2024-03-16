@@ -74,5 +74,17 @@ export const useAuthStore = defineStore({
                 alertStore.error(error);
             }
         },
+        async updateAssignerSettings(data) {
+            try {
+                const result = await fetchWrapper.post(`${import.meta.env.VITE_API_URL}/assigner-settings`, data);
+                if(result.data) {
+                    this.userData.company.assigner_settings = result.data;
+                    localStorage.setItem('userData', JSON.stringify(this.userData));
+                }
+            } catch (error) {
+                const alertStore = useAlertStore();
+                alertStore.error(error);
+            }
+        }
     }
 });
