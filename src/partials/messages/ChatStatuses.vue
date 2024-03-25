@@ -26,8 +26,7 @@
 <script setup>
     import { ref, onMounted, onUnmounted } from 'vue'
     import { useMessangers } from "../../utils/messengers.js"
-
-
+    const {activeChat} = await useMessangers()
 
     const dropdownOpen = ref(false)
     const trigger = ref(null)

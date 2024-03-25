@@ -17,10 +17,9 @@
             </div>
             <!-- Right -->
             <div class="flex items-center ml-4">
-              <div class="text-sm text-slate-400 dark:text-slate-500 italic mr-2">{{comments}}</div>
               <div class="form-switch">
-                <input type="checkbox" id="comments" class="sr-only" v-model="comments" true-value="On" false-value="Off" />
-                <label class="bg-slate-400 dark:bg-slate-700" for="comments">
+                <input @change="save" type="checkbox" id="siteNewRequest" class="sr-only" v-model="siteNewRequest" true-value="Включен" false-value="Выключен"/>
+                <label class="bg-slate-400 dark:bg-slate-700" for="siteNewRequest">
                   <span class="bg-white shadow-sm" aria-hidden="true"></span>
                   <span class="sr-only">Enable smart sync</span>
                 </label>
@@ -35,11 +34,10 @@
             </div>
             <!-- Right -->
             <div class="flex items-center ml-4">
-              <div class="text-sm text-slate-400 dark:text-slate-500 italic mr-2">{{messages}}</div>
               <div class="form-switch">
-                <input type="checkbox" id="messages" class="sr-only" v-model="messages" true-value="On" false-value="Off" />
-                <label class="bg-slate-400 dark:bg-slate-700" for="messages">
-                  <span class="bg-white shadow-sm" aria-hidden="true"></span>
+                <input @change="save" type="checkbox" id="siteNewMessage" class="sr-only" v-model="siteNewMessage" true-value="Включен" false-value="Выключен"/>
+                <label class="bg-slate-400 dark:bg-slate-700" for="siteNewMessage">
+                <span class="bg-white shadow-sm" aria-hidden="true"></span>
                   <span class="sr-only">Enable smart sync</span>
                 </label>
               </div>
@@ -53,10 +51,26 @@
             </div>
             <!-- Right -->
             <div class="flex items-center ml-4">
-              <div class="text-sm text-slate-400 dark:text-slate-500 italic mr-2">{{messages}}</div>
               <div class="form-switch">
-                <input type="checkbox" id="messages" class="sr-only" v-model="messages" true-value="On" false-value="Off" />
-                <label class="bg-slate-400 dark:bg-slate-700" for="messages">
+                <input @change="save" type="checkbox" id="siteNewAssign" class="sr-only" v-model="siteNewAssign" true-value="Включен" false-value="Выключен"/>
+                <label class="bg-slate-400 dark:bg-slate-700" for="siteNewAssign">
+                  <span class="bg-white shadow-sm" aria-hidden="true"></span>
+                  <span class="sr-only">Enable smart sync</span>
+                </label>
+              </div>
+            </div>
+          </li>
+          <li class="flex justify-between items-center py-3 border-b border-slate-200 dark:border-slate-700">
+            <!-- Left -->
+            <div>
+              <div class="text-slate-800 dark:text-slate-100 font-semibold">Задачи</div>
+              <div class="text-sm">Уведомляет о задачах.</div>
+            </div>
+            <!-- Right -->
+            <div class="flex items-center ml-4">
+              <div class="form-switch">
+                <input @change="save" type="checkbox" id="siteTaskTime" class="sr-only" v-model="siteTaskTime" true-value="Включен" false-value="Выключен"/>
+                <label class="bg-slate-400 dark:bg-slate-700" for="siteTaskTime">
                   <span class="bg-white shadow-sm" aria-hidden="true"></span>
                   <span class="sr-only">Enable smart sync</span>
                 </label>
@@ -78,10 +92,9 @@
             </div>
             <!-- Right -->
             <div class="flex items-center ml-4">
-              <div class="text-sm text-slate-400 dark:text-slate-500 italic mr-2">{{comments}}</div>
               <div class="form-switch">
-                <input type="checkbox" id="comments" class="sr-only" v-model="comments" true-value="On" false-value="Off" />
-                <label class="bg-slate-400 dark:bg-slate-700" for="comments">
+                <input @change="save" type="checkbox" id="telegramNewRequest" class="sr-only" v-model="telegramNewRequest" true-value="Включен" false-value="Выключен"/>
+                <label class="bg-slate-400 dark:bg-slate-700" for="telegramNewRequest">
                   <span class="bg-white shadow-sm" aria-hidden="true"></span>
                   <span class="sr-only">Enable smart sync</span>
                 </label>
@@ -96,10 +109,9 @@
             </div>
             <!-- Right -->
             <div class="flex items-center ml-4">
-              <div class="text-sm text-slate-400 dark:text-slate-500 italic mr-2">{{messages}}</div>
               <div class="form-switch">
-                <input type="checkbox" id="messages" class="sr-only" v-model="messages" true-value="On" false-value="Off" />
-                <label class="bg-slate-400 dark:bg-slate-700" for="messages">
+                <input @change="save" type="checkbox" id="telegramNewMessage" class="sr-only" v-model="telegramNewMessage" true-value="Включен" false-value="Выключен"/>
+                <label class="bg-slate-400 dark:bg-slate-700" for="telegramNewMessage">
                   <span class="bg-white shadow-sm" aria-hidden="true"></span>
                   <span class="sr-only">Enable smart sync</span>
                 </label>
@@ -114,10 +126,26 @@
             </div>
             <!-- Right -->
             <div class="flex items-center ml-4">
-              <div class="text-sm text-slate-400 dark:text-slate-500 italic mr-2">{{messages}}</div>
               <div class="form-switch">
-                <input type="checkbox" id="messages" class="sr-only" v-model="messages" true-value="On" false-value="Off" />
-                <label class="bg-slate-400 dark:bg-slate-700" for="messages">
+                <input @change="save" type="checkbox" id="telegramNewAssign" class="sr-only" v-model="telegramNewAssign" true-value="Включен" false-value="Выключен" />
+                <label class="bg-slate-400 dark:bg-slate-700" for="telegramNewAssign">
+                  <span class="bg-white shadow-sm" aria-hidden="true"></span>
+                  <span class="sr-only">Enable smart sync</span>
+                </label>
+              </div>
+            </div>
+          </li>
+          <li class="flex justify-between items-center py-3 border-b border-slate-200 dark:border-slate-700">
+            <!-- Left -->
+            <div>
+              <div class="text-slate-800 dark:text-slate-100 font-semibold">Задачи</div>
+              <div class="text-sm">Уведомляет о задачах.</div>
+            </div>
+            <!-- Right -->
+            <div class="flex items-center ml-4">
+              <div class="form-switch">
+                <input @change="save" type="checkbox" id="telegramTaskTime" class="sr-only" v-model="telegramTaskTime" true-value="Включен" false-value="Выключен" />
+                <label class="bg-slate-400 dark:bg-slate-700" for="telegramTaskTime">
                   <span class="bg-white shadow-sm" aria-hidden="true"></span>
                   <span class="sr-only">Enable smart sync</span>
                 </label>
@@ -129,22 +157,38 @@
 
     </div>
 
-    <!-- Panel footer -->
-    <footer>
-      <div class="flex flex-col px-6 py-5 border-slate-200 dark:border-slate-700">
-        <div class="flex self-end">
-          <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3">Сохранить изменения</button>
-        </div>
-      </div>
-    </footer>
-
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import {useAuthStore} from "../../stores/auth.store.js";
 
-const comments = ref('On')
-const messages = ref('On')
-const mentions = ref('Off')
+const authStore = useAuthStore();
+
+const siteNewRequest = ref(authStore.userData.user.notification_settings.siteNewRequest ? 'Включен' : 'Выключен')
+const siteNewMessage = ref(authStore.userData.user.notification_settings.siteNewMessage ? 'Включен' : 'Выключен')
+const siteNewAssign = ref(authStore.userData.user.notification_settings.siteNewAssign ? 'Включен' : 'Выключен')
+const siteTaskTime = ref(authStore.userData.user.notification_settings.siteTaskTime ? 'Включен' : 'Выключен')
+
+const telegramNewRequest = ref(authStore.userData.user.notification_settings.telegramNewRequest ? 'Включен' : 'Выключен')
+const telegramNewMessage = ref(authStore.userData.user.notification_settings.telegramNewMessage ? 'Включен' : 'Выключен')
+const telegramNewAssign = ref(authStore.userData.user.notification_settings.telegramNewAssign ? 'Включен' : 'Выключен')
+const telegramTaskTime = ref(authStore.userData.user.notification_settings.telegramTaskTime ? 'Включен' : 'Выключен')
+
+function save() {
+  const form = {
+    siteNewRequest: siteNewRequest.value === 'Включен',
+    siteNewMessage: siteNewMessage.value === 'Включен',
+    siteNewAssign: siteNewAssign.value === 'Включен',
+    siteTaskTime: siteTaskTime.value === 'Включен',
+    telegramNewRequest: telegramNewRequest.value === 'Включен',
+    telegramNewMessage: telegramNewMessage.value === 'Включен',
+    telegramNewAssign: telegramNewAssign.value === 'Включен',
+    telegramTaskTime: telegramTaskTime.value === 'Включен',
+  }
+
+  authStore.updateNotificationSettings(form)
+}
+
 </script>

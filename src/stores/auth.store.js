@@ -85,6 +85,19 @@ export const useAuthStore = defineStore({
                 const alertStore = useAlertStore();
                 alertStore.error(error);
             }
+        },
+        async updateNotificationSettings(data) {
+            try {
+                const result = await fetchWrapper.post(`${baseUrl}/notification-settings`, {"notification_settings":data});
+                if(result.data) {
+                    console.log(result.data)
+                    this.userData.user.notification_settings = result.data;
+                    localStorage.setItem('userData', JSON.stringify(this.userData));
+                }
+            } catch (error) {
+                const alertStore = useAlertStore();
+                alertStore.error(error);
+            }
         }
     }
 });
