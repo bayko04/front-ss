@@ -45,8 +45,8 @@
 
     <!-- Content -->
     <div class="relative">
-      <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">Здравствуйте, Vivo company. 👋</h1>
-      <p class="dark:text-indigo-200">Здесь показатели по кредитному портфелю:</p>
+      <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">Здравствуйте, Sport store. 👋</h1>
+      <p class="dark:text-indigo-200">Здесь показатели по продажам:</p>
     </div>
 
   </div>
