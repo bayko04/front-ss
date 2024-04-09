@@ -28,7 +28,7 @@
         {{message.text}}
       </div>
       <div class="flex items-center flex-row">
-        <img v-if="message.type === 'story_mention'" class="rounded-lg shadow-md mb-1" :src="message?.text" width="240" height="180" alt="История недоступна" />
+        <img v-if="message.type === 'story'" class="rounded-lg shadow-md mb-1" :src="message?.url" width="240" height="180" alt="История недоступна" />
 
         <!--          image message -->
           <img v-if="message.type === 'image' && message?.attachments[0]" class="rounded-lg shadow-md mb-1" :src="message?.attachments[0].path" width="240" height="180" alt="Chat image" />
