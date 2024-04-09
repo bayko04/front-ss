@@ -21,16 +21,18 @@
       </div>
       <!--          text message -->
       <div
-          v-if="message.text"
+          v-if="message.text && message.type !== 'story_mention'"
           class="whitespace-pre-wrap text-sm rounded-lg border shadow-md mb-1 p-3 w-full min-w-[100px]"
           :class="message.user_id ? 'bg-indigo-500 text-white rounded-tl-none border-transparent' : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-tl-none border-slate-200 dark:border-slate-7001'"
       >
         {{message.text}}
       </div>
       <div class="flex items-center flex-row">
-          <!--          image message -->
+        <img v-if="message.type === 'story_mention'" class="rounded-lg shadow-md mb-1" :src="message?.text" width="240" height="180" alt="Chat image" />
+
+        <!--          image message -->
           <img v-if="message.type === 'image' && message?.attachments[0]" class="rounded-lg shadow-md mb-1" :src="message?.attachments[0].path" width="240" height="180" alt="Chat image" />
-          <!--          audio message -->
+        <!--          audio message -->
           <AudioPlayer  v-else-if="message.type === 'audio'" :audioPath="message?.attachments[0].path"/>
           <!--          video message -->
           <VideoPlayer  v-else-if="message.type === 'video'" :videoPath="message?.attachments[0].path"/>
