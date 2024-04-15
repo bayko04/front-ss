@@ -18,7 +18,7 @@
         <div v-if="message.type === 'log'" class="flex justify-center mb-4 last:mb-0">
             <StatusLogContent :message="message"/>
         </div>
-        <div v-else class="flex items-start mb-4 last:mb-0">
+        <div v-else-if="message.message_status_id !== 7" class="flex items-start mb-4 last:mb-0">
             <MessagesContent :message="message"/>
         </div>
     </div>
