@@ -27,8 +27,10 @@
       >
         {{message.text}}
       </div>
+      <div v-if="imageError">История недоступна</div>
+
       <div class="flex items-center flex-row">
-        <img v-if="message.type === 'story'" class="rounded-lg shadow-md mb-1" :src="message?.url" width="240" height="180" alt="История недоступна" />
+          <img v-if="message.type === 'story' && !imageError" @error="handleImageError" class="rounded-lg shadow-md mb-1" :src="message?.url" width="240" height="180" alt="История недоступна" />
 
         <!--          image message -->
           <img v-if="message.type === 'image' && message?.attachments[0]" class="rounded-lg shadow-md mb-1" :src="message?.attachments[0].path" width="240" height="180" alt="Chat image" />
@@ -90,6 +92,11 @@ const modalStyle = ref({
   left: `0px`,
   top: `0px`,
 });
+
+const imageError = ref(false)
+function handleImageError() {
+  imageError.value = true;
+}
 
 function openModal(event, message) {
   calculateModalPosition(event);
