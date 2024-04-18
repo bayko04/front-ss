@@ -26,6 +26,7 @@ const emptyMessage = {
 const echo = ref(undefined);
 const queryString = window.location.search;
 const searchParams = new URLSearchParams(queryString);
+const chatSortStatus = ref(1)
 
 export function useMessangers() {
   const route = ref(router?.currentRoute?.value);
@@ -493,6 +494,7 @@ export function useMessangers() {
     activeCommentsChat,
     getComments,
     replyComment,
-    replyToDirect
+    replyToDirect,
+    chatSortStatus
   };
 }

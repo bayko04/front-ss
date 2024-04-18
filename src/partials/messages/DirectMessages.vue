@@ -8,6 +8,10 @@
           :key="chat.id"
       >
         <button
+            v-if="(chatSortStatus === 2 && chat.latest_customer_request.chat_status_id === 1)
+            || chatSortStatus === 3
+            || (chatSortStatus === 1 && chat.latest_customer_request.user_id === authStore.userData.user.id
+            && chat.latest_customer_request.chat_status_id != 1)"
             class="flex items-center justify-between w-full p-2 rounded"
             @click.stop="$emit('close-msgsidebar')"
             @click="setActiveChat(chat)"
@@ -35,7 +39,7 @@
 import { useMessangers } from "../../utils/messengers.js";
 import { useAuthStore} from "../../stores/auth.store.js";
 
-const {activeChat, activeAccount, setActiveChat} = await useMessangers()
+const {activeChat, activeAccount, setActiveChat, chatSortStatus} = await useMessangers()
 
 const authStore = useAuthStore()
 </script>
