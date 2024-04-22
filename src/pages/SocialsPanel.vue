@@ -166,6 +166,56 @@
                           </footer>
                         </div>
                       </div>
+<!--                      tg              -->
+                      <div class="col-span-full xl:col-span-6 2xl:col-span-4 bg-white dark:bg-slate-800 shadow-md rounded-sm border border-slate-200 dark:border-slate-700">
+                        <!-- Card content -->
+                        <div class="flex flex-col h-full p-5">
+                          <div class="grow">
+                            <header class="flex items-center mb-4">
+                              <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="none"  stroke="#057cd6"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-telegram"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg>                              <h3 class="text-lg text-slate-800 dark:text-slate-100 font-semibold">Telegram</h3>
+                            </header>
+                            <div class="text-sm">Lorem ipsum dolor sit amet eiusmod sed do eiusmod tempor.</div>
+                          </div>
+                          <!-- Card footer -->
+                          <footer class="mt-4">
+                            <div class="flex flex-wrap justify-between items-end w-full">
+                              <!-- Left side -->
+                              <div class="flex space-x-3 flex-grow">
+                                <div class="flex flex-col">
+                                  <div>
+                                    <div class="flex items-center text-slate-400 dark:text-slate-500">
+                                      <svg class="w-4 h-4 shrink-0 fill-current mr-1.5" viewBox="0 0 16 16">
+                                        <path d="M14.14 9.585a2.5 2.5 0 00-3.522 3.194c-.845.63-1.87.97-2.924.971a4.979 4.979 0 01-1.113-.135 4.436 4.436 0 01-1.343 1.682 6.91 6.91 0 006.9-1.165 2.5 2.5 0 002-4.547h.002zM10.125 2.188a2.5 2.5 0 10-.4 2.014 5.027 5.027 0 012.723 3.078c.148-.018.297-.028.446-.03a4.5 4.5 0 011.7.334 7.023 7.023 0 00-4.469-5.396zM4.663 10.5a2.49 2.49 0 00-1.932-1.234 4.624 4.624 0 01-.037-.516 4.97 4.97 0 011.348-3.391 4.456 4.456 0 01-.788-2.016A6.989 6.989 0 00.694 8.75c.004.391.04.781.11 1.166a2.5 2.5 0 103.86.584z" />
+                                      </svg>
+                                      <div class="text-sm text-slate-500 dark:text-slate-300">4K+</div>
+                                    </div>
+                                    <div class="flex items-center text-amber-500">
+                                      <svg class="w-4 h-4 shrink-0 fill-current mr-1.5" viewBox="0 0 16 16">
+                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z" />
+                                      </svg>
+                                      <div class="text-sm text-amber-600">4.7</div>
+                                    </div>
+                                  </div>
+                                  <div class="space-y-4">
+                                    <div>
+                                      <input v-model="telegramBotToken" class="form-input w-full" type="text" />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- Right side -->
+                              <button class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm flex items-center"
+                                      @click="addTelegramBot()"
+                              >
+                                <svg class="w-3 h-3 shrink-0 fill-current text-emerald-500 mr-2" viewBox="0 0 12 12">
+                                  <path d="M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z" />
+                                </svg>
+                                <span>Добавить</span>
+                              </button>
+                            </div>
+                          </footer>
+                        </div>
+                      </div>
                     </div>
                   </section>
 
@@ -238,11 +288,21 @@ import Sidebar from '../partials/Sidebar.vue'
 import Header from '../partials/Header.vue'
 import { useAuthStore } from "../stores/auth.store.js";
 import {useMessangers} from "../utils/messengers.js";
+import {fetchWrapper} from "../helpers/fetch-wrapper.js";
 
 const sidebarOpen = ref(false)
-const baseUrl = `${import.meta.env.VITE_API_URL}/auth/redirect`;
+const baseUrl = `${import.meta.env.VITE_API_URL}/redirect`;
 const authStore = useAuthStore()
 const {accounts} = useMessangers()
+const telegramBotToken = ref('')
+
+async function addTelegramBot() {
+   let result = await fetchWrapper.post('/add-telegram-bot', {'token': telegramBotToken.value})
+
+  if (result.data) {
+    window.location.href = `/messages?accountId=${result.data.id}`
+  }
+}
 
 function registerSocialAuthEvent(register) {
   if (register)
