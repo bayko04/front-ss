@@ -30,12 +30,13 @@ import Comments from "./pages/Comments.vue";
 import Onboarding01 from "./pages/Onboarding01.vue";
 import Onboarding02 from "./pages/Onboarding02.vue";
 import Onboarding03 from "./pages/Onboarding03.vue";
-import Customers from "./pages/Products/Customers.vue";
+import Customers from "./pages/Products/Products.vue";
 import Newsletters from "./pages/marketing/Newsletters.vue";
 import Triggers from "./pages/marketing/Triggers.vue";
 import Questionnaire from "./pages/marketing/Questionnaire.vue";
 import Archive from "./partials/archive/Archive.vue";
 import AssignerSettings from "./pages/systemSettings/AssignerSettings.vue";
+import Products from "./pages/Products/Products.vue";
 
 const routerHistory = createWebHistory()
 
@@ -183,8 +184,8 @@ const router = createRouter({
       meta: {permission:'companies.add'}
     },
     {
-      path: '/products/customers',
-      component: Customers
+      path: '/products',
+      component: Products
     },
     {
       path: '/marketing/newsletters',
