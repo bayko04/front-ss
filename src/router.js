@@ -34,7 +34,7 @@ import Customers from "./pages/Products/Products.vue";
 import Newsletters from "./pages/marketing/Newsletters.vue";
 import Triggers from "./pages/marketing/Triggers.vue";
 import Questionnaire from "./pages/marketing/Questionnaire.vue";
-import Archive from "./partials/archive/Archive.vue";
+import Archive from "./pages/Archive.vue";
 import AssignerSettings from "./pages/systemSettings/AssignerSettings.vue";
 import Products from "./pages/Products/Products.vue";
 
