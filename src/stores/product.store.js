@@ -6,21 +6,15 @@ export const useProductStore = defineStore({
     state: () => ({
         products: [],
         product: {
-            tour_name: '',
+            name: '',
             description: '',
-            image_url: '',
-            price: 0,
-            duration: 0,
-            start_date: '',
-            end_date: '',
-            tour_type: '',
-            country: '',
-            departure_city: '',
-            arrival_city: '',
-            tour_status: '',
-            available_seats: '',
-            currency: ''
-        }
+            price: null,
+            status: 'Активный',
+            category_id: null
+        },
+        productModalStatus: false,
+        allCategories: [],
+        childCategories: [],
     }),
     actions: {
         async getProducts(){
@@ -40,7 +34,46 @@ export const useProductStore = defineStore({
 
             const result = await fetchWrapper.post(`/products/import`, formData);
             this.products = result.data
-        }
+        },
+        async getChildCategories(){
+            this.childCategories = (await fetchWrapper.get(`/products/child-categories`)).data;
+        },
+        async getAllCategories(){
+            this.allCategories = (await fetchWrapper.get(`/products/all-categories`)).data;
+        },
+        async createOrUpdateProduct() {
+            this.product = (await fetchWrapper.post(`/products`, this.product)).data;
+            this.updateProductInArray(this.product);
+            this.product = {
+                name: '',
+                description: '',
+                price: null,
+                status: 'Активный',
+                category_id: null
+            }
+            this.productModalStatus = false
+        },
+        updateProductInArray(product) {
+            const index = this.products.data.findIndex(p => p.id === product.id);
+            if (index !== -1) {
+                this.products.data[index] = product;
+            } else {
+                this.products.data.unshift(product);
+            }
+        },
+        async deleteProduct() {
+            await fetchWrapper.delete(`/products/${this.product.id}`);
+            this.products.data = this.products.data.filter(x => x.id !== this.product.id);
+            this.product = {
+                name: '',
+                description: '',
+                price: null,
+                status: 'Активный',
+                category_id: null
+            }
+            this.productModalStatus = false
+
+        },
     }
 
 })

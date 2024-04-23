@@ -1,71 +1,83 @@
 <template>
   <tr>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[100px]">
       <div class="flex items-center">
-        <label class="inline-flex">
-          <span class="sr-only">Select</span>
-          <input :id="product.id" class="form-checkbox" type="checkbox" :value="value" @change="check" :checked="checked" />
-        </label>
+        <div class="font-medium text-slate-800 dark:text-slate-100">{{getCategoryName(product.category)}}</div>
       </div>
     </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-      <div class="flex items-center relative">
-        <button>
-          <svg class="w-4 h-4 shrink-0 fill-current" :class="product.fav ? 'text-amber-500' : 'text-slate-300 dark:text-slate-600'" viewBox="0 0 16 16">
-            <path d="M8 0L6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934h-6L8 0z" />
+    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[200px]">
+      <div class="flex items-center">
+        <div class="font-medium text-slate-800 dark:text-slate-100">{{product.name}}</div>
+      </div>
+    </td>
+    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap overflow-hidden max-w-[200px]">
+      <div class="text-left truncate">{{product.description}}</div>
+    </td>
+    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[80px]">
+      <div class="text-left">{{product.price}}</div>
+    </td>
+    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[80px]">
+      <div class="text-left font-medium text-emerald-500"
+           :class="product.status ? 'text-emerald-500' : 'text-red-500'"
+      >{{getStatus(product.status)}}</div>
+    </td>
+    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[50px]">
+      <div class="space-x-1">
+        <button @click.stop="edit(product)" class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 rounded-full">
+          <span class="sr-only">Edit</span>
+          <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+            <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z" />
+          </svg>
+        </button>
+        <button @click.stop="deleteProduct(product)" class="text-rose-500 hover:text-rose-600 rounded-full">
+          <span class="sr-only">Delete</span>
+          <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+            <path d="M13 15h2v6h-2zM17 15h2v6h-2z" />
+            <path d="M20 9c0-.6-.4-1-1-1h-6c-.6 0-1 .4-1 1v2H8v2h1v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V13h1v-2h-4V9zm-6 1h4v1h-4v-1zm7 3v9H11v-9h10z" />
           </svg>
         </button>
       </div>
     </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <div class="flex items-center">
-        <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-          <img class="rounded-full" :src="product.image" width="40" height="40" :alt="product.name" />
-        </div>
-        <div class="font-medium text-slate-800 dark:text-slate-100">{{product.tour_name}}</div>
-      </div>
-    </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <div class="text-left">{{product.description}}</div>
-    </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <div class="text-left">{{product.price}}</div>
-    </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <div class="text-center">{{product.currency}}</div>
-    </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <div class="text-left font-medium text-sky-500">{{product.tour_type}}</div>
-    </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <div class="text-left font-medium text-emerald-500">{{product.tour_status}}</div>
-    </td>
   </tr>  
 </template>
 
-<script>
-import { computed } from 'vue'
+<script setup>
+import {useProductStore} from "../../stores/product.store.js";
 
-export default {
-  name: 'CustomerTableItem',
-  props: ['product', 'value', 'selected'],
-  setup(props, context) {
-    const checked = false
+const {product} = defineProps(['product', 'value'])
+const productStore = useProductStore()
+function getCategoryName(category, categoryName = '') {
+  if(categoryName) {
+    categoryName = category.name + ', ' + categoryName;
+  } else {
+    categoryName = category.name
+  }
 
-    function check() {
-      let updatedSelected = [...props.selected]
-      if (this.checked) {
-        updatedSelected.splice(updatedSelected.indexOf(props.value), 1)
-      } else {
-        updatedSelected.push(props.value)
-      }
-      context.emit('update:selected', updatedSelected)
-    }
+  if (category.parent) {
+    return getCategoryName(category.parent, categoryName);
+  }
 
-    return {
-      check,
-      checked,
-    }
-  },
+  return categoryName;
 }
+
+function getStatus(status) {
+  if(status) {
+    return 'Активный'
+  }
+
+  return 'Неактивный'
+}
+
+function edit(product)
+{
+  productStore.productModalStatus = 'edit'
+  productStore.product = product
+}
+
+function deleteProduct(product)
+{
+  productStore.productModalStatus = 'delete'
+  productStore.product = product
+}
+
 </script>
