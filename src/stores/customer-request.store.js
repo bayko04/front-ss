@@ -15,8 +15,8 @@ export const useCustomerRequestStore = defineStore({
         async changeUser(userId, id) {
             return (await fetchWrapper.post(`/customer-requests/change-user`, {'userId': userId, customerRequestId: id})).data;
         },
-        async getCustomerRequests(statusId = null) {
-            this.customerRequests = (await fetchWrapper.get(`/customer-requests`, {'statusId': statusId ?? ''})).data;
+        async getCustomerRequests(statusId = null, accountId = null) {
+            this.customerRequests = (await fetchWrapper.get(`/customer-requests`, {'statusId': statusId ?? '', 'accountId': accountId ?? ''})).data;
             this.sortedCustomerRequestsCount = (await fetchWrapper.get(`/customer-requests/count`)).data;
             let allCount = 0;
             for (let key in this.sortedCustomerRequestsCount) {

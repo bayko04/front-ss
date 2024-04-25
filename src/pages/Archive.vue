@@ -48,12 +48,12 @@
                                     </button>
                                 </li>
                             </ul>
+                          <!-- Right side -->
                         </div>
 
                         <!-- Right side -->
                         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-                            <!-- Dropdown -->
-                            <DateSelect />
+                          <BasicSelect v-model="selectedAccountId" :title="'Аккаунты'" :options="accounts"/>
                         </div>
 
                     </div>
@@ -78,20 +78,20 @@
 import {onMounted, ref} from 'vue'
 import Sidebar from '../partials/Sidebar.vue'
 import Header from '../partials/Header.vue'
-import DateSelect from '../components/DateSelect.vue'
 import {useReferencesStore} from "../stores/references.store.js";
 import {useCustomerRequestStore} from "../stores/customer-request.store.js";
 import PaginationNumeric from "../components/PaginationNumeric.vue";
 import RequestsTable from "../partials/archive/RequestsTable.vue";
+import BasicSelect from "../components/BasicSelect.vue";
+import {useMessangers} from "../utils/messengers.js";
 
 
 const sidebarOpen = ref(false)
 const selectedItems = ref([])
 const selectedStatusId = ref(0)
+const selectedAccountId = ref(null)
 
-const updateSelectedItems = (selected) => {
-    selectedItems.value = selected
-}
+const {accounts} = useMessangers()
 
 const referencesStore = useReferencesStore()
 const customerRequestsStore = useCustomerRequestStore()
