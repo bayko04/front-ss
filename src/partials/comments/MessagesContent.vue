@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="flex flex-row items-center">
-      <img v-if="comment.user_id" class="rounded-full mr-4" src="https://i.pinimg.com/originals/02/41/dc/0241dc4c544ec54fee0c378b40ca6bc6.png" width="40" height="40" alt="User 01" />
-      <img v-else class="rounded-full mr-4" src="https://www.pngkit.com/png/full/126-1262807_instagram-default-profile-picture-png.png" width="40" height="40" alt="User 01" />
+      <img v-if="comment.user_id" class="rounded-full mr-4" :src="comment.user?.image" width="40" height="40" alt="User 01" />
+      <img v-else class="rounded-full mr-4" src="https://i.pinimg.com/originals/02/41/dc/0241dc4c544ec54fee0c378b40ca6bc6.png" width="40" height="40" alt="User 01" />
       <div class="text-xs text-slate-500 font-medium ml-2 mr-2">{{ comment.username }}</div>
     </div>
     <div class="relative group flex-col ">
