@@ -301,7 +301,7 @@ const send = async function() {
 }
 
 const clickHandler = ({ target }) => {
-  if (createTaskModal.value.stayOpen || modalContent.value.contains(target)) {
+  if (createTaskModal.value?.stayOpen || modalContent.value?.contains(target)) {
     createTaskModal.value.stayOpen = false;
     return;
   }

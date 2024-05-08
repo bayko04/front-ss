@@ -53,7 +53,6 @@ export function useMessangers() {
       const chatId = searchParams.get('commentsChatId')
       chatId ? setActiveCommentsChat(getCommentsChatById(chatId)) : setActiveCommentsChat(undefined)
     }
-
     accounts.value.forEach(function (account, index) {
       newChatFromSocket(account)
       account.chats?.forEach(function (chat) {
