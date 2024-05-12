@@ -25,6 +25,13 @@
                     <input v-model="store.companyData.company.name" id="company-name" class="form-input w-full" type="text" />
                   </div>
                 </div>
+                <div class="space-y-3 mb-8">
+                  <div>
+                    <h2 class="block text-sm font-medium mb-1">Специализация компании</h2>
+                    <DropdownFull :options="referenceStore.sections"
+                                  @update-value="(value) =>handleUpdateValue('section_id', value)"/>
+                  </div>
+                </div>
                 <div class="flex items-center justify-between">
                   <router-link class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto" to="/onboarding02">Далее -&gt;</router-link>
                 </div>
@@ -49,6 +56,24 @@
 <script setup>
   import Header from '../partials/onboarding/header.vue'
   import { useOnboardingStore } from "../stores/onboarding.store.js";
+  import DropdownFull from "../components/DropdownFull.vue";
+  import {onMounted, ref} from "vue";
+  import {useReferencesStore} from "../stores/references.store.js";
+  import {useAuthStore} from "../stores/auth.store.js";
+  import router from "../router.js";
 
   const store = useOnboardingStore();
+  const referenceStore = useReferencesStore()
+  const authStore = useAuthStore();
+
+  function handleUpdateValue(field, value) {
+    store.companyData.company[field] = value
+  }
+
+  onMounted(() => {
+    if(authStore?.userData?.user?.id) {
+      router.push(`/`)
+    }
+    referenceStore.getSections()
+  })
 </script>
