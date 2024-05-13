@@ -82,7 +82,7 @@
     const sidebarOpen = ref(false)
     const msgSidebarOpen = ref(!chatId && !commentsChatId)
     const contentArea = ref(null)
-    const { getMessages } = useMessangers()
+    const { getMessages, activeChat } = useMessangers()
 
     const handleScroll = (top = true) => {
       contentArea.value.scrollTop = top ? 0 : 99999999
@@ -90,7 +90,7 @@
     const scrolling = async (e) => {
       const scrollHeight = e.target.scrollHeight
       const scrollTop = e.target.scrollTop
-      if (scrollTop === 0) {
+      if (scrollTop === 0 && activeChat.value) {
         await getMessages()
         e.target.scrollTop = e.target.scrollHeight - scrollHeight
       }
