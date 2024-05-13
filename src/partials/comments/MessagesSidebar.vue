@@ -8,17 +8,6 @@
 
       <!-- #Marketing group -->
       <div>
-        <!-- Group header -->
-        <div class="sticky top-0 z-10">
-          <div class="flex items-center bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 px-5 h-16">
-            <div class="w-full flex items-center justify-between">
-              <!-- Channel menu -->
-              <Suspense>
-                <AccountButtons/>
-              </Suspense>
-            </div>
-          </div>
-        </div>
         <!-- Group body -->
         <div class="px-5 py-4">
           <Suspense>
@@ -33,7 +22,6 @@
 
 <script setup>
 import DirectMessages from './DirectMessages.vue'
-import AccountButtons from "./AccountButtons.vue";
 
 const props = defineProps({
   msgSidebarOpen: Boolean,

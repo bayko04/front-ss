@@ -24,9 +24,6 @@
             <Suspense>
               <MessagesBody />
             </Suspense>
-            <Suspense>
-              <MessagesFooter />
-            </Suspense>
           </div>
         </div>
 
