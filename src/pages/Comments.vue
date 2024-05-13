@@ -45,8 +45,13 @@
     import MessagesFooter from '../partials/comments/MessagesFooter.vue'
     import ModalForReplyToDirect from "../components/ModalForReplyToDirect.vue";
 
+    const queryString = window.location.search;
+    const searchParams = new URLSearchParams(queryString);
+    const commentsChatId = searchParams.has('commentsChatId')
+    const chatId = searchParams.has('chatId')
+
     const sidebarOpen = ref(false)
-    const msgSidebarOpen = ref(true)
+    const msgSidebarOpen = ref(!chatId && !commentsChatId)
     const contentArea = ref(null)
 
     const handleScroll = (top = true) => {

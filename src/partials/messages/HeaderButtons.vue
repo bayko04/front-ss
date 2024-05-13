@@ -23,7 +23,7 @@
       <div v-for="account in accounts">
         <div
             v-if="account.messenger.id === 3"
-            @click="setActiveCommentsChat(account)"
+            @click="setActiveCommentsAccount(account)"
             :key="account.id"
             :class="{'bg-slate-300': (account.id === activeCommentsAccount.id) }"
             class="relative flex items-center mr-1 justify-center cursor-pointer w-8 h-8 bg-slate-100 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600/80 rounded-full"
@@ -50,7 +50,7 @@
   import whatsapp from '../../images/chat/whatsapp.svg?component'
   import mail from '../../images/chat/mail.svg?component'
 
-  const { setActiveAccount, accounts, activeAccount, activeCommentsAccount, setActiveCommentsChat, activeCommentsChat} = await useMessangers()
+  const { setActiveAccount, accounts, activeAccount, activeCommentsAccount, setActiveCommentsAccount} = await useMessangers()
 
   const getMessengerComponent = (messengerName) => {
     switch (messengerName) {

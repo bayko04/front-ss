@@ -113,7 +113,7 @@ export function useMessangers() {
     if(!account) {
       activeCommentsAccount.value = accounts.value.find((account) => account.messenger.id === 3)
     } else {
-      ctiveCommentsAccount.value = account
+      activeCommentsAccount.value = account
     }
     activeCommentsChat.value = undefined
 
@@ -207,10 +207,10 @@ export function useMessangers() {
 
   const getMessages = async function (messageId = null) {
     let offset = 0
-    if (activeChat.value.messages && Object.keys(activeChat.value.messages).length >= 15) {
+    if (activeChat.value?.messages && Object.keys(activeChat.value.messages).length >= 15) {
       offset = Object.keys(activeChat.value.messages).length
     }
-    if (!activeChat.value.messages) {
+    if (!activeChat.value?.messages) {
       activeChat.value.messages = {}
     }
     activeChat.value.messages = {...activeChat.value.messages, ...(await fetchWrapper.get(`/${activeAccount.value?.messenger.name}/chats/${activeChat.value.id}/messages/${offset}`, {messageId: messageId})).data}

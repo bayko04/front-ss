@@ -74,8 +74,13 @@
     import ModalForNewChat from "../components/ModalForNewChat.vue";
     import ModalForNewTask from "../partials/calendar/ModalForNewTask.vue";
 
+    const queryString = window.location.search;
+    const searchParams = new URLSearchParams(queryString);
+    const commentsChatId = searchParams.has('commentsChatId')
+    const chatId = searchParams.has('chatId')
+
     const sidebarOpen = ref(false)
-    const msgSidebarOpen = ref(true)
+    const msgSidebarOpen = ref(!chatId && !commentsChatId)
     const contentArea = ref(null)
     const { getMessages } = useMessangers()
 
