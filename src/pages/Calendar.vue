@@ -105,7 +105,7 @@
                 </svg>
               </div>
               <!-- Days of the current month -->
-              <div class="relative bg-white dark:bg-slate-800 h-20 sm:h-28 lg:h-36 overflow-hidden" v-for="(day, index) in daysInMonth" :key="index">
+              <div class="relative bg-white dark:bg-slate-800 h-auto sm:min-h-28 lg:min-h-36 overflow-hidden" v-for="(day, index) in daysInMonth" :key="index">
                 <div class="h-full flex flex-col justify-between">
                   <!-- Events -->
                   <div class="grow flex flex-col relative p-0.5 sm:p-1.5 overflow-hidden">

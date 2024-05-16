@@ -18,7 +18,7 @@
 
                         <!-- Left: Title -->
                         <div class="mb-4 sm:mb-0">
-                            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Архив обращений ✨</h1>
+                            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Обращения ✨</h1>
                         </div>
 
                     </div>
@@ -53,7 +53,13 @@
 
                         <!-- Right side -->
                         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-                          <BasicSelect v-model="selectedAccountId" :title="'Аккаунты'" :options="accounts"/>
+                          <Datepicker @changeDates="selectDates" align="right" />
+
+                          <BasicSelect @change="selectAccount" :title="'Аккаунты'" :options="accounts"/>
+
+                          <button @click="clean" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                            <span class="hidden xs:block">Сброс</span>
+                          </button>
                         </div>
 
                     </div>
@@ -84,15 +90,18 @@ import PaginationNumeric from "../components/PaginationNumeric.vue";
 import RequestsTable from "../partials/archive/RequestsTable.vue";
 import BasicSelect from "../components/BasicSelect.vue";
 import {useMessangers} from "../utils/messengers.js";
-
+import Datepicker from "../components/Datepicker.vue";
+import {timestampToDate} from "../helpers/date-format.js";
 
 const sidebarOpen = ref(false)
 const selectedItems = ref([])
 const selectedStatusId = ref(0)
-const selectedAccountId = ref(null)
+const selectedAccount = ref(null)
+const selectedMessenger = ref(null)
+const dateFrom = ref(null)
+const dateTo = ref(null)
 
 const {accounts} = useMessangers()
-
 const referencesStore = useReferencesStore()
 const customerRequestsStore = useCustomerRequestStore()
 
@@ -103,7 +112,29 @@ onMounted(() => {
 
 function selectStatus(statusId) {
   selectedStatusId.value = statusId
-  customerRequestsStore.getCustomerRequests(statusId)
+  customerRequestsStore.getCustomerRequests(selectedStatusId.value, selectedAccount.value?.id, selectedMessenger.value, dateFrom.value, dateTo.value)
 }
+
+function selectAccount(account) {
+  selectedAccount.value = account
+  selectedMessenger.value = selectedAccount.value?.messenger.name
+  customerRequestsStore.getCustomerRequests(selectedStatusId.value, selectedAccount.value?.id, selectedMessenger.value, dateFrom.value, dateTo.value)
+}
+
+function selectDates(dates) {
+  dateFrom.value = timestampToDate(dates[0])
+  dateTo.value = timestampToDate(dates[1])
+  customerRequestsStore.getCustomerRequests(selectedStatusId.value, selectedAccount.value?.id, selectedMessenger.value, dateFrom.value, dateTo.value)
+}
+
+function clean() {
+  selectedStatusId.value = null
+  selectedAccount.value = null
+  selectedMessenger.value = null
+  dateFrom.value = null
+  dateTo.value = null
+  customerRequestsStore.getCustomerRequests()
+}
+
 
 </script>

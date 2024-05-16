@@ -7,29 +7,19 @@
             <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5" :class="statusColor(customerRequest.chat_status?.name)">{{customerRequest.chat_status?.name}}</div>
         </td>
         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-            <div class="font-medium" :class="totalColor(customerRequest.price)">{{customerRequest.price}}</div>
-        </td>
-
-        <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-            <div>{{customerRequest.created_at}}</div>
+            <div>{{timestampToDateTime(customerRequest.created_at)}}</div>
         </td>
         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
             <div class="font-medium text-slate-800 dark:text-slate-100">{{customerRequest.comment}}</div>
         </td>
         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-            <div class="space-x-1">
-                <button class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 rounded-full">
-                    <span class="sr-only">Edit</span>
-                    <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
-                        <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z" />
-                    </svg>
-                </button>
-                <button class="text-rose-500 hover:text-rose-600 rounded-full">
-                    <span class="sr-only">Delete</span>
-                    <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
-                        <path d="M13 15h2v6h-2zM17 15h2v6h-2z" />
-                        <path d="M20 9c0-.6-.4-1-1-1h-6c-.6 0-1 .4-1 1v2H8v2h1v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V13h1v-2h-4V9zm-6 1h4v1h-4v-1zm7 3v9H11v-9h10z" />
-                    </svg>
+            <div @click="customerRequestsStore.setChatByCustomerRequestId(customerRequest.id)" class="space-x-1">
+                <button class="">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" width="44" height="44" viewBox="0 0 32 32" stroke-width="1.5" stroke="#00b341" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M3 20l1.3 -3.9a9 8 0 1 1 3.4 2.9l-4.7 1" />
+                    <path d="M8 13l3 -2l2 2l3 -2" />
+                  </svg>
                 </button>
             </div>
         </td>
@@ -37,8 +27,11 @@
 </template>
 
 <script setup>
+import {timestampToDateTime} from "../../helpers/date-format.js";
+import {useCustomerRequestStore} from "../../stores/customer-request.store.js";
 
 const { customerRequest } = defineProps(['customerRequest']);
+const customerRequestsStore = useCustomerRequestStore()
 
 const totalColor = (status) => {
   switch (status) {

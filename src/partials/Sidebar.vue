@@ -39,7 +39,7 @@
           <ul class="mt-3">
               <!-- Архив -->
               <router-link to="/archive" custom v-slot="{ href, navigate, isExactActive }">
-                  <li v-tooltip="'Архив'" class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" :class="isExactActive && 'bg-slate-900'">
+                  <li v-tooltip="'Обращения'" class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" :class="isExactActive && 'bg-slate-900'">
                       <a class="block text-slate-200 transition duration-150" :class="isExactActive ? 'hover:text-slate-200' : 'hover:text-white'" :href="href" @click="navigate">
                           <div class="flex items-center justify-between">
                               <div class="grow flex items-center">

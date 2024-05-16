@@ -145,16 +145,9 @@ export function useMessangers() {
       activeChat.value.message = JSON.parse(JSON.stringify(emptyMessage))
     }
 
-    const customerStore = useCustomerStore()
     const taskStore = useTaskStore()
 
-    taskStore.getTasksForCustomerRequest(activeChat.value.latest_customer_request.id)
-    if(activeChat.value.customer_id && activeChat.value.customer_id !== customerStore.customer?.id) {
-      await customerStore.getCustomer(activeChat.value.customer_id)
-    } else if(!activeChat.value.customer_id) {
-      customerStore.customer = null
-    }
-
+    taskStore.getTasksForCustomerRequest(activeChat.value.latest_customer_request?.id)
 
     const newRoute = {
       path: '/messages',

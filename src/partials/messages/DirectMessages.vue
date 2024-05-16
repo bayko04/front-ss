@@ -23,7 +23,7 @@
             <div class="truncate flex flex-col items-start">
               <span class="text-sm font-medium text-slate-800 dark:text-slate-100">{{chat.name}}</span>
               <span v-if="chat.message?.text" class="text-xs text-gray-500 truncate">{{chat.message.text}}</span>
-              <span v-else-if="chat.messages" class="text-xs text-gray-500 truncate">{{ lastMessage(chat.messages) }}</span>
+              <span v-else-if="chat.messages?.length" class="text-xs text-gray-500 truncate">{{ lastMessage(chat.messages) }}</span>
               <span v-else-if="chat.latest_message" class="text-xs text-gray-500 truncate">{{ chat.latest_message.text }}</span>
               <span class="text-xs text-gray-500 truncate">{{}}</span>
             </div>

@@ -22,13 +22,13 @@
     --v-tooltip-arrow-left: 10px;
 }
 .tooltip span {
-    z-index: 9999;
+    z-index: 999999;
 }
 .data-v-tooltip {
     position: relative;
 }
 .data-v-tooltip::after {
-    z-index: 9999;
+    z-index: 999999;
     content: attr(data-v-tooltip);
     position: absolute;
     left: calc(var(--v-tooltip-left) - var(--v-tooltip-left-offset));
@@ -52,7 +52,7 @@
 }
 /* arrow */
 .data-v-tooltip::before {
-    z-index: 9999;
+    z-index: 999999;
     content: "";
     position: absolute;
     display: var(--v-tooltip-arrow-display);
@@ -72,7 +72,8 @@
 }
 .data-v-tooltip:hover::after,
 .data-v-tooltip:hover::before {
-    z-index: 9999;
+    z-index: 999999;
+    position: absolute;
     transition-duration: var(--v-tooltip-transition-duration);
     transition-delay: var(--v-tooltip-transition-delay);
     transition-timing-function: var(--v-tooltip-transition-timing-function);

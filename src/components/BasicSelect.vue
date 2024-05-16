@@ -104,7 +104,8 @@ export default {
     function selectOption(option) {
       selected.value = option;
       dropdownOpen.value = false;
-      emit('update:modelValue', selected.value.id);
+      emit('update:modelValue', selected.value);
+      emit('change', selected.value);
     }
 
     return {
