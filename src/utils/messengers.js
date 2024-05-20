@@ -327,7 +327,7 @@ export function useMessangers() {
       chat.image = socketChat.chat.image
       chat.name = socketChat.chat.name
       chat.user_id = socketChat.chat.user_id
-      chat.chat_status_id = socketChat.chat.chat_status_id
+      chat.latest_customer_request.chat_status = socketChat.chat.latest_customer_request.chat_status
     })
   }
 

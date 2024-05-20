@@ -8,10 +8,9 @@
           :key="chat.id"
       >
         <button
-            v-if="(chatSortStatus === 2 && chat.latest_customer_request.chat_status_id === 1)
+            v-if="(chatSortStatus === 2 && chat.latest_customer_request.user_id === null)
             || chatSortStatus === 3
-            || (chatSortStatus === 1 && chat.latest_customer_request.user_id === authStore.userData.user.id
-            && chat.latest_customer_request.chat_status_id != 1)"
+            || (chatSortStatus === 1 && chat.latest_customer_request.user_id === authStore.userData.user.id)"
             class="flex items-center justify-between w-full p-2 rounded"
             @click.stop="$emit('close-msgsidebar')"
             @click="setActiveChat(chat)"
