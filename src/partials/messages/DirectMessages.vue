@@ -8,10 +8,9 @@
           :key="chat.id"
       >
         <button
-            v-if="(chatSortStatus === 2 && chat.latest_customer_request.chat_status_id === 1)
+            v-if="(chatSortStatus === 2 && chat.latest_customer_request.user_id === null)
             || chatSortStatus === 3
-            || (chatSortStatus === 1 && chat.latest_customer_request.user_id === authStore.userData.user.id
-            && chat.latest_customer_request.chat_status_id != 1)"
+            || (chatSortStatus === 1 && chat.latest_customer_request.user_id === authStore.userData.user.id)"
             class="flex items-center justify-between w-full p-2 rounded"
             @click.stop="$emit('close-msgsidebar')"
             @click="setActiveChat(chat)"
@@ -20,8 +19,12 @@
         >
           <div class="flex items-center truncate">
             <img class="w-8 h-8 rounded-full mr-2" :src="chat.image" width="32" height="32" alt="User 01" />
-            <div class="truncate">
+            <div class="truncate flex flex-col items-start">
               <span class="text-sm font-medium text-slate-800 dark:text-slate-100">{{chat.name}}</span>
+              <span v-if="chat.message?.text" class="text-xs text-gray-500 truncate">{{chat.message.text}}</span>
+              <span v-else-if="chat.messages?.length" class="text-xs text-gray-500 truncate">{{ lastMessage(chat.messages) }}</span>
+              <span v-else-if="chat.latest_message" class="text-xs text-gray-500 truncate">{{ chat.latest_message.text }}</span>
+              <span class="text-xs text-gray-500 truncate">{{}}</span>
             </div>
           </div>
           <div
@@ -36,10 +39,16 @@
 </template>
 
 <script setup>
-import { useMessangers } from "../../utils/messengers.js";
-import { useAuthStore} from "../../stores/auth.store.js";
+import {useMessangers} from "../../utils/messengers.js";
+import {useAuthStore} from "../../stores/auth.store.js";
 
 const {activeChat, activeAccount, setActiveChat, chatSortStatus} = await useMessangers()
+
+const lastMessage = (messages) => {
+  const values = Object.values(messages);
+
+  return values[values.length - 1].text;
+};
 
 const authStore = useAuthStore()
 </script>

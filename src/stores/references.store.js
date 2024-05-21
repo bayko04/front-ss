@@ -8,8 +8,17 @@ export const useReferencesStore = defineStore({
     state: () => ({
         chatStatuses: [],
         taskTypes: [],
+        sections: [],
     }),
     actions: {
+        async getSections() {
+            if(this.sections.length === 0) {
+                const result = await fetchWrapper.get(`${baseUrl}/sections`);
+                this.sections = result.data
+            }
+
+            return this.sections
+        },
         async getChatStatuses() {
             if(this.chatStatuses.length === 0) {
                 const result = await fetchWrapper.get(`${baseUrl}/chat-statuses`);

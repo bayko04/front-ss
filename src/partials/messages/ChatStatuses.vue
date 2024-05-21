@@ -44,8 +44,7 @@
     const mine = computed(() => {
       let count = 0
       activeAccount.value?.chats?.forEach((chat) => {
-        if(chat.latest_customer_request.user_id === authStore.userData.user.id
-            && chat.latest_customer_request.chat_status_id != 1) {
+        if(chat.latest_customer_request.user_id === authStore.userData.user.id) {
           count ++
         }
       })
@@ -55,7 +54,7 @@
     const queue = computed(() => {
       let count = 0
       activeAccount.value?.chats?.forEach((chat) => {
-        if(chat.latest_customer_request.chat_status_id === 1) {
+        if(chat.latest_customer_request.user_id === null) {
           count ++
         }
       })

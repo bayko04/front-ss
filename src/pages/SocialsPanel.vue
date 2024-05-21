@@ -204,7 +204,7 @@
                                 </div>
                               </div>
                               <!-- Right side -->
-                              <button class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm flex items-center"
+                              <button :disabled="!telegramBotToken" class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm flex items-center"
                                       @click="addTelegramBot()"
                               >
                                 <svg class="w-3 h-3 shrink-0 fill-current text-emerald-500 mr-2" viewBox="0 0 12 12">
@@ -250,17 +250,17 @@
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                           <div class="font-medium text-green-400" >Активный</div>
                         </td>
-<!--                        <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">-->
-<!--                          <div class="space-x-1">-->
-<!--                            <button class="text-rose-500 hover:text-rose-600 rounded-full">-->
-<!--                              <span class="sr-only">Delete</span>-->
-<!--                              <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">-->
-<!--                                <path d="M13 15h2v6h-2zM17 15h2v6h-2z" />-->
-<!--                                <path d="M20 9c0-.6-.4-1-1-1h-6c-.6 0-1 .4-1 1v2H8v2h1v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V13h1v-2h-4V9zm-6 1h4v1h-4v-1zm7 3v9H11v-9h10z" />-->
-<!--                              </svg>-->
-<!--                            </button>-->
-<!--                          </div>-->
-<!--                        </td>-->
+                        <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+                          <div class="space-x-1">
+                            <button @click.stop="deleteAccount(account)" class="text-rose-500 hover:text-rose-600 rounded-full">
+                              <span class="sr-only">Delete</span>
+                              <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                <path d="M13 15h2v6h-2zM17 15h2v6h-2z" />
+                                <path d="M20 9c0-.6-.4-1-1-1h-6c-.6 0-1 .4-1 1v2H8v2h1v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V13h1v-2h-4V9zm-6 1h4v1h-4v-1zm7 3v9H11v-9h10z" />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
 
                       </tr>
                       </tbody>
@@ -274,6 +274,27 @@
             </div>
           </div>
 
+
+<!--          modal -->
+          <!-- Cookies -->
+          <div class="m-1.5">
+            <!-- Start -->
+            <ModalCookies v-if="deleting" id="cookies-modal" :modalOpen="deleting" @close-modal="deleting = false" title="Подтвердите удаление аккаунта">
+              <!-- Modal content -->
+              <div class="text-sm mb-5">
+                <div class="space-y-2">
+                  <p>Вы собираетесь удалить аккаунт {{deletingAccount.title}}.</p>
+                  <p>Это приведеть к потере всех чатов, сообщений связанных с ним. И вы потеряете возможность получать обращения клиентов с этого аккаунта в нашей системе.</p>
+                </div>
+              </div>
+              <!-- Modal footer -->
+              <div class="flex flex-wrap justify-end space-x-2">
+                <button class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300" @click.stop="deleting = false">Отмена</button>
+                <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click.stop="acceptDelete">Да, удалить</button>
+              </div>
+            </ModalCookies>
+            <!-- End -->
+          </div>
         </div>
       </main>
 
@@ -289,15 +310,29 @@ import Header from '../partials/Header.vue'
 import { useAuthStore } from "../stores/auth.store.js";
 import {useMessangers} from "../utils/messengers.js";
 import {fetchWrapper} from "../helpers/fetch-wrapper.js";
+import ModalCookies from "../components/ModalCookies.vue";
 
 const sidebarOpen = ref(false)
 const baseUrl = `${import.meta.env.VITE_API_URL}/redirect`;
 const authStore = useAuthStore()
 const {accounts} = useMessangers()
 const telegramBotToken = ref('')
+const deleting = ref(false)
+const deletingAccount = ref(null)
+
+function deleteAccount(account) {
+  deleting.value = true
+  deletingAccount.value = account
+}
+
+async function acceptDelete() {
+  await fetchWrapper.delete(`/delete-account/${deletingAccount.value.id}`)
+  window.location.href = `/settings/socials-panel`
+}
 
 async function addTelegramBot() {
-   let result = await fetchWrapper.post('/add-telegram-bot', {'token': telegramBotToken.value})
+
+  let result = await fetchWrapper.post('/add-telegram-bot', {'token': telegramBotToken.value})
 
   if (result.data) {
     window.location.href = `/messages?accountId=${result.data.id}`

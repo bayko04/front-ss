@@ -9,7 +9,7 @@
       :aria-expanded="dropdownOpen"
     >
       <span class="flex items-center">
-        <span>{{getOptionById().name}}</span>
+        <span>{{selected?.name}}</span>
       </span>
       <svg class="shrink-0 ml-1 fill-current text-slate-400" width="11" height="7" viewBox="0 0 11 7">
         <path d="M5.4 6.8L0 1.4 1.4 0l4 4 4-4 1.4 1.4z" />
@@ -35,12 +35,12 @@
             v-for="option in options"
             :key="option.id"
             class="flex items-center justify-between w-full hover:bg-slate-50 dark:hover:bg-slate-700/20 py-2 px-3 cursor-pointer"
-            :class="option.id === selected && 'text-indigo-500'"
-              @click="selectOption(option.id)"
+            :class="option.id === selected?.id && 'text-indigo-500'"
+              @click="selectOption(option)"
           >
 
             <span>{{option.name}}</span>
-            <svg class="shrink-0 ml-2 fill-current text-indigo-400" :class="option.id !== selected && 'invisible'" width="12" height="9" viewBox="0 0 12 9">
+            <svg class="shrink-0 ml-2 fill-current text-indigo-400" :class="option.id !== selected?.id && 'invisible'" width="12" height="9" viewBox="0 0 12 9">
               <path d="M10.28.28L3.989 6.575 1.695 4.28A1 1 0 00.28 5.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28.28z" />
             </svg>
           </button>          
@@ -51,7 +51,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import {ref, onMounted, onUnmounted, watch} from 'vue'
 
 const {options, value} = defineProps(['options', 'value'])
 const dropdownOpen = ref(false)
@@ -60,29 +60,13 @@ const dropdown = ref(null)
 const selected = ref(null)
 const emits = defineEmits(['update-value'])
 
-function selectOption(id)
+function selectOption(item)
 {
-    selected.value = id;
-    emits('update-value', id);
+    selected.value = item;
+    emits('update-value', item.id);
     dropdownOpen.value = false
 }
 
-function getOptionById()
-{
-    if(selected.value === null) {
-        return options[0]
-    }
-    let item = null;
-    options.every(function (val) {
-        if(val.id === selected.value) {
-            item = val
-            return false
-        }
-        return true
-    })
-
-    return item
-}
 const clickHandler = ({ target }) => {
     if (!dropdownOpen.value || dropdown.value.contains(target) || trigger.value.contains(target)) return
     dropdownOpen.value = false
@@ -94,12 +78,20 @@ const keyHandler = ({ keyCode }) => {
     dropdownOpen.value = false
 }
 
+function valueUpdate(value) {
+  if (value) {
+    options.forEach((option) => {
+      if(option.id === value) {
+        selected.value = option
+      }
+    })
+    selected.value = options[0]
+  }
+}
+
 onMounted(() => {
     if (value) {
-        selected.value = value
-    } else {
-        selected.value = 1;
-        emits('update-value', 1);
+      valueUpdate(value)
     }
     document.addEventListener('click', clickHandler)
     document.addEventListener('keydown', keyHandler)

@@ -7,6 +7,7 @@ export const useOnboardingStore = defineStore({
         companyData: {
             company: {
                 name: '',
+                section_id: ''
             },
             user: {
                 name: '',

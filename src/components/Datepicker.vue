@@ -11,32 +11,38 @@
 
 <script>
 import flatPickr from 'vue-flatpickr-component'
+import { Russian } from "flatpickr/dist/l10n/ru.js"
 
 export default {
   name: 'Datepicker',
   props: ['align'],
-    data (props) {
-      return {
-        date: null, // refer to https://github.com/ankurk91/vue-flatpickr-component
-        config: {
-          mode: 'range',
-          static: true,
-          monthSelectorType: 'static',
-          dateFormat: 'M j, Y',
-          defaultDate: [new Date().setDate(new Date().getDate() - 6), new Date()],
-          prevArrow: '<svg class="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M5.4 10.8l1.4-1.4-4-4 4-4L5.4 0 0 5.4z" /></svg>',
-          nextArrow: '<svg class="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M1.4 10.8L0 9.4l4-4-4-4L1.4 0l5.4 5.4z" /></svg>',
-          onReady: (selectedDates, dateStr, instance) => {
-            instance.element.value = dateStr.replace('to', '-');
-            const customClass = (props.align) ? props.align : '';
-            instance.calendarContainer.classList.add(`flatpickr-${customClass}`);            
-          },
-          onChange: (selectedDates, dateStr, instance) => {
-            instance.element.value = dateStr.replace('to', '-');
-          },
-        },                
-      }
-    },  
+  setup(props, { emit }) {
+    const date = null;
+    const config = {
+      locale: Russian,
+      mode: 'range',
+      static: true,
+      monthSelectorType: 'static',
+      dateFormat: 'j M Y',
+      defaultDate: [new Date().setDate(new Date().getDate() - 6), new Date()],
+      prevArrow: '<svg class="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M5.4 10.8l1.4-1.4-4-4 4-4L5.4 0 0 5.4z" /></svg>',
+      nextArrow: '<svg class="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M1.4 10.8L0 9.4l4-4-4-4L1.4 0l5.4 5.4z" /></svg>',
+      onReady: (selectedDates, dateStr, instance) => {
+        instance.element.value = dateStr.replace('to', '-');
+        const customClass = (props.align) ? props.align : '';
+        instance.calendarContainer.classList.add(`flatpickr-${customClass}`);
+      },
+      onChange: (selectedDates, dateStr, instance) => {
+        instance.element.value = dateStr.replace('to', '-');
+        if (Array.isArray(selectedDates) && selectedDates.length === 2) {
+          emit('update:modelValue', selectedDates);
+          emit('changeDates', selectedDates);
+        }
+      },
+    };
+
+    return { date, config };
+  },
   components: {
     flatPickr
   },

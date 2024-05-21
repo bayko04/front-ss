@@ -53,7 +53,6 @@ export function useMessangers() {
       const chatId = searchParams.get('commentsChatId')
       chatId ? setActiveCommentsChat(getCommentsChatById(chatId)) : setActiveCommentsChat(undefined)
     }
-
     accounts.value.forEach(function (account, index) {
       newChatFromSocket(account)
       account.chats?.forEach(function (chat) {
@@ -114,7 +113,7 @@ export function useMessangers() {
     if(!account) {
       activeCommentsAccount.value = accounts.value.find((account) => account.messenger.id === 3)
     } else {
-      ctiveCommentsAccount.value = account
+      activeCommentsAccount.value = account
     }
     activeCommentsChat.value = undefined
 
@@ -146,16 +145,9 @@ export function useMessangers() {
       activeChat.value.message = JSON.parse(JSON.stringify(emptyMessage))
     }
 
-    const customerStore = useCustomerStore()
     const taskStore = useTaskStore()
 
-    taskStore.getTasksForCustomerRequest(activeChat.value.latest_customer_request.id)
-    if(activeChat.value.customer_id && activeChat.value.customer_id !== customerStore.customer?.id) {
-      await customerStore.getCustomer(activeChat.value.customer_id)
-    } else if(!activeChat.value.customer_id) {
-      customerStore.customer = null
-    }
-
+    taskStore.getTasksForCustomerRequest(activeChat.value.latest_customer_request?.id)
 
     const newRoute = {
       path: '/messages',
@@ -208,10 +200,10 @@ export function useMessangers() {
 
   const getMessages = async function (messageId = null) {
     let offset = 0
-    if (activeChat.value.messages && Object.keys(activeChat.value.messages).length >= 15) {
+    if (activeChat.value?.messages && Object.keys(activeChat.value.messages).length >= 15) {
       offset = Object.keys(activeChat.value.messages).length
     }
-    if (!activeChat.value.messages) {
+    if (!activeChat.value?.messages) {
       activeChat.value.messages = {}
     }
     activeChat.value.messages = {...activeChat.value.messages, ...(await fetchWrapper.get(`/${activeAccount.value?.messenger.name}/chats/${activeChat.value.id}/messages/${offset}`, {messageId: messageId})).data}
@@ -335,7 +327,7 @@ export function useMessangers() {
       chat.image = socketChat.chat.image
       chat.name = socketChat.chat.name
       chat.user_id = socketChat.chat.user_id
-      chat.chat_status_id = socketChat.chat.chat_status_id
+      chat.latest_customer_request.chat_status = socketChat.chat.latest_customer_request.chat_status
     })
   }
 

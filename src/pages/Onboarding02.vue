@@ -31,8 +31,12 @@
                   </div>
                   <!-- Password -->
                   <div>
-                    <label class="block text-sm font-medium mb-1" for="password">Почта <span class="text-rose-500">*</span></label>
+                    <label class="block text-sm font-medium mb-1" for="password">Пароль <span class="text-rose-500">*</span></label>
                     <input v-model="store.companyData.user.password" id="password" class="form-input w-full" type="password" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium mb-1" for="developer_token">Пароль разработчика<span class="text-rose-500">*</span></label>
+                    <input v-model="store.companyData.developer_token" id="developer_token" class="form-input w-full" type="developer_token" />
                   </div>
                 </div>
                 <div class="flex items-center justify-between">

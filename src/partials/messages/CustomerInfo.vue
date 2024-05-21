@@ -1,6 +1,6 @@
 <template>
   <!-- Sidebar -->
-  <div v-if="activeChat">
+  <div v-if="activeChat" class="hidden md:block">
     <div class="lg:sticky lg:top-16 bg-slate-50 dark:bg-slate-800/20 lg:overflow-x-hidden lg:overflow-y-auto no-scrollbar lg:shrink-0 border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-slate-700 lg:w-[320px] xl:w-[352px] 2xl:w-[calc(352px+80px)] lg:h-[calc(100dvh-64px)]">
       <div class="py-8 px-4 lg:px-8 2xl:px-12">
         <div class="text-slate-800 dark:text-slate-100 font-semibold mb-2">Детали обращения</div>
