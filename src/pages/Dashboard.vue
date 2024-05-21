@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import {onMounted, ref} from 'vue'
 import Sidebar from '../partials/Sidebar.vue'
 import Header from '../partials/Header.vue'
 import WelcomeBanner from '../partials/dashboard/WelcomeBanner.vue'
@@ -85,6 +85,7 @@ import DashboardCard10 from '../partials/dashboard/DashboardCard10.vue'
 import DashboardCard11 from '../partials/dashboard/DashboardCard11.vue'
 import FintechCard09 from "../partials/fintech/FintechCard09.vue";
 import AnalyticsCard01 from "../partials/analytics/AnalyticsCard01.vue";
+import {useDashboardStore} from "../stores/dashboard.store.js";
 
 export default {
   name: 'Dashboard',
@@ -110,11 +111,13 @@ export default {
     DashboardCard11,    
   },
   setup() {
+    const dashboardStore = useDashboardStore()
 
     const sidebarOpen = ref(false)
 
     return {
       sidebarOpen,
+      dashboardStore
     }  
   }
 }

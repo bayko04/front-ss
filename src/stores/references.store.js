@@ -54,6 +54,9 @@ export const useReferencesStore = defineStore({
             await fetchWrapper.delete(`${baseUrl}/task-types/${id}`);
             const index = this.getItemIndex(id)
             this.taskTypes.splice(index, 1)
+        },
+        async makeConversionStatus(id){
+            await fetchWrapper.post(`${baseUrl}/task-types/${id}`);
         }
     }
 });

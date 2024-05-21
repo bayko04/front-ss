@@ -27,6 +27,17 @@
                                     </svg>
                                 </button>
                             </div>
+                          <div class="table-cell py-1 px-2">
+                            <button v-if="!item.editing" @click="makeConversionStatus(item)"
+                                    class="btn dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600">
+                              <svg class="w-4 h-4">
+                                <!-- Зеленый круг в качестве фона -->
+                                <circle cx="8" cy="8" r="7" fill="green" />
+                                <!-- Светлая галочка -->
+                                <path fill="white" d="M4.8 8.3L7 10.5 11.2 6.3" />
+                              </svg>
+                            </button>
+                          </div>
                             <div class="table-cell py-1 px-2">
                                 <button v-if="!item.editing" @click="deleteChatStatus(item)"
                                         class="btn dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600">
@@ -79,6 +90,11 @@ function editItem(item) {
     setTimeout(() => {
         focusInput();
     }, 0);
+}
+
+function makeConversionStatus(item) {
+  console.log('asd')
+
 }
 
 function focusInput() {

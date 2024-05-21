@@ -58,7 +58,7 @@ export default {
             tooltip: {
               callbacks: {
                 title: () => false, // Disable tooltip title
-                label: (context) => formatValue(context.parsed.y),
+                label: (context) => context.parsed.y,
               },
               bodyColor: darkMode.value ? tooltipBodyColor.dark : tooltipBodyColor.light,
               backgroundColor: darkMode.value ? tooltipBgColor.dark : tooltipBgColor.light,
