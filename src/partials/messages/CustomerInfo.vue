@@ -9,12 +9,14 @@
 
               <!-- Order summary -->
               <div>
-                  <ul v-if="customerStore.customer" class="mb-4">
+                  <ul v-if="activeChat.customer" class="mb-4">
                       <li class="text-sm w-full flex justify-between py-3 border-b border-slate-200 dark:border-slate-700">
-                          <div>{{ customerStore.customer.name }}</div>
+                          <div>{{ activeChat.customer.name }}</div>
                       </li>
-
-                      <div v-if="customerStore.customer.phone" class="grow flex items-center">
+                    <div v-if="activeChat.customer.comment" class="grow mt-2 mb-2 flex items-center">
+                      <span class="text-sm ml-3 2xl:opacity-100 duration-200">{{ activeChat.customer.comment }}</span>
+                    </div>
+                      <div v-if="activeChat.customer.phone" class="grow flex items-center">
                           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-address-book" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                               <path d="M20 6v12a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2z" />
@@ -24,20 +26,20 @@
                               <path d="M4 12h3" />
                               <path d="M4 16h3" />
                           </svg>
-                          <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">{{ customerStore.customer.phone }}</span>
+                          <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">{{ activeChat.customer.phone }}</span>
                       </div>
-                      <div v-if="customerStore.customer.email" class="grow flex items-center">
+                      <div v-if="activeChat.customer.email" class="grow flex items-center">
                           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                               <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
                               <path d="M3 7l9 6l9 -6" />
                           </svg>
-                          <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">{{ customerStore.customer.email }}</span>
+                          <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">{{ activeChat.customer.email }}</span>
                       </div>
                   </ul>
               </div>
               <!-- Add new client -->
-              <div v-if="!customerStore.customer">
+              <div v-if="!activeChat.customer">
                   <div class="text-slate-800 dark:text-slate-100 font-semibold mb-4">Клиента нет базе. Добавить?</div>
                   <!-- Add or connect user -->
                   <div>

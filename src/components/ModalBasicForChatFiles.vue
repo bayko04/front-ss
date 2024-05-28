@@ -65,7 +65,7 @@
           <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
             <div class="flex flex-wrap justify-end space-x-2">
               <button class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300" @click.stop="closeModal()">Cancel</button>
-              <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click="send()">Send</button>
+              <button :disabled="sendDisabled" class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click="send()">Send</button>
             </div>
           </div>
         </div>
@@ -78,9 +78,10 @@
 import { useMessangers} from "../utils/messengers.js"
 import { fileModal } from "../utils/modalVariables.js"
 import Delete from '../images/delete.svg?component'
+import {ref} from "vue";
 
 const { activeChat, sendFiles } = await useMessangers()
-
+const sendDisabled = ref(false)
 const deleteFile = function (index) {
   activeChat.value.message.attachments.splice(index, 1)
 }
@@ -92,7 +93,9 @@ const closeModal = function() {
 }
 
 const send = async function() {
+  sendDisabled.value = true
   await sendFiles()
   closeModal()
+  sendDisabled.value = false
 }
 </script>

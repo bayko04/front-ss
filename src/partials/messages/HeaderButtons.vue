@@ -10,11 +10,6 @@
           @click="setActiveAccount(account)"
       >
         <div>
-          <div v-if="account.unread_messages_count" class="absolute top-0 right-0 -mr-2 -mt-2 dark:bg-slate-700 rounded-full p-1 shadow">
-            <div class="w-4 h-4 bg-red-500 text-white flex items-center justify-center rounded-full text-xs">
-              {{account.unread_messages_count}}
-            </div>
-          </div>
           <component :is="getMessengerComponent(account?.messenger?.name)"/>
         </div>
       </div>
