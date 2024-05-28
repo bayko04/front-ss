@@ -29,6 +29,7 @@ export const useReferencesStore = defineStore({
         },
         async setOrUpdateChatStatus(form) {
             const result = await fetchWrapper.post(`${baseUrl}/chat-statuses`, form);
+            // console.log(result.data);
             if(result.data && form.id) {
                 const index = this.getItemIndex(form.id)
                 this.chatStatuses[index] = result.data

@@ -37,6 +37,7 @@ import Questionnaire from "./pages/marketing/Questionnaire.vue";
 import Archive from "./pages/Archive.vue";
 import AssignerSettings from "./pages/systemSettings/AssignerSettings.vue";
 import Products from "./pages/Products/Products.vue";
+import TaskType from "./pages/systemSettings/TaskType.vue";
 
 const routerHistory = createWebHistory()
 
@@ -159,6 +160,10 @@ const router = createRouter({
     {
       path: '/systemSettings/requestStatus',
       component: RequestStatus
+    },
+    {
+      path: '/systemSettings/taskType',
+      component: TaskType
     },
     {
       path: '/systemSettings/AssignerSettings',

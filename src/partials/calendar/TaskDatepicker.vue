@@ -17,7 +17,7 @@ export default {
   props: ['align', 'value'],
   data() {
     return {
-      date: null,
+      date: this.value || null,
       config: {
         mode: 'single',
         static: true,

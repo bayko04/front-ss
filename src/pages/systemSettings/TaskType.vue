@@ -6,7 +6,7 @@
 
     <!-- Content area -->
     <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-      
+
       <!-- Site header -->
       <Header :sidebarOpen="sidebarOpen" @toggle-sidebar="sidebarOpen = !sidebarOpen" />
 
@@ -19,11 +19,10 @@
             <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Статусы обращений ✨</h1>
           </div>
 
-          <!-- Content --> 
+          <!-- Content -->
           <div class="bg-white dark:bg-slate-800 shadow-lg rounded-sm mb-8">
             <div class="flex flex-col md:flex-row md:-mr-px">
               <SettingsSystem />
-              <RequestStatus />
               <TaskType />
             </div>
           </div>
@@ -31,7 +30,7 @@
         </div>
       </main>
 
-    </div> 
+    </div>
 
   </div>
 </template>
@@ -42,16 +41,16 @@ import Sidebar from '../../partials/Sidebar.vue'
 import Header from '../../partials/Header.vue'
 import SettingsSidebar from '../../partials/settings/SettingsSidebar.vue'
 import SettingsSystem from '../../partials/settings/SettingsSystem.vue'
-import RequestStatus from "../../partials/settings/RequestStatus.vue";
+import TaskType from "../../partials/settings/TaskType.vue";
 
 export default {
   name: 'Account',
   components: {
-    RequestStatus,
+    TaskType,
     Sidebar,
     Header,
     SettingsSidebar,
-      SettingsSystem
+    SettingsSystem
   },
   setup() {
 
@@ -59,7 +58,7 @@ export default {
 
     return {
       sidebarOpen,
-    }  
+    }
   }
 }
 </script>

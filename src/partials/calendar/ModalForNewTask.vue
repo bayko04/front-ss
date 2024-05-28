@@ -50,7 +50,7 @@
                             <!-- Modal content -->
                             <div class="px-5 py-4 flex flex-col h-full">
                                 <div class="mb-2">
-                                    <label class="block text-sm font-medium mb-1" for="name">Название задачи</label>
+                                    <label class="block text-sm font-medium mb-1" for="name">Название задачи<span class="text-red-500">*</span></label>
                                     <input v-model="taskStore.task.name" id="name" class="form-input w-full"
                                            type="text">
                                 </div>
@@ -61,12 +61,12 @@
                                 </div>
 
                                 <div class="mb-2">
-                                    <h2 class="block text-sm font-medium mb-1">Тип задачи</h2>
+                                    <h2 class="block text-sm font-medium mb-1">Тип задачи<span class="text-red-500">*</span></h2>
                                     <DropdownFull :options="referencesStore.taskTypes"
                                                   @update-value="(value) =>handleUpdateValue('task_type_id', value)"/>
                                 </div>
                                 <div class="mb-2">
-                                    <h2 class="block text-sm font-medium mb-1">Исполнитель</h2>
+                                    <h2 class="block text-sm font-medium mb-1">Исполнитель<span class="text-red-500">*</span></h2>
                                     <DropdownFull :options="usersStore.users"
                                                   @update-value="(value) =>handleUpdateValue('user_id', value)"/>
                                 </div>

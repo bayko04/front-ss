@@ -51,7 +51,8 @@
               <!-- Create event button -->
               <button @click.stop="newTaskModal()" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                 <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                  <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                  <path
+                      d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z"/>
                 </svg>
                 <span class="hidden xs:block ml-2">Добавить задачу</span>
               </button>
@@ -63,12 +64,13 @@
           <!-- Filters and view buttons -->
           <div class="sm:flex sm:justify-between sm:items-center mb-4">
 
-            <!-- Filters  -->
+          <!-- Filters  -->
             <div class="mb-4 sm:mb-0 mr-2">
               <ul class="flex flex-wrap items-center -m-1">
                 <li class="m-1" v-for="taskType in referencesStore.taskTypes">
-                  <button class="btn-sm bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-500 dark:text-slate-400">
-                    <div class="w-1 h-3.5 shrink-0" :class="eventColor(taskType.color)"></div>
+                  <button
+                      class="btn-sm bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-500 dark:text-slate-400">
+                    <div class="w-1 h-3.5 shrink-0" :style="{ backgroundColor: taskType.color }"></div>
                     <span class="ml-1.5">{{ taskType.name }}</span>
                   </button>
                 </li>
@@ -115,7 +117,7 @@
                       @click.stop="openTaskModal(task)"
                       :key="index"
                     >
-                      <div class="px-2 py-0.5 rounded overflow-hidden" :class="eventColor(task.task_type.color)">
+                      <div class="px-2 py-0.5 rounded overflow-hidden" :style="{ backgroundColor: task.task_type.color }">
                         <!-- Event name -->
                         <div class="text-xs font-semibold truncate">{{task.name}}</div>
                         <!-- Event time -->
