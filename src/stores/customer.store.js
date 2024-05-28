@@ -30,7 +30,7 @@ export const useCustomerStore = defineStore({
         async setChatAsCustomerContact(customerId) {
             const { activeChat, activeAccount } = useMessangers();
             try {
-                this.customer = (await fetchWrapper.post(`/${activeAccount.value.messenger.name}/chats/${activeChat.value.id}/${customerId}/set-as-contact`)).data;
+                activeChat.value.customer = (await fetchWrapper.post(`/${activeAccount.value.messenger.name}/chats/${activeChat.value.id}/${customerId}/set-as-contact`)).data;
             } catch (error) {
                 console.log(error)
             }
@@ -67,6 +67,8 @@ export const useCustomerStore = defineStore({
             }
         },
         async addCustomerToChat(data) {
+            const { activeChat } = useMessangers();
+
             let formData = new FormData()
             formData.append('method', 'POST');
             for (const key in data) {
@@ -74,8 +76,7 @@ export const useCustomerStore = defineStore({
             }
             try {
                 const result = await fetchWrapper.post(`${baseUrl}`, formData);
-                this.customer = result.data
-
+                activeChat.value.customer = result.data
             } catch (error) {
                 console.log(error)
             }

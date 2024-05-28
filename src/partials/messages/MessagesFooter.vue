@@ -88,8 +88,8 @@
 
 <script setup>
 import AddAttachments from "./AddAttachments.vue";
-import { useMessangers } from "../../utils/messengers.js"
-import { emojiModal } from "../../utils/modalVariables.js"
+import {useMessangers} from "../../utils/messengers.js"
+import {emojiModal} from "../../utils/modalVariables.js"
 import {onMounted, ref} from "vue";
 import WaveSurfer from "wavesurfer.js";
 import RecordPlugin from 'wavesurfer.js/dist/plugins/record.js'
