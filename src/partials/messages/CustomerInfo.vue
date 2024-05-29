@@ -11,7 +11,12 @@
               <div>
                   <ul v-if="activeChat.customer" class="mb-4">
                       <li class="text-sm w-full flex justify-between py-3 border-b border-slate-200 dark:border-slate-700">
-                          <div>{{ activeChat.customer.name }}</div>
+                        <div>{{ activeChat.customer.name }}</div>
+                        <div>
+                          <router-link :to="`/customers/update/${activeChat.customer.id}`">
+                            <Edit/>
+                          </router-link>
+                        </div>
                       </li>
                     <div v-if="activeChat.customer.comment" class="grow mt-2 mb-2 flex items-center">
                       <span class="text-sm ml-3 2xl:opacity-100 duration-200">{{ activeChat.customer.comment }}</span>
@@ -179,6 +184,7 @@ import { useUsersStore} from "../../stores/user.store.js";
 import { searchContactModal } from "../../utils/modalVariables.js";
 
 import {Field} from "vee-validate";
+import Edit from "../../images/edit.svg";
 
 const customerRequestStore = useCustomerRequestStore()
 const customerStore = useCustomerStore()
