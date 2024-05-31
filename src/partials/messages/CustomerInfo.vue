@@ -125,10 +125,10 @@
                       </template>
                   </div>
               </div>
-              <!-- Create task -->
-              <div>
+
+              <div v-if="activeAccount.ai_active && !activeChat.latest_customer_request.user_handle">
                   <ul class="mb-4">
-                    <div @click="openTaskModal()" class="grow flex items-center cursor-pointer">
+                    <div @click="handleUser()" class="grow flex items-center cursor-pointer">
                       <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checklist w-6 h-6" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                         <path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8" />
@@ -136,9 +136,24 @@
                         <path d="M9 8h4" />
                         <path d="M9 12h2" />
                       </svg>
-                      <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">Создать задачу</span>
+                      <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">Переключить на пользователя</span>
                     </div>
                   </ul>
+              </div>
+            <!-- Create task -->
+              <div>
+                <ul class="mb-4">
+                  <div @click="openTaskModal()" class="grow flex items-center cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checklist w-6 h-6" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8" />
+                      <path d="M14 19l2 2l4 -4" />
+                      <path d="M9 8h4" />
+                      <path d="M9 12h2" />
+                    </svg>
+                    <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">Создать задачу</span>
+                  </div>
+                </ul>
               </div>
               <div>
                   <ul class="grid grid-cols-2 gap-1">
@@ -224,6 +239,11 @@ function openTaskModal() {
 function openTaskInfo(task) {
   taskStore.task = task
   createTaskModal.value.status = 'info'
+}
+
+async function handleUser(event) {
+  await customerRequestStore.handleUser(activeChat.value.latest_customer_request.id)
+  activeChat.value.latest_customer_request.user_handle = true
 }
 
 async function handleStatusChange(event) {

@@ -234,6 +234,9 @@
                           <div class="font-semibold text-left">Статус</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                          <div class="font-semibold text-left">Бот</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                           <div class="font-semibold text-left">Действия</div>
                         </th>
                       </tr>
@@ -249,6 +252,16 @@
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                           <div class="font-medium text-green-400" >Активный</div>
+                        </td>
+                        <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                          <div class="flex items-center">
+                            <div class="form-switch">
+                              <input type="checkbox" :id="account.id" class="sr-only" @click="switchAI(account.id)" v-model="account.ai_active" />
+                              <label class="bg-slate-400 dark:bg-slate-700" :for="account.id">
+                                <span class="bg-white shadow-sm" aria-hidden="true"></span>
+                              </label>
+                            </div>
+                          </div>
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                           <div class="space-x-1">
@@ -336,6 +349,14 @@ async function addTelegramBot() {
 
   if (result.data) {
     window.location.href = `/messages?accountId=${result.data.id}`
+  }
+}
+
+async function switchAI(id) {
+  let result = await fetchWrapper.post('/switch-ai/' + id)
+
+  if (result.data) {
+    window.location.href = `/settings/socials-panel`
   }
 }
 
