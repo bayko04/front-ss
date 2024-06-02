@@ -24,7 +24,7 @@
             <!-- Right: Actions  -->
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
               <!-- Search form -->
-              <SearchForm />
+              <SearchForm @input-change="search" />
               <!-- Add member button -->
               <router-link to="/customers/create" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                 <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
@@ -71,6 +71,10 @@ import { useCustomerStore } from "../../stores/customer.store.js"
 
 const customerStore = useCustomerStore()
 const sidebarOpen = ref(false)
+
+function search(searchStr) {
+  customerStore.getCustomers(searchStr)
+}
 
 onMounted(() => {
   customerStore.getCustomers()

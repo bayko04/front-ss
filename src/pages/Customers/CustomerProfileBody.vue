@@ -67,12 +67,6 @@
       <div class="relative mb-6">
         <div class="absolute bottom-0 w-full h-px bg-slate-200 dark:bg-slate-700" aria-hidden="true"></div>
         <ul class="relative text-sm font-medium flex flex-nowrap -mx-4 sm:-mx-6 lg:-mx-8 overflow-x-scroll no-scrollbar">
-          <li class="mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8" @click="tabName = 'general'">
-            <button
-                class="block pb-3"
-                :class="tabName === 'general' ? 'text-indigo-500 whitespace-nowrap border-b-2 border-indigo-500' : 'text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 whitespace-nowrap'"
-            >Основная информация</button>
-          </li>
           <li class="mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8" @click="tabName = 'contact'">
             <button
                 class="block pb-3"
@@ -223,6 +217,6 @@ import {useCustomerStore} from "../../stores/customer.store.js"
 import Edit from '../../images/edit.svg'
 
 const customerStore = useCustomerStore()
-const tabName = ref('general')
+const tabName = ref('contact')
 
 </script>

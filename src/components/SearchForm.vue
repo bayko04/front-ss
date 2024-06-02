@@ -1,7 +1,14 @@
 <template>
   <form class="relative">
     <label for="action-search" class="sr-only">Search</label>
-    <input id="action-search" class="form-input pl-9 bg-white dark:bg-slate-800" type="search" :placeholder="placeholder" />
+    <input
+        id="action-search"
+        class="form-input pl-9 bg-white dark:bg-slate-800"
+        type="search"
+        :placeholder="placeholder"
+        v-model="searchQuery"
+        @input="onInputChange"
+    />
     <button class="absolute inset-0 right-auto group" type="submit" aria-label="Search">
       <svg class="w-4 h-4 shrink-0 fill-current text-slate-400 dark:text-slate-500 group-hover:text-slate-500 dark:group-hover:text-slate-400 ml-3 mr-2" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
         <path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z" />
@@ -16,7 +23,18 @@ export default {
   name: 'SearchForm',
   props: {
     placeholder: {
-      default: 'Search…'      
+      type: String,
+      default: 'Поиск …'
+    }
+  },
+  data() {
+    return {
+      searchQuery: ''
+    }
+  },
+  methods: {
+    onInputChange(event) {
+      this.$emit('input-change', event.target.value);
     }
   }
 }

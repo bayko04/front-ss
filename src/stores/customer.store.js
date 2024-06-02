@@ -13,16 +13,9 @@ export const useCustomerStore = defineStore({
         customerReferences: null
     }),
     actions: {
-        async getCustomers() {
+        async getCustomers(search = null) {
             try {
-                this.customers = (await fetchWrapper.get(`${baseUrl}/`)).data;
-            } catch (error) {
-                console.log(error)
-            }
-        },
-        async searchCustomers(search) {
-            try {
-                this.customers = (await fetchWrapper.get(`${baseUrl}/search`, {search: search})).data;
+                this.customers = (await fetchWrapper.get(`${baseUrl}/`, {search: search ?? ''})).data;
             } catch (error) {
                 console.log(error)
             }
