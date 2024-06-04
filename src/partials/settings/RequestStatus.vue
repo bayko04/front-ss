@@ -75,8 +75,8 @@ let form = reactive({
 });
 
 function save() {
-    referencesStore.setOrUpdateChatStatus(this.form)
-    this.form.name = ''
+    referencesStore.setOrUpdateChatStatus(form)
+    form.name = ''
 }
 
 function saveChanges(item) {
