@@ -214,6 +214,7 @@ async function onSubmit() {
 function openTaskModal() {
     createTaskModal.value.stayOpen = true
     createTaskModal.value.status = 'create-update'
+    createTaskModal.value.customerRequestId = activeChat.value.latest_customer_request.id
 }
 
 function openTaskInfo(task) {

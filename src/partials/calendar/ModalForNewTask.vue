@@ -264,6 +264,7 @@ function handleUpdateValue(field, value) {
 const cancel = function() {
   if(taskStore.task.id) {
     createTaskModal.value.status = 'info'
+    taskStore.task.customer_request_id = null
   } else {
     closeModal()
   }
@@ -293,8 +294,8 @@ const deleteTask = async function() {
 }
 
 const send = async function() {
-  if (!taskStore.task.id && customerRequestStore.customerRequest?.id) {
-    taskStore.task.customer_request_id = customerRequestStore.customerRequest.id
+  if (createTaskModal.value.customerRequestId) {
+    taskStore.task.customer_request_id = createTaskModal.value.customerRequestId
   }
   await taskStore.createOrUpdateTask()
   createTaskModal.value.status = 'info'

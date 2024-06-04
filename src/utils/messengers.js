@@ -328,8 +328,19 @@ export function useMessangers() {
       chat.name = socketChat.chat.name
       chat.latest_customer_request.user_id = socketChat.chat.latest_customer_request.user_id
       chat.latest_customer_request.chat_status = socketChat.chat.latest_customer_request.chat_status
+      if (socketChat.chat.latest_customer_request.chat_status && socketChat.chat.latest_customer_request.chat_status.status_type === 'end') {
+        removeChat(account, content);
+      }
     })
   }
+
+  const removeChat = (account, chat) => {
+    const chatIndex = account.chats.indexOf(chat);
+    if (chatIndex !== -1) {
+      account.chats.splice(chatIndex, 1);
+      echo.value.leave(`${account.messenger.name}.${account.id}.chat.${chat.id}`);
+    }
+  };
 
   const updateCommentsChatFromSocket = function (content, account) {
     echo.value.private(`${account.messenger.name}.${account.id}.content.${content.id}`).listen('.UpdateContent', function (socketContent) {
@@ -431,10 +442,6 @@ export function useMessangers() {
     activeChat.value.message.text += emoji
   }
 
-  async function closeChat(form) {
-    await fetchWrapper.post(`/${activeAccount.value.messenger.name}/chats/${activeChat.value.id}/close-chat`, form)
-  }
-
   const sendFiles = async function () {
     let formData = new FormData()
     formData.append('method', 'POST');
@@ -477,7 +484,6 @@ export function useMessangers() {
     getMessageById,
     scrollToMessage,
     getLastMessage,
-    closeChat,
     searchChat,
     openChat,
     setActiveCommentsAccount,
