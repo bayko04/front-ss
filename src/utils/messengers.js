@@ -324,7 +324,7 @@ export function useMessangers() {
 
   const updateChatFromSocket = function (chat, account) {
     echo.value.private(`${account.messenger.name}.${account.id}.chat.${chat.id}`).listen('.UpdateChat', function (socketChat) {
-      if (socketChat.chat.latest_customer_request.chat_status && socketChat.chat.latest_customer_request.chat_status.status_type === 'end') {
+      if (socketChat.chat.latest_customer_request === null) {
         removeChat(account, content);
       }
       chat.image = socketChat.chat.image
