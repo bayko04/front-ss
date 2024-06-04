@@ -45,15 +45,14 @@
 
     <!-- Content -->
     <div class="relative">
-      <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">Здравствуйте, Ахиллес sport store. 👋</h1>
-      <p class="dark:text-indigo-200">Здесь показатели по продажам:</p>
+      <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">{{authStore.userData.company.name}}</h1>
     </div>
 
   </div>
 </template>
 
-<script>
-export default {
-  name: 'WelcomeBanner',
-}
+<script setup>
+  import {useAuthStore} from "../../stores/auth.store.js";
+
+  const authStore = useAuthStore()
 </script>

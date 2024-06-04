@@ -3,7 +3,7 @@
     <div class="px-5 pt-5">
       <header class="flex justify-between items-start mb-2">
         <!-- Icon -->
-        <img src="../../images/icon-01.svg" width="32" height="32" alt="Icon 01" />
+        <img :src="icon" width="32" height="32" alt="Icon 01" />
         <EditMenu align="right" class="relative inline-flex">
           <li>
             <a class="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 flex py-1 px-3" href="#0">Option 1</a>
@@ -39,7 +39,7 @@ import {useDashboardStore} from "../../stores/dashboard.store.js";
 
 // Import utilities
 import { tailwindConfig, hexToRGB } from '../../utils/Utils'
-
+import icon from '../../images/icon-01.svg?url'
 export default {
   name: 'DashboardCard01',
   components: {
@@ -79,7 +79,8 @@ export default {
 
     return {
       chartData,
-      dashboardStore
+      dashboardStore,
+      icon
     }
   }
 }

@@ -51,7 +51,6 @@ export const useAuthStore = defineStore({
             try {
                 this.userData.latest_work_session = {is_start: null};
                 const result = await fetchWrapper.post(`${baseUrl}/start`);
-                console.log(result)
                 if(result.data) {
                     this.userData.latest_work_session = result.data;
                     localStorage.setItem('userData', JSON.stringify(this.userData));

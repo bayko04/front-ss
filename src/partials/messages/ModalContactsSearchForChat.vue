@@ -84,7 +84,7 @@ async function setCustomerContact(customerId) {
 function search(event) {
   let value = event.target.value
   if(value.length >= 2) {
-    customerStore.searchCustomers(value)
+    customerStore.getCustomers(value)
   }
 }
 // close on click outside
