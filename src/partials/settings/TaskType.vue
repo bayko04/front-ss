@@ -65,8 +65,8 @@ let form = reactive({
 });
 
 function save() {
-  referencesStore.setOrUpdateTaskType(this.form)
-  this.form.name = ''
+  referencesStore.setOrUpdateTaskType(form)
+  form.name = ''
 }
 
 function saveChanges(item) {
@@ -85,11 +85,6 @@ function editItem(item) {
   }, 0);
 }
 
-function makeConversionStatus(item) {
-  console.log('asd')
-
-}
-
 function focusInput() {
   // Программно устанавливаем фокус на текстовом поле
   const input = ref.editInput.value;
@@ -102,7 +97,6 @@ function cancelEdit(item) {
 
 function saveColor(event, item) {
   item.color = event.target.value; // Добавляем выбранный цвет в объект "item"
-  console.log(item)
   referencesStore.setOrUpdateTaskType(item);
   item.editing = false;
 }

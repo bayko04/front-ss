@@ -105,26 +105,6 @@
                   </div>
                   <!-- -->
               </div>
-              <div>
-                  <label class="block text-sm font-medium mb-1" for="card-country">Сегмент клиента</label>
-                  <button @click="addTag" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
-                      <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                          <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-                      </svg>
-                      <span class="ml-2">Добавить сегмент</span>
-                  </button>
-                  <div v-for="(tag, index) in tags" :key="index" class="mt-2">
-                      <template v-if="tag.inputVisible">
-                          <input v-model="tag.name" @keyup.enter="confirmTag(index)" @blur="cancelInput(index)" class="form-input rounded">
-                      </template>
-                      <template v-else>
-                          <div class="flex items-center bg-gray-200 text-gray-700 rounded py-1 px-2 mt-1 mr-1" @click="showInput(index)">
-                              <span>{{ tag.name }}</span>
-                              <button @click="removeTag(index)" class="ml-2 text-red-600">&times;</button>
-                          </div>
-                      </template>
-                  </div>
-              </div>
 
               <div v-if="activeAccount.ai_active && !activeChat.latest_customer_request.user_handle">
                   <ul class="mb-4">

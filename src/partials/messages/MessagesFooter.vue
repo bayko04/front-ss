@@ -65,7 +65,7 @@
             <path d="M5 5m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
           </svg>
         </button>
-        <button v-else-if="!recording && !activeChat?.message.text" @click="handleStartRecording" class="shrink-0 text-slate-400 dark:text-slate-500 hover:text-slate-500 mr-3 mb-1 dark:hover:text-slate-400 cursor-pointer">
+        <button v-else-if="!recording && !activeChat?.message.text && activeAccount?.messenger_id !== 3" @click="handleStartRecording" class="shrink-0 text-slate-400 dark:text-slate-500 hover:text-slate-500 mr-3 mb-1 dark:hover:text-slate-400 cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-microphone w-6 h-6" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
             <path d="M9 2m0 3a3 3 0 0 1 3 -3h0a3 3 0 0 1 3 3v5a3 3 0 0 1 -3 3h0a3 3 0 0 1 -3 -3z" />
@@ -94,7 +94,7 @@ import {onMounted, ref} from "vue";
 import WaveSurfer from "wavesurfer.js";
 import RecordPlugin from 'wavesurfer.js/dist/plugins/record.js'
 
-const { activeChat, saveMessage, removeReplyMessage, sendFiles } = await useMessangers()
+const { activeChat, saveMessage, removeReplyMessage, sendFiles, activeAccount } = await useMessangers()
 const textareaHeight = ref('auto');
 const textarea = ref(null);
 const blockHeight = ref('auto');
