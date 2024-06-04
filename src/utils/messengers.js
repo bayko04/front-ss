@@ -324,13 +324,13 @@ export function useMessangers() {
 
   const updateChatFromSocket = function (chat, account) {
     echo.value.private(`${account.messenger.name}.${account.id}.chat.${chat.id}`).listen('.UpdateChat', function (socketChat) {
+      if (socketChat.chat.latest_customer_request.chat_status && socketChat.chat.latest_customer_request.chat_status.status_type === 'end') {
+        removeChat(account, content);
+      }
       chat.image = socketChat.chat.image
       chat.name = socketChat.chat.name
       chat.latest_customer_request.user_id = socketChat.chat.latest_customer_request.user_id
       chat.latest_customer_request.chat_status = socketChat.chat.latest_customer_request.chat_status
-      if (socketChat.chat.latest_customer_request.chat_status && socketChat.chat.latest_customer_request.chat_status.status_type === 'end') {
-        removeChat(account, content);
-      }
     })
   }
 
