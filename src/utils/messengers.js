@@ -297,6 +297,9 @@ export function useMessangers() {
       if(getChatById(socketChat.chat.id)) {
         return
       }
+      if(socketChat.chat.id === activeChat.value.id) {
+        setActiveChat(socketChat.chat)
+      }
       account.chats.unshift(socketChat.chat)
       const chat = account.chats[0];
       updateChatFromSocket(chat, account)
@@ -326,6 +329,7 @@ export function useMessangers() {
     echo.value.private(`${account.messenger.name}.${account.id}.chat.${chat.id}`).listen('.UpdateChat', function (socketChat) {
       if (socketChat.chat.latest_customer_request === null) {
         removeChat(account, chat);
+        return
       }
       chat.image = socketChat.chat.image
       chat.name = socketChat.chat.name
