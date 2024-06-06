@@ -85,8 +85,10 @@ function valueUpdate(value) {
         selected.value = option
       }
     })
+  } else {
     selected.value = options[0]
   }
+  selectOption(selected.value)
 }
 
 onMounted(() => {

@@ -62,12 +62,12 @@
 
                                 <div class="mb-2">
                                     <h2 class="block text-sm font-medium mb-1">Тип задачи<span class="text-red-500">*</span></h2>
-                                    <DropdownFull :options="referencesStore.taskTypes"
+                                    <DropdownFull :value="taskStore.task?.task_type_id ?? referencesStore.taskTypes[0].id" :options="referencesStore.taskTypes"
                                                   @update-value="(value) =>handleUpdateValue('task_type_id', value)"/>
                                 </div>
                                 <div class="mb-2">
                                     <h2 class="block text-sm font-medium mb-1">Исполнитель<span class="text-red-500">*</span></h2>
-                                    <DropdownFull :options="usersStore.users"
+                                    <DropdownFull :value="taskStore.task?.user_id ?? user.id" :options="usersStore.users"
                                                   @update-value="(value) =>handleUpdateValue('user_id', value)"/>
                                 </div>
 
@@ -242,7 +242,7 @@ import TaskDatepicker from "./TaskDatepicker.vue";
 import { useTaskStore } from "../../stores/task.store.js";
 import { useReferencesStore } from "../../stores/references.store.js";
 import { useUsersStore} from "../../stores/user.store.js";
-import { useCustomerRequestStore } from "../../stores/customer-request.store.js";
+import { useAuthStore } from "../../stores/auth.store.js";
 import DropdownFull from "../../components/DropdownFull.vue";
 
 const { activeChat } = await useMessangers()
@@ -250,7 +250,8 @@ const modalContent = ref(null);
 const taskStore = useTaskStore()
 const usersStore = useUsersStore()
 const referencesStore = useReferencesStore()
-const customerRequestStore = useCustomerRequestStore()
+const authStore = useAuthStore()
+const user = authStore.userData.user
 
 const closeModal = function() {
   taskStore.task = {}

@@ -24,7 +24,6 @@
             <div class="flex flex-col md:flex-row md:-mr-px">
               <SettingsSystem />
               <RequestStatus />
-              <TaskType />
             </div>
           </div>
 
