@@ -40,12 +40,12 @@ export const useDashboardStore = defineStore({
         statusRequests: []
     }),
     actions: {
-        async getNumberOfReferences(dateFrom = null, dateTo = null) {
-            const response = (await fetchWrapper.get(`/dashboard`, {dateFrom: dateFrom ?? null, dateTo: dateTo ?? null})).data;
+        async getNumberOfReferences(dateFrom = '', dateTo = '') {
+            const response = (await fetchWrapper.get(`/dashboard`, {dateFrom: dateFrom, dateTo: dateTo})).data;
             this.customerRequests = response;
         },
-        async getStatusOfReferences(dateFrom = null, dateTo = null) {
-            const response = (await fetchWrapper.get('/dashboard/status', {dateFrom: dateFrom ?? null, dateTo: dateTo ?? null})).data
+        async getStatusOfReferences(dateFrom = '', dateTo = '') {
+            const response = (await fetchWrapper.get('/dashboard/status', {dateFrom: dateFrom, dateTo: dateTo})).data
             this.statusOfReferences.labels = response.statusName
             this.statusOfReferences.datasets[0].data = response.count
         }

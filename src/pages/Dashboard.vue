@@ -98,8 +98,8 @@ export default {
   },
   setup() {
     const dashboardStore = useDashboardStore()
-    const dateFrom = ref()
-    const dateTo = ref()
+    const dateFrom = ref('')
+    const dateTo = ref('')
 
     const sidebarOpen = ref(false)
 
