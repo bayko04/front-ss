@@ -4,11 +4,11 @@
       <h2 class="font-semibold text-slate-800 dark:text-slate-100">Статусы обращений</h2>
     </header>
     <div class="px-5 py-3">
-      <div class="text-3xl font-bold text-slate-800 dark:text-slate-100">{{dashboardStore.customerRequests.totalRequests}} обращений</div>
+      <div class="text-3xl font-bold text-slate-800 dark:text-slate-100">{{dashboardStore.customerRequests?.totalRequests}} обращений</div>
     </div>
     <!-- Chart built with Chart.js 3 -->
     <!-- Change the height attribute to adjust the chart height -->
-    <PieChart v-if="chartData.labels.length" :data="chartData" width="389" height="220" />
+    <PieChart v-if="dashboardStore.statusOfReferences.labels.length" :data="dashboardStore.statusOfReferences" width="389" height="220" />
   </div>
 </template>
 
@@ -27,46 +27,13 @@ export default {
   },
   setup() {
     const dashboardStore = useDashboardStore()
-    const chartData = ref({
-      labels: [],
-      datasets: [
-        {
-          label: 'Количество обращений',
-          data: [],
-          backgroundColor: [
-            tailwindConfig().theme.colors.emerald[400],
-            tailwindConfig().theme.colors.amber[400],
-            tailwindConfig().theme.colors.sky[400],
-            tailwindConfig().theme.colors.indigo[500],
-            tailwindConfig().theme.colors.purple[500],
-            tailwindConfig().theme.colors.yellow[500],
-            tailwindConfig().theme.colors.orange[500],
-            tailwindConfig().theme.colors.blue[500],
-          ],
-          hoverBackgroundColor: [
-            tailwindConfig().theme.colors.emerald[500],
-            tailwindConfig().theme.colors.amber[500],
-            tailwindConfig().theme.colors.sky[500],
-            tailwindConfig().theme.colors.indigo[600],
-            tailwindConfig().theme.colors.purple[600],
-            tailwindConfig().theme.colors.yellow[600],
-            tailwindConfig().theme.colors.orange[600],
-            tailwindConfig().theme.colors.blue[600],
-          ],
-          borderWidth: 0,
-        },
-      ],
-    })
+
 
     onMounted(async () => {
       await dashboardStore.getStatusOfReferences()
-      chartData.value.labels = dashboardStore.statusRequests.statusName
-      chartData.value.datasets[0].data = dashboardStore.statusRequests.count
-      await dashboardStore.getNumberOfReferences()
     })
 
     return {
-      chartData,
       dashboardStore
     } 
   }

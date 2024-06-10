@@ -36,7 +36,6 @@
 
             <!-- Line chart (Acme Plus) -->
             <DashboardCard01 />
-
             <FintechCard09 />
             <AnalyticsCard01 />
 
