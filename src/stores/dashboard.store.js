@@ -2,6 +2,7 @@ import {defineStore} from 'pinia';
 import {fetchWrapper} from '../helpers/fetch-wrapper.js'
 import {ref} from "vue";
 import {tailwindConfig} from "../utils/Utils.js";
+import {timestampToDate} from "../helpers/date-format.js";
 
 export const useDashboardStore = defineStore({
     id: 'dashboard',
@@ -39,12 +40,12 @@ export const useDashboardStore = defineStore({
         statusRequests: []
     }),
     actions: {
-        async getNumberOfReferences() {
-            const response = (await fetchWrapper.get(`/dashboard`)).data;
+        async getNumberOfReferences(dateFrom = null, dateTo = null) {
+            const response = (await fetchWrapper.get(`/dashboard`, {dateFrom: dateFrom ?? null, dateTo: dateTo ?? null})).data;
             this.customerRequests = response;
         },
-        async getStatusOfReferences() {
-            const response = (await fetchWrapper.get('/dashboard/status')).data
+        async getStatusOfReferences(dateFrom = null, dateTo = null) {
+            const response = (await fetchWrapper.get('/dashboard/status', {dateFrom: dateFrom ?? null, dateTo: dateTo ?? null})).data
             this.statusOfReferences.labels = response.statusName
             this.statusOfReferences.datasets[0].data = response.count
         }

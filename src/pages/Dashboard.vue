@@ -26,7 +26,7 @@
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
               <!-- Datepicker built with flatpickr -->
-              <Datepicker align="right" />
+              <Datepicker @changeDates="selectDates" align="right" />
             </div>
 
           </div>
@@ -71,6 +71,7 @@ import DashboardCard11 from '../partials/dashboard/DashboardCard11.vue'
 import FintechCard09 from "../partials/fintech/FintechCard09.vue";
 import AnalyticsCard01 from "../partials/analytics/AnalyticsCard01.vue";
 import {useDashboardStore} from "../stores/dashboard.store.js";
+import {timestampToDate} from "../helpers/date-format.js";
 
 export default {
   name: 'Dashboard',
@@ -97,12 +98,21 @@ export default {
   },
   setup() {
     const dashboardStore = useDashboardStore()
+    const dateFrom = ref()
+    const dateTo = ref()
 
     const sidebarOpen = ref(false)
 
+    function selectDates(dates) {
+      dateFrom.value = timestampToDate(dates[0])
+      dateTo.value = timestampToDate(dates[1])
+      dashboardStore.getStatusOfReferences(dateFrom.value, dateTo.value)
+    }
+
     return {
       sidebarOpen,
-      dashboardStore
+      dashboardStore,
+      selectDates
     }  
   }
 }
