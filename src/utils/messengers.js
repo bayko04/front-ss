@@ -297,7 +297,7 @@ export function useMessangers() {
       if(getChatById(socketChat.chat.id)) {
         return
       }
-      if(socketChat.chat.id === activeChat.value.id) {
+      if(socketChat.chat.id === activeChat.value?.id) {
         setActiveChat(socketChat.chat)
       }
       account.chats.unshift(socketChat.chat)
