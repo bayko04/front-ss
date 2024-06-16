@@ -111,22 +111,22 @@
                   </li>
               </router-link>
               <!-- AccessControl -->
-              <router-link to="/community/users-tabs" custom v-slot="{ href, navigate, isExactActive }">
-                  <li v-tooltip="'Пользователи'" class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" :class="isExactActive && 'bg-slate-900'">
-                      <a class="block text-slate-200 transition duration-150" :class="isExactActive ? 'hover:text-slate-200' : 'hover:text-white'" :href="href" @click="navigate">
-                          <div class="flex items-center justify-between">
-                              <div class="grow flex items-center">
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-lock-heart" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                      <path class="fill-current" :class="currentRoute.fullPath.includes('community') ? 'text-indigo-500' : 'text-slate-600'" d="M11.5 21h-4.5a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2h10c.38 0 .734 .106 1.037 .29" />
-                                      <path class="fill-current" :class="currentRoute.fullPath.includes('community') ? 'text-indigo-500' : 'text-slate-600'" d="M8 11v-4a4 4 0 1 1 8 0v4" />
-                                      <path class="fill-current" :class="currentRoute.fullPath.includes('community') ? 'text-indigo-500' : 'text-slate-600'" d="M18 22l3.35 -3.284a2.143 2.143 0 0 0 .005 -3.071a2.242 2.242 0 0 0 -3.129 -.006l-.224 .22l-.223 -.22a2.242 2.242 0 0 0 -3.128 -.006a2.143 2.143 0 0 0 -.006 3.071l3.355 3.296z" />
-                                  </svg>
-                              </div>
-                          </div>
-                      </a>
-                  </li>
-              </router-link>
+            <router-link to="/community/users-tabs" custom v-slot="{ href, navigate, isExactActive }">
+              <li v-tooltip="'Пользователи'" class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" :class="isExactActive && 'bg-slate-900'">
+                <a class="block text-slate-200 transition duration-150" :class="isExactActive ? 'hover:text-slate-200' : 'hover:text-white'" :href="href" @click="navigate">
+                  <div class="flex items-center justify-between">
+                    <div class="grow flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                        <path class="fill-current" :class="currentRoute.fullPath.includes('community') ? 'text-indigo-500' : 'text-slate-600'" d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z" />
+                        <path class="fill-current" :class="currentRoute.fullPath.includes('community') ? 'text-indigo-600' : 'text-slate-700'" d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z" />
+                        <path class="fill-current" :class="currentRoute.fullPath.includes('community') ? 'text-indigo-500' : 'text-slate-600'" d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z" />
+                      </svg>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </router-link>
+
               <!-- SystemSettings -->
               <router-link  to="/systemSettings/requestStatus" custom v-slot="{ href, navigate, isExactActive }">
                   <li  v-tooltip="'Настройки'"  class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" :class="isExactActive && 'bg-slate-900'">

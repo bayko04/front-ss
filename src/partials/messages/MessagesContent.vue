@@ -21,7 +21,7 @@
       </div>
 
       <!-- referral -->
-      <div v-if="message.referral && message.referral.length" class="cursor-pointer flex flex-col w-full items-start bg-gray-100 dark:bg-slate-800 border-t border-l-4 border-gray-300 dark:border-blue-700 px-4 sm:px-6 md:px-5 py-2">
+      <div v-if="message.referral && (message.referral.body || message.referral.thumbnail_url)" class="cursor-pointer flex flex-col w-full items-start bg-gray-100 dark:bg-slate-800 border-t border-l-4 border-gray-300 dark:border-blue-700 px-4 sm:px-6 md:px-5 py-2">
         <span v-if="message.referral.body" class="whitespace-normal overflow-hidden overflow-ellipsis">
           {{ message.referral.body }}
         </span>

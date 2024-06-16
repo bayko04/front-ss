@@ -217,7 +217,7 @@ export function useMessangers() {
   }
 
   const addMessageToChat = function (account, chat) {
-    echo.value.private(`${account.messenger.name}.${account.id}.chat.${chat.id}`).listen('.NewMessage', function (socketMessage) {
+    echo.value.private(`${account.messenger.name}.${account.id}.chat`).listen(`.${chat.id}.NewMessage`, function (socketMessage) {
       if (chat.messages && chat.id === activeChat.value.id) {
         chat.messages[socketMessage.message.id] = socketMessage.message
       } else if (chat.messages) {
@@ -249,7 +249,7 @@ export function useMessangers() {
   }
 
   const updateMessageInChat = function (account, chat) {
-    echo.value.private(`${account.messenger.name}.${account.id}.chat.${chat.id}`).listen('.UpdateMessage', function (socketMessage) {
+    echo.value.private(`${account.messenger.name}.${account.id}.chat`).listen(`.${chat.id}.UpdateMessage`, function (socketMessage) {
       if (chat.messages) {
         if (chat.messages[socketMessage.message.id].message_status_id === 3
             && socketMessage.message.message_status_id === 2
@@ -326,7 +326,7 @@ export function useMessangers() {
   }
 
   const updateChatFromSocket = function (chat, account) {
-    echo.value.private(`${account.messenger.name}.${account.id}.chat.${chat.id}`).listen('.UpdateChat', function (socketChat) {
+    echo.value.private(`${account.messenger.name}.${account.id}.chat`).listen('.UpdateChat', function (socketChat) {
       if (socketChat.chat.latest_customer_request === null) {
         removeChat(account, chat);
         return

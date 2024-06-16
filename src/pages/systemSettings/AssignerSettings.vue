@@ -26,41 +26,37 @@
               <div class="grow">
                 <!-- Panel body -->
                 <div class="p-6 space-y-6">
-                  <h2 class="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-5">Автоматическое назначение отвественных</h2>
+                  <h2 class="text-2xl text-gray-800 dark:text-gray-100 font-bold mb-5">Автоматическое назначение отвественных</h2>
 
                   <!-- Toggle Switch -->
-                  <div>
-                    <div class="flex flex-wrap items-center -m-3">
-
-                      <div class="m-3 w-40">
-                        <!-- Start -->
-                        <div class="flex items-center mt-5">
-                          <div class="form-switch">
-                            <input type="checkbox" id="toggle1" class="sr-only" v-model="isActive" true-value="Включен" false-value="Выключен" />
-                            <label class="bg-slate-400 dark:bg-slate-700" for="toggle1">
-                              <span class="bg-white shadow-sm" aria-hidden="true"></span>
-                              <span class="sr-only">Toggle</span>
-                            </label>
-                          </div>
-                          <div class="text-sm text-slate-400 dark:text-slate-500 italic ml-2">{{isActive}}</div>
-                        </div>
-                        <!-- End -->
+                  <div class="flex flex-wrap items-center -m-3">
+                    <div class="m-3 w-40">
+                      <!-- Start -->
+                      <div class="flex items-center mt-5">
+                        <input type="checkbox" id="toggle1" class="sr-only" v-model="isActive" true-value="Включен" false-value="Выключен" />
+                        <label class="bg-gray-400 dark:bg-gray-700 w-14 h-7 flex items-center rounded-full cursor-pointer" for="toggle1">
+                          <span class="bg-white w-5 h-5 rounded-full shadow-sm mx-1"></span>
+                          <span class="sr-only">Toggle</span>
+                        </label>
+                        <div class="text-sm text-gray-400 dark:text-gray-500 italic ml-2">{{isActive}}</div>
                       </div>
-
-                      <div>
-                        <!-- Start -->
-                        <div class="flex max-h-8 items-end">
-                          <input v-model="maxCount" id="small" class="form-input px-2 py-1 mr-4 w-20" type="number" />
-                          <label class="block text-sm font-medium mb-1" for="small">Максимальное количество</label>
-                        </div>
-                        <!-- End -->
-                      </div>
-
-                      <button @click="save()" class="ml-10 cursor-pointer bg-blue-700 text-amber-50">Сохранить</button>
-
+                      <!-- End -->
                     </div>
+
+                    <div>
+                      <!-- Start -->
+                      <div class="flex items-end">
+                        <input v-model="maxCount" id="small" class="form-input px-2 py-1 mr-4 w-20" type="number" />
+                        <label class="block text-sm font-medium mb-1" for="small">Максимальное количество</label>
+                      </div>
+                      <!-- End -->
+                    </div>
+
+                    <button @click="save()" class="ml-10 cursor-pointer bg-blue-700 text-white px-4 py-2 rounded">Сохранить</button>
+
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
