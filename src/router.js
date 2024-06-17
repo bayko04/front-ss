@@ -77,8 +77,7 @@ const router = createRouter({
     },
     {
       path: '/users/update/:id',
-      component: UserCreate,
-      meta: {permission:'users.change'}
+      component: UserCreate
     },
     {
       path: '/users/profile/:id',

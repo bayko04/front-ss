@@ -96,7 +96,9 @@ import Sidebar from '../../partials/Sidebar.vue'
 import Header from '../../partials/Header.vue'
 import * as Yup from "yup"
 import { Form, Field } from 'vee-validate'
+import router from "../../router.js";
 
+const route = router?.currentRoute?.value
 const sidebarOpen = ref(false)
 const usersStore = useUsersStore()
 const name = ref('')
@@ -106,7 +108,18 @@ const role = ref(2)
 const id = ref(undefined)
 
 onMounted(async () => {
+  await setUser()
 })
+
+async function setUser() {
+  if (route.params.id) {
+    const user = await usersStore.getUser(route.params.id)
+    name.value = user.name
+    email.value = user.email
+    role.value = user.email
+    id.value = user.id
+  }
+}
 
 async function onSubmit() {
   const values = {
