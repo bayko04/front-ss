@@ -1,6 +1,4 @@
 <template>
-  <div class="mt-4">
-    <div class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-3">Чаты</div>
     <ul class="mb-6">
       <li
           class="-mx-2"
@@ -35,7 +33,6 @@
         </button>
       </li>
     </ul>
-  </div>
 </template>
 
 <script setup>

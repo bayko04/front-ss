@@ -84,6 +84,7 @@
 import {onMounted, ref} from 'vue'
 import Sidebar from '../partials/Sidebar.vue'
 import Header from '../partials/Header.vue'
+import ChatHeader from '../partials/ChatHeader.vue'
 import {useReferencesStore} from "../stores/references.store.js";
 import {useCustomerRequestStore} from "../stores/customer-request.store.js";
 import PaginationNumeric from "../components/PaginationNumeric.vue";

@@ -1,16 +1,21 @@
 <template>
   <div>
-    <div class="flex flex-row items-center">
-      <img v-if="message.user_id" class="rounded-full mr-4" :src=" message.user?.image" width="40" height="40" alt="User 01" />
-      <img v-else class="rounded-full mr-4" :src="activeChat?.image" width="40" height="40" alt="User 01" />
-      <div class="text-xs text-slate-500 font-medium ml-2 mr-2">{{ message.user?.name }}</div>
-    </div>
-    <div class="relative group flex-col ">
-      <div v-if="message.reply_message" @click="scrollToMessage(message.reply_message.id)" class="cursor-pointer flex w-full items-center justify-between bg-gray-100 dark:bg-slate-800 border-t border-l-4 border-gray-300 dark:border-blue-700 px-4 sm:px-6 md:px-5 h-14">
-        <span v-if="message.reply_message.text" class="overflow-hidden whitespace-no-wrap overflow-ellipsis line-clamp-1 min-w-[100px] )]">
+    <div class="flex items-start mb-4 last:mb-0">
+      <div class="flex flex-row items-center">
+        <img v-if="message.user_id" class="rounded-full mr-4" :src=" message.user?.image" width="40" height="40"
+             alt="User 01"/>
+        <img v-else class="rounded-full mr-4" :src="activeChat?.image" width="40" height="40" alt="User 01"/>
+
+      </div>
+      <div class="relative group flex-col ">
+        <div class="text-xs text-slate-500 font-medium ml-2 mr-2">{{ message.user?.name }}</div>
+        <div v-if="message.reply_message" @click="scrollToMessage(message.reply_message.id)"
+             class="cursor-pointer flex w-full items-center justify-between bg-gray-100 dark:bg-slate-800 border-t border-l-4 border-gray-300 dark:border-blue-700 px-4 sm:px-6 md:px-5 h-14">
+        <span v-if="message.reply_message.text"
+              class="overflow-hidden whitespace-no-wrap overflow-ellipsis line-clamp-1 min-w-[100px] )]">
           {{ message.reply_message.text }}
         </span>
-        <span v-else class="overflow-hidden whitespace-no-wrap overflow-ellipsis line-clamp-1 min-w-[100px]]">
+          <span v-else class="overflow-hidden whitespace-no-wrap overflow-ellipsis line-clamp-1 min-w-[100px]]">
           <span v-if="message.reply_message?.attachments[0] && message?.reply_message?.attachments[0].name">
             {{ message?.reply_message?.attachments[0].name }}
           </span>
@@ -18,42 +23,49 @@
             Без названия
           </span>
         </span>
-      </div>
+        </div>
 
-      <!-- referral -->
-      <div v-if="message.referral && (message.referral.body || message.referral.thumbnail_url)" class="cursor-pointer flex flex-col w-full items-start bg-gray-100 dark:bg-slate-800 border-t border-l-4 border-gray-300 dark:border-blue-700 px-4 sm:px-6 md:px-5 py-2">
+        <!-- referral -->
+        <div v-if="message.referral && (message.referral.body || message.referral.thumbnail_url)"
+             class="cursor-pointer flex flex-col w-full items-start bg-gray-100 dark:bg-slate-800 border-t border-l-4 border-gray-300 dark:border-blue-700 px-4 sm:px-6 md:px-5 py-2">
         <span v-if="message.referral.body" class="whitespace-normal overflow-hidden overflow-ellipsis">
           {{ message.referral.body }}
         </span>
-        <img v-if="message.referral.thumbnail_url" class="rounded-lg shadow-md mt-2" :src="message.referral.thumbnail_url" width="240" height="180" alt="Chat image" />
-      </div>
+          <img v-if="message.referral.thumbnail_url" class="rounded-lg shadow-md mt-2"
+               :src="message.referral.thumbnail_url" width="240" height="180" alt="Chat image"/>
+        </div>
 
-      <!--          text message -->
-      <div
-          v-if="message.text"
-          class="whitespace-pre-wrap text-sm rounded-lg border shadow-md mb-1 p-3 w-full min-w-[100px]"
-          :class="message.user_id ? 'bg-indigo-500 text-white rounded-tl-none border-transparent' : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-tl-none border-slate-200 dark:border-slate-7001'"
-      >
-        {{message.text}}
-      </div>
-      <div v-if="imageError">История недоступна</div>
+        <!--          text message -->
+        <div
+            v-if="message.text"
+            class="whitespace-pre-wrap text-sm rounded-lg border shadow-md mb-1 p-3 w-full min-w-[100px]"
+            :class="message.user_id ? 'bg-indigo-500 text-white rounded-tl-none border-transparent' : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-tl-none border-slate-200 dark:border-slate-7001'"
+        >
+          {{ message.text }}
+        </div>
+        <div v-if="imageError">История недоступна</div>
 
-      <div class="flex items-center flex-row">
-          <img v-if="message.type === 'story' && !imageError" @error="handleImageError" class="rounded-lg shadow-md mb-1" :src="message?.url" width="240" height="180" alt="История недоступна" />
+        <div class="flex items-center flex-row">
+          <img v-if="message.type === 'story' && !imageError" @error="handleImageError"
+               class="rounded-lg shadow-md mb-1" :src="message?.url" width="240" height="180" alt="История недоступна"/>
 
-        <!--          image message -->
-          <img v-if="message.type === 'image' && message?.attachments[0]" class="rounded-lg shadow-md mb-1" :src="message?.attachments[0].path" width="240" height="180" alt="Chat image" />
-        <!--          audio message -->
-          <AudioPlayer  v-else-if="message.type === 'audio'" :audioPath="message?.attachments[0].path"/>
+          <!--          image message -->
+          <img v-if="message.type === 'image' && message?.attachments[0]" class="rounded-lg shadow-md mb-1"
+               :src="message?.attachments[0].path" width="240" height="180" alt="Chat image"/>
+          <!--          audio message -->
+          <AudioPlayer v-else-if="message.type === 'audio'" :audioPath="message?.attachments[0].path"/>
           <!--          video message -->
-          <VideoPlayer  v-else-if="message.type === 'video'" :videoPath="message?.attachments[0].path"/>
+          <VideoPlayer v-else-if="message.type === 'video'" :videoPath="message?.attachments[0].path"/>
           <!--          file message -->
-          <div  v-else-if="message.type === 'file' || message.type === 'document' || message.type === 'media'" class="flex text-sm rounded-lg border shadow-md mb-1 p-3 min-w-[100px]">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <div v-else-if="message.type === 'file' || message.type === 'document' || message.type === 'media'"
+               class="flex text-sm rounded-lg border shadow-md mb-1 p-3 min-w-[100px]">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-check" width="24"
+                 height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round"
+                 stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-              <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-              <path d="M9 15l2 2l4 -4" />
+              <path d="M14 3v4a1 1 0 0 0 1 1h4"/>
+              <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/>
+              <path d="M9 15l2 2l4 -4"/>
             </svg>
             <span v-if="message?.attachments[0] && message?.attachments[0].name">
               {{ message?.attachments[0].name }}
@@ -69,16 +81,20 @@
               </Tooltip>
             </div>
           </div>
-          <MessageFileLink v-else-if="message?.attachments && message?.attachments.length && message?.attachments[0].path" :message="message" />
+          <MessageFileLink
+              v-else-if="message?.attachments && message?.attachments.length && message?.attachments[0].path"
+              :message="message"/>
           <!-- Icon -->
-        <button v-if="!message.errors" @click="(event) => openModal(event, message)" class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 focus:outline-none">
-          <svg class="w-3 h-3 ml-1 fill-current text-slate-400" viewBox="0 0 12 12">
-            <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-          </svg>
-        </button>
+          <button v-if="!message.errors" @click="(event) => openModal(event, message)"
+                  class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 focus:outline-none">
+            <svg class="w-3 h-3 ml-1 fill-current text-slate-400" viewBox="0 0 12 12">
+              <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z"/>
+            </svg>
+          </button>
         </div>
         <MessageStatus :message="message"/>
       </div>
+    </div>
   </div>
 </template>
 
