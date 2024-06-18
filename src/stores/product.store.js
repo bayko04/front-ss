@@ -9,12 +9,16 @@ export const useProductStore = defineStore({
             name: '',
             description: '',
             price: null,
-            status: 'Активный',
+            status: true,
             category_id: null
         },
         productModalStatus: false,
         allCategories: [],
         childCategories: [],
+        category: {
+            name: '',
+            parent_id: ''
+        }
     }),
     actions: {
         async getProducts(){
@@ -41,6 +45,16 @@ export const useProductStore = defineStore({
         async getAllCategories(){
             this.allCategories = (await fetchWrapper.get(`/products/all-categories`)).data;
         },
+        async createOrUpdateCategory(){
+            const newCategory = (await fetchWrapper.post(`/products/category`, this.category)).data;
+            this.product.category_id = newCategory.id
+            this.updateCategoryInArray(newCategory)
+            this.category = {
+                name: '',
+                parent_id: ''
+            }
+            this.productModalStatus = 'add'
+        },
         async createOrUpdateProduct() {
             this.product = (await fetchWrapper.post(`/products`, this.product)).data;
             this.updateProductInArray(this.product);
@@ -48,7 +62,7 @@ export const useProductStore = defineStore({
                 name: '',
                 description: '',
                 price: null,
-                status: 'Активный',
+                status: true,
                 category_id: null
             }
             this.productModalStatus = false
@@ -59,6 +73,21 @@ export const useProductStore = defineStore({
                 this.products.data[index] = product;
             } else {
                 this.products.data.unshift(product);
+            }
+        },
+        updateCategoryInArray(category) {
+            let index = this.allCategories.findIndex(p => p.id === category.id);
+            if (index !== -1) {
+                this.allCategories[index] = category;
+            } else {
+                this.allCategories.unshift(category);
+            }
+
+            index = this.childCategories.findIndex(p => p.id === category.id);
+            if (index !== -1) {
+                this.childCategories[index] = category;
+            } else {
+                this.childCategories.unshift(category);
             }
         },
         async deleteProduct() {

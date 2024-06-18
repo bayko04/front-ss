@@ -25,6 +25,8 @@ export const useUsersStore = defineStore({
             } catch (error) {
                 console.log(error)
             }
+
+            return this.user
         },
         async addUser(data) {
             let formData = new FormData()
