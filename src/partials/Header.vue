@@ -17,7 +17,7 @@
           </button>
 
         </div>
-        <div class="flex items-center space-x-3">
+        <div class="flex items-center space-x-3 hidden lg:flex">
           <Suspense>
             <HeaderButtons/>
           </Suspense>
@@ -25,9 +25,9 @@
 
         <!-- Header: Right side -->
         <div class="flex items-center space-x-3">
-          <Notifications align="right" />
-          <Help align="right" />
-          <ThemeToggle />
+<!--          <Notifications align="right" />-->
+<!--          <Help align="right" />-->
+<!--          <ThemeToggle />-->
           <WorkSessionButton />
           <!-- Divider -->
           <hr class="w-px h-6 bg-slate-200 dark:bg-slate-700 border-none" />
@@ -37,6 +37,10 @@
 
       </div>
     </div>
+    <div class="block lg:hidden flex justify-center items-center">
+      <ChatHeader :sidebarOpen="sidebarOpen" @toggle-sidebar="sidebarOpen = !sidebarOpen" />
+    </div>
+
   </header>
 </template>
 
@@ -50,11 +54,13 @@ import ThemeToggle from '../components/ThemeToggle.vue'
 import UserMenu from '../components/DropdownProfile.vue'
 import HeaderButtons from "../partials/messages/HeaderButtons.vue"
 import WorkSessionButton from "./settings/WorkSessionButton.vue";
+import ChatHeader from "./ChatHeader.vue";
 
 export default {
   name: 'Header',
   props: ['sidebarOpen'],
   components: {
+    ChatHeader,
     WorkSessionButton,
     HeaderButtons,
     SearchModal,
