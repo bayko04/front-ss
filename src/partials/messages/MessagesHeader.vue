@@ -22,7 +22,7 @@
         <div class="flex -space-x-3 -ml-px items-center">
           <button class="flex items-center">
             <img class="rounded-full border-2 border-white dark:border-slate-800 box-content" :src="activeChat.image" width="32" height="32" alt="User 01" />
-            <span class="ml-2">{{ customerStore.customer?.name ?? activeChat.name }}</span>
+            <span class="ml-2">{{ customerStore.customer?.name ?? activeChat.name }} | {{customerStore.customer?.phone ?? ''}}</span>
           </button>
         </div>
       </div>
