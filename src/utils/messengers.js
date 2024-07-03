@@ -333,8 +333,7 @@ export function useMessangers() {
       }
       chat.image = socketChat.chat.image
       chat.name = socketChat.chat.name
-      chat.latest_customer_request.user_id = socketChat.chat.latest_customer_request.user_id
-      chat.latest_customer_request.chat_status = socketChat.chat.latest_customer_request.chat_status
+      chat.latest_customer_request = socketChat.chat.latest_customer_request
     })
   }
 
