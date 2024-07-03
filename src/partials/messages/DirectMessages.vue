@@ -2,7 +2,7 @@
     <ul class="mb-6">
       <li
           class="-mx-2"
-          v-for="(chat) in activeAccount?.chats"
+          v-for="(chat) in displayedChats"
           :key="chat.id"
       >
         <button
@@ -36,16 +36,33 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
 import {useMessangers} from "../../utils/messengers.js";
 import {useAuthStore} from "../../stores/auth.store.js";
 
-const {activeChat, activeAccount, setActiveChat, chatSortStatus} = await useMessangers()
+const {activeChat, activeAccount, setActiveChat, chatSortStatus, allChats, accounts} = await useMessangers()
 
 const lastMessage = (messages) => {
   const values = Object.values(messages);
 
   return values[values.length - 1].text;
 };
+
+const allChatsArray = computed(() => {
+  let chats = [];
+
+  accounts.value?.forEach(account => {
+    account?.chats?.forEach(chat => {
+      chats.push(chat);
+    });
+  });
+
+  return chats;
+});
+
+const displayedChats = computed(() => {
+  return allChats.value ? allChatsArray.value : activeAccount.value?.chats || [];
+});
 
 const authStore = useAuthStore()
 </script>
