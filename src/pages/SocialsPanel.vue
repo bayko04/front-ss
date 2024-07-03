@@ -256,7 +256,7 @@
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                           <div class="flex items-center">
                             <div class="form-switch">
-                              <input type="checkbox" :id="account.id" class="sr-only" @click="switchAI(account.id)" v-model="account.ai_active" />
+                              <input type="checkbox" :id="account.id" class="sr-only" @click="showConfirmation(account.id)" v-model="account.ai_active" />
                               <label class="bg-slate-400 dark:bg-slate-700" :for="account.id">
                                 <span class="bg-white shadow-sm" aria-hidden="true"></span>
                               </label>
@@ -287,6 +287,32 @@
             </div>
           </div>
 
+          <!-- Модальное окно подтверждения -->
+          <div v-if="showConfirmationModal" class="fixed inset-0 flex items-center justify-center z-50">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md w-96">
+              <div class="px-5 py-4">
+                <div class="text-sm">
+                  <div class="flex items-center mb-3">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-rose-100 dark:bg-rose-500/30 mr-2">
+                      <svg class="w-4 h-4 shrink-0 fill-current text-rose-500" viewBox="0 0 16 16">
+                        <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 12c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zm1-3H7V4h2v5z"/>
+                      </svg>
+                    </div>
+                    <div class="font-medium text-slate-800 dark:text-slate-100">Подтверждение действия</div>
+                  </div>
+                  <p class="text-slate-700 dark:text-slate-300 mb-4">Вы уверены, что хотите изменить состояние?</p>
+                </div>
+                <div class="flex justify-end space-x-2">
+                  <button @click="cancelSwitch" class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300">
+                    Отмена
+                  </button>
+                  <button @click="confirmSwitchAction" class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
+                    Подтвердить
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
 
 <!--          modal -->
           <!-- Cookies -->
@@ -352,13 +378,41 @@ async function addTelegramBot() {
   }
 }
 
-async function switchAI(id) {
-  let result = await fetchWrapper.post('/switch-ai/' + id)
+const showConfirmationModal = ref(false);
+const switchAccountId = ref(null);
+const originalSwitchState = ref(null);
 
-  if (result.data) {
-    window.location.href = `/settings/socials-panel`
+const showConfirmation = (accountId) => {
+  switchAccountId.value = accountId;
+  const account = accounts.value.find(acc => acc.id === accountId);
+  originalSwitchState.value = account.ai_active;
+  account.ai_active = originalSwitchState.value; // Отменить временное переключение
+  showConfirmationModal.value = true;
+};
+
+const cancelSwitch = () => {
+  showConfirmationModal.value = false;
+  const account = accounts.value.find(acc => acc.id === switchAccountId.value);
+  account.ai_active = originalSwitchState.value;
+  switchAccountId.value = null;
+};
+
+const switchAI = async (accountId) => {
+  try {
+    let result = await fetchWrapper.post('/switch-ai/' + accountId);
+    if (result.data) {
+      window.location.href = `/settings/socials-panel`;
+    }
+  } catch (error) {
+    console.error("Ошибка переключения AI:", error);
   }
-}
+};
+
+const confirmSwitchAction = async () => {
+  showConfirmationModal.value = false;
+  await switchAI(switchAccountId.value);
+  switchAccountId.value = null;
+};
 
 function registerSocialAuthEvent(register) {
   if (register)
