@@ -1,5 +1,5 @@
 import { fetchWrapper } from '../helpers/fetch-wrapper.js'
-import { ref } from "vue";
+import {computed, ref} from "vue";
 import  router  from '../router.js';
 import {getEcho} from "./echo.js";
 import {useCustomerStore} from "../stores/customer.store.js"
@@ -11,6 +11,8 @@ const activeCommentsAccount = ref(undefined)
 const activeChat = ref(undefined)
 const activeCommentsChat = ref(undefined)
 const bottom = ref(undefined);
+const allChats = ref(false);
+const isMultipleAccounts = ref(false)
 const emptyMessage = {
   id: null,
   user_id: null,
@@ -53,6 +55,9 @@ export function useMessangers() {
       const chatId = searchParams.get('commentsChatId')
       chatId ? setActiveCommentsChat(getCommentsChatById(chatId)) : setActiveCommentsChat(undefined)
     }
+
+    checkMultipleAccounts()
+
     accounts.value.forEach(function (account, index) {
       newChatFromSocket(account)
       account.chats?.forEach(function (chat) {
@@ -73,6 +78,11 @@ export function useMessangers() {
       }
     })
   }
+  function checkMultipleAccounts() {
+    isMultipleAccounts.value = accounts.value.length >= 2;
+  }
+
+
 
   function getAccountById(id) {
     const foundAccount = accounts.value.find((account) => account.id === Number(id));
@@ -97,6 +107,8 @@ export function useMessangers() {
   const setActiveAccount = async function (account = undefined) {
     activeAccount.value = account ?? accounts.value[0]
     activeChat.value = undefined
+
+    allChats.value = false
 
     if(!account) {
       return
@@ -135,6 +147,9 @@ export function useMessangers() {
     activeChat.value = chat
     if (activeChat.value === undefined || activeChat.value === null) {
       return
+    }
+    if(activeAccount.value?.id !== activeChat.value.account_id) {
+      activeAccount.value = getAccountById(activeChat.value.account_id)
     }
 
     if (!activeChat.value.messages) {
@@ -466,10 +481,22 @@ export function useMessangers() {
     bottom.value = newValue;
   };
 
+  function setAllChatsTrue() {
+    allChats.value = true;
+
+    const newRoute = {
+      path: '/messages',
+    }
+
+    router?.push(newRoute);
+  }
+
   return {
     scrollToBottom,
     activeAccount,
+    allChats,
     accounts,
+    isMultipleAccounts,
     startSocketListeners,
     setActiveAccount,
     activeChat,
@@ -496,6 +523,7 @@ export function useMessangers() {
     getComments,
     replyComment,
     replyToDirect,
-    chatSortStatus
+    chatSortStatus,
+    setAllChatsTrue
   };
 }

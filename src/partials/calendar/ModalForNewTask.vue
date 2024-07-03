@@ -130,8 +130,8 @@
                                             <p class="mb-2"><strong>Описание:</strong> {{ taskStore.task.description }}</p>
                                             <p class="mb-2"><strong>Автор:</strong> {{ taskStore.task.author?.name }}</p>
                                             <p class="mb-2"><strong>Исполнитель:</strong> {{ taskStore.task.user?.name }}</p>
-                                            <p class="mb-2"><strong>Дата и время создания:</strong> {{ taskStore.task.created_at }}</p>
-                                            <p class="mb-2"><strong>Дата и время выполнения:</strong> {{ taskStore.task.due_date }}</p>
+                                            <p class="mb-2"><strong>Дата и время создания:</strong> {{ new Date(taskStore.task.created_at).toLocaleString('ru-RU') }}</p>
+                                            <p class="mb-2"><strong>Дата и время выполнения:</strong> {{ new Date(taskStore.task.due_date).toLocaleString('ru-RU') }}</p>
                                             <p class="mb-2"><strong>Тип задачи:</strong> {{ taskStore.task.task_type?.name }}</p>
                                             <p class="mb-2"><strong>Статус:</strong> {{ taskStore.task.is_completed ? 'Завершен' : 'Незавершен' }}</p>
                                         </template>
