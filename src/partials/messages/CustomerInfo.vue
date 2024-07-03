@@ -152,12 +152,22 @@
                   </select>
               </div>
               <!-- User -->
-              <div>
-                <label class="block text-sm font-medium mb-1" for="card-country">Назначить на</label>
-                <select v-model="activeChat.latest_customer_request.user_id" id="card-country" class="form-select w-full" @change="handleUserChange">
-                  <option v-for="user in usersStore.users" :value="user.id">{{user.name}}</option>
-                </select>
-              </div>
+            <div>
+              <label class="block text-sm font-medium mb-1" for="card-country">Назначить на</label>
+              <select v-model="activeChat.latest_customer_request.user_id" id="card-country" class="form-select w-full"
+                      @change="handleUserChange">
+                <option v-for="user in usersStore.users" :value="user.id">{{ user.name }}</option>
+              </select>
+            </div>
+            <div v-if="activeChat.latest_customer_request.slots" class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+              <div class="font-medium text-slate-800 dark:text-slate-100 mb-2">Информация от клиента</div>
+              <ul class="list-disc pl-5 space-y-1 text-slate-700 dark:text-slate-300">
+                <li v-for="(value, key) in activeChat.latest_customer_request.slots" :key="key" class="flex justify-between">
+                  <span class="font-semibold">{{ key }}:</span>
+                  <span>{{ value }}</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
