@@ -361,7 +361,7 @@ export function useMessangers() {
   };
 
   const updateCommentsChatFromSocket = function (content, account) {
-    echo.value.private(`${account.messenger.name}.${account.id}.content`).listen('.UpdateContent', function (socketContent) {
+    echo.value.private(`${account.messenger.name}.${account.id}.content`).listen(`.${content.id}.UpdateContent`, function (socketContent) {
       content.media_type = socketContent.content.media_type
       content.media_url = socketContent.content.media_url
       content.thumbnail_url = socketContent.content.thumbnail_url
