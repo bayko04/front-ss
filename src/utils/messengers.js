@@ -250,7 +250,7 @@ export function useMessangers() {
   }
 
   const addCommentToCommentsChat = function (account, content) {
-    echo.value.private(`${account.messenger.name}.${account.id}.content.${content.id}`).listen('.NewComment', function (socketComment) {
+    echo.value.private(`${account.messenger.name}.${account.id}.content`).listen(`.${content.id}.NewComment`, function (socketComment) {
       if (content.comments && content.id === activeCommentsChat.value.id && socketComment.comment.parent_id != '' && content.comments[socketComment.comment.parent_id]) {
         if(!content.comments[socketComment.comment.parent_id]['replies']) {
             content.comments[socketComment.comment.parent_id]['replies'] = []
@@ -361,7 +361,7 @@ export function useMessangers() {
   };
 
   const updateCommentsChatFromSocket = function (content, account) {
-    echo.value.private(`${account.messenger.name}.${account.id}.content.${content.id}`).listen('.UpdateContent', function (socketContent) {
+    echo.value.private(`${account.messenger.name}.${account.id}.content`).listen(`.${content.id}.UpdateContent`, function (socketContent) {
       content.media_type = socketContent.content.media_type
       content.media_url = socketContent.content.media_url
       content.thumbnail_url = socketContent.content.thumbnail_url
