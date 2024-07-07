@@ -50,13 +50,7 @@
                   <div>
                       <ul class="mb-4">
                           <div @click="toggleAddClientForm" class="grow flex items-center cursor-pointer">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checklist w-6 h-6" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                  <path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8" />
-                                  <path d="M14 19l2 2l4 -4" />
-                                  <path d="M9 8h4" />
-                                  <path d="M9 12h2" />
-                              </svg>
+                            <img src="../../images/chat/client.svg" alt="Image description" class="w-6 h-6">
                               <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">Добавить клиента</span>
                           </div>
                       </ul>
@@ -92,13 +86,7 @@
                   <div>
                       <ul class="mb-4">
                           <div @click="openSearchModal()" class="grow flex items-center cursor-pointer">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checklist w-6 h-6" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                  <path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8" />
-                                  <path d="M14 19l2 2l4 -4" />
-                                  <path d="M9 8h4" />
-                                  <path d="M9 12h2" />
-                              </svg>
+                            <img src="../../images/chat/clients.svg" alt="Image description" class="w-6 h-6">
                               <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">Привязать к существующему клиенту</span>
                           </div>
                       </ul>
@@ -109,14 +97,8 @@
               <div v-if="activeAccount.ai_active && !activeChat.latest_customer_request.user_handle">
                   <ul class="mb-4">
                     <div @click="handleUser()" class="grow flex items-center cursor-pointer">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checklist w-6 h-6" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8" />
-                        <path d="M14 19l2 2l4 -4" />
-                        <path d="M9 8h4" />
-                        <path d="M9 12h2" />
-                      </svg>
-                      <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">Переключить на пользователя</span>
+                      <img src="../../images/chat/manager.svg" alt="Image description" class="w-6 h-6">
+                      <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">Переключить на менеджера</span>
                     </div>
                   </ul>
               </div>
@@ -124,13 +106,7 @@
               <div>
                 <ul class="mb-4">
                   <div @click="openTaskModal()" class="grow flex items-center cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checklist w-6 h-6" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                      <path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8" />
-                      <path d="M14 19l2 2l4 -4" />
-                      <path d="M9 8h4" />
-                      <path d="M9 12h2" />
-                    </svg>
+                    <img src="../../images/chat/task-list.svg" alt="Image description" class="w-6 h-6">
                     <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">Создать задачу</span>
                   </div>
                 </ul>
