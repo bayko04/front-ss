@@ -50,7 +50,7 @@
                   <div>
                       <ul class="mb-4">
                           <div @click="toggleAddClientForm" class="grow flex items-center cursor-pointer">
-                            <img src="../../images/chat/client.svg" alt="Image description" class="w-6 h-6">
+                            <img :src="clientIcon" alt="Image description" class="w-6 h-6">
                               <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">Добавить клиента</span>
                           </div>
                       </ul>
@@ -86,7 +86,7 @@
                   <div>
                       <ul class="mb-4">
                           <div @click="openSearchModal()" class="grow flex items-center cursor-pointer">
-                            <img src="../../images/chat/clients.svg" alt="Image description" class="w-6 h-6">
+                            <img :src="clientsIcon" alt="Image description" class="w-6 h-6">
                               <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">Привязать к существующему клиенту</span>
                           </div>
                       </ul>
@@ -97,7 +97,7 @@
               <div v-if="activeAccount.ai_active && !activeChat.latest_customer_request.user_handle">
                   <ul class="mb-4">
                     <div @click="handleUser()" class="grow flex items-center cursor-pointer">
-                      <img src="../../images/chat/manager.svg" alt="Image description" class="w-6 h-6">
+                      <img :src="managerIcon" alt="Image description" class="w-6 h-6">
                       <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">Переключить на менеджера</span>
                     </div>
                   </ul>
@@ -106,7 +106,7 @@
               <div>
                 <ul class="mb-4">
                   <div @click="openTaskModal()" class="grow flex items-center cursor-pointer">
-                    <img src="../../images/chat/task-list.svg" alt="Image description" class="w-6 h-6">
+                    <img :src="taskIcon" alt="Image description" class="w-6 h-6">
                     <span class="text-sm font-medium ml-3 2xl:opacity-100 duration-200">Создать задачу</span>
                   </div>
                 </ul>
@@ -163,6 +163,10 @@ import {onMounted, ref} from "vue";
 import { useAuthStore } from "../../stores/auth.store.js";
 import { useUsersStore} from "../../stores/user.store.js";
 import { searchContactModal } from "../../utils/modalVariables.js";
+import managerIcon from "../../images/chat/manager.svg?url"
+import taskIcon from "../../images/chat/task-list.svg?url"
+import clientsIcon from "../../images/chat/clients.svg?url"
+import clientIcon from "../../images/chat/client.svg?url"
 
 import {Field} from "vee-validate";
 import Edit from "../../images/edit.svg";
