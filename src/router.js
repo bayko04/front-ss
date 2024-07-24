@@ -38,6 +38,8 @@ import Archive from "./pages/Archive.vue";
 import AssignerSettings from "./pages/systemSettings/AssignerSettings.vue";
 import Products from "./pages/Products/Products.vue";
 import TaskType from "./pages/systemSettings/TaskType.vue";
+import Marketing from "./pages/Marketing.vue";
+import TriggerTemplate from "./partials/marketing/TriggerTemplate.vue";
 
 const routerHistory = createWebHistory()
 
@@ -207,6 +209,14 @@ const router = createRouter({
       path: '/archive',
       component: Archive
     },
+    {
+      path: '/marketing',
+      component: Marketing
+    },
+    {
+      path: '/marketing/triggerTemplate',
+      component: TriggerTemplate
+    }
 
   ]
 })
