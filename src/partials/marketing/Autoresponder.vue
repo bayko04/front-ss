@@ -20,16 +20,16 @@
                       <!-- Название шаблона -->
                       <div class="col-span-2">
                         <label class="block text-sm font-medium mb-1" for="ad-link-input">Название шаблона<span class="text-rose-500">*</span></label>
-                        <input v-model="marketingStore.messageTemplate.templateName" id="template-name-input" name="templateName" class="form-input w-full" type="text" placeholder="Название шаблона"/>
+                        <input v-model="marketingStore.autoresponderTemplate.title" id="template-name-input" name="templateName" class="form-input w-full" type="text" placeholder="Название шаблона"/>
                       </div>
 
                       <!-- Рекламная ссылка -->
                       <div class="col-span-2">
                         <label class="block text-sm font-medium mb-1" for="ad-link-input">Введите рекламную ссылку <span class="text-rose-500">*</span></label>
-                        <input v-model="marketingStore.messageTemplate.adLink" id="ad-link-input" name="adLink" class="form-input w-full" type="text" placeholder="Введите рекламную ссылку" />
+                        <input v-model="marketingStore.autoresponderTemplate.ad_link" id="ad-link-input" name="adLink" class="form-input w-full" type="text" placeholder="Введите рекламную ссылку" />
                       </div>
 
-                      <div v-for="message in marketingStore.messageTemplate.messages">
+                      <div v-for="message in marketingStore.autoresponderTemplate.messages">
                         <!-- Выбор типа медиа -->
                         <div class="col-span-2">
                           <label class="block text-sm font-medium mb-1" for="media-type">Тип медиа файла <span class="text-rose-500">*</span></label>
@@ -53,14 +53,14 @@
                               audio
                               <br>
                               <i class="fas fa-plus"></i>
-                              <input type="file" @change="(event) => handleFileChange(event,'audio')" class="hidden">
+                              <input type="file" @change="(event) => message.audioFile = event.target.files[0]" class="hidden">
                               <div v-if="message.audioFile" class="mt-2 text-sm text-gray-700"> {{ message.audioFile.name }} </div>
                             </label>
                             <label class="p-4 border rounded bg-gray-100 text-center cursor-pointer">
                               image
                               <br>
                               <i class="fas fa-plus"></i>
-                              <input type="file" @change="(event) => handleFileChange(event, 'image')" class="hidden">
+                              <input type="file" @change="(event) => message.imageFile = event.target.files[0]" class="hidden">
                               <div v-if="message.imageFile" class="mt-2 text-sm text-gray-700"> {{ message.imageFile.name }} </div>
                             </label>
                           </div>
@@ -72,7 +72,7 @@
                           <input v-model="message.textBody" id="ad-body-input" name="textBody" class="form-input w-full" type="text" placeholder="Введите текст сообщения" />
                         </div>
                       </div>
-                      <button @click="addMessage()"></button>
+                      <button type="button" @click="addMessage()">add message</button>
                     </div>
                     <br>
                     <div class="mt-2 flex justify-end">
@@ -104,8 +104,10 @@ import {onMounted, ref} from 'vue';
 import Sidebar from '../../partials/Sidebar.vue';
 import { useMarketingStore } from '../../stores/marketing.store.js';
 import Header from '../../partials/Header.vue';
-import {publicPath} from "v-tooltip/vue.config.js";
+import router from "../../router.js";
 
+const route = router.currentRoute?.value
+const id = route.params?.id;
 
 
     const sidebarOpen = ref(false);
@@ -114,32 +116,32 @@ import {publicPath} from "v-tooltip/vue.config.js";
     const adLink = ref('');
     const textTitle = ref('');
     const textBody = ref('');
-    const selectedOption = ref('');
-
-    const audioFile = ref(null);
-    const imageFile = ref(null);
 
     const onSubmit = async () => {
       try {
-        // await marketingStore.addOrUpdateMarketingTemplate(values);
+        await marketingStore.addOrUpdateAutoresponder();
         console.log('Submitted successfully');
       } catch (error) {
         console.error('Submission failed', error);
       }
     };
 
-    // function addMessage() {}
+    function addMessage() {
+      marketingStore.autoresponderTemplate.messages.push(
+          {
+            selectedOption: 'text',
+            textTitle: '',
+            textBody: '',
+            audioFile: null,
+            imageFile: null,
+          }
+      )
+    }
 
-    const handleFileChange = (event, type) => {
-      const fileInput = event.target;
-        const file = fileInput.files[0];
-        if (type === 'audio') {
-          audioFile.value = file;
-        } else if (type === 'image') {
-          imageFile.value = file;
-        }
-    };
-
-
-
+onMounted(() => {
+  console.log(id)
+  if (id) {
+    marketingStore.getAutoresponderTemplate(id)
+  }
+})
 </script>

@@ -30,7 +30,6 @@ import Comments from "./pages/Comments.vue";
 import Onboarding01 from "./pages/Onboarding01.vue";
 import Onboarding02 from "./pages/Onboarding02.vue";
 import Onboarding03 from "./pages/Onboarding03.vue";
-import Customers from "./pages/Products/Products.vue";
 import Newsletters from "./pages/marketing/Newsletters.vue";
 import Triggers from "./pages/marketing/Triggers.vue";
 import Questionnaire from "./pages/marketing/Questionnaire.vue";
@@ -39,7 +38,7 @@ import AssignerSettings from "./pages/systemSettings/AssignerSettings.vue";
 import Products from "./pages/Products/Products.vue";
 import TaskType from "./pages/systemSettings/TaskType.vue";
 import Marketing from "./pages/Marketing.vue";
-import TriggerTemplate from "./partials/marketing/TriggerTemplate.vue";
+import TriggerTemplate from "./partials/marketing/Autoresponder.vue";
 
 const routerHistory = createWebHistory()
 
@@ -214,10 +213,13 @@ const router = createRouter({
       component: Marketing
     },
     {
-      path: '/marketing/triggerTemplate',
+      path: '/marketing/autoresponder',
+      component: TriggerTemplate
+    },
+    {
+      path: '/marketing/autoresponder/:id',
       component: TriggerTemplate
     }
-
   ]
 })
 
