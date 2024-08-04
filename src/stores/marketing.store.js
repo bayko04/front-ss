@@ -7,6 +7,7 @@ const baseUrl = `${import.meta.env.VITE_API_URL}/marketing/autoresponder`;
 export const useMarketingStore = defineStore({
     id: 'marketingStore',
     state: () => ({
+        allAutoResponderTemplates: [],
         autoresponderTemplate: {
             title: '',
             ad_link: '',
@@ -25,8 +26,12 @@ export const useMarketingStore = defineStore({
         async getAutoresponderTemplate(id) {
             this.autoresponderTemplate = (await fetchWrapper.get(`/marketing/autoresponder/${id}`)).data;
         },
+        async autoResponderTemplates() {
+            this.allAutoResponderTemplates = (await fetchWrapper.get(`/marketing/autoresponders`)).data;
+        },
         async addOrUpdateAutoresponder() {
             const data = this.autoresponderTemplate; // Получение данных из состояния
+
             let formData = new FormData();
             formData.append('method', 'POST');
 
@@ -36,7 +41,9 @@ export const useMarketingStore = defineStore({
                     if (message.hasOwnProperty(key) && message[key] !== null) {
                         if ((key === 'audioFile' || key === 'imageFile') && typeof message[key] !== 'string') {
                             formData.append(`messages[${index}][${key}]`, message[key]);
+                            console.log(`Appending ${key} file:`, message[key]);
                         } else if (key !== 'audioFile' && key !== 'imageFile') {
+                            console.log(`Appending ${key}:`, message[key]);
                             formData.append(`messages[${index}][${key}]`, message[key]);
                         }
                     }
