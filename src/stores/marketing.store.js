@@ -39,13 +39,7 @@ export const useMarketingStore = defineStore({
             data.messages.forEach((message, index) => {
                 for (const key in message) {
                     if (message.hasOwnProperty(key) && message[key] !== null) {
-                        if ((key === 'audioFile' || key === 'imageFile') && typeof message[key] !== 'string') {
-                            formData.append(`messages[${index}][${key}]`, message[key]);
-                            console.log(`Appending ${key} file:`, message[key]);
-                        } else if (key !== 'audioFile' && key !== 'imageFile') {
-                            console.log(`Appending ${key}:`, message[key]);
-                            formData.append(`messages[${index}][${key}]`, message[key]);
-                        }
+                        formData.append(`messages[${index}][${key}]`, message[key]);
                     }
                 }
             });
@@ -53,6 +47,7 @@ export const useMarketingStore = defineStore({
             // Добавление остальных данных в FormData
             formData.append('title', data.title);
             formData.append('ad_link', data.ad_link);
+            formData.append('id', data.id ?? null);
 
             try {
                 const result = await fetchWrapper.post(`${baseUrl}`, formData);
