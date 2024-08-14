@@ -41,12 +41,6 @@
                           </select>
                         </div>
 
-                        <!-- Текстовый заголовок -->
-<!--                        <div v-if="message.selectedOption === 'text'" class="col-span-2">-->
-<!--                          <label class="block text-sm font-medium mb-1" for="text-title">Введите текст заголовка <span class="text-rose-500">*</span></label>-->
-<!--                          <input v-model="message.textTitle" id="text-title" name="textTitle" class="form-input w-full" type="text" placeholder="Введите текст заголовка" />-->
-<!--                        </div>-->
-
                         <!-- Квадраты для выбора медиа -->
                         <div v-if="message.selectedOption === 'audio'" class="col-span-2">
                           <AudioPlayer v-if="message.audioFile" :audioPath="getImageUrl(message.audioFile)"/>
@@ -144,11 +138,6 @@ const id = route.params?.id;
 const sidebarOpen = ref(false);
 const marketingStore = useMarketingStore();
 
-const adLink = ref('');
-const textTitle = ref('');
-const textBody = ref('');
-const previewImage = ref('');
-
 const onSubmit = async () => {
   try {
     await marketingStore.addOrUpdateAutoresponder();
@@ -187,6 +176,8 @@ function getImageUrl(filename) {
 onMounted(() => {
   if (id) {
     marketingStore.getAutoresponderTemplate(id)
+  } else {
+    marketingStore.clearAutoresponderTemplate()
   }
 })
 </script>

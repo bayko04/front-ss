@@ -6,7 +6,7 @@
 
     <!-- Content area -->
     <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-      
+
       <!-- Site header -->
       <Header :sidebarOpen="sidebarOpen" @toggle-sidebar="sidebarOpen = !sidebarOpen" />
 
@@ -16,31 +16,51 @@
           <!-- Page header -->
           <div class="mb-8">
             <!-- Title -->
-            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Настройка уведомлений ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Ремайндер ✨</h1>
           </div>
 
-          <!-- Content --> 
+          <!-- Content -->
           <div class="bg-white dark:bg-slate-800 shadow-lg rounded-sm mb-8">
             <div class="flex flex-col md:flex-row md:-mr-px">
-              <SettingsSidebar />
-              <NotificationsPanel />
+              <MarketingSidebar />
+              <Reminders />
             </div>
           </div>
 
-        </div>        
+        </div>
       </main>
 
-    </div> 
+    </div>
 
   </div>
 </template>
 
-<script setup>
+<script>
 import { ref } from 'vue'
 import Sidebar from '../../partials/Sidebar.vue'
 import Header from '../../partials/Header.vue'
 import SettingsSidebar from '../../partials/settings/SettingsSidebar.vue'
-import NotificationsPanel from '../../partials/settings/NotificationsPanel.vue'
+import MarketingSidebar from '../../partials/marketing/MarketingSidebar.vue'
+import Triggers from "../../partials/marketing/Triggers.vue";
+import Reminders from "../../partials/marketing/Reminders.vue";
 
-const sidebarOpen = ref(false)
+export default {
+  name: 'Account',
+  components: {
+    Reminders,
+    Triggers,
+    Sidebar,
+    Header,
+    SettingsSidebar,
+    MarketingSidebar
+  },
+  setup() {
+
+    const sidebarOpen = ref(false)
+
+    return {
+      sidebarOpen,
+    }
+  }
+}
 </script>

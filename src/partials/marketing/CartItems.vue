@@ -2,67 +2,31 @@
   <ul>
     <!-- Cart item -->
 
-    <router-link to="/marketing/autoresponder" custom v-slot="{ navigate, isExactActive }">
-      <li v-for="(message, index) in marketingStore.allAutoResponderTemplates" :key="message.id" @click="navigateAndLog(message)" class="sm:flex items-center py-6 border-b border-slate-200 dark:border-slate-700 cursor-pointer">
-        <div class="block mb-4 sm:mb-0 mr-5 md:w-32 xl:w-auto shrink-0">
-          <img class="rounded-sm" src="../../images/related-product-01.jpg" width="200" height="142" alt="Product 01" />
-        </div>
-        <div class="grow">
-          <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-1">{{ message.title }}</h3>
-          <div class="text-sm mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.</div>
-          <!-- Product meta -->
-          <div class="flex flex-wrap justify-between items-center">
-            <!-- Rating and price -->
-            <div class="flex flex-wrap items-center space-x-2 mr-2">
-              <!-- Rating -->
-              <div class="flex items-center space-x-2">
-                <!-- Stars -->
-                <div class="flex space-x-1">
-                  <button>
-                    <span class="sr-only">1 star</span>
-                    <svg class="w-4 h-4 fill-current text-amber-500" viewBox="0 0 16 16">
-                      <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z" />
-                    </svg>
-                  </button>
-                  <button>
-                    <span class="sr-only">2 stars</span>
-                    <svg class="w-4 h-4 fill-current text-amber-500" viewBox="0 0 16 16">
-                      <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z" />
-                    </svg>
-                  </button>
-                  <button>
-                    <span class="sr-only">3 stars</span>
-                    <svg class="w-4 h-4 fill-current text-amber-500" viewBox="0 0 16 16">
-                      <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z" />
-                    </svg>
-                  </button>
-                  <button>
-                    <span class="sr-only">4 stars</span>
-                    <svg class="w-4 h-4 fill-current text-amber-500" viewBox="0 0 16 16">
-                      <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z" />
-                    </svg>
-                  </button>
-                  <button>
-                    <span class="sr-only">5 stars</span>
-                    <svg class="w-4 h-4 fill-current text-slate-300 dark:text-slate-600" viewBox="0 0 16 16">
-                      <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z" />
-                    </svg>
-                  </button>
+    <div v-for="(message, index) in marketingStore.allAutoResponderTemplates"
+          :key="message.id">
+      <router-link
+          :to="{ name: 'autoresponder', params: { id: message.id } }"
+      >
+        <li class="sm:flex items-center py-6 border-b border-slate-200 dark:border-slate-700 cursor-pointer">
+          <div class="grow">
+
+              <h3 class="w-full h-full text-lg font-semibold text-slate-800 dark:text-slate-100 mb-1">{{ message.title }}</h3>
+
+            <div class="flex flex-wrap justify-between items-center">
+              <div class="flex flex-wrap items-center space-x-2 mr-2">
+                <div class="flex items-center space-x-2">
                 </div>
-                <!-- Rate -->
-                <div class="inline-flex text-sm font-medium text-amber-600">4.2</div>
               </div>
-              <div class="text-slate-400 dark:text-slate-600">·</div>
-              <!-- Price -->
-              <div>
-                <div class="inline-flex text-sm font-medium bg-emerald-100 dark:bg-emerald-400/30 text-emerald-600 dark:text-emerald-400 rounded-full text-center px-2 py-0.5">$89.00</div>
-              </div>
+              <button class="text-sm underline hover:no-underline" @click="deleteAutoresponder(message)">
+                <svg class="w-4 h-4 fill-current text-rose-500 shrink-0" viewBox="0 0 16 16">
+                  <path d="M5 7h2v6H5V7zm4 0h2v6H9V7zm3-6v2h4v2h-1v10c0 .6-.4 1-1 1H2c-.6 0-1-.4-1-1V5H0V3h4V1c0-.6.4-1 1-1h6c.6 0 1 .4 1 1zM6 2v1h4V2H6zm7 3H3v9h10V5z"/>
+                </svg>
+              </button>
             </div>
-            <button class="text-sm underline hover:no-underline">Remove</button>
           </div>
-        </div>
-      </li>
-    </router-link>
+        </li>
+      </router-link>
+    </div>
   </ul>
 </template>
 
@@ -72,9 +36,10 @@ import {useMarketingStore} from "../../stores/marketing.store.js";
 
 const marketingStore = useMarketingStore();
 
-function navigateAndLog(message) {
-  console.log(message);
+function deleteAutoresponder(item) {
+  marketingStore.deleteAutoresponder(item.id)
 }
+
 onMounted(() => {
     marketingStore.autoResponderTemplates()
   })

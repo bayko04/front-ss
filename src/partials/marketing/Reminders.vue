@@ -1,0 +1,110 @@
+<template>
+<!--  <div class="flex h-[100dvh] overflow-hidden">-->
+
+
+    <!-- Content area -->
+<!--    <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">-->
+
+      <!-- Site header -->
+
+      <main class="grow">
+        <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+          <!-- Content -->
+          <div class="bg-white dark:bg-slate-800 shadow-lg rounded-sm mb-8">
+            <div class="flex flex-col md:flex-row md:-mr-px">
+              <div class="grow">
+                <!-- Panel body -->
+                <div class="p-6 space-y-6">
+                  <h2 class="text-2xl text-gray-800 dark:text-gray-100 font-bold mb-5">Автоматическая отправка сообщения</h2>
+
+                  <!-- Toggle Switch -->
+                  <div class="flex flex-wrap items-center -m-3">
+                    <div class="m-3 w-40">
+                      <div class="flex items-center mt-5">
+                        <label class="inline-flex items-center cursor-pointer">
+                          <input
+                              type="checkbox"
+                              v-model="marketingStore.reminderSettings.active"
+                              class="sr-only peer"
+                          />
+                          <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        </label>
+                        <div class="text-sm text-gray-400 dark:text-gray-500 italic ml-2">
+                          {{ marketingStore.reminderSettings.active ? 'Включен' : 'Выключен' }}
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="flex items-end">
+                        <input
+                            v-model="marketingStore.reminderSettings.minutes"
+                            id="small"
+                            class="form-input px-2 py-1 mr-4 w-20"
+                            type="number"
+                        />
+                        <label class="block text-sm font-medium mb-1" for="small">
+                          Через сколько минут отправить
+                        </label>
+                      </div>
+                    </div>
+
+                    <button @click="save()" class="ml-10 cursor-pointer bg-blue-700 text-white px-4 py-2 rounded">Сохранить</button>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+</template>
+
+<script>
+import {onMounted, ref} from 'vue'
+import Sidebar from '../../partials/Sidebar.vue'
+import Header from '../../partials/Header.vue'
+import SettingsSidebar from '../../partials/settings/SettingsSidebar.vue'
+import SettingsSystem from '../../partials/settings/SettingsSystem.vue'
+import {useAuthStore} from "../../stores/auth.store.js";
+import {useMarketingStore} from '../../stores/marketing.store.js';
+
+export default {
+  name: 'Account',
+  components: {
+    Sidebar,
+    Header,
+    SettingsSidebar,
+    SettingsSystem
+  },
+  setup() {
+
+    const authStore = useAuthStore();
+    const settings = authStore.userData.company.assigner_settings;
+    const sidebarOpen = ref()
+    const isActive = ref(settings.is_active ? 'Включен' : 'Выключен')
+    const maxCount = ref(settings.max_count ?? 10)
+    const marketingStore = useMarketingStore();
+
+    function save() {
+      marketingStore.updateReminderSettings({
+        active: marketingStore.reminderSettings.active,
+        minutes: marketingStore.reminderSettings.minutes
+      })
+    }
+
+    onMounted(() => {
+      marketingStore.getReminderSettings()
+    })
+
+    return {
+      sidebarOpen,
+      isActive,
+      maxCount,
+      marketingStore,
+      save
+    }
+  }
+}
+</script>

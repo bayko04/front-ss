@@ -11,66 +11,34 @@
       <Header :sidebarOpen="sidebarOpen" @toggle-sidebar="sidebarOpen = !sidebarOpen" />
 
       <main class="grow">
-        <div class="px-4 sm:px-6 lg:px-8 py-8 w-full">
+        <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
-          <!-- Page content -->
-          <div class="max-w-5xl mx-auto flex flex-col lg:flex-row lg:space-x-8 xl:space-x-16">
+            <!-- Page header -->
+            <div class="sm:flex sm:justify-between sm:items-center mb-8">
 
-            <!-- Cart items -->
-            <div class="mb-6 lg:mb-0">
-              <div class="mb-3">
-                <div class="flex text-sm font-medium text-slate-400 dark:text-slate-500 space-x-2">
-                  <span class="text-indigo-500">Review</span>
-                  <span>-&gt;</span>
-                  <span class="text-slate-500 dark:text-slate-400">Payment</span>
-                  <span>-&gt;</span>
-                  <span class="text-slate-500 dark:text-slate-400">Confirm</span>
-                </div>
-              </div>
-              <header class="mb-2">
-                <!-- Title -->
+              <!-- Left: Title -->
+              <div class="mb-4 sm:mb-0">
                 <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Триггеры ✨</h1>
-              </header>
-
-              <!-- Cart items -->
-              <CartItems />
-
-            </div>
-
-            <!-- Sidebar -->
-            <div>
-              <div class="bg-slate-50 dark:bg-slate-800/20 p-4 rounded border border-slate-200 dark:border-slate-700">
-                <div class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-4">Социальные сети</div>
-                <ul class="space-y-3">
-                  <li>
-                    <div class="flex items-center justify-between">
-                      <div class="grow flex items-center">
-                        <div class="relative mr-3">
-                          <img class="w-8 h-8 rounded-full" src="../images/chat/whatsapp-color.svg" width="32" height="32" alt="Group 01" />
-                        </div>
-                        <div class="truncate">
-                          <span class="text-sm font-medium text-slate-800 dark:text-slate-100">WhatsApp</span>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="flex items-center justify-between">
-                      <div class="grow flex items-center">
-                        <div class="relative mr-3">
-                          <img class="w-8 h-8 rounded-full" src="../images/chat/instagram1.svg" width="32" height="32" alt="Group 02" />
-                        </div>
-                        <div class="truncate">
-                          <span class="text-sm font-medium text-slate-800 dark:text-slate-100">Instagram</span>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
               </div>
-            </div>
 
-          </div>
+              <!-- Right: Actions  -->
+              <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+
+                <!-- Add customer button -->
+                <router-link to="/marketing/autoresponder">
+                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                    <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                      <path
+                          d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z"/>
+                    </svg>
+                    <span class="hidden xs:block ml-2">Добавить триггер</span>
+                  </button>
+                </router-link>
+
+              </div>
+
+            </div>
+            <CartItems />
 
         </div>
       </main>

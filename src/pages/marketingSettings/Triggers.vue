@@ -6,7 +6,7 @@
 
     <!-- Content area -->
     <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-      
+
       <!-- Site header -->
       <Header :sidebarOpen="sidebarOpen" @toggle-sidebar="sidebarOpen = !sidebarOpen" />
 
@@ -16,21 +16,21 @@
           <!-- Page header -->
           <div class="mb-8">
             <!-- Title -->
-            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Рассылки ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Триггеры ✨</h1>
           </div>
 
-          <!-- Content --> 
+          <!-- Content -->
           <div class="bg-white dark:bg-slate-800 shadow-lg rounded-sm mb-8">
             <div class="flex flex-col md:flex-row md:-mr-px">
               <MarketingSidebar />
-              <NewslettersPanel />
+              <Triggers />
             </div>
           </div>
 
         </div>
       </main>
 
-    </div> 
+    </div>
 
   </div>
 </template>
@@ -39,24 +39,26 @@
 import { ref } from 'vue'
 import Sidebar from '../../partials/Sidebar.vue'
 import Header from '../../partials/Header.vue'
+import SettingsSidebar from '../../partials/settings/SettingsSidebar.vue'
 import MarketingSidebar from '../../partials/marketing/MarketingSidebar.vue'
-import NewslettersPanel from '../../partials/marketing/NewslettersPanel.vue'
+import Triggers from "../../partials/marketing/Triggers.vue";
 
 export default {
-    name: 'Account',
-    components: {
-        Sidebar,
-        Header,
-        MarketingSidebar,
-        NewslettersPanel,
-    },
+  name: 'Account',
+  components: {
+    Triggers,
+    Sidebar,
+    Header,
+    SettingsSidebar,
+    MarketingSidebar
+  },
   setup() {
 
     const sidebarOpen = ref(false)
 
     return {
       sidebarOpen,
-    }  
+    }
   }
 }
 </script>

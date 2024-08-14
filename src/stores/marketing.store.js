@@ -2,12 +2,13 @@ import {defineStore} from "pinia";
 import {fetchWrapper} from "../helpers/fetch-wrapper.js";
 import router from "../router.js";
 
-const baseUrl = `${import.meta.env.VITE_API_URL}/marketing/autoresponder`;
+const baseUrl = `${import.meta.env.VITE_API_URL}/marketing`;
 
 export const useMarketingStore = defineStore({
     id: 'marketingStore',
     state: () => ({
         allAutoResponderTemplates: [],
+        reminderSettings: [],
         autoresponderTemplate: {
             title: '',
             ad_link: '',
@@ -23,6 +24,21 @@ export const useMarketingStore = defineStore({
         },
     }),
     actions: {
+        async clearAutoresponderTemplate() {
+            this.autoresponderTemplate = {
+                title: '',
+                ad_link: '',
+                messages: [
+                    {
+                        selectedOption: 'text',
+                        textTitle: '',
+                        textBody: '',
+                        audioFile: null,
+                        imageFile: null,
+                    }
+                ]
+            }
+        },
         async getAutoresponderTemplate(id) {
             this.autoresponderTemplate = (await fetchWrapper.get(`/marketing/autoresponder/${id}`)).data;
         },
@@ -47,10 +63,10 @@ export const useMarketingStore = defineStore({
             // Добавление остальных данных в FormData
             formData.append('title', data.title);
             formData.append('ad_link', data.ad_link);
-            formData.append('id', data.id ?? null);
+            formData.append('id', data.id ?? '');
 
             try {
-                const result = await fetchWrapper.post(`${baseUrl}`, formData);
+                const result = await fetchWrapper.post(`${baseUrl}/autoresponder`, formData);
                 if (!result.errors) {
                     router.push(`/marketing/autoresponder/${result.data.id}`);
                 }
@@ -58,5 +74,24 @@ export const useMarketingStore = defineStore({
                 console.log(error);
             }
         },
+        async updateReminderSettings(data) {
+            try {
+                const response = await fetchWrapper.post(`${baseUrl}/reminders`, data);
+                console.log('Ответ сервера:', response);
+            } catch (error) {
+                console.error('Ошибка отправки данных на сервер:', error);
+                throw error;
+            }
+        },
+        async getReminderSettings() {
+            if (this.reminderSettings.length === 0) {
+                const result = await fetchWrapper.get(`${baseUrl}/reminders`)
+                const parsedData = JSON.parse(result.data);
+                this.reminderSettings = parsedData.daily_reminder;
+            }
+        },
+        async deleteAutoresponder(id) {
+            await fetchWrapper.delete(`${baseUrl}/chat-statuses/${id}`)
+        }
     },
 })
