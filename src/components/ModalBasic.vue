@@ -20,7 +20,7 @@
     leave-to-class="opacity-0 translate-y-4"
   >
     <div v-show="modalOpen" :id="id" class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6" role="dialog" aria-modal="true">
-      <div ref="modalContent" class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full">
+      <div ref="modalContent" class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-5xl w-full max-h-full">
         <!-- Modal header -->
         <div class="px-5 py-3 border-b border-slate-200 dark:border-slate-700">
           <div class="flex justify-between items-center">

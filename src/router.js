@@ -35,9 +35,10 @@ import Archive from "./pages/Archive.vue";
 import AssignerSettings from "./pages/systemSettings/AssignerSettings.vue";
 import Products from "./pages/Products/Products.vue";
 import TaskType from "./pages/systemSettings/TaskType.vue";
-import Marketing from "./pages/Marketing.vue";
 import TriggerTemplate from "./partials/marketing/Autoresponder.vue";
 import Reminders from "./pages/marketingSettings/Reminders.vue";
+import Newsletters from "./pages/marketingSettings/Newsletters.vue";
+import CreateNewsletter from "./partials/marketing/CreateNewsletter.vue";
 
 const routerHistory = createWebHistory()
 
@@ -204,6 +205,10 @@ const router = createRouter({
       component: Reminders
     },
     {
+      path: '/marketingSettings/newsletters',
+      component: Newsletters
+    },
+    {
       path: '/marketing/autoresponder',
       component: TriggerTemplate
     },
@@ -211,7 +216,11 @@ const router = createRouter({
       path: '/marketing/autoresponder/:id',
       component: TriggerTemplate,
       name: 'autoresponder'
-    }
+    },
+    {
+      path: '/marketing/create-newsletter',
+      component: CreateNewsletter
+    },
   ]
 })
 
