@@ -38,67 +38,50 @@
                           <!-- Left Column: Selectors (вертикально) -->
                           <div class="w-1/2 pr-4">
                             <div class="mb-4">Выбор получателей</div>
-                            <form class="flex flex-col space-y-2">
+                            <div class="flex flex-col space-y-2">
                               <div class="relative">
-                                <select v-model="selectedOption1" @change="addTag('segment')"
-                                        class="appearance-none bg-blue-100 text-blue-700 border border-gray-300 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-8 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                  <option value="">Сегмент</option>
-                                  <option value="US">Успешно завершенные</option>
-                                  <option value="CA">Италия</option>
-                                  <option value="FR">Дубай</option>
-                                  <option value="DE">Не успешно завершенные</option>
-                                </select>
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                  <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor"
-                                       viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M19 9l-7 7-7-7"></path>
-                                  </svg>
-                                </span>
+                                <Multiselect
+                                    v-model="selectedCustomerTags"
+                                    :options="marketingStore.customerTags"
+                                    mode="tags"
+                                    :close-on-select="false"
+                                    :searchable="true"
+                                    :classes="{
+                                      tags: 'flex-grow flex-shrink flex flex-wrap items-center mt-1 pl-2 min-w-0 rtl:pl-0 rtl:pr-2',
+                                      tag: 'bg-green-500 text-white text-sm font-semibold py-0.5 pl-2 rounded mr-1 mb-1 flex items-center whitespace-nowrap min-w-0 rtl:pl-0 rtl:pr-2 rtl:mr-0 rtl:ml-1',
+                                      tagsSearch: 'absolute inset-0 border-0 outline-none focus:ring-0 appearance-none p-0 text-base font-sans box-border w-full',
+                                    }"
+                                />
                               </div>
                               <div class="relative">
-                                <select v-model="selectedOption2" @change="addTag('status')"
-                                        class="appearance-none bg-green-100 text-green-700 border border-gray-300 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-8 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                  <option value="">Статус</option>
-                                  <option value="completed">Завершенные</option>
-                                  <option value="pending">В ожидании</option>
-                                  <option value="canceled">Отмененные</option>
-                                </select>
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                  <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor"
-                                       viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M19 9l-7 7-7-7"></path>
-                                  </svg>
-                                </span>
+                                <Multiselect
+                                    v-model="selectedStatuses"
+                                    :options="referencesStore.chatStatuses"
+                                    mode="tags"
+                                    valueProp="id"
+                                    label="name"
+                                    :close-on-select="false"
+                                    :searchable="true"
+                                    :classes="{
+                                      tags: 'flex-grow flex-shrink flex flex-wrap items-center mt-1 pl-2 min-w-0 rtl:pl-0 rtl:pr-2',
+                                      tag: 'bg-green-500 text-white text-sm font-semibold py-0.5 pl-2 rounded mr-1 mb-1 flex items-center whitespace-nowrap min-w-0 rtl:pl-0 rtl:pr-2 rtl:mr-0 rtl:ml-1',
+                                      tagsSearch: 'absolute inset-0 border-0 outline-none focus:ring-0 appearance-none p-0 text-base font-sans box-border w-full',
+                                    }"
+                                />
                               </div>
-                              <div class="relative">
-                                <select v-model="selectedOption3" @change="addTag('category')"
-                                        class="appearance-none bg-red-100 text-red-700 border border-gray-300 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-8 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                  <option value="">Категория</option>
-                                  <option value="business">Бизнес</option>
-                                  <option value="personal">Личное</option>
-                                  <option value="other">Другое</option>
-                                </select>
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                  <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor"
-                                       viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M19 9l-7 7-7-7"></path>
-                                  </svg>
-                                </span>
-                              </div>
-                            </form>
+                              <Datepicker @changeDates="selectDates" align="right" />
+                              <button @click="getCustomers">Сформировать пулл клиентов</button>
+                            </div>
                           </div>
 
                           <!-- Right Column: Tags Container -->
                           <div class="w-1/2">
-                            <div id="tagsContainer"
-                                 class="p-2 border border-gray-300 rounded-lg bg-gray-50 min-h-[200px] flex flex-wrap gap-2"> <!-- Увеличена высота -->
-                              <div v-for="(tag, index) in selectedTags" :key="index" :class="tag.colorClass"
+                            <div class="">
+                              <div v-for="(customer, index) in customerPull" :key="index"
                                    class="tag rounded-full">
-                                {{ tag.label }}
-                                <button @click="removeTag(tag.value)" class="ml-2">&times;</button>
+                                <div v-for="chat in customer.whatsapp_chats">
+                                  {{ customer.name }} - {{ chat.phone }}
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -200,179 +183,47 @@
   </div>
 </template>
 
-<script>
-import {onMounted, ref, watch} from 'vue'
+<script setup>
+import {onMounted, ref} from 'vue'
 import Sidebar from '../../partials/Sidebar.vue'
 import Header from '../../partials/Header.vue'
-import SettingsSidebar from '../../partials/settings/SettingsSidebar.vue'
-import SettingsSystem from '../../partials/settings/SettingsSystem.vue'
-import {useAuthStore} from "../../stores/auth.store.js";
 import {useMarketingStore} from '../../stores/marketing.store.js';
-import ModalBasic from "../../components/ModalBasic.vue";
-import ModalCookies from '../../components/ModalCookies.vue'
-import ModalBlank from '../../components/ModalBlank.vue'
-import ModalAction from '../../components/ModalAction.vue'
-import ModalSearch from '../../components/ModalSearch.vue'
+import {useReferencesStore} from "../../stores/references.store.js";
+import Datepicker from "../../components/Datepicker.vue";
+import {timestampToDate} from "../../helpers/date-format.js";
+import Multiselect from '@vueform/multiselect'
 
-export default {
-  name: 'Account',
-  components: {
-    ModalBasic,
-    Sidebar,
-    Header,
-    SettingsSidebar,
-    SettingsSystem,
-    ModalCookies,
-    ModalBlank,
-    ModalAction,
-    ModalSearch,
-  },
-  setup() {
+const sidebarOpen = ref()
+const referencesStore = useReferencesStore()
+const dateFrom = ref(null)
+const dateTo = ref(null)
+const selectedCustomerTags = ref(null)
+const selectedStatuses = ref(null)
+const customerPull = ref([])
 
-    const authStore = useAuthStore();
-    const settings = authStore.userData.company.assigner_settings;
-    const sidebarOpen = ref()
-    const isActive = ref(settings.is_active ? 'Включен' : 'Выключен')
-    const maxCount = ref(settings.max_count ?? 10)
     const marketingStore = useMarketingStore();
-    const basicModalOpen = ref(false)
-    const scrollbarModalOpen = ref(false)
-    const cookiesModalOpen = ref(false)
-    const successModalOpen = ref(false)
-    const dangerModalOpen = ref(false)
-    const infoModalOpen = ref(false)
-    const feedbackModalOpen = ref(false)
-    const newsletterModalOpen = ref(false)
-    const announcementModalOpen = ref(false)
-    const integrationModalOpen = ref(false)
-    const newsModalOpen = ref(false)
+
     const planModalOpen = ref(false)
-    const searchModalOpen = ref(false)
 
-    const colors = {
-      segment: 'bg-blue-100 text-blue-700',
-      status: 'bg-green-100 text-green-700',
-      category: 'bg-red-100 text-red-700',
-    };
-
-    const options = {
-      segment: [
-        { value: 'US', label: 'Успешно завершенные' },
-        { value: 'CA', label: 'Италия' },
-        { value: 'FR', label: 'Дубай' },
-        { value: 'DE', label: 'Не успешно завершенные' }
-      ],
-      status: [
-        { value: 'completed', label: 'Завершенные' },
-        { value: 'pending', label: 'В ожидании' },
-        { value: 'canceled', label: 'Отмененные' }
-      ],
-      category: [
-        { value: 'business', label: 'Бизнес' },
-        { value: 'personal', label: 'Личное' },
-        { value: 'other', label: 'Другое' }
-      ]
-    };
-
-    const selectedOption1 = ref(''); // Выбранный элемент из первого селектора
-    const selectedOption2 = ref('');  // Выбранный элемент из второго селектора
-    const selectedOption3 = ref('');
     const selectedTags = ref([]);
-
-    function addTag(type) {
-      let option;
-      switch (type) {
-        case 'segment':
-          option = selectedOption1.value;
-          break;
-        case 'status':
-          option = selectedOption2.value;
-          break;
-        case 'category':
-          option = selectedOption3.value;
-          break;
-      }
-
-      const label = option === 'US' ? 'Успешно завершенные' :
-          option === 'CA' ? 'Италия' :
-              option === 'FR' ? 'Дубай' :
-                  option === 'DE' ? 'Не успешно завершенные' :
-                      option === 'completed' ? 'Завершенные' :
-                          option === 'pending' ? 'В ожидании' :
-                              option === 'canceled' ? 'Отмененные' :
-                                  option === 'business' ? 'Бизнес' :
-                                      option === 'personal' ? 'Личное' :
-                                          option === 'other' ? 'Другое' : '';
-
-      if (option && !selectedTags.value.some(tag => tag.value === option)) {
-        selectedTags.value.push({ value: option, label: label, colorClass: colors[type] });
-      }
-
-      // Очищаем селектор после выбора
-      if (type === 'segment') selectedOption1.value = '';
-      if (type === 'status') selectedOption2.value = '';
-      if (type === 'category') selectedOption3.value = '';
-    }
-
-    const getTagClass = (type) => {
-      return {
-        segment: 'bg-blue-100 text-blue-700',
-        status: 'bg-green-100 text-green-700',
-        category: 'bg-red-100 text-red-700'
-      }[type];
-    };
-
-    const getSelectClass = (type) => {
-      return {
-        segment: 'bg-blue-100',
-        status: 'bg-green-100',
-        category: 'bg-red-100'
-      }[type];
-    };
 
     function removeTag(value) {
       selectedTags.value = selectedTags.value.filter(tag => tag.value !== value);
     }
 
-    function save() {
-      marketingStore.updateReminderSettings({
-        active: marketingStore.reminderSettings.active,
-        minutes: marketingStore.reminderSettings.minutes
-      })
-    }
+function selectDates(dates) {
+  dateFrom.value = timestampToDate(dates[0])
+  dateTo.value = timestampToDate(dates[1])
+}
+
+async function getCustomers()
+{
+  customerPull.value = await marketingStore.getCustomersPull(selectedCustomerTags.value, selectedStatuses.value, dateFrom.value, dateTo.value)
+}
 
     onMounted(() => {
-      marketingStore.getReminderSettings()
+      marketingStore.getCustomerTags()
+      referencesStore.getChatStatuses()
     })
 
-    return {
-      sidebarOpen,
-      isActive,
-      maxCount,
-      marketingStore,
-      save,
-      basicModalOpen,
-      scrollbarModalOpen,
-      cookiesModalOpen,
-      successModalOpen,
-      dangerModalOpen,
-      infoModalOpen,
-      feedbackModalOpen,
-      newsletterModalOpen,
-      announcementModalOpen,
-      integrationModalOpen,
-      newsModalOpen,
-      planModalOpen,
-      searchModalOpen,
-      selectedOption1,
-      selectedOption2,
-      selectedOption3,
-      selectedTags,
-      getTagClass,
-      getSelectClass,
-      removeTag,
-      addTag,
-    };
-  },
-}
 </script>

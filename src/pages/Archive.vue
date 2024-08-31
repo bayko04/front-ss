@@ -95,7 +95,6 @@ import Datepicker from "../components/Datepicker.vue";
 import {timestampToDate} from "../helpers/date-format.js";
 
 const sidebarOpen = ref(false)
-const selectedItems = ref([])
 const selectedStatusId = ref(0)
 const selectedAccount = ref(null)
 const selectedMessenger = ref(null)

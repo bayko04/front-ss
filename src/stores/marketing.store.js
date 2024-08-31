@@ -22,8 +22,22 @@ export const useMarketingStore = defineStore({
                 }
             ]
         },
+        customerTags: []
     }),
     actions: {
+        async getCustomersPull(tags, statuses, from, to) {
+           const result = (await fetchWrapper.post(`/marketing/customer-pull`, {
+                tags: tags,
+                statuses: statuses,
+                from: from,
+                to: to,
+            }));
+
+           return  result.data
+        },
+        async getCustomerTags() {
+            this.customerTags = (await fetchWrapper.get(`/marketing/customer-tags`)).data;
+        },
         async clearAutoresponderTemplate() {
             this.autoresponderTemplate = {
                 title: '',
