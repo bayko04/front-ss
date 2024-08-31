@@ -105,7 +105,7 @@ export const useMarketingStore = defineStore({
             }
         },
         async deleteAutoresponder(id) {
-            await fetchWrapper.delete(`${baseUrl}/chat-statuses/${id}`)
+            await fetchWrapper.delete(`${baseUrl}/autoresponders/${id}`)
         }
     },
 })
