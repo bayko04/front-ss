@@ -45,7 +45,10 @@ export const useUsersStore = defineStore({
         },
         async deleteUser(id) {
             try {
-                this.user = (await fetchWrapper.delete(`${baseUrl}/${id}`)).data;
+                const result = (await fetchWrapper.delete(`${baseUrl}/${id}`)).data;
+                if (result.status) {
+                    router.push(`/community/users-tabs`)
+                }
             } catch (error) {
                 console.log(error)
             }
