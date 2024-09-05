@@ -43,5 +43,14 @@ export const useUsersStore = defineStore({
                 console.log(error)
             }
         },
+        async deleteUser(id) {
+            try {
+                this.user = (await fetchWrapper.delete(`${baseUrl}/${id}`)).data;
+            } catch (error) {
+                console.log(error)
+            }
+            
+            return this.user
+        }
     }
 });

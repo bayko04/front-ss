@@ -21,18 +21,13 @@
 
           <!-- Actions -->
           <div class="flex space-x-2 sm:mb-2">
-            <button class="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm">
-              <svg class="w-4 h-1 fill-current text-slate-400" viewBox="0 0 16 4">
-                <circle cx="8" cy="2" r="2" />
-                <circle cx="2" cy="2" r="2" />
-                <circle cx="14" cy="2" r="2" />
-              </svg>
-            </button>
             <router-link :to="`/users/update/${usersStore.user.id}`" class="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm">
               <Edit/>
             </router-link>
-            <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
-              {{ usersStore.user.role }}
+            <button @click="deleteUser(usersStore.user.id)" class="btn dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600">
+              <svg class="w-4 h-4 fill-current text-rose-500 shrink-0" viewBox="0 0 16 16">
+                <path d="M5 7h2v6H5V7zm4 0h2v6H9V7zm3-6v2h4v2h-1v10c0 .6-.4 1-1 1H2c-.6 0-1-.4-1-1V5H0V3h4V1c0-.6.4-1 1-1h6c.6 0 1 .4 1 1zM6 2v1h4V2H6zm7 3H3v9h10V5z"/>
+              </svg>
             </button>
           </div>
 
@@ -66,13 +61,12 @@
 </template>
 
 <script setup>
-import {ref} from "vue"
-import UserContacts from "./UserContacts.vue"
-import UserDocuments from "./UserDocuments.vue"
 import { useUsersStore } from "../../stores/user.store.js"
 import Edit from '../../images/edit.svg'
 
 const usersStore = useUsersStore()
-const tabName = ref('contact')
 
+function deleteUser(id) {
+  usersStore.deleteUser(id);
+}
 </script>
