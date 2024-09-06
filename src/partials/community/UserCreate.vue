@@ -127,6 +127,7 @@ async function onSubmit() {
     email: email.value,
     password: password.value,
     role: role.value,
+    id: id.value,
   }
   usersStore.addUser(values)
 }

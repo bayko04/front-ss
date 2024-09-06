@@ -39,6 +39,7 @@ import TriggerTemplate from "./partials/marketing/Autoresponder.vue";
 import Reminders from "./pages/marketingSettings/Reminders.vue";
 import Newsletters from "./pages/marketingSettings/Newsletters.vue";
 import CreateNewsletter from "./partials/marketing/CreateNewsletter.vue";
+import UserUpdate from "./partials/community/UserUpdate.vue";
 
 const routerHistory = createWebHistory()
 
