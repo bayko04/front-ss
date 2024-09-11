@@ -162,7 +162,9 @@ export function useMessangers() {
 
     const taskStore = useTaskStore()
 
-    taskStore.getTasksForCustomerRequest(activeChat.value.latest_customer_request?.id)
+    if(activeChat.value.latest_customer_request) {
+      taskStore.getTasksForCustomerRequest(activeChat.value.latest_customer_request?.id)
+    }
 
     const newRoute = {
       path: '/messages',
