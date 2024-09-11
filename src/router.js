@@ -30,16 +30,15 @@ import Comments from "./pages/Comments.vue";
 import Onboarding01 from "./pages/Onboarding01.vue";
 import Onboarding02 from "./pages/Onboarding02.vue";
 import Onboarding03 from "./pages/Onboarding03.vue";
-import Triggers from "./pages/marketingSettings/Triggers.vue";
 import Archive from "./pages/Archive.vue";
 import AssignerSettings from "./pages/systemSettings/AssignerSettings.vue";
 import Products from "./pages/Products/Products.vue";
 import TaskType from "./pages/systemSettings/TaskType.vue";
-import TriggerTemplate from "./partials/marketing/Autoresponder.vue";
-import Reminders from "./pages/marketingSettings/Reminders.vue";
+import Script from "./partials/marketing/Script.vue";
+import Scripts from "./pages/marketingSettings/Scripts.vue";
 import Newsletters from "./pages/marketingSettings/Newsletters.vue";
 import CreateNewsletter from "./partials/marketing/CreateNewsletter.vue";
-import UserUpdate from "./partials/community/UserUpdate.vue";
+import AutoClientRetention from "./pages/marketingSettings/AutoClientRetention.vue";
 
 const routerHistory = createWebHistory()
 
@@ -198,24 +197,24 @@ const router = createRouter({
       component: Archive
     },
     {
-      path: '/marketingSettings/triggers',
-      component: Triggers
+      path: '/marketingSettings/auto-client-retention',
+      component: AutoClientRetention
     },
     {
-      path: '/marketingSettings/reminders',
-      component: Reminders
+      path: '/marketingSettings/scripts',
+      component: Scripts
     },
     {
       path: '/marketingSettings/newsletters',
       component: Newsletters
     },
     {
-      path: '/marketing/autoresponder',
-      component: TriggerTemplate
+      path: '/marketing/scripts/create',
+      component: Script
     },
     {
-      path: '/marketing/autoresponder/:id',
-      component: TriggerTemplate,
+      path: '/marketing/scripts/:id',
+      component: Script,
       name: 'autoresponder'
     },
     {

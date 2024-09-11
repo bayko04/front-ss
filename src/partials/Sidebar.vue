@@ -68,7 +68,7 @@
               </li>
             </router-link>
             <!-- Marketing -->
-            <router-link to="/marketingSettings/Triggers" custom v-slot="{ href, navigate, isExactActive }">
+            <router-link to="/marketingSettings/auto-client-retention" custom v-slot="{ href, navigate, isExactActive }">
               <li v-tooltip="'Маркетинг'" class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" :class="isExactActive && 'bg-slate-900'">
                 <a class="block text-slate-200 transition duration-150" :class="isExactActive ? 'hover:text-slate-200' : 'hover:text-white'" :href="href" @click="navigate">
                   <div class="flex items-center justify-between">
