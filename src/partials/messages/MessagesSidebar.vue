@@ -9,19 +9,6 @@
     >
       <!-- #Marketing group -->
       <div>
-<!--        &lt;!&ndash; Group header &ndash;&gt;-->
-<!--        <div class="sticky top-0 z-10">-->
-<!--          <div class="relative bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 px-5 h-16">-->
-<!--            <div class="absolute inset-0 flex items-center justify-center">-->
-<!--              &lt;!&ndash; Channel menu &ndash;&gt;-->
-<!--              <Suspense>-->
-<!--                <div class="p-4 pb-2">-->
-<!--                  <HeaderButtons/>-->
-<!--                </div>-->
-<!--              </Suspense>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
         <div class="sticky top-0 z-10">
           <div class="relative bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 px-5 h-16">
             <div class="absolute inset-0 flex items-center justify-center">
@@ -48,15 +35,8 @@
 <script setup>
 import ChatStatuses from './ChatStatuses.vue'
 import DirectMessages from './DirectMessages.vue'
-import {newChatModal} from "../../utils/modalVariables.js";
-import HeaderButtons from "./HeaderButtons.vue";
 
 const props = defineProps({
   msgSidebarOpen: Boolean,
 });
-
-function openNewChatModal() {
-  newChatModal.value.stayOpen = true
-  newChatModal.value.status = true
-}
 </script>

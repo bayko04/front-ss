@@ -8,7 +8,12 @@ export const useMarketingStore = defineStore({
     id: 'marketingStore',
     state: () => ({
         allAutoResponderTemplates: [],
-        reminderSettings: [],
+        reminderSettings: {
+            auto_client_retention: {
+                active: false,
+                minutes: 10
+            }
+        },
         autoresponderTemplate: {
             title: '',
             ad_link: '',
@@ -88,24 +93,35 @@ export const useMarketingStore = defineStore({
                 console.log(error);
             }
         },
-        async updateReminderSettings(data) {
+
+        async deleteAutoresponder(id) {
+            await fetchWrapper.delete(`${baseUrl}/autoresponders/${id}`)
+        },
+
+        //reminder-settings and auto client retention
+
+        async updateReminderSettings() {
             try {
-                const response = await fetchWrapper.post(`${baseUrl}/reminders`, data);
+                const response = await fetchWrapper.post(`${baseUrl}/reminder-settings`, this.reminderSettings);
                 console.log('Ответ сервера:', response);
             } catch (error) {
                 console.error('Ошибка отправки данных на сервер:', error);
                 throw error;
             }
         },
+
         async getReminderSettings() {
-            if (this.reminderSettings.length === 0) {
-                const result = await fetchWrapper.get(`${baseUrl}/reminders`)
-                const parsedData = JSON.parse(result.data);
-                this.reminderSettings = parsedData.daily_reminder;
+            const result = await fetchWrapper.get(`${baseUrl}/reminder-settings`)
+            this.reminderSettings = result.data;
+
+            if(!this.reminderSettings.auto_client_retention) {
+                this.reminderSettings.auto_client_retention = {
+                    active: false,
+                    minutes: 10
+                }
             }
+
+            return this.reminderSettings;
         },
-        async deleteAutoresponder(id) {
-            await fetchWrapper.delete(`${baseUrl}/autoresponders/${id}`)
-        }
     },
 })
