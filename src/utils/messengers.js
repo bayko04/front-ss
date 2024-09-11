@@ -341,11 +341,13 @@ export function useMessangers() {
   }
 
   const updateChatFromSocket = function (chat, account) {
-    echo.value.private(`${account.messenger.name}.${account.id}.chat`).listen(`${chat.id}.UpdateChat`, function (socketChat) {
+    echo.value.private(`${account.messenger.name}.${account.id}.chat`).listen(`.${chat.id}.UpdateChat`, function (socketChat) {
+      console.log(socketChat)
       if (socketChat.chat.latest_customer_request === null) {
         removeChat(account, chat);
         return
       }
+      console.log(socketChat)
       chat.image = socketChat.chat.image
       chat.name = socketChat.chat.name
       chat.latest_customer_request = socketChat.chat.latest_customer_request
