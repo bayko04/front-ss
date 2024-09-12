@@ -12,7 +12,7 @@
             class="flex items-center justify-between w-full p-2 rounded"
             @click.stop="$emit('close-msgsidebar')"
             @click="setActiveChat(chat)"
-            :class="{'bg-indigo-500/30': (chat.id === activeChat?.id) }"
+            :class="{'bg-indigo-500/30': (chat.id === activeChat.id && chat.account_id === activeChat.account_id) }"
 
         >
           <div class="flex items-center truncate">
@@ -22,7 +22,6 @@
               <span v-if="chat.message?.text" class="text-xs text-gray-500 truncate">{{chat.message.text}}</span>
               <span v-else-if="chat.messages?.length" class="text-xs text-gray-500 truncate">{{ lastMessage(chat.messages) }}</span>
               <span v-else-if="chat.latest_message" class="text-xs text-gray-500 truncate">{{ chat.latest_message.text }}</span>
-              <span class="text-xs text-gray-500 truncate">{{}}</span>
             </div>
           </div>
           <div

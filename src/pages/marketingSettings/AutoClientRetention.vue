@@ -16,14 +16,14 @@
           <!-- Page header -->
           <div class="mb-8">
             <!-- Title -->
-            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Триггеры ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Автоудержание клиента ✨</h1>
           </div>
 
           <!-- Content -->
           <div class="bg-white dark:bg-slate-800 shadow-lg rounded-sm mb-8">
             <div class="flex flex-col md:flex-row md:-mr-px">
               <MarketingSidebar />
-              <Triggers />
+              <AutoClientRetentionList/>
             </div>
           </div>
 
@@ -35,30 +35,12 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 import Sidebar from '../../partials/Sidebar.vue'
 import Header from '../../partials/Header.vue'
-import SettingsSidebar from '../../partials/settings/SettingsSidebar.vue'
 import MarketingSidebar from '../../partials/marketing/MarketingSidebar.vue'
-import Triggers from "../../partials/marketing/Triggers.vue";
+import AutoClientRetentionList from "../../partials/marketing/AutoClientRetentionList.vue";
 
-export default {
-  name: 'Account',
-  components: {
-    Triggers,
-    Sidebar,
-    Header,
-    SettingsSidebar,
-    MarketingSidebar
-  },
-  setup() {
-
-    const sidebarOpen = ref(false)
-
-    return {
-      sidebarOpen,
-    }
-  }
-}
+const sidebarOpen = ref(false)
 </script>

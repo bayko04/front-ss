@@ -41,7 +41,7 @@ import Sidebar from '../../partials/Sidebar.vue'
 import Header from '../../partials/Header.vue'
 import SettingsSidebar from '../../partials/settings/SettingsSidebar.vue'
 import MarketingSidebar from '../../partials/marketing/MarketingSidebar.vue'
-import Triggers from "../../partials/marketing/Triggers.vue";
+import Triggers from "../../partials/marketing/ScriptList.vue";
 import Newsletters from "../../partials/marketing/Newsletters.vue";
 
 export default {
