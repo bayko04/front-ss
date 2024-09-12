@@ -16,7 +16,7 @@
         </span>
       </div>
       <ul v-if="paginateData" class="inline-flex text-sm font-medium -space-x-px shadow-sm">
-        <li v-for="(link, index) in paginateData.links">
+        <li v-for="(link, index) in paginateData.links" style="cursor: pointer;">
           <span v-if="index !== 0 && index !== (paginateData.links.length - 1) && link.active" class="inline-flex items-center justify-center rounded-l leading-5 px-3.5 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-indigo-500">{{ link.label }}</span>
           <a v-else-if="index !== 0 && index !== (paginateData.links.length - 1) && !link.active" @click="paginateAction(link.url)" class="inline-flex items-center justify-center leading-5 px-3.5 py-2 bg-white dark:bg-slate-800 hover:bg-indigo-500 dark:hover:bg-indigo-500 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-white">{{ link.label }}</a>
         </li>
