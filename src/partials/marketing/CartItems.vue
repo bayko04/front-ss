@@ -6,7 +6,7 @@
          :key="message.id"
          class="relative">
       <router-link
-          :to="{ name: 'autoresponder', params: { id: message.id } }"
+          :to="{ name: 'script', params: { id: message.id } }"
           class="block"
       >
         <li class="sm:flex items-center py-6 border-b border-slate-200 dark:border-slate-700 cursor-pointer">
