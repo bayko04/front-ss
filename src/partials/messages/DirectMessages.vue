@@ -12,7 +12,7 @@
             class="flex items-center justify-between w-full p-2 rounded"
             @click.stop="$emit('close-msgsidebar')"
             @click="setActiveChat(chat)"
-            :class="{'bg-indigo-500/30': (chat.id === activeChat.id && chat.account_id === activeChat.account_id) }"
+            :class="{'bg-indigo-500/30': (chat.id === activeChat?.id && chat.account_id === activeChat.account_id) }"
 
         >
           <div class="flex items-center truncate">

@@ -2,7 +2,7 @@ import {defineStore} from "pinia";
 import {fetchWrapper} from "../helpers/fetch-wrapper.js";
 import router from "../router.js";
 
-const baseUrl = `${import.meta.env.VITE_API_URL}/marketing`;
+const baseUrl = `${import.meta.env.VITE_API_URL}`;
 
 export const useMarketingStore = defineStore({
     id: 'marketingStore',
@@ -31,7 +31,7 @@ export const useMarketingStore = defineStore({
     }),
     actions: {
         async getCustomersPull(tags, statuses, from, to) {
-           const result = (await fetchWrapper.post(`/marketing/customer-pull`, {
+           const result = (await fetchWrapper.post(`/customers/customer-pull`, {
                 tags: tags,
                 statuses: statuses,
                 from: from,
@@ -41,7 +41,7 @@ export const useMarketingStore = defineStore({
            return  result.data
         },
         async getCustomerTags() {
-            this.customerTags = (await fetchWrapper.get(`/marketing/customer-tags`)).data;
+            this.customerTags = (await fetchWrapper.get(`/customers/customer-tags`)).data;
         },
         async clearAutoresponderTemplate() {
             this.autoresponderTemplate = {
@@ -59,10 +59,10 @@ export const useMarketingStore = defineStore({
             }
         },
         async getAutoresponderTemplate(id) {
-            this.autoresponderTemplate = (await fetchWrapper.get(`/marketing/autoresponder/${id}`)).data;
+            this.autoresponderTemplate = (await fetchWrapper.get(`/autoresponders/${id}`)).data;
         },
         async autoResponderTemplates() {
-            this.allAutoResponderTemplates = (await fetchWrapper.get(`/marketing/autoresponders`)).data;
+            this.allAutoResponderTemplates = (await fetchWrapper.get(`/autoresponders`)).data;
         },
         async addOrUpdateAutoresponder() {
             const data = this.autoresponderTemplate; // Получение данных из состояния
@@ -85,9 +85,9 @@ export const useMarketingStore = defineStore({
             formData.append('id', data.id ?? '');
 
             try {
-                const result = await fetchWrapper.post(`${baseUrl}/autoresponder`, formData);
+                const result = await fetchWrapper.post(`${baseUrl}/autoresponders`, formData);
                 if (!result.errors) {
-                    router.push(`/marketing/autoresponder/${result.data.id}`);
+                    router.push(`/marketing/scripts/${result.data.id}`);
                 }
             } catch (error) {
                 console.log(error);
@@ -102,7 +102,7 @@ export const useMarketingStore = defineStore({
 
         async updateReminderSettings() {
             try {
-                const response = await fetchWrapper.post(`${baseUrl}/reminder-settings`, this.reminderSettings);
+                const response = await fetchWrapper.post(`${baseUrl}/company/reminder-settings`, this.reminderSettings);
                 console.log('Ответ сервера:', response);
             } catch (error) {
                 console.error('Ошибка отправки данных на сервер:', error);
@@ -111,7 +111,7 @@ export const useMarketingStore = defineStore({
         },
 
         async getReminderSettings() {
-            const result = await fetchWrapper.get(`${baseUrl}/reminder-settings`)
+            const result = await fetchWrapper.get(`${baseUrl}/company/reminder-settings`)
             this.reminderSettings = result.data;
 
             if(!this.reminderSettings.auto_client_retention) {
