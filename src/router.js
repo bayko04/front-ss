@@ -215,7 +215,7 @@ const router = createRouter({
     {
       path: '/marketing/scripts/:id',
       component: Script,
-      name: 'autoresponder'
+      name: 'script'
     },
     {
       path: '/marketing/create-newsletter',
