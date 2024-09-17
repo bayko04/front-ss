@@ -13,13 +13,13 @@
                         <div v-for="(item, index) in referencesStore.chatStatuses" :key="index" class="table-row">
                             <div v-if="!item.editing" class="table-cell py-1">{{ item.name }}</div>
                             <td v-if="item.editing"><input type="text" v-model="item.name" ref="editInput" @click="focusInput" autofocus></td>
-                          <div class="table-cell py-1 px-2" v-if="!item.editing && item.status_type !== 'standard'"
+                          <div class="table-cell py-1 px-2" v-if="!item.editing"
                                @mouseover="item.isHovering = true" @mouseleave="item.isHovering = false">
                             <!-- Чекбокс с описанием при наведении -->
                             <div class="relative">
-                              <input id="link-checkbox" type="checkbox" :checked="item.status_type === 'end'"
+                              <input id="link-checkbox" type="checkbox" :checked="item.close_status === true"
                                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                     @click="finalStatus(item, $event)" :disabled="item.status_type === 'standard'"/>
+                                     @click="finalStatus(item, $event)"/>
                               <!-- Описание при наведении -->
                               <div class="absolute top-0 left-0 ml-2 mt-1 bg-gray-200 p-1 text-xs rounded shadow"
                                    v-if="item.isHovering" style="z-index: 999; left: 15px;">
@@ -96,8 +96,7 @@ function editItem(item) {
 }
 
 function finalStatus(item, event) {
-  const checked = event.target.checked;
-  item.status_type = checked ? 'end' : 'default';
+  item.close_status = event.target.checked ;
 
   referencesStore.setOrUpdateChatStatus(item)
   item.editing = false;
