@@ -39,17 +39,8 @@
 </template>
 
 <script setup>
-import {onMounted, ref} from 'vue'
 import TransactionItem from './TransactionsTableItem.vue'
-import {useBillingStore} from "../../stores/billing.store.js";
 
-const balance = ref([])
-const transactions = ref([])
+const { transactions } = defineProps(['transactions']);
 
-const billingStore = useBillingStore()
-
-onMounted(async () => {
-  balance.value = await billingStore.getBalance()
-  transactions.value = balance.value.transactions
-})
 </script>
