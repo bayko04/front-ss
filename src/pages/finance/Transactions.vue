@@ -54,7 +54,10 @@
           </div>
 
           <!-- Table -->
-          <TransactionsTable/>
+          <TransactionsTable
+              v-if="balance.transactions"
+              :transactions="balance.transactions"
+          />
         </div>
       </main>
 
