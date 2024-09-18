@@ -23,7 +23,6 @@ import PortfolioRepay from "./pages/Portfolio/PortfolioRepay.vue";
 import PortfolioProlongation from "./pages/Portfolio/PortfolioProlongation.vue";
 import PortfolioPartrepayment from "./pages/Portfolio/PortfolioPartrepayment.vue";
 import PortfolioAddloan from "./pages/Portfolio/PortfolioAddloan.vue";
-import TransactionsList from "./pages/Transactions/TransactionsList.vue";
 import RequestStatus from "./pages/systemSettings/RequestStatus.vue";
 import Calendar from "./pages/Calendar.vue";
 import Comments from "./pages/Comments.vue";
@@ -39,12 +38,17 @@ import Scripts from "./pages/marketingSettings/Scripts.vue";
 import Newsletters from "./pages/marketingSettings/Newsletters.vue";
 import CreateNewsletter from "./partials/marketing/CreateNewsletter.vue";
 import AutoClientRetention from "./pages/marketingSettings/AutoClientRetention.vue";
+import Transactions from './pages/finance/Transactions.vue'
 
 const routerHistory = createWebHistory()
 
 const router = createRouter({
   history: routerHistory,
   routes: [
+    {
+      path: '/finance/transactions',
+      component: Transactions
+    },
     {
       path: '/',
       component: Dashboard
@@ -152,10 +156,6 @@ const router = createRouter({
     {
       path: '/portfolio/addloan',
       component: PortfolioAddloan
-    },
-    {
-      path: '/transactions',
-      component: TransactionsList
     },
     {
       path: '/systemSettings/requestStatus',
