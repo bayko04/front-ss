@@ -114,10 +114,12 @@ export const useMarketingStore = defineStore({
             const result = await fetchWrapper.get(`${baseUrl}/company/reminder-settings`)
             this.reminderSettings = result.data;
 
-            if(!this.reminderSettings.auto_client_retention) {
-                this.reminderSettings.auto_client_retention = {
-                    active: false,
-                    minutes: 10
+            if(!this.reminderSettings?.auto_client_retention) {
+                this.reminderSettings = {
+                    auto_client_retention: {
+                        active: false,
+                        minutes: 10
+                    }
                 }
             }
 
