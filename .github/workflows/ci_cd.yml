@@ -3,7 +3,7 @@ name: CI/CD Cerera App
 on:
   push:
     branches:
-      - "front-ci_cd"
+      - "main"
 jobs:
   build-bundle:
     name: Build Cerera bundle

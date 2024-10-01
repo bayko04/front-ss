@@ -16,7 +16,7 @@
           <!-- Page header -->
           <div class="mb-8">
             <!-- Title -->
-            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">!Управление аккаунтами ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">!!!Управление аккаунтами ✨</h1>
           </div>
 
           <!-- Content -->
@@ -359,7 +359,7 @@ const telegramBotToken = ref('')
 const deleting = ref(false)
 const deletingAccount = ref(null)
 
-console.log('Setup ci/cd')
+console.log('Setup ci/cd 3')
 function deleteAccount(account) {
   deleting.value = true
   deletingAccount.value = account
