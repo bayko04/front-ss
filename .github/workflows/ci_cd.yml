@@ -22,7 +22,7 @@ jobs:
       - name: Create .env file
         run: |
           echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env
-          echo "VITE_ANOTHER_VAR=${{ secrets.VITE_APP_URL }}" >> .env
+          echo "VITE_APP_URL=${{ secrets.VITE_APP_URL }}" >> .env
           echo "VITE_PUSHER_APP_ID=${{ secrets.VITE_PUSHER_APP_ID }}" >> .env
           echo "VITE_PUSHER_APP_KEY=${{ secrets.VITE_PUSHER_APP_KEY }}" >> .env
           echo "VITE_PUSHER_APP_SECRET=${{ secrets.VITE_PUSHER_APP_SECRET }}" >> .env
