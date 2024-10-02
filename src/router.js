@@ -234,6 +234,10 @@ router.beforeEach(async (to) => {
   const authRequired = !publicPages.includes(to.path);
   const authStore = useAuthStore();
 
+  if(!authStore.userData && window.Telegram.WebApp?.initData) {
+    await authStore.loginByTelegramMiniApp(window.Telegram.WebApp.initData)
+  }
+
   if (authRequired && !authStore.userData) {
     authStore.returnUrl = to.fullPath;
     return '/signin';
