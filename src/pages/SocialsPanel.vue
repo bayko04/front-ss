@@ -359,7 +359,7 @@ const telegramBotToken = ref('')
 const deleting = ref(false)
 const deletingAccount = ref(null)
 
-console.log('test1')
+console.log('testrk')
 function deleteAccount(account) {
   deleting.value = true
   deletingAccount.value = account
