@@ -3,7 +3,7 @@ name: CI/CD App
 on:
   push:
     branches:
-      - "setup_ci_cd"
+      - "main"
 jobs:
   build-bundle:
     name: Build bundle
@@ -41,4 +41,4 @@ jobs:
             username: ${{ secrets.SERVER_USER }}
             password: ${{ secrets.SERVER_PASSWORD }}
             source: "dist/*"
-            target: "/var/www/dev-front-ss/"
+            target: "/var/www/front-ss/"
