@@ -3,10 +3,10 @@ name: Deploy app
 on:
   push:
     branches:
-      - "refactor_ci_cd"
+      - "main"
   pull_request:
     branches:
-      - "refactor_ci_cd"
+      - "main"
 jobs:
   build-bundle:
     name: Build bundle
@@ -39,7 +39,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-            cd /var/www/dev-front-ss &&
-            git pull origin refactor_ci_cd &&
+            cd /var/www/front-ss &&
+            git pull origin main &&
             yarn install &&
             yarn build
