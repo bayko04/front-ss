@@ -1,5 +1,6 @@
 import {defineStore} from 'pinia';
 import {fetchWrapper} from "../helpers/fetch-wrapper.js";
+import router from "../router.js";
 
 export const useNewsletterStore = defineStore({
     id: 'newsletter',
@@ -20,7 +21,11 @@ export const useNewsletterStore = defineStore({
     }),
     actions: {
         async createNewsletter() {
-            this.product = (await fetchWrapper.post(`/newsletter`, this.newsletter)).data;
+            const result = (await fetchWrapper.post(`/newsletter`, this.newsletter)).data;
+            
+            if(!result.errors) {
+                router.push(`/marketingSettings/newsletters`)
+            }
         },
     }
 })

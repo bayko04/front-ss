@@ -16,8 +16,6 @@
           <div class="bg-white dark:bg-slate-800 shadow-lg rounded-sm mb-8">
             <div class="flex flex-col md:flex-row md:-mr-px">
               <div class="grow">
-                <form @submit.prevent="submitForm">
-
                 <!-- Panel body -->
                 <div class="p-6 space-y-6">
                   <!-- Left: Title -->
@@ -187,11 +185,10 @@
                       <button class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300">
                         Отменить
                       </button>
-                      <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Сохранить</button>
+                      <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click="save()">Сохранить</button>
                     </div>
                   </div>
                 </div>
-                </form>
               </div>
             </div>
           </div>
@@ -252,7 +249,7 @@ function handleUpdateValue(field, value) {
   newsletterStore.newsletter[field] = value
 }
 
-function submitForm() {
+function save() {
   newsletterStore.createNewsletter()
 }
 
