@@ -39,6 +39,7 @@ import Newsletters from "./pages/marketingSettings/Newsletters.vue";
 import CreateNewsletter from "./partials/marketing/CreateNewsletter.vue";
 import AutoClientRetention from "./pages/marketingSettings/AutoClientRetention.vue";
 import Transactions from './pages/finance/Transactions.vue'
+import UpdateNewsletter from "./partials/marketing/UpdateNewsletter.vue";
 
 const routerHistory = createWebHistory()
 
@@ -218,8 +219,12 @@ const router = createRouter({
       name: 'script'
     },
     {
-      path: '/marketing/create-newsletter',
+      path: '/marketing/newsletters/create',
       component: CreateNewsletter
+    },
+    {
+      path: '/marketing/newsletters/update/:id',
+      component: UpdateNewsletter
     },
   ]
 })

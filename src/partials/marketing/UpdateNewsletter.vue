@@ -20,7 +20,7 @@
                 <div class="p-6 space-y-6">
                   <!-- Left: Title -->
                   <div class="mb-4 sm:mb-0">
-                    <h2 class="text-2xl text-gray-800 dark:text-gray-100 font-bold mb-5">Создание рассылки</h2>
+                    <h2 class="text-2xl text-gray-800 dark:text-gray-100 font-bold mb-5">Изменение рассылки</h2>
                   </div>
                   <div class="px-5 pt-4 pb-1">
                     <div class="mb-4">
@@ -214,35 +214,28 @@ const referencesStore = useReferencesStore()
 const dateFrom = ref(null)
 const dateTo = ref(null)
 const selectedCustomerTags = ref(null)
-const selectedStatuses = ref(null)
 const customerPull = ref([])
 const newsletterStore = useNewsletterStore()
 
-    const marketingStore = useMarketingStore();
+const marketingStore = useMarketingStore();
 
-    const planModalOpen = ref(false)
+const planModalOpen = ref(false)
 
-    const selectedTags = ref([]);
+const selectedTags = ref([]);
 
-    function removeTag(value) {
-      selectedTags.value = selectedTags.value.filter(tag => tag.value !== value);
-    }
+function removeTag(value) {
+  selectedTags.value = selectedTags.value.filter(tag => tag.value !== value);
+}
 
 function selectDates(dates) {
   dateFrom.value = timestampToDate(dates[0])
   dateTo.value = timestampToDate(dates[1])
 }
 
-async function getCustomers()
-{
-  customerPull.value = await marketingStore.getCustomersPull(selectedCustomerTags.value, selectedStatuses.value, dateFrom.value, dateTo.value)
-}
-
-    onMounted(() => {
-      //marketingStore.getCustomerTags()
-      referencesStore.getChatStatuses()
-      referencesStore.getTemplates()
-    })
+onMounted(() => {
+  referencesStore.getChatStatuses()
+  referencesStore.getTemplates()
+})
 
 function handleUpdateValue(field, value) {
   newsletterStore.newsletter[field] = value

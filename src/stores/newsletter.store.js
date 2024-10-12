@@ -20,8 +20,15 @@ export const useNewsletterStore = defineStore({
         }
     }),
     actions: {
+        async getNewsletters(){
+            try {
+                this.newsletters = (await fetchWrapper.get('/newsletters')).data;
+            } catch (error) {
+                console.log(error)
+            }
+        },
         async createNewsletter() {
-            const result = (await fetchWrapper.post(`/newsletter`, this.newsletter)).data;
+            const result = (await fetchWrapper.post(`/newsletters`, this.newsletter)).data;
             
             if(!result.errors) {
                 router.push(`/marketingSettings/newsletters`)
