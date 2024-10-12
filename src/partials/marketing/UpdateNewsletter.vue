@@ -113,9 +113,9 @@
                           <div class="w-1/2 pr-4">
                             <div class="mb-4">Выберите шаблон для отправки</div>
                             <DropdownFull
-                              v-model="newsletterStore.newsletter.template_id"
+                              v-if="newsletterStore.newsletter.template && referencesStore.templates"
+                              :value="newsletterStore.newsletter.template.id"
                               :options="referencesStore.templates"
-                              @update-value="(value) => handleUpdateValue('templateId', value)"
                             />
                           </div>
 

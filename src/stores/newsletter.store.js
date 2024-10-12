@@ -17,7 +17,8 @@ export const useNewsletterStore = defineStore({
             send_at: null,
             send_time: null,
             status: null,
-        }
+        },
+        newsletterModalStatus: false
     }),
     actions: {
         async getNewsletters(){
@@ -47,6 +48,10 @@ export const useNewsletterStore = defineStore({
             if(!result.errors) {
                 router.push(`/marketingSettings/newsletters`)
             }
+        },
+        async delete(id) {
+            await fetchWrapper.delete(`/newsletters/${id}`, this.newsletter);
+            this.newsletters.data = this.newsletters.data.filter(x => x.id !== id);
         },
     }
 })
