@@ -56,7 +56,7 @@
                               </div>
                               <div class="relative">
                                 <Multiselect
-                                    v-model="newsletterStore.newsletter.chatStatuses"
+                                    v-model="newsletterStore.newsletter.chat_statuses"
                                     :options="referencesStore.chatStatuses"
                                     mode="tags"
                                     valueProp="id"
@@ -75,7 +75,7 @@
                               <div class="grow flex">
                                 <div class="w-1/2 pr-4">
                                   <input
-                                    v-model="newsletterStore.newsletter.dateFrom"
+                                    v-model="newsletterStore.newsletter.date_from"
                                     type="date"
                                     class="w-full py-2 px-3 rounded bg-gray-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     required
@@ -83,7 +83,7 @@
                                 </div>
                                 <div class="w-1/2">
                                   <input
-                                    v-model="newsletterStore.newsletter.dateTo"
+                                    v-model="newsletterStore.newsletter.date_to"
                                     type="date"
                                     class="w-full py-2 px-3 rounded bg-gray-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     required
@@ -113,7 +113,7 @@
                           <div class="w-1/2 pr-4">
                             <div class="mb-4">Выберите шаблон для отправки</div>
                             <DropdownFull
-                              v-model="newsletterStore.newsletter.templateId"
+                              v-model="newsletterStore.newsletter.template_id"
                               :options="referencesStore.templates"
                               @update-value="(value) => handleUpdateValue('templateId', value)"
                             />
@@ -144,7 +144,7 @@
                                   Выберите дату отправки
                                 </label>
                                 <input
-                                    v-model="newsletterStore.newsletter.sendAt"
+                                    v-model="newsletterStore.newsletter.send_at"
                                     type="date"
                                     id="send-date"
                                     class="w-full py-2 px-3 rounded bg-gray-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -156,7 +156,7 @@
                                   Выберите время отправки
                                 </label>
                                 <input
-                                    v-model="newsletterStore.newsletter.sendTime"
+                                    v-model="newsletterStore.newsletter.send_time"
                                     type="time"
                                     id="send-time"
                                     class="w-full py-2 px-3 rounded bg-gray-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -169,6 +169,7 @@
                                 <DropdownFull
                                   v-model="newsletterStore.newsletter.status"
                                   :options="statuses"
+                                  :selected="newsletterStore.newsletter.status"
                                   @update-value="(value) => handleUpdateValue('status', value)"
                                 />
                               </div>
@@ -208,6 +209,7 @@ import {timestampToDate} from "../../helpers/date-format.js";
 import Multiselect from '@vueform/multiselect'
 import DropdownFull from "../../components/DropdownFull.vue";
 import { useNewsletterStore } from "../../stores/newsletter.store.js";
+import router from "../../router.js";
 
 const sidebarOpen = ref()
 const referencesStore = useReferencesStore()
@@ -222,6 +224,7 @@ const marketingStore = useMarketingStore();
 const planModalOpen = ref(false)
 
 const selectedTags = ref([]);
+const route = router?.currentRoute?.value
 
 function removeTag(value) {
   selectedTags.value = selectedTags.value.filter(tag => tag.value !== value);
@@ -235,6 +238,7 @@ function selectDates(dates) {
 onMounted(() => {
   referencesStore.getChatStatuses()
   referencesStore.getTemplates()
+  newsletterStore.getNewsletter(route.params.id)
 })
 
 function handleUpdateValue(field, value) {
@@ -242,7 +246,7 @@ function handleUpdateValue(field, value) {
 }
 
 function save() {
-  newsletterStore.createNewsletter()
+  newsletterStore.update(route.params.id)
 }
 
 const statuses = [

@@ -8,14 +8,14 @@ export const useNewsletterStore = defineStore({
         newsletters: [],
         newsletter: {
             name: null,
-            chatStatuses: [],
-            customerTags: [],
-            dateFrom: '',
-            dateTo: '',
-            templateId: null,
-            templateParams: [],
-            sendAt: null,
-            sendTime: null,
+            chat_statuses: [],
+            customer_tags: [],
+            date_from: '',
+            date_to: '',
+            template_id: null,
+            template_params: [],
+            send_at: null,
+            send_time: null,
             status: null,
         }
     }),
@@ -27,8 +27,22 @@ export const useNewsletterStore = defineStore({
                 console.log(error)
             }
         },
+        async getNewsletter(id){
+            try {
+                this.newsletter = (await fetchWrapper.get(`/newsletters/${id}`)).data;
+            } catch (error) {
+                console.log(error)
+            }
+        },
         async createNewsletter() {
             const result = (await fetchWrapper.post(`/newsletters`, this.newsletter)).data;
+            
+            if(!result.errors) {
+                router.push(`/marketingSettings/newsletters`)
+            }
+        },
+        async update(id) {
+            const result = (await fetchWrapper.post(`/newsletters/${id}`, this.newsletter)).data;
             
             if(!result.errors) {
                 router.push(`/marketingSettings/newsletters`)
