@@ -43,11 +43,14 @@
                             <div class="flex flex-col space-y-2">
                               <div class="relative">
                                 <Multiselect
-                                    v-model="selectedCustomerTags"
-                                    :options="marketingStore.customerTags"
-                                    :close-on-select="false"
-                                    :searchable="true"
-                                    :classes="{
+                                  v-model="newsletterStore.newsletter.customer_tags"
+                                  :options="marketingStore.customerTags"
+                                  mode="tags"
+                                  valueProp="name"
+                                  label="name"
+                                  :close-on-select="false"
+                                  :searchable="true"
+                                  :classes="{
                                       tags: 'flex-grow flex-shrink flex flex-wrap items-center mt-1 pl-2 min-w-0 rtl:pl-0 rtl:pr-2',
                                       tag: 'bg-green-500 text-white text-sm font-semibold py-0.5 pl-2 rounded mr-1 mb-1 flex items-center whitespace-nowrap min-w-0 rtl:pl-0 rtl:pr-2 rtl:mr-0 rtl:ml-1',
                                       tagsSearch: 'absolute inset-0 border-0 outline-none focus:ring-0 appearance-none p-0 text-base font-sans box-border w-full',
@@ -239,6 +242,7 @@ onMounted(() => {
   referencesStore.getChatStatuses()
   referencesStore.getTemplates()
   newsletterStore.getNewsletter(route.params.id)
+  marketingStore.getCustomerTags()
 })
 
 function handleUpdateValue(field, value) {
