@@ -23,7 +23,7 @@
           <div class="bg-white dark:bg-slate-800 shadow-lg rounded-sm mb-8">
             <div class="flex flex-col md:flex-row md:-mr-px">
               <MarketingSidebar />
-              <Newsletters />
+              <NewslettersList />
             </div>
           </div>
 
@@ -42,12 +42,12 @@ import Header from '../../partials/Header.vue'
 import SettingsSidebar from '../../partials/settings/SettingsSidebar.vue'
 import MarketingSidebar from '../../partials/marketing/MarketingSidebar.vue'
 import Triggers from "../../partials/marketing/ScriptList.vue";
-import Newsletters from "../../partials/marketing/Newsletters.vue";
+import NewslettersList from "../../partials/marketing/Newsletters.vue";
 
 export default {
-  name: 'Account',
+  name: 'Newsletters',
   components: {
-    Newsletters,
+    NewslettersList,
     Triggers,
     Sidebar,
     Header,
