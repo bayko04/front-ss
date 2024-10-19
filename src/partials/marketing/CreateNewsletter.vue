@@ -43,8 +43,11 @@
                             <div class="flex flex-col space-y-2">
                               <div class="relative">
                                 <Multiselect
-                                    v-model="selectedCustomerTags"
+                                    v-model="newsletterStore.newsletter.customer_tags"
                                     :options="marketingStore.customerTags"
+                                    mode="tags"
+                                    valueProp="name"
+                                    label="name"
                                     :close-on-select="false"
                                     :searchable="true"
                                     :classes="{
@@ -238,6 +241,7 @@ async function getCustomers()
 onMounted(() => {
   referencesStore.getChatStatuses()
   referencesStore.getTemplates()
+  marketingStore.getCustomerTags()
 })
 
 function handleUpdateValue(field, value) {

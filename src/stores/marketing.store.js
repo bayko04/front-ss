@@ -41,7 +41,7 @@ export const useMarketingStore = defineStore({
            return  result.data
         },
         async getCustomerTags() {
-            this.customerTags = (await fetchWrapper.get(`/customers/customer-tags`)).data;
+            this.customerTags = (await fetchWrapper.get(`/customers/customers/tags`)).data;
         },
         async clearAutoresponderTemplate() {
             this.autoresponderTemplate = {
