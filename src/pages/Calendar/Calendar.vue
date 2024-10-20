@@ -49,14 +49,7 @@
             <!-- Right: Actions -->
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
               <!-- Create event button -->
-              <button @click.stop="newTaskModal()" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
-                <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                  <path
-                      d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z"/>
-                </svg>
-                <span class="hidden xs:block ml-2">Добавить задачу</span>
-              </button>
-
+              <button @click.stop="newTaskModal()" class="btn bg-gray-900 text-gray-100 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-white">Добавить задачу</button>
             </div>
 
           </div>
@@ -133,13 +126,12 @@
                   <div class="flex justify-between items-center p-0.5 sm:p-1.5">
                     <!-- More button (if more than 2 events) -->
                     <button
-                      v-if="getEvents(day).length > 2"
                       class="text-xs text-slate-500 dark:text-slate-300 font-medium whitespace-nowrap text-center sm:py-0.5 px-0.5 sm:px-2 border border-slate-200 dark:border-slate-700 rounded"
                     >
-                      <span class="md:hidden">+</span><span>{{getEvents(day).length - 2}}</span> <span class="hidden md:inline">больше</span>
+                      <span class="hidden md:inline" @click="setDetailsDay(day)">детали</span>
                     </button>
                     <!-- Day number -->
-                    <button class="inline-flex ml-auto w-6 h-6 items-center justify-center text-xs sm:text-sm dark:text-slate-300 font-medium text-center rounded-full hover:bg-indigo-100 dark:hover:bg-slate-600" :class="{'text-indigo-500': isToday(day) }">{{day}}</button>
+                    <button @click="setDetailsDay(day)" class="inline-flex ml-auto w-6 h-6 items-center justify-center text-xs sm:text-sm dark:text-slate-300 font-medium text-center rounded-full hover:bg-indigo-100 dark:hover:bg-slate-600" :class="{'text-indigo-500': isToday(day) }">{{day}}</button>
                   </div>
                 </div>
               </div>
@@ -157,48 +149,53 @@
           </Suspense>
         </div>
       </main>
+      <DetailsDay
+          v-if="detailsDay"
+          :detailsDay="detailsDay"
+          :detailsDateEvents="detailsDateEvents"
+          :year="year"
+          :month="month"
+      />
 
     </div> 
 
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted } from 'vue'
-import Sidebar from '../partials/Sidebar.vue'
-import Header from '../partials/Header.vue'
-import { useTaskStore } from "../stores/task.store.js";
-import { useAuthStore } from "../stores/auth.store.js";
-import { useReferencesStore } from "../stores/references.store.js";
-import ModalBlank from "../components/ModalBlank.vue";
-import { createTaskModal } from "../utils/modalVariables.js"
-import ModalForNewTask from "../partials/calendar/ModalForNewTask.vue";
+import Sidebar from '../../partials/Sidebar.vue'
+import Header from '../../partials/Header.vue'
+import { useTaskStore } from "../../stores/task.store.js";
+import { useAuthStore } from "../../stores/auth.store.js";
+import { useReferencesStore } from "../../stores/references.store.js";
+import { createTaskModal } from "../../utils/modalVariables.js"
+import ModalForNewTask from "../../partials/calendar/ModalForNewTask.vue";
+import DetailsDay from "../../partials/calendar/DetailsDay.vue";
 
-export default {
-  name: 'Calendar',
-  components: {
-    ModalForNewTask,
-    ModalBlank,
-    Sidebar,
-    Header,
-  },
-  setup() {
-    const today = new Date()
-    const sidebarOpen = ref(false)
-    const monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
-    const dayNames = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
-    const month = ref(today.getMonth())
-    const year = ref(today.getFullYear())
-    const daysInMonth = ref([])
-    const startingBlankDays = ref([])
-    const endingBlankDays = ref([])
-    const taskStore = useTaskStore()
-    const authStore = useAuthStore()
-    const referencesStore = useReferencesStore()
+const today = new Date()
+const sidebarOpen = ref(false)
+const monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+const dayNames = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
+const month = ref(today.getMonth())
+const year = ref(today.getFullYear())
+const daysInMonth = ref([])
+const startingBlankDays = ref([])
+const endingBlankDays = ref([])
+const taskStore = useTaskStore()
+const authStore = useAuthStore()
+const referencesStore = useReferencesStore()
+const detailsDay = ref(null)
+const detailsDateEvents = ref([]);
+
+    const setDetailsDay = (date) => {
+      detailsDay.value = new Date(year.value, month.value, date)
+      detailsDateEvents.value = getEvents(date)
+    }
 
     const isToday = (date) => {
       const day = new Date(year.value, month.value, date)
-      return today.toDateString() === day.toDateString() ? true : false
+      return today.toDateString() === day.toDateString()
     }
 
     const getEvents = (date) => {
@@ -233,23 +230,6 @@ export default {
       daysInMonth.value = daysArray
     }
 
-    const eventColor = (color) => {
-      switch (color) {
-        case 'sky':
-          return 'text-white bg-sky-500';
-        case 'indigo':
-          return 'text-white bg-indigo-500';
-        case 'yellow':
-          return 'text-white bg-amber-500';
-        case 'emerald':
-          return 'text-white bg-emerald-500';
-        case 'red':
-          return 'text-white bg-rose-400';
-        default:
-          return '';
-      }
-    }
-
     const nextMonth = () => {
       if (month.value === 11) {
         month.value = 0
@@ -278,6 +258,10 @@ export default {
     }
 
     function newTaskModal() {
+      taskStore.task = {
+        due_date: new Date().toISOString(),
+        end_date: new Date(new Date().setHours(new Date().getHours() + 1)).toISOString(),
+      }
       createTaskModal.value.status = 'create-update'
     }
 
@@ -286,27 +270,4 @@ export default {
       referencesStore.getTaskTypes()
       taskStore.getTasksForUser(authStore.userData.user.id, month.value + 1, year.value)
     })
-
-    return {
-      sidebarOpen,
-      monthNames,
-      dayNames,
-      month,
-      year,
-      daysInMonth,
-      startingBlankDays,
-      endingBlankDays,
-      isToday,
-      getEvents,
-      getDays,
-      eventColor,
-      taskStore,
-      referencesStore,
-      nextMonth,
-      prevMonth,
-      openTaskModal,
-      newTaskModal,
-    }
-  }
-}
 </script>

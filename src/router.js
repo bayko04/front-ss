@@ -25,7 +25,7 @@ import PortfolioPartrepayment from "./pages/Portfolio/PortfolioPartrepayment.vue
 import PortfolioAddloan from "./pages/Portfolio/PortfolioAddloan.vue";
 import TransactionsList from "./pages/Transactions/TransactionsList.vue";
 import RequestStatus from "./pages/systemSettings/RequestStatus.vue";
-import Calendar from "./pages/Calendar.vue";
+import Calendar from "./pages/Calendar/Calendar.vue";
 import Comments from "./pages/Comments.vue";
 import Onboarding01 from "./pages/Onboarding01.vue";
 import Onboarding02 from "./pages/Onboarding02.vue";
@@ -39,6 +39,7 @@ import Scripts from "./pages/marketingSettings/Scripts.vue";
 import Newsletters from "./pages/marketingSettings/Newsletters.vue";
 import CreateNewsletter from "./partials/marketing/CreateNewsletter.vue";
 import AutoClientRetention from "./pages/marketingSettings/AutoClientRetention.vue";
+import CalendarForMiniApp from "./pages/Calendar/CalendarForMiniApp.vue";
 
 const routerHistory = createWebHistory()
 
@@ -172,6 +173,10 @@ const router = createRouter({
     {
       path: '/calendar',
       component: Calendar
+    },
+    {
+      path: '/calendar-for-mini-app',
+      component: CalendarForMiniApp
     },
     {
       path: '/onboarding01',

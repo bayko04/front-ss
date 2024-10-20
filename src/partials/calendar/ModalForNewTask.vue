@@ -56,9 +56,14 @@
                                 </div>
 
                                 <div class="mb-2">
-                                    <label class="block text-sm font-medium mb-1" for="date">Дата и время задачи</label>
+                                    <label class="block text-sm font-medium mb-1" for="date">Дата и время начала</label>
                                     <TaskDatepicker :value="taskStore.task.due_date" v-model="taskStore.task.due_date"/>
                                 </div>
+
+                              <div class="mb-2">
+                                <label class="block text-sm font-medium mb-1" for="date">Дата и время окончания</label>
+                                <TaskDatepicker :value="taskStore.task.end_date" v-model="taskStore.task.end_date"/>
+                              </div>
 
                                 <div class="mb-2">
                                     <h2 class="block text-sm font-medium mb-1">Тип задачи<span class="text-red-500">*</span></h2>
@@ -83,7 +88,7 @@
                                         <textarea v-model="taskStore.task.result" class="form-textarea mt-2 w-full h-32"
                                                   placeholder="Результат выполнения задачи"></textarea>
                                     </div>
-                                    <label class="block text-sm font-medium mb-1" for="date">Дата и время завершения
+                                    <label class="block text-sm font-medium mb-1" for="date">Дата и время закрытия
                                         задачи</label>
                                     <TaskDatepicker :value="taskStore.task.completed_at"
                                                     v-model="taskStore.task.completed_at"/>
@@ -130,8 +135,9 @@
                                             <p class="mb-2"><strong>Описание:</strong> {{ taskStore.task.description }}</p>
                                             <p class="mb-2"><strong>Автор:</strong> {{ taskStore.task.author?.name }}</p>
                                             <p class="mb-2"><strong>Исполнитель:</strong> {{ taskStore.task.user?.name }}</p>
-                                            <p class="mb-2"><strong>Дата и время создания:</strong> {{ new Date(taskStore.task.created_at).toLocaleString('ru-RU') }}</p>
-                                            <p class="mb-2"><strong>Дата и время выполнения:</strong> {{ new Date(taskStore.task.due_date).toLocaleString('ru-RU') }}</p>
+                                            <p class="mb-2"><strong>Дата и время открытия:</strong> {{ new Date(taskStore.task.created_at).toLocaleString('ru-RU') }}</p>
+                                            <p class="mb-2"><strong>Дата и время начала:</strong> {{ new Date(taskStore.task.due_date).toLocaleString('ru-RU') }}</p>
+                                            <p class="mb-2"><strong>Дата и время окончания:</strong> {{ new Date(taskStore.task.end_date).toLocaleString('ru-RU') }}</p>
                                             <p class="mb-2"><strong>Тип задачи:</strong> {{ taskStore.task.task_type?.name }}</p>
                                             <p class="mb-2"><strong>Статус:</strong> {{ taskStore.task.is_completed ? 'Завершен' : 'Незавершен' }}</p>
                                         </template>
@@ -141,7 +147,7 @@
                                                 <div class="border border-gray-300 rounded p-2">{{ taskStore.task.result }}</div>
                                             </div>
                                             <div v-if="taskStore.task.completed_at" class="mb-2">
-                                                <strong>Дата и время завершения:</strong>
+                                                <strong>Дата и время закрытия:</strong>
                                                 <div class="border border-gray-300 rounded p-2">{{ taskStore.task.completed_at }}</div>
                                             </div>
                                         </template>
@@ -151,7 +157,7 @@
                                     <div class="flex flex-wrap justify-end space-x-2">
                                         <button @click.stop="closeModal()" class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300">Закрыть</button>
                                         <button @click.stop="editTask()" class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300">Редактировать</button>
-                                        <button v-if="!taskStore.task.is_completed" class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click.stop="completingTask()">Завершить задачу</button>
+                                        <button v-if="!taskStore.task.is_completed" class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click.stop="completingTask()">Закрыть задачу</button>
                                         <button class="btn-sm bg-red-500 hover:bg-red-600 text-white" @click.stop="deletingTask()">Удалить</button>
                                     </div>
                                 </div>
@@ -174,7 +180,7 @@
                                                       class="form-textarea mt-2 w-full h-32"
                                                       placeholder="Результат выполнения задачи"></textarea>
                                     </div>
-                                    <label class="block text-sm font-medium mb-1" for="date">Дата и время завершения
+                                    <label class="block text-sm font-medium mb-1" for="date">Дата и время закрытия
                                         задачи</label>
                                     <TaskDatepicker :value="taskStore.task.completed_at"
                                                     v-model="taskStore.task.completed_at"/>
@@ -272,6 +278,7 @@ const cancel = function() {
 }
 
 const editTask = function() {
+  console.log(taskStore.task)
   createTaskModal.value.status = 'create-update'
 }
 
