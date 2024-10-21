@@ -26,9 +26,11 @@
           </button>
         </h1>
         <div class="flex flex-col items-center justify-center w-full text-center" v-if="mini">
-          <button @click.stop="send()" class="btn bg-gray-900 text-gray-100 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-white">
+          <button v-if="!error" @click.stop="send()" class="btn bg-gray-900 text-gray-100 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-white">
             Отправить
           </button>
+          <p v-else class="mt-2 text-red-500">{{ error }}</p>
+
           <!-- Блок для отображения сообщения об ошибке, он будет находиться ниже кнопки -->
           <p v-if="errorMessage" class="mt-2 text-red-500">{{ errorMessage }}</p>
         </div>
@@ -97,8 +99,8 @@ import {computed, ref, toRefs} from "vue";
 
 const hours = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`);
 const errorMessage = ref("");
-const props = defineProps(['detailsDay', 'detailsDateEvents', 'year', 'month', 'date', 'setNewDate', 'openModalForCreate', 'mini', 'sendRecommendedTasks']);
-const { detailsDay, detailsDateEvents, year, month, setNewDate, date, openModalForCreate, mini, sendRecommendedTasks } = toRefs(props);
+const props = defineProps(['detailsDay', 'detailsDateEvents', 'year', 'month', 'date', 'setNewDate', 'openModalForCreate', 'mini', 'sendRecommendedTasks', 'error']);
+const { detailsDay, detailsDateEvents, year, month, setNewDate, date, openModalForCreate, mini, sendRecommendedTasks, error } = toRefs(props);
 
 function send() {
   if (recommendedTasksCount.value < 1 || recommendedTasksCount.value > 5) {

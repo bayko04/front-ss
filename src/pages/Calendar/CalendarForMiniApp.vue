@@ -15,6 +15,7 @@
           :openModalForCreate="openModalForMiniApp"
           :mini="true"
           :sendRecommendedTasks="sendRecommendedTasks"
+          :error="taskData['error']"
       />
 
       <ModalForMiniApp
@@ -105,7 +106,6 @@ const setDetailsDay = async () => {
 
 const getTaskData = async function () {
   taskData.value = await taskStore.getDataByKey(key)
-  console.log(taskData.value)
 }
 
 onMounted(() => {
