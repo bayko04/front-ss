@@ -240,6 +240,7 @@ router.beforeEach(async (to) => {
   const authStore = useAuthStore();
 
   if(!authStore.userData && window.Telegram.WebApp?.initData) {
+    authStore.returnUrl = to.fullPath;
     await authStore.loginByTelegramMiniApp(window.Telegram.WebApp.initData)
   }
 

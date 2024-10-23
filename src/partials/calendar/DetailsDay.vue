@@ -26,13 +26,15 @@
           </button>
         </h1>
         <div class="flex flex-col items-center justify-center w-full text-center" v-if="mini">
-          <button v-if="!error" @click.stop="send()" class="btn bg-gray-900 text-gray-100 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-white">
+          <button v-if="!error && successMessage === ''" @click.stop="send()" class="btn bg-gray-900 text-gray-100 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-white">
             Отправить
           </button>
           <p v-else class="mt-2 text-red-500">{{ error }}</p>
 
           <!-- Блок для отображения сообщения об ошибке, он будет находиться ниже кнопки -->
           <p v-if="errorMessage" class="mt-2 text-red-500">{{ errorMessage }}</p>
+          <p v-if="successMessage" class="mt-2 text-green-600-500">{{ errorMessage }}</p>
+
         </div>
         <div class="grid grid-cols-4 gap-0">
           <div class="col-span-1 text-center font-semibold">Время</div>
@@ -49,16 +51,16 @@
 
               <!-- События для текущего часа -->
               <div v-if="getEventsForHour(index).length" class="col-span-5 time-slot grid grid-rows-2 w-full">
-                <div v-for="(currentEvent, key) in getEventsForHour(index)" class="border border-t" :key="key">
-                  <div
-                      :class="[
-                          'rounded-lg p-4',
+                <div v-for="(currentEvent, key) in getEventsForHour(index)" :key="key"
+                     :class="[
+                          'p-4',
                           getColspanAndOffsetClass(currentEvent, index)['class'],
                           isDarkColor(currentEvent.task_type.color) ? 'text-white' : 'text-black',
+                          mergeRow(index, key) !== true  ? 'border-t' : ''
                         ]"
-                      :style="{ backgroundColor: currentEvent.task_type.color }"
-                  >
-                    <div v-if="mergeRow(index) !== true">
+                     :style="{ backgroundColor: currentEvent.task_type.color }"
+                >
+                    <div v-if="mergeRow(index, key) !== true">
                       <!-- Название события -->
                       <div class="font-bold text-lg text-center">{{currentEvent.name}}</div>
 
@@ -69,7 +71,6 @@
                       <!-- Описание события -->
                       <div class="text-sm text-center">{{currentEvent.description}} {{getColspanAndOffsetClass(currentEvent, index)['rowNumber']}}</div>
                     </div>
-                  </div>
                 </div>
                 <div v-if="getEventsForHour(index).length === 1 && getColspanAndOffsetClass(getEventsForHour(index)[0], index)['rows'] === 1" @click.stop="handleRowClick(index, getColspanAndOffsetClass(getEventsForHour(index)[0], index)['rowNumber'] === 1 ? 2 : 1)" class="row-span-1 min-h-full flex justify-center border border-t-2 items-center text-black cursor-pointer">
                   <button class="text-sm">{{index}} : {{ getColspanAndOffsetClass(getEventsForHour(index)[0], index)['rowNumber'] === 1 ? '30' : '00' }} - Свободное время</button>
@@ -99,6 +100,7 @@ import {computed, ref, toRefs} from "vue";
 
 const hours = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`);
 const errorMessage = ref("");
+const successMessage = ref("");
 const props = defineProps(['detailsDay', 'detailsDateEvents', 'year', 'month', 'date', 'setNewDate', 'openModalForCreate', 'mini', 'sendRecommendedTasks', 'error']);
 const { detailsDay, detailsDateEvents, year, month, setNewDate, date, openModalForCreate, mini, sendRecommendedTasks, error } = toRefs(props);
 
@@ -108,6 +110,7 @@ function send() {
   } else {
     errorMessage.value = ""; // Очистка сообщения об ошибке, если проверка пройдена
     sendRecommendedTasks.value();
+    successMessage.value = 'Варианты успешно отправлены.';
   }
 }
 
@@ -149,8 +152,8 @@ function hexToRgb(hex) {
   } : null;
 }
 
-const mergeRow = function(index) {
-  if(index === 0) return false
+const mergeRow = function(index, key) {
+  if(index === 0 || key > 0) return false
 
   const latestEvents = getEventsForHour(index - 1)
 
