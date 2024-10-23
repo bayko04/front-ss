@@ -12,8 +12,7 @@
             class="flex items-center justify-between w-full p-2 rounded"
             @click.stop="$emit('close-msgsidebar')"
             @click="setActiveChat(chat)"
-            :class="{'bg-indigo-500/30': (chat.id === activeChat?.id && chat.account_id === activeChat.account_id) }"
-
+            :class="{'bg-indigo-500/30': (chat.id === activeChat?.id && chat.account_id === activeChat?.account_id) }"
         >
           <div class="flex items-center truncate">
             <img class="w-8 h-8 rounded-full mr-2" :src="chat.image" width="32" height="32" alt="User 01" />

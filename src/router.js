@@ -24,7 +24,7 @@ import PortfolioProlongation from "./pages/Portfolio/PortfolioProlongation.vue";
 import PortfolioPartrepayment from "./pages/Portfolio/PortfolioPartrepayment.vue";
 import PortfolioAddloan from "./pages/Portfolio/PortfolioAddloan.vue";
 import RequestStatus from "./pages/systemSettings/RequestStatus.vue";
-import Calendar from "./pages/Calendar.vue";
+import Calendar from "./pages/Calendar/Calendar.vue";
 import Comments from "./pages/Comments.vue";
 import Onboarding01 from "./pages/Onboarding01.vue";
 import Onboarding02 from "./pages/Onboarding02.vue";
@@ -38,6 +38,7 @@ import Scripts from "./pages/marketingSettings/Scripts.vue";
 import Newsletters from "./pages/marketingSettings/Newsletters.vue";
 import CreateNewsletter from "./partials/marketing/CreateNewsletter.vue";
 import AutoClientRetention from "./pages/marketingSettings/AutoClientRetention.vue";
+import CalendarForMiniApp from "./pages/Calendar/CalendarForMiniApp.vue";
 import Transactions from './pages/finance/Transactions.vue'
 import UpdateNewsletter from "./partials/marketing/UpdateNewsletter.vue";
 
@@ -175,6 +176,10 @@ const router = createRouter({
       component: Calendar
     },
     {
+      path: '/calendar-for-mini-app',
+      component: CalendarForMiniApp
+    },
+    {
       path: '/onboarding01',
       component: Onboarding01,
       meta: {permission:'companies.add'}
@@ -238,6 +243,11 @@ router.beforeEach(async (to) => {
   const publicPages = ['/signin', '/onboarding01', '/onboarding02', '/onboarding03'];
   const authRequired = !publicPages.includes(to.path);
   const authStore = useAuthStore();
+
+  if(!authStore.userData && window.Telegram.WebApp?.initData) {
+    authStore.returnUrl = to.fullPath;
+    await authStore.loginByTelegramMiniApp(window.Telegram.WebApp.initData)
+  }
 
   if (authRequired && !authStore.userData) {
     authStore.returnUrl = to.fullPath;

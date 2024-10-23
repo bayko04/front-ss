@@ -8,4 +8,4 @@ export const searchContactModal = ref({status: false});
 export const newChatModal = ref({status: false});
 export const replyToDirectModal = ref({status: false, repliedCommentId: undefined, contentId: undefined});
 export const createTaskModal = ref({status: false});
-
+export const recomendedTaskModal = ref({status: false});

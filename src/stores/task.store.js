@@ -6,12 +6,22 @@ export const useTaskStore = defineStore({
     state: () => ({
         tasks: [],
         task: {
-            due_date: new Date().toISOString().split('T')[0],
+            due_date: new Date().toISOString(),
+            end_date: new Date(new Date().setMinutes(new Date().getMinutes() + 30)).toISOString(),
         },
     }),
     actions: {
-        async getTasksForUser(userId, month, year) {
-            this.tasks = (await fetchWrapper.get(`/tasks/${userId}/${month}/${year}`)).data;
+        async sendRecommended(tasks, key) {
+            this.task = (await fetchWrapper.post(`/appointments/send-recommendation-appointments`, {tasks, key}));
+            console.log(this.task)
+        },
+        async getDataByKey(key) {
+            return (await fetchWrapper.get(`/appointments/get-data-by-key`, {key: key})).data;
+        },
+        async getTasksForUser(userId, month, year, date) {
+            this.tasks = (await fetchWrapper.get(`/tasks/${userId}/${month}/${year}`, {date: date ?? ''})).data;
+
+            return this.tasks
         },
         async getTasksForCustomerRequest(customerRequestId) {
             this.tasks = (await fetchWrapper.get(`/tasks/customer-request/${customerRequestId}`)).data;
@@ -24,7 +34,8 @@ export const useTaskStore = defineStore({
             await fetchWrapper.delete(`/tasks/${this.task.id}`);
             this.tasks = this.tasks.filter(x => x.id !== this.task.id);
             this.task = {
-                due_date: new Date().toISOString().split('T')[0],
+                due_date: new Date().toISOString(),
+                end_date: new Date(new Date().setMinutes(new Date().getMinutes() + 30)).toISOString(),
             };
         },
         updateTaskInArray(task) {
