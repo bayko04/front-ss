@@ -37,9 +37,9 @@
         <!-- Pages group -->
         <div>
           <ul class="mt-3">
-              <!-- Архив -->
+            <!-- Архив -->
               <router-link to="/archive" custom v-slot="{ href, navigate, isExactActive }">
-                  <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" :class="isExactActive && 'bg-slate-900'">
+                  <li v-tooltip="'Обращения'" class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" :class="isExactActive && 'bg-slate-900'">
                       <a class="block text-slate-200 transition duration-150" :class="isExactActive ? 'hover:text-slate-200' : 'hover:text-white'" :href="href" @click="navigate">
                           <div class="flex items-center justify-between">
                               <div class="grow flex items-center">
@@ -170,6 +170,30 @@
                       </a>
                   </li>
               </router-link>
+
+            <router-link to="/finance/transactions" custom v-slot="{ href, navigate, isExactActive }">
+              <li v-tooltip="'Транзакции'" class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" :class="isExactActive && 'bg-slate-900'">
+                <div class="flex items-center justify-between">
+                  <a class="block text-gray-800 dark:text-gray-100 truncate transition" :class="currentRoute.fullPath.includes('finance') ? '' : 'hover:text-gray-900 dark:hover:text-white'" :href="href" @click="navigate">
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center">
+                        <svg class="shrink-0 fill-current" :class="currentRoute.fullPath.includes('finance') ? 'text-violet-500' : 'text-gray-400 dark:text-gray-500'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                          <path d="M6 0a6 6 0 0 0-6 6c0 1.077.304 2.062.78 2.912a1 1 0 1 0 1.745-.976A3.945 3.945 0 0 1 2 6a4 4 0 0 1 4-4c.693 0 1.344.194 1.936.525A1 1 0 1 0 8.912.779 5.944 5.944 0 0 0 6 0Z" />
+                          <path d="M10 4a6 6 0 1 0 0 12 6 6 0 0 0 0-12Zm-4 6a4 4 0 1 1 8 0 4 4 0 0 1-8 0Z" />
+                        </svg>
+                        <span class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Finance</span>
+                      </div>
+                      <!-- Icon -->
+                      <div class="flex shrink-0 ml-2">
+                        <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-gray-400 dark:text-gray-500" viewBox="0 0 12 12">
+                          <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </li>
+            </router-link>
           </ul>
         </div>
       </div>

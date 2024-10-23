@@ -23,7 +23,6 @@ import PortfolioRepay from "./pages/Portfolio/PortfolioRepay.vue";
 import PortfolioProlongation from "./pages/Portfolio/PortfolioProlongation.vue";
 import PortfolioPartrepayment from "./pages/Portfolio/PortfolioPartrepayment.vue";
 import PortfolioAddloan from "./pages/Portfolio/PortfolioAddloan.vue";
-import TransactionsList from "./pages/Transactions/TransactionsList.vue";
 import RequestStatus from "./pages/systemSettings/RequestStatus.vue";
 import Calendar from "./pages/Calendar/Calendar.vue";
 import Comments from "./pages/Comments.vue";
@@ -40,12 +39,18 @@ import Newsletters from "./pages/marketingSettings/Newsletters.vue";
 import CreateNewsletter from "./partials/marketing/CreateNewsletter.vue";
 import AutoClientRetention from "./pages/marketingSettings/AutoClientRetention.vue";
 import CalendarForMiniApp from "./pages/Calendar/CalendarForMiniApp.vue";
+import Transactions from './pages/finance/Transactions.vue'
+import UpdateNewsletter from "./partials/marketing/UpdateNewsletter.vue";
 
 const routerHistory = createWebHistory()
 
 const router = createRouter({
   history: routerHistory,
   routes: [
+    {
+      path: '/finance/transactions',
+      component: Transactions
+    },
     {
       path: '/',
       component: Dashboard
@@ -155,10 +160,6 @@ const router = createRouter({
       component: PortfolioAddloan
     },
     {
-      path: '/transactions',
-      component: TransactionsList
-    },
-    {
       path: '/systemSettings/requestStatus',
       component: RequestStatus
     },
@@ -220,11 +221,15 @@ const router = createRouter({
     {
       path: '/marketing/scripts/:id',
       component: Script,
-      name: 'autoresponder'
+      name: 'script'
     },
     {
-      path: '/marketing/create-newsletter',
+      path: '/marketing/newsletters/create',
       component: CreateNewsletter
+    },
+    {
+      path: '/marketing/newsletters/update/:id',
+      component: UpdateNewsletter
     },
   ]
 })

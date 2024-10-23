@@ -20,7 +20,7 @@
                 <div class="p-6 space-y-6">
                   <!-- Left: Title -->
                   <div class="mb-4 sm:mb-0">
-                    <h2 class="text-2xl text-gray-800 dark:text-gray-100 font-bold mb-5">Создание рассылки</h2>
+                    <h2 class="text-2xl text-gray-800 dark:text-gray-100 font-bold mb-5">Изменение рассылки</h2>
                   </div>
                   <div class="px-5 pt-4 pb-1">
                     <div class="mb-4">
@@ -43,14 +43,14 @@
                             <div class="flex flex-col space-y-2">
                               <div class="relative">
                                 <Multiselect
-                                    v-model="newsletterStore.newsletter.customer_tags"
-                                    :options="marketingStore.customerTags"
-                                    mode="tags"
-                                    valueProp="name"
-                                    label="name"
-                                    :close-on-select="false"
-                                    :searchable="true"
-                                    :classes="{
+                                  v-model="newsletterStore.newsletter.customer_tags"
+                                  :options="marketingStore.customerTags"
+                                  mode="tags"
+                                  valueProp="name"
+                                  label="name"
+                                  :close-on-select="false"
+                                  :searchable="true"
+                                  :classes="{
                                       tags: 'flex-grow flex-shrink flex flex-wrap items-center mt-1 pl-2 min-w-0 rtl:pl-0 rtl:pr-2',
                                       tag: 'bg-green-500 text-white text-sm font-semibold py-0.5 pl-2 rounded mr-1 mb-1 flex items-center whitespace-nowrap min-w-0 rtl:pl-0 rtl:pr-2 rtl:mr-0 rtl:ml-1',
                                       tagsSearch: 'absolute inset-0 border-0 outline-none focus:ring-0 appearance-none p-0 text-base font-sans box-border w-full',
@@ -116,9 +116,9 @@
                           <div class="w-1/2 pr-4">
                             <div class="mb-4">Выберите шаблон для отправки</div>
                             <DropdownFull
-                              v-model="newsletterStore.newsletter.template_id"
+                              v-if="newsletterStore.newsletter.template && referencesStore.templates"
+                              :value="newsletterStore.newsletter.template.id"
                               :options="referencesStore.templates"
-                              @update-value="(value) => handleUpdateValue('template_id', value)"
                             />
                           </div>
 
@@ -172,6 +172,7 @@
                                 <DropdownFull
                                   v-model="newsletterStore.newsletter.status"
                                   :options="statuses"
+                                  :selected="newsletterStore.newsletter.status"
                                   @update-value="(value) => handleUpdateValue('status', value)"
                                 />
                               </div>
@@ -211,36 +212,36 @@ import {timestampToDate} from "../../helpers/date-format.js";
 import Multiselect from '@vueform/multiselect'
 import DropdownFull from "../../components/DropdownFull.vue";
 import { useNewsletterStore } from "../../stores/newsletter.store.js";
+import router from "../../router.js";
 
 const sidebarOpen = ref()
 const referencesStore = useReferencesStore()
 const dateFrom = ref(null)
 const dateTo = ref(null)
 const selectedCustomerTags = ref(null)
-const selectedStatuses = ref(null)
 const customerPull = ref([])
 const newsletterStore = useNewsletterStore()
+
 const marketingStore = useMarketingStore();
+
 const planModalOpen = ref(false)
+
 const selectedTags = ref([]);
+const route = router?.currentRoute?.value
 
 function removeTag(value) {
   selectedTags.value = selectedTags.value.filter(tag => tag.value !== value);
 }
 
 function selectDates(dates) {
-  date_from.value = timestampToDate(dates[0])
-  date_to.value = timestampToDate(dates[1])
-}
-
-async function getCustomers()
-{
-  customerPull.value = await marketingStore.getCustomersPull(selectedCustomerTags.value, selectedStatuses.value, dateFrom.value, dateTo.value)
+  dateFrom.value = timestampToDate(dates[0])
+  dateTo.value = timestampToDate(dates[1])
 }
 
 onMounted(() => {
   referencesStore.getChatStatuses()
   referencesStore.getTemplates()
+  newsletterStore.getNewsletter(route.params.id)
   marketingStore.getCustomerTags()
 })
 
@@ -249,7 +250,7 @@ function handleUpdateValue(field, value) {
 }
 
 function save() {
-  newsletterStore.createNewsletter()
+  newsletterStore.update(route.params.id)
 }
 
 const statuses = [
