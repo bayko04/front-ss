@@ -249,6 +249,11 @@ router.beforeEach(async (to) => {
     await authStore.loginByTelegramMiniApp(window.Telegram.WebApp.initData)
   }
 
+  if(!authStore.userData && to.query.user_id && to.query.integration_token) {
+    authStore.returnUrl = to.fullPath;
+    await authStore.loginByIntegrations(to.query.user_id, to.query.integration_token)
+  }
+
   if (authRequired && !authStore.userData) {
     authStore.returnUrl = to.fullPath;
     return '/signin';
