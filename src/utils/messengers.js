@@ -35,7 +35,7 @@ export function useMessangers() {
 
   const startSocketListeners = async function () {
     echo.value = getEcho()
-    accounts.value = (await fetchWrapper.get('/chat/accounts')).data
+    accounts.value = (await fetchWrapper.get('/chat/accounts'))
     if (activeAccount.value === undefined) {
       const accountId = searchParams.get('accountId')
       accountId ? setActiveAccount(getAccountById(accountId)) : setActiveAccount()
@@ -60,29 +60,11 @@ export function useMessangers() {
 
     accounts.value.forEach(function (account, index) {
       newChatFromSocket(account)
-      account.chats?.forEach(function (chat) {
-        if(!account.unread_messages_count) {
-          account.unread_messages_count = 0
-        }
-        updateChatFromSocket(chat, account)
-        account.unread_messages_count += chat.unread_messages_count
-        addMessageToChat(account, chat)
-        updateMessageInChat(account, chat)
-      })
-      if(account.messenger.id === 3) {
-        newCommentsChatFromSocket(account)
-        account.contents?.forEach(function (content) {
-          updateCommentsChatFromSocket(content, account)
-          addCommentToCommentsChat(account, content)
-        })
-      }
     })
   }
   function checkMultipleAccounts() {
     isMultipleAccounts.value = accounts.value.length >= 2;
   }
-
-
 
   function getAccountById(id) {
     const foundAccount = accounts.value.find((account) => account.id === Number(id));
@@ -113,6 +95,27 @@ export function useMessangers() {
     if(!account) {
       return
     }
+    const accountChats = (await fetchWrapper.get(`/chat/accounts/${account.id}`)).data;
+    account.chats = accountChats.chats;
+    account.messenger = accountChats.messenger;
+    
+    account.chats.forEach(function (chat) {
+      if(!account.unread_messages_count) {
+        account.unread_messages_count = 0
+      }
+      updateChatFromSocket(chat, account)
+      account.unread_messages_count += chat.unread_messages_count
+      addMessageToChat(account, chat)
+      updateMessageInChat(account, chat)
+    });
+    
+    if (account.messenger.id === 3) {
+      newCommentsChatFromSocket(account)
+      account.contents?.forEach(function (content) {
+        updateCommentsChatFromSocket(content, account)
+        addCommentToCommentsChat(account, content)
+      })
+    }
 
     const newRoute = {
       path: '/messages',
@@ -123,7 +126,7 @@ export function useMessangers() {
 
   const setActiveCommentsAccount = async function (account = undefined) {
     if(!account) {
-      activeCommentsAccount.value = accounts.value.find((account) => account.messenger.id === 3)
+      activeCommentsAccount.value = accounts.value.find((account) => account.messenger_id === 3)
     } else {
       activeCommentsAccount.value = account
     }
@@ -310,7 +313,7 @@ export function useMessangers() {
   }
 
   const newChatFromSocket = function (account) {
-    echo.value.private(`${account.messenger.name}.${account.id}.chat`).listen('.NewChat', function (socketChat) {
+    echo.value.private(`${account.messenger_name}.${account.id}.chat`).listen('.NewChat', function (socketChat) {
       if(getChatById(socketChat.chat.id)) {
         return
       }
@@ -344,12 +347,10 @@ export function useMessangers() {
 
   const updateChatFromSocket = function (chat, account) {
     echo.value.private(`${account.messenger.name}.${account.id}.chat`).listen(`.${chat.id}.UpdateChat`, function (socketChat) {
-      console.log(socketChat)
       if (socketChat.chat.latest_customer_request === null) {
         removeChat(account, chat);
         return
       }
-      console.log(socketChat)
       chat.image = socketChat.chat.image
       chat.name = socketChat.chat.name
       chat.latest_customer_request = socketChat.chat.latest_customer_request
