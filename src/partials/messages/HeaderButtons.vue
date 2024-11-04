@@ -22,7 +22,7 @@
             @click="setActiveAccount(account)"
         >
           <div>
-            <component :is="getMessengerComponent(account?.messenger?.name)"/>
+            <component :is="getMessengerComponent(account?.messenger_name)"/>
           </div>
           <div v-if="account.id === activeAccount.id" style="position: absolute; bottom: -5px; left: 0; right: 0; height: 3px; background-image: linear-gradient(to right, #2EE4A1, #2EE4A1);"></div>
         </div>
@@ -32,7 +32,7 @@
       <div v-for="account in accounts">
         <div
             v-tooltip="account.title"
-            v-if="account.messenger.id === 3"
+            v-if="account.messenger_id === 3"
             @click="setActiveCommentsAccount(account)"
             :key="account.id"
             :class="{'bg-slate-300': (account.id === activeCommentsAccount.id) }"
