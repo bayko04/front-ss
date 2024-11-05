@@ -248,7 +248,7 @@
                           <div class="font-bold text-black">{{ account.title }}</div>
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                          <div class="font-medium text-black" >{{ account.messenger.name }}</div>
+                          <div class="font-medium text-black" >{{ account.messenger_name }}</div>
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                           <div class="font-medium text-green-400" >Активный</div>
