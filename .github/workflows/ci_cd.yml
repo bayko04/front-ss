@@ -53,6 +53,8 @@ jobs:
             set_env_var "VITE_PUSHER_SSL" "${{ secrets.VITE_PUSHER_SSL }}"
 
             # Обновление репозитория и сборка на сервере
-            git pull origin dev &&
+            git reset --hard &&
+            git clean -df &&
+            git pull origin main &&
             yarn install &&
             yarn build
