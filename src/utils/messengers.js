@@ -91,14 +91,26 @@ export function useMessangers() {
     activeChat.value = undefined
 
     allChats.value = false
+    if (!account.chats) {
+      await setAccountChats(account)
+    }
 
     if(!account) {
       return
     }
+
+    const newRoute = {
+      path: '/messages',
+      query: {accountId: activeAccount.value?.id},
+    };
+    router?.push(newRoute);
+  }
+
+  const setAccountChats = async function (account) {
     const accountChats = (await fetchWrapper.get(`/chat/accounts/${account.id}`)).data;
     account.chats = accountChats.chats;
     account.messenger = accountChats.messenger;
-    
+
     account.chats.forEach(function (chat) {
       if(!account.unread_messages_count) {
         account.unread_messages_count = 0
@@ -108,7 +120,7 @@ export function useMessangers() {
       addMessageToChat(account, chat)
       updateMessageInChat(account, chat)
     });
-    
+
     if (account.messenger.id === 3) {
       newCommentsChatFromSocket(account)
       account.contents?.forEach(function (content) {
@@ -116,12 +128,6 @@ export function useMessangers() {
         addCommentToCommentsChat(account, content)
       })
     }
-
-    const newRoute = {
-      path: '/messages',
-      query: {accountId: activeAccount.value?.id},
-    };
-    router?.push(newRoute);
   }
 
   const setActiveCommentsAccount = async function (account = undefined) {
