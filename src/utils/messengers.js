@@ -92,7 +92,8 @@ export function useMessangers() {
 
     allChats.value = false
     if (!account.chats) {
-      await setAccountChats(account)
+      account.chats = JSON.parse(localStorage.getItem('chats_' + account.id));
+      setAccountChats(account)
     }
 
     if(!account) {
@@ -128,6 +129,7 @@ export function useMessangers() {
         addCommentToCommentsChat(account, content)
       })
     }
+    localStorage.setItem('chats_' + account.id, JSON.stringify(account.chats));
   }
 
   const setActiveCommentsAccount = async function (account = undefined) {
@@ -232,7 +234,7 @@ export function useMessangers() {
     if (!activeChat.value?.messages) {
       activeChat.value.messages = {}
     }
-    activeChat.value.messages = {...activeChat.value.messages, ...(await fetchWrapper.get(`/${activeAccount.value?.messenger.name}/chats/${activeChat.value.id}/messages/${offset}`, {messageId: messageId})).data}
+    activeChat.value.messages = {...activeChat.value.messages, ...(await fetchWrapper.get(`/${activeAccount.value?.messenger_name}/chats/${activeChat.value.id}/messages/${offset}`, {messageId: messageId})).data}
   }
 
   const getComments = async function () {
