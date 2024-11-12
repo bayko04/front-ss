@@ -10,8 +10,8 @@
                   <h2 class="text-2xl text-gray-800 dark:text-gray-100 font-bold mb-5">Автоматическая отправка сообщения</h2>
 
                   <!-- Toggle Switch -->
-                  <div class="flex flex-wrap items-center -m-3">
-                    <div class="m-3 w-40">
+                  <div class="flex flex-wrap items-center -m-3 justify-between gap-[10px] max-xl:justify-start max-lg:flex-col max-lg:items-start">
+                    <div class=" w-40">
                       <div class="flex items-center">
                         <label class="inline-flex items-center cursor-pointer">
                           <input
@@ -34,13 +34,13 @@
                             class="form-input px-2 py-1 mr-4 w-20"
                             type="number"
                         />
-                        <label class="block text-sm font-medium mb-1" for="small">
+                        <label class="block text-sm font-medium" for="small">
                           Через сколько минут отправить
                         </label>
                       </div>
                     </div>
 
-                    <button @click="save()" class="ml-10 cursor-pointer bg-blue-700 text-white px-4 py-2 rounded">Сохранить</button>
+                    <button @click="save()" class="cursor-pointer bg-blue-700 text-white px-4 py-2 rounded">Сохранить</button>
 
                   </div>
                 </div>

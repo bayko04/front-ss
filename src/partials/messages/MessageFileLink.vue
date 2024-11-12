@@ -1,5 +1,5 @@
 <template>
-  <div class="p-1.5 rounded-full border border-slate-200 dark:border-slate-700 ml-4 hover:bg-white dark:hover:bg-slate-800 transition duration-150">
+  <div class="p-1.5 rounded-full border border-slate-200 dark:border-slate-700 ml-[10px] max-sm:m-[10px] hover:bg-white dark:hover:bg-slate-800 transition duration-150">
     <a :href="message?.attachments[0].path" target="_blank" >
       <span class="sr-only">Download</span>
       <svg class="w-4 h-4 shrink-0 fill-current text-slate-400 dark:text-slate-500" viewBox="0 0 16 16">

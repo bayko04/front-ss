@@ -171,7 +171,7 @@
                   </li>
               </router-link>
 
-            <router-link to="/finance/transactions" custom v-slot="{ href, navigate, isExactActive }">
+            <router-link to="/finance/overview" custom v-slot="{ href, navigate, isExactActive }">
               <li v-tooltip="'Транзакции'" class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" :class="isExactActive && 'bg-slate-900'">
                 <div class="flex items-center justify-between">
                   <a class="block text-gray-800 dark:text-gray-100 truncate transition" :class="currentRoute.fullPath.includes('finance') ? '' : 'hover:text-gray-900 dark:hover:text-white'" :href="href" @click="navigate">

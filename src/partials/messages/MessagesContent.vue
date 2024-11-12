@@ -142,7 +142,7 @@
         </div>
         <div v-if="imageError">История недоступна</div>
 
-        <div class="flex items-center flex-row">
+        <div class="flex items-center flex-row ">
           <img
             v-if="message.type === 'story' && !imageError"
             @error="handleImageError"
