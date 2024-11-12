@@ -91,14 +91,27 @@ export function useMessangers() {
     activeChat.value = undefined
 
     allChats.value = false
+    if (!account.chats) {
+      account.chats = JSON.parse(localStorage.getItem('chats_' + account.id));
+      setAccountChats(account)
+    }
 
     if(!account) {
       return
     }
+
+    const newRoute = {
+      path: '/messages',
+      query: {accountId: activeAccount.value?.id},
+    };
+    router?.push(newRoute);
+  }
+
+  const setAccountChats = async function (account) {
     const accountChats = (await fetchWrapper.get(`/chat/accounts/${account.id}`)).data;
     account.chats = accountChats.chats;
     account.messenger = accountChats.messenger;
-    
+
     account.chats.forEach(function (chat) {
       if(!account.unread_messages_count) {
         account.unread_messages_count = 0
@@ -108,7 +121,7 @@ export function useMessangers() {
       addMessageToChat(account, chat)
       updateMessageInChat(account, chat)
     });
-    
+
     if (account.messenger.id === 3) {
       newCommentsChatFromSocket(account)
       account.contents?.forEach(function (content) {
@@ -116,12 +129,7 @@ export function useMessangers() {
         addCommentToCommentsChat(account, content)
       })
     }
-
-    const newRoute = {
-      path: '/messages',
-      query: {accountId: activeAccount.value?.id},
-    };
-    router?.push(newRoute);
+    localStorage.setItem('chats_' + account.id, JSON.stringify(account.chats));
   }
 
   const setActiveCommentsAccount = async function (account = undefined) {
@@ -226,7 +234,7 @@ export function useMessangers() {
     if (!activeChat.value?.messages) {
       activeChat.value.messages = {}
     }
-    activeChat.value.messages = {...activeChat.value.messages, ...(await fetchWrapper.get(`/${activeAccount.value?.messenger.name}/chats/${activeChat.value.id}/messages/${offset}`, {messageId: messageId})).data}
+    activeChat.value.messages = {...activeChat.value.messages, ...(await fetchWrapper.get(`/${activeAccount.value?.messenger_name}/chats/${activeChat.value.id}/messages/${offset}`, {messageId: messageId})).data}
   }
 
   const getComments = async function () {
