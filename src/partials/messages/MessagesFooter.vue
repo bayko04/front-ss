@@ -5,7 +5,7 @@
       <!-- wrapper -->
        <div class="">
         <div class="flex items-center gap-[10px] justify-center h-[60px]  mb-[20px]  max-md:px-[10px]">
-        <div v-show="activeChat" class="flex w-[85%] relative  rounded-[10px] items-center justify-between bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 px-4 sm:px-6 md:px-5" :style="{ height: blockHeight }">
+        <div v-show="activeChat" class="flex w-[85%] relative  rounded-[10px] items-center justify-between bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 px-[10px] sm:px-6" :style="{ height: blockHeight }">
             <div class="absolute top-[-60px] left-0 w-full">
                 <div v-if="activeChat?.message?.reply_message" class="flex items-center justify-between bg-white rounded-lg rounded-b-none dark:bg-slate-800  border-l-[5px] border-gray-300 dark:border-blue-700 px-4 sm:px-6 md:px-5 h-16">
                 <span v-if="activeChat?.message?.reply_message?.text" class="overflow-hidden whitespace-no-wrap overflow-ellipsis line-clamp-1 max-w-[calc(100%-1.25rem)]">
