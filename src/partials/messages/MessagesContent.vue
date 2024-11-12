@@ -235,7 +235,7 @@
             </svg> -->
             <img
               class="w-[20px]"
-              src="../../images/reply-message.svg"
+              src="../../images/reply-message.svg?url"
               alt=""
             />
           </button>
