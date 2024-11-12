@@ -59,10 +59,6 @@ import WorkSessionButton from "./settings/WorkSessionButton.vue";
 import ChatHeader from "./ChatHeader.vue";
 import { useBillingStore } from '../stores/billing.store.js'
 
-
-
-
-
 export default {
   name: 'Header',
   props: ['sidebarOpen'],

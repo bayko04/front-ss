@@ -49,7 +49,6 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useAuthStore } from '../stores/auth.store.js';
 
-
 export default {
   name: 'DropdownProfile',
   props: ['align'],

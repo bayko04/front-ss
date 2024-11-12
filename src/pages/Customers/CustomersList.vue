@@ -56,11 +56,6 @@
                    </tr>
                   </router-link>
                 </tbody>
-                <!-- <CustomersTabsCard
-                  v-for="customer in customerStore.customers.data"
-                  :key="customer.id"
-                  :customer="customer"
-              /> -->
               </table>
           </div>
 

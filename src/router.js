@@ -65,10 +65,6 @@ const router = createRouter({
         },
       ],
     },
-    // {
-    //   path: "/finance/transactions",
-    //   component: Transactions,
-    // },
     {
       path: "/",
       component: Dashboard,

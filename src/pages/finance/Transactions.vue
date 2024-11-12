@@ -32,19 +32,6 @@
             >
               <button>Пополнить баланс</button>
             </div>
-
-            <!--            &lt;!&ndash; Right: Actions  &ndash;&gt;-->
-            <!--            <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">-->
-
-            <!--              &lt;!&ndash; Search form &ndash;&gt;-->
-            <!--              <div class="hidden sm:block">-->
-            <!--                <SearchForm class="hidden sm:block" />-->
-            <!--              </div>-->
-
-            <!--              &lt;!&ndash; Export button &ndash;&gt;-->
-            <!--              <button class="btn bg-gray-900 text-gray-100 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-white">Экспорт транзакций</button>-->
-
-            <!--            </div>-->
           </div>
 
           <div class="flex gap-[20px] items-center">
