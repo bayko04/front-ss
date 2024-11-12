@@ -26,7 +26,7 @@
 
         <!-- Header: Right side -->
         <div class="flex items-center space-x-3">
-          <h3 class="text-[14px] bg-indigo-500 text-white rounded-[6px] p-[5px_10px]">{{ balance.balance || 0 }}</h3>
+<!--          <h3 class="text-[14px] bg-indigo-500 text-white rounded-[6px] p-[5px_10px]">{{ balance.balance || 0 }}</h3>-->
 <!--          <Notifications align="right" />-->
 <!--          <Help align="right" />-->
 <!--          <ThemeToggle />-->
