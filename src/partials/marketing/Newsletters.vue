@@ -5,8 +5,9 @@
         <div class="flex flex-col md:flex-row md:-mr-px">
           <div class="grow">
             <div class="p-6 space-y-6">
-              <div class="mb-4 sm:mb-0">
-                <h2 class="text-2xl text-gray-800 dark:text-gray-100 font-bold mb-5">Список рассылок</h2>
+              <div class="flex justify-between items-center">
+                <div class="">
+                <h2 class="text-2xl text-gray-800 dark:text-gray-100 font-bold">Список рассылок</h2>
               </div>
               <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
                 <div class="m-1.5">
@@ -21,19 +22,20 @@
                   </router-link>
                 </div>
               </div>
+              </div>
 
-              <table class="min-w-full bg-white dark:bg-gray-800" v-if="newsletterStore.newsletters">
+              <table class="min-w-full bg-white dark:bg-gray-800 border-spacing-[10px]" v-if="newsletterStore.newsletters">
                 <thead>
-                <tr>
-                  <th class="py-2 px-4 border-b border-gray-200 dark:border-gray-700">Название</th>
-                  <th class="py-2 px-4 border-b border-gray-200 dark:border-gray-700">Статус</th>
-                  <th class="py-2 px-4 border-b border-gray-200 dark:border-gray-700">Действие</th>
+                <tr class="text-left">
+                  <th class="py-[20px] px-4 border-b border-gray-200 dark:border-gray-700">Название</th>
+                  <th class="py-[20px] px-4 border-b border-gray-200 dark:border-gray-700">Статус</th>
+                  <th class="py-[20px] px-4 border-b border-gray-200 dark:border-gray-700">Действие</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr v-for="newsletter in newsletterStore.newsletters">
                   <td class="py-2 px-4 border-b border-gray-200 dark:border-gray-700">{{ newsletter.name }}</td>
-                  <td class="py-2 px-4 border-b border-gray-200 dark:border-gray-700">{{ newsletter.status }}</td>
+                  <td :class="`py-2 px-4 border-b border-gray-200 dark:border-gray-700 ${newsletter.status === 'inactive' ? 'text-[red]' : 'text-[green]'}`">{{ newsletter.status }}</td>
                   <td class="py-2 px-4 border-b border-gray-200 dark:border-gray-700">
                     <router-link :to="`/marketing/newsletters/update/${newsletter.id}`">
                       <button class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 rounded-full">

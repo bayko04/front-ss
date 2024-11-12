@@ -17,15 +17,15 @@
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[100px]">
                 <div class="font-semibold text-left">Наименование</div>
               </th>
-              <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[300px]">
+              <!-- <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[300px]">
                 <div class="font-semibold text-left">Описание</div>
-              </th>
+              </th> -->
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[80px]">
                 <div class="font-semibold text-left">Стоимость</div>
               </th>
-              <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[80px]">
+              <!-- <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[80px]">
                 <div class="font-semibold text-left">Статус</div>
-              </th>
+              </th> -->
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[70px]">
                 <div class="font-semibold text-left">Действия</div>
               </th>

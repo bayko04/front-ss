@@ -77,7 +77,7 @@ export function useMessangers() {
   }
 
   function getChatById(id) {
-    const foundChat = activeAccount.value?.chats.find((chat) => chat.id === Number(id));
+    const foundChat = activeAccount.value?.chats?.find((chat) => chat.id === Number(id));
     return foundChat || undefined;
   }
 

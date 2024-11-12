@@ -26,7 +26,7 @@
       <div v-show="dropdownOpen" class="origin-top-right z-50 absolute top-full min-w-44 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-1" :class="align === 'right' ? 'right-0' : 'left-0'">
         <div class="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200 dark:border-slate-700">
           <div class="font-medium text-slate-800 dark:text-slate-100">{{ authStore.userData.user.name }}</div>
-          <div class="text-xs text-slate-500 dark:text-slate-400 italic">{{ authStore.userData.user.role }}</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 italic">{{ authStore.userData.user.role.name }}</div>
         </div>
         <ul
           ref="dropdown"
@@ -49,6 +49,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useAuthStore } from '../stores/auth.store.js';
 
+
 export default {
   name: 'DropdownProfile',
   props: ['align'],
@@ -62,7 +63,7 @@ export default {
     const trigger = ref(null)
     const dropdown = ref(null)
     const authStore = useAuthStore();
-
+    
     // close on click outside
     const clickHandler = ({ target }) => {
       if (!dropdownOpen.value || dropdown.value.contains(target) || trigger.value.contains(target)) return

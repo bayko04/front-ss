@@ -5,22 +5,22 @@
         <div class="font-medium text-slate-800 dark:text-slate-100">{{getCategoryName(product.category)}}</div>
       </div>
     </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[200px]">
+    <td class="px-2 first:pl-5 last:pr-5 py-3 max-w-[120px]">
       <div class="flex items-center">
-        <div class="font-medium text-slate-800 dark:text-slate-100">{{product.name}}</div>
+        <div class="font-medium text-slate-800 w-full max-w-[300px] overflow-hidden dark:text-slate-100 whitespace-nowrap text-ellipsis">{{product.name}}</div>
       </div>
     </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap overflow-hidden max-w-[200px]">
+    <!-- <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap overflow-hidden max-w-[200px]">
       <div class="text-left truncate">{{product.description}}</div>
-    </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[80px]">
+    </td> -->
+    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap  max-w-[80px]">
       <div class="text-left">{{product.price}}</div>
     </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[80px]">
+    <!-- <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[80px]">
       <div class="text-left font-medium text-emerald-500"
            :class="product.status ? 'text-emerald-500' : 'text-red-500'"
       >{{getStatus(product.status)}}</div>
-    </td>
+    </td> -->
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[70px]">
       <div class="space-x-1">
         <button @click.stop="photo(product)" class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 rounded-full">

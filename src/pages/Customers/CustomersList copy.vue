@@ -39,29 +39,12 @@
           <!-- Cards -->
           <div
               v-if="customerStore.customers"
-             >
-              <table class="table-auto bg-white w-full rounded-sm shadow-lg">
-                <thead class="text-left rounded-sm border border-[1px] border-slate-200 dark:border-slate-700 bg-slate-50">
-                  <tr class=" rounded-sm">
-           
-                    <th class="px-5 py-4">
-                      Имя
-                    </th>
-                  </tr>
-                </thead>
-                <tbody class="text-start">
-                  <router-link class="block" :key="customer.id" v-for="customer in customerStore.customers.data" :to="{ name: 'customerProfile', params: { id: customer.id } }">
-                    <tr class="border-b-[1px] w-full block border-slate-200 cursor-pointer">
-                      <td class="px-5 py-4">{{ customer.name || 'Нет имени'}}</td>
-                   </tr>
-                  </router-link>
-                </tbody>
-                <!-- <CustomersTabsCard
-                  v-for="customer in customerStore.customers.data"
-                  :key="customer.id"
-                  :customer="customer"
-              /> -->
-              </table>
+              class="grid grid-cols-12 gap-6">
+            <CustomersTabsCard
+                v-for="customer in customerStore.customers.data"
+                :key="customer.id"
+                :customer="customer"
+            />
           </div>
 
           <!-- Pagination -->
