@@ -80,7 +80,6 @@ export default {
 
     onMounted(async () => {
       balance.value = await billingStore.getBalance()
-      console.log(balance._value.balance)
     })
     
     return {

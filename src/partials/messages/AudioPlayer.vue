@@ -4,23 +4,23 @@
       <div class="">
         <div class="relative">
           <!-- Background -->
-          <div class="absolute inset-0 bg-white from-slate-900 to-slate-800 rounded-3xl -z-10 overflow-hidden" aria-hidden="true">
+          <div class="absolute  inset-0 bg-white from-slate-900 to-slate-800 rounded-3xl -z-10 overflow-hidden" aria-hidden="true">
           </div>
           <!-- Content -->
           <div class="">
-            <div class="md:flex justify-between items-center text-center md:text-left">
+            <div class="">
               <!-- Left content -->
-              <div class="max-w-3xl">
+              <div class="">
                 <!-- Player -->
-                <div class="relative px-4 py-2 min-w-[400px]" aria-label="Audio Player" role="region">
+                <div class="relative px-4 py-2 w-[400px] max-lg:w-[350px] max-sm:w-[auto]" aria-label="Audio Player" role="region">
 
                   <!-- Background -->
                   <div class="absolute inset-0 rounded-3xl opacity-25 bg-gradient-to-tr from-white to-white/50 pointer-events-none -z-10" aria-hidden="true"></div>
 
                   <!-- Controls -->
-                  <div class="sm:flex items-center sm:space-x-3">
+                  <div class="flex items-center flex-nowrap">
 
-                    <div class="flex items-center space-x-3 mb-3 sm:mb-0">
+                    <div class="flex items-center gap-[5px]">
 
                       <!-- Play / Pause button -->
                       <button class="block rounded-full" aria-controls="audiofile" :aria-label="playing ? 'Pause' : 'Play'" @click="togglePlaying">
