@@ -134,7 +134,6 @@ const isRecordingCancelled = ref(false);
 
 const customerRequestStore = useCustomerRequestStore()
 
-
 onMounted(() => {
   wavesurfer.value = WaveSurfer.create({
     container: '#audio',
