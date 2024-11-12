@@ -127,6 +127,7 @@
                       <option v-for="status in referenceStore.chatStatuses" :value="status.id">{{status.name}}</option>
                   </select>
               </div>
+         
               <!-- User -->
             <div>
               <label class="block text-sm font-medium mb-1" for="card-country">Назначить на</label>

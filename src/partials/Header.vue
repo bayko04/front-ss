@@ -5,6 +5,7 @@
 
         <!-- Header: Left side -->
         <div class="flex">
+     
 
           <!-- Hamburger button -->
           <button class="text-slate-500 hover:text-slate-600 lg:hidden" @click.stop="$emit('toggle-sidebar')" aria-controls="sidebar" :aria-expanded="sidebarOpen">
@@ -25,6 +26,7 @@
 
         <!-- Header: Right side -->
         <div class="flex items-center space-x-3">
+<!--          <h3 class="text-[14px] bg-indigo-500 text-white rounded-[6px] p-[5px_10px]">{{ balance.balance || 0 }}</h3>-->
 <!--          <Notifications align="right" />-->
 <!--          <Help align="right" />-->
 <!--          <ThemeToggle />-->
@@ -44,8 +46,8 @@
   </header>
 </template>
 
-<script>
-import { ref } from 'vue'
+<script >
+import { ref, onMounted } from 'vue'
 
 import SearchModal from '../components/ModalSearch.vue'
 import Notifications from '../components/DropdownNotifications.vue'
@@ -55,6 +57,7 @@ import UserMenu from '../components/DropdownProfile.vue'
 import HeaderButtons from "../partials/messages/HeaderButtons.vue"
 import WorkSessionButton from "./settings/WorkSessionButton.vue";
 import ChatHeader from "./ChatHeader.vue";
+import { useBillingStore } from '../stores/billing.store.js'
 
 export default {
   name: 'Header',
@@ -69,11 +72,22 @@ export default {
     ThemeToggle,
     UserMenu,
   },
+
   setup() {
     const searchModalOpen = ref(false)
+    const billingStore = useBillingStore()
+    const balance = ref({})
+
+    onMounted(async () => {
+      balance.value = await billingStore.getBalance()
+      console.log(balance._value.balance)
+    })
+    
     return {
       searchModalOpen,
+      balance
     }  
   }  
 }
+
 </script>

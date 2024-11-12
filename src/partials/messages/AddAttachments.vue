@@ -1,10 +1,15 @@
 <template>
-  <div>
+  <div class="w-[25px] h-[25px]"> 
     <label for="fileInput" class="shrink-0 text-slate-400 dark:text-slate-500 hover:text-slate-500 dark:hover:text-slate-400 cursor-pointer">
       <span class="sr-only">Add</span>
-      <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12C23.98 5.38 18.62.02 12 0zm6 13h-5v5h-2v-5H6v-2h5V6h2v5h5v2z" />
-      </svg>
+      <template v-if="isHovered">
+        <!-- Изображение при наведении -->
+        <img class="w-full h-full" src="../../images/icons/paperclipHover.svg" alt="" @mouseleave="isHovered = false">
+      </template>
+      <template v-else>
+        <!-- Исходное изображение -->
+        <img class="w-full h-full" src="../../images/icons/paperclip.svg" alt="" @mouseover="isHovered = true">
+      </template>
     </label>
     <input id="fileInput" type="file" style="display: none;" ref="fileInput" @change="handleFileChange" multiple>
   </div>
@@ -16,6 +21,10 @@ import { useMessangers } from "../../utils/messengers.js";
 import { fileModal } from "../../utils/modalVariables.js";
 const { activeChat } = await useMessangers();
 const fileInput = ref(null);
+
+const isHovered = ref(false);
+const defaultImageSrc = '../../images/icons/paperclip.svg';
+const hoverImageSrc = '../../images/icons/paperclip.svg';
 
 const handleFileChange = (event) => {
   const selectedFiles = Array.from(event.target.files);

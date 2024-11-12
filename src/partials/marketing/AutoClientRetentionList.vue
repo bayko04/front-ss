@@ -12,7 +12,7 @@
                   <!-- Toggle Switch -->
                   <div class="flex flex-wrap items-center -m-3">
                     <div class="m-3 w-40">
-                      <div class="flex items-center mt-5">
+                      <div class="flex items-center">
                         <label class="inline-flex items-center cursor-pointer">
                           <input
                               type="checkbox"
