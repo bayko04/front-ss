@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="flex items-start mb-4 last:mb-0">
-      <div class="flex flex-row items-center">
+    <div class="flex items-start mb-4 last:mb-0 w-[calc(100%-30px)] gap-[10px]">
+      <div class="flex flex-row items-center flex-[0_0_40px]">
         <img
           v-if="message.user_id"
           class="rounded-full mr-4"
@@ -79,7 +79,7 @@
             <!-- sm:px-6 md:px-5 -->
             <span
               v-if="message.reply_message.text"
-              class="overflow-hidden text-[12px] whitespace-no-wrap overflow-ellipsis line-clamp-1 min-w-[100px] )]"
+              class="overflow-hidden text-[12px] whitespace-no-wrap overflow-ellipsis line-clamp-1 min-w-[100px]]"
             >
               {{ message.reply_message.text }}
             </span>
@@ -228,7 +228,7 @@
           <button
             v-if="!message.errors"
             @click="(event) => setReplyMessage(message)"
-            class="absolute top-[calc(100%-70px)] p-[15px] right-[-50px] opacity-[0] group-hover:opacity-[0.1] focus:outline-none"
+            class="max-md:hidden absolute top-[calc(100%-70px)] p-[15px] right-[-50px] opacity-[0] group-hover:opacity-[0.1] focus:outline-none"
           >
             <!-- <svg class="w-3 h-3 ml-1 fill-current text-slate-400" viewBox="0 0 12 12">
               <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z"/>
@@ -310,24 +310,12 @@ function calculateModalPosition() {
   // Определите, насколько близко к правому краю кнопка
   const distanceToRight = windowWidth - (buttonRect.right + window.scrollX);
 
-  // Установите расположение модалки в зависимости от расстояния
-  if (distanceToRight < 220) {
-    // Если слишком близко к правому краю, разместите слева от кнопки
-    const modalLeft = buttonRect.left - 220 + window.scrollX;
-    modalStyle.value = {
-      position: "absolute",
-      left: `${modalLeft}px`,
-      top: `${buttonRect.bottom + window.scrollY}px`,
-    };
-  } else {
-    // В противном случае разместите справа от кнопки
-    const modalLeft = buttonRect.left + window.scrollX;
-    modalStyle.value = {
-      position: "absolute",
-      left: `${modalLeft}px`,
-      top: `${buttonRect.bottom + window.scrollY}px`,
-    };
-  }
+  const modalLeft = buttonRect.left + window.scrollX;
+  modalStyle.value = {
+    position: "absolute",
+    left: `${modalLeft}px`,
+    top: `${buttonRect.bottom + window.scrollY}px`,
+  };
 }
 onMounted(() => {
   if (message.message_status_id === 3) {

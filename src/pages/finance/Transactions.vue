@@ -16,7 +16,7 @@
         <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
           <!-- Page header -->
           <div
-            class="sm:flex sm:justify-between items-center sm:items-center mb-4 md:mb-2"
+            class="flex justify-between items-center mb-4 mb-2 max-sm:flex-col max-sm:items-start"
           >
             <!-- Left: Title -->
             <div class="mb-4 sm:mb-0">
@@ -28,7 +28,7 @@
             </div>
 
             <div
-              class="bg-indigo-500 text-white py-[5px] px-[10px] rounded-[5px]"
+              class="bg-indigo-500 text-white py-[5px] px-[10px] inline-block rounded-[5px]"
             >
               <button>Пополнить баланс</button>
             </div>
