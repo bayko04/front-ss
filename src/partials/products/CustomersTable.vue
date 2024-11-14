@@ -35,7 +35,7 @@
               <th
                 class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[80px]"
               >
-                <div class="font-semibold text-left">Стоимость</div>
+                <div class="font-semibold text-center">Стоимость</div>
               </th>
               <!-- <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[80px]">
                 <div class="font-semibold text-left">Статус</div>
@@ -43,7 +43,7 @@
               <th
                 class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[70px]"
               >
-                <div class="font-semibold mr-[15px]">Действия</div>
+                <div class="font-semibold mr-[15px] text-right">Действия</div>
               </th>
             </tr>
           </thead>
