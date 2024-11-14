@@ -45,7 +45,7 @@
                 <thead>
                   <tr class="">
                     <th
-                      class="py-[20px] px-4 border-b border-gray-200 dark:border-gray-700"
+                      class="text-left py-[20px] px-4 border-b border-gray-200 dark:border-gray-700"
                     >
                       Название
                     </th>
@@ -55,7 +55,7 @@
                       Статус
                     </th>
                     <th
-                      class="py-[20px] px-4 border-b border-gray-200 dark:border-gray-700"
+                      class="text-right py-[20px] px-4 border-b border-gray-200 dark:border-gray-700"
                     >
                       Действие
                     </th>
@@ -67,7 +67,7 @@
                     v-for="newsletter in newsletterStore.newsletters"
                   >
                     <td
-                      class="py-2 px-4 border-b border-gray-200 dark:border-gray-700"
+                      class="text-left py-2 px-4 border-b border-gray-200 dark:border-gray-700"
                     >
                       {{ newsletter.name }}
                     </td>
@@ -81,7 +81,7 @@
                       {{ newsletter.status }}
                     </td>
                     <td
-                      class="py-2 px-4 border-b border-gray-200 dark:border-gray-700"
+                      class="text-right pr-[20px] py-2 px-4 border-b border-gray-200 dark:border-gray-700"
                     >
                       <router-link
                         :to="`/marketing/newsletters/update/${newsletter.id}`"

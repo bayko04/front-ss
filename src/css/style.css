@@ -13,13 +13,3 @@
   max-width: 1440px;
   margin: 0 auto;
 }
-
-th:first-child,
-td:first-child {
-  text-align: start;
-}
-
-td:last-child,
-th:last-child {
-  text-align: right;
-}
