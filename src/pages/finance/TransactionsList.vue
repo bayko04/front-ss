@@ -1,10 +1,12 @@
 <template lang="">
   <div>
-    <!-- Table -->
-    <TransactionsTable
-      v-if="balance.transactions"
-      :transactions="balance.transactions"
-    />
+    <div>
+      <!-- Table -->
+      <TransactionsTable
+        v-if="balance.transactions"
+        :transactions="balance.transactions"
+      />
+    </div>
   </div>
 </template>
 <script setup>

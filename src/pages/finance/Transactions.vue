@@ -34,15 +34,15 @@
             </div>
           </div>
 
-          <div class="flex gap-[20px] items-center">
+          <div class="flex gap-[10px] items-center relative z-0">
             <router-link
               @click="activeTab = 'overview'"
               to="overview"
               :class="[
-                'py-[10px] px-[20px] rounded-[8px] text-[12px] font-semibold',
+                'py-[10px] px-[20px] mb-[-5px] rounded-t-[8px] text-[12px] font-semibold border',
                 activeTab === 'overview'
                   ? 'bg-indigo-500 text-white'
-                  : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400',
+                  : 'bg-gray-100 text-gray-800 bg-white',
               ]"
             >
               Обзор
@@ -51,20 +51,17 @@
               @click="activeTab = 'transactions'"
               to="transactions"
               :class="[
-                'py-[10px] px-[20px] rounded-[8px] text-[12px] font-semibold',
+                'py-[10px] px-[20px] mb-[-5px] rounded-t-[8px] text-[12px] font-semibold border',
                 activeTab === 'transactions'
                   ? 'bg-indigo-500 text-white'
-                  : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400',
+                  : 'bg-gray-100 text-gray-800 bg-white',
               ]"
               >Транзакции</router-link
             >
           </div>
-
-          <!-- Filters -->
-          <div class="mb-5">
+          <div class="h-[700px] max-md:h-[300px] bg-white relative z-10">
+            <router-view />
           </div>
-
-          <router-view />
         </div>
       </main>
     </div>
@@ -84,6 +81,7 @@ const router = useRouter();
 const billingStore = useBillingStore();
 const balance = ref([]);
 const activeTab = ref("overview");
+
 onMounted(async () => {
   balance.value = await billingStore.getBalance();
 
