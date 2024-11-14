@@ -104,7 +104,7 @@ import PaginationNumeric from "../../components/PaginationNumeric.vue";
 import ModalBasic from "../../components/ModalBasic.vue";
 import DropdownFull from "../../components/DropdownFull.vue";
 import CreateProduct from "../../partials/products/CreateProduct.vue";
-
+import { useBillingStore } from "../../stores/billing.store.js";
 
 export default {
   name: "Customers",
