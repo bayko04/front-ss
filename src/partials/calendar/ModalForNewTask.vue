@@ -127,6 +127,11 @@
                                                 {{ taskStore.task.name }}
                                             </div>
                                         </div>
+                                        <div v-if="taskStore.task?.customer_request" class="mb-1 flex-grow">
+                                            <div class="text-lg font-semibold text-slate-800 dark:text-slate-100">
+                                                <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white mr-4" @click="goToChat()">Перейти на чат</button>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <!-- Modal content -->
@@ -135,6 +140,7 @@
                                             <p class="mb-2"><strong>Описание:</strong> {{ taskStore.task.description }}</p>
                                             <p class="mb-2"><strong>Автор:</strong> {{ taskStore.task.author?.name }}</p>
                                             <p class="mb-2"><strong>Исполнитель:</strong> {{ taskStore.task.user?.name }}</p>
+                                            <p class="mb-2" v-if="customerStore?.customer"><strong>Клиент:</strong> {{ customerStore.customer.name }}</p>
                                             <p class="mb-2"><strong>Дата и время открытия:</strong> {{ new Date(taskStore.task.created_at).toLocaleString('ru-RU') }}</p>
                                             <p class="mb-2"><strong>Дата и время начала:</strong> {{ new Date(taskStore.task.due_date).toLocaleString('ru-RU') }}</p>
                                             <p class="mb-2"><strong>Дата и время окончания:</strong> {{ new Date(taskStore.task.end_date).toLocaleString('ru-RU') }}</p>
@@ -250,10 +256,12 @@ import { useReferencesStore } from "../../stores/references.store.js";
 import { useUsersStore} from "../../stores/user.store.js";
 import { useAuthStore } from "../../stores/auth.store.js";
 import DropdownFull from "../../components/DropdownFull.vue";
+import { useCustomerStore } from "../../stores/customer.store.js";
 
-const { activeChat } = await useMessangers()
+const { activeChat, setActiveAccount, getAccountById, setActiveChat } = await useMessangers()
 const modalContent = ref(null);
 const taskStore = useTaskStore()
+const customerStore = useCustomerStore()
 const usersStore = useUsersStore()
 const referencesStore = useReferencesStore()
 const authStore = useAuthStore()
@@ -277,8 +285,17 @@ const cancel = function() {
   }
 }
 
+const goToChat = function() {
+    const chatIdKeys = ['whatsapp_chat_id', 'telegram_chat_id', 'instagram_chat_id', 'messenger_chat_id'];
+
+    const messenger = chatIdKeys.find(key => taskStore.task.customer_request[key] !== null);
+    const chatId = messenger ? taskStore.task.customer_request[messenger] : null;
+
+    setActiveAccount(getAccountById(taskStore.task.customer_request?.account_id));
+    setActiveChat(chatId);
+}
+
 const editTask = function() {
-  console.log(taskStore.task)
   createTaskModal.value.status = 'create-update'
 }
 
