@@ -294,6 +294,11 @@ export function useMessangers() {
       .private(`${account.messenger.name}.${account.id}.chat`)
       .listen(`.${chat.id}.NewMessage`, function (socketMessage) {
         if (chat.messages && chat.id === activeChat.value.id) {
+          // chat.messages[socketMessage.message.id] = {
+          //   ...socketMessage.message,
+          //   reply_message:
+          //     chat.messages[socketMessage.message.replied_message_id],
+          // };
           chat.messages[socketMessage.message.id] = socketMessage.message;
         } else if (chat.messages) {
           chat.messages[socketMessage.message.id] = socketMessage.message;

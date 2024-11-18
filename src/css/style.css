@@ -10,6 +10,20 @@
 @import "tailwindcss/utilities";
 
 .container {
-  max-width: 1440px;
   margin: 0 auto;
+  padding: 32px;
+  max-width: 1536px;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 32px 16px;
+  }
 }

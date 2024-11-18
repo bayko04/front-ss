@@ -27,19 +27,19 @@
               </h1>
             </div>
 
-            <div
+            <!-- <div
               class="bg-indigo-500 text-white py-[5px] px-[10px] inline-block rounded-[5px]"
             >
               <button>Пополнить баланс</button>
-            </div>
+            </div> -->
           </div>
 
-          <div class="flex gap-[10px] items-center relative z-0">
+          <div class="flex items-center relative z-0">
             <router-link
               @click="activeTab = 'overview'"
               to="overview"
               :class="[
-                'py-[10px] px-[20px] mb-[-5px] rounded-t-[8px] text-[12px] font-semibold border',
+                'py-[10px] px-[20px] mb-[-5px] rounded-tl-[8px] text-[12px] font-semibold ',
                 activeTab === 'overview'
                   ? 'bg-indigo-500 text-white'
                   : 'bg-gray-100 text-gray-800 bg-white',
@@ -51,7 +51,7 @@
               @click="activeTab = 'transactions'"
               to="transactions"
               :class="[
-                'py-[10px] px-[20px] mb-[-5px] rounded-t-[8px] text-[12px] font-semibold border',
+                'py-[10px] px-[20px] mb-[-5px] rounded-tr-[8px] text-[12px] font-semibold ',
                 activeTab === 'transactions'
                   ? 'bg-indigo-500 text-white'
                   : 'bg-gray-100 text-gray-800 bg-white',
@@ -77,6 +77,7 @@ import { onMounted, ref } from "vue";
 import { useBillingStore } from "../../stores/billing.store.js";
 import { useRouter } from "vue-router";
 
+const sidebarOpen = ref(false);
 const router = useRouter();
 const billingStore = useBillingStore();
 const balance = ref([]);
