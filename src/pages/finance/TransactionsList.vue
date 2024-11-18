@@ -14,10 +14,12 @@ import TransactionsTable from "../../partials/finance/TransactionsTable.vue";
 import { onMounted, ref } from "vue";
 import { useBillingStore } from "../../stores/billing.store.js";
 
-const billingStore = useBillingStore();
-const balance = ref([]);
+const { billingStore, balance } = useBillingStore();
+// const balance = ref([]);
 
 onMounted(async () => {
-  balance.value = await billingStore.getBalance();
+  // if (balance.value.transactions.length === 0) {
+  //   balance.value = await billingStore.getBalance();
+  // }
 });
 </script>

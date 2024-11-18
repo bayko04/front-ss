@@ -21,7 +21,7 @@
             <div class="absolute top-[-60px] left-0 w-full">
               <div
                 v-if="activeChat?.message?.reply_message"
-                class="flex items-center justify-between bg-white rounded-lg rounded-b-none dark:bg-slate-800 border-l-[5px] border-gray-300 dark:border-blue-700 px-4 sm:px-6 md:px-5 h-16"
+                class="flex items-center justify-between bg-[#87cefabf] text-black rounded-lg rounded-b-none dark:bg-slate-800 border-l-[5px] border-gray-300 dark:border-blue-700 px-4 sm:px-6 md:px-5 h-16"
               >
                 <span
                   v-if="activeChat?.message?.reply_message?.text"

@@ -256,15 +256,12 @@ export function useMessangers() {
   const getMessages = async function (messageId = null) {
     let offset = 0;
     let chat = getChatById(activeChat.value?.id);
-    let account = getAccountById(chat.account_id)
+    let account = getAccountById(chat.account_id);
 
     if (!chat) {
       return;
     }
-    if (
-        chat?.messages &&
-      Object.keys(chat.messages).length >= 15
-    ) {
+    if (chat?.messages && Object.keys(chat.messages).length >= 15) {
       offset = Object.keys(chat.messages).length;
     }
     if (!chat?.messages) {
@@ -641,6 +638,6 @@ export function useMessangers() {
     replyToDirect,
     chatSortStatus,
     setAllChatsTrue,
-    getAccountById
+    getAccountById,
   };
 }

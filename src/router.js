@@ -45,12 +45,17 @@ import ClientsList from "./pages/Customers/ClientsList.vue";
 import MainLayout from "./pages/Layouts/MainLayout.vue";
 import TransactionsList from "./pages/finance/TransactionsList.vue";
 import Overview from "./pages/finance/Overview.vue";
+import KanbanBoard from "./pages/KanbanBoard/KanbanBoard.vue";
 
 const routerHistory = createWebHistory();
 
 const router = createRouter({
   history: routerHistory,
   routes: [
+    {
+      path: "/",
+      component: Dashboard,
+    },
     {
       path: "/finance",
       component: Transactions,
@@ -66,8 +71,14 @@ const router = createRouter({
       ],
     },
     {
-      path: "/",
-      component: Dashboard,
+      path: "/kanban-board",
+      component: MainLayout,
+      children: [
+        {
+          path: "",
+          component: KanbanBoard,
+        },
+      ],
     },
     {
       path: "/customers",

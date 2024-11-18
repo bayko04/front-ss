@@ -142,7 +142,7 @@
         </div>
         <div v-if="imageError">История недоступна</div>
 
-        <div class="flex items-center flex-row ">
+        <div class="flex items-center flex-row">
           <img
             v-if="message.type === 'story' && !imageError"
             @error="handleImageError"
@@ -266,6 +266,8 @@ const modalStyle = ref({
   left: `0px`,
   top: `0px`,
 });
+
+// console.log(message);
 
 const imageError = ref(false);
 function handleImageError() {
