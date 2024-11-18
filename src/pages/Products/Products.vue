@@ -98,7 +98,7 @@ import Header from "../../partials/Header.vue";
 import DeleteButton from "../../partials/actions/DeleteButton.vue";
 import DateSelect from "../../components/DateSelect.vue";
 import FilterButton from "../../components/DropdownFilter.vue";
-import CustomersTable from "../../partials/products/CustomersTable.vue";
+import ProductsTable from "../../partials/products/ProductsTable.vue";
 import { useProductStore } from "../../stores/product.store.js";
 import PaginationNumeric from "../../components/PaginationNumeric.vue";
 import ModalBasic from "../../components/ModalBasic.vue";
@@ -117,7 +117,7 @@ export default {
     DeleteButton,
     DateSelect,
     FilterButton,
-    CustomersTable,
+    CustomersTable: ProductsTable,
     CreateProduct,
   },
   setup() {

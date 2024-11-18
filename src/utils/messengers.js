@@ -255,20 +255,23 @@ export function useMessangers() {
 
   const getMessages = async function (messageId = null) {
     let offset = 0;
-    if (
-      activeChat.value?.messages &&
-      Object.keys(activeChat.value.messages).length >= 15
-    ) {
-      offset = Object.keys(activeChat.value.messages).length;
+    let chat = getChatById(activeChat.value?.id);
+    let account = getAccountById(chat.account_id);
+
+    if (!chat) {
+      return;
     }
-    if (!activeChat.value?.messages) {
-      activeChat.value.messages = {};
+    if (chat?.messages && Object.keys(chat.messages).length >= 15) {
+      offset = Object.keys(chat.messages).length;
     }
-    activeChat.value.messages = {
-      ...activeChat.value.messages,
+    if (!chat?.messages) {
+      chat.messages = {};
+    }
+    chat.messages = {
+      ...chat.messages,
       ...(
         await fetchWrapper.get(
-          `/${activeAccount.value?.messenger_name}/chats/${activeChat.value.id}/messages/${offset}`,
+          `/${account.messenger_name}/chats/${chat.id}/messages/${offset}`,
           { messageId: messageId }
         )
       ).data,
@@ -293,14 +296,7 @@ export function useMessangers() {
     echo.value
       .private(`${account.messenger.name}.${account.id}.chat`)
       .listen(`.${chat.id}.NewMessage`, function (socketMessage) {
-        if (chat.messages && chat.id === activeChat.value.id) {
-          // chat.messages[socketMessage.message.id] = {
-          //   ...socketMessage.message,
-          //   reply_message:
-          //     chat.messages[socketMessage.message.replied_message_id],
-          // };
-          chat.messages[socketMessage.message.id] = socketMessage.message;
-        } else if (chat.messages) {
+        if (chat.messages) {
           chat.messages[socketMessage.message.id] = socketMessage.message;
         }
         if (!socketMessage.message.user_id) {
@@ -642,5 +638,6 @@ export function useMessangers() {
     replyToDirect,
     chatSortStatus,
     setAllChatsTrue,
+    getAccountById,
   };
 }

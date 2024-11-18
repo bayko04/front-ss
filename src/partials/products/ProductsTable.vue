@@ -48,23 +48,23 @@
             </tr>
           </thead>
           <!-- Table body -->
-          <tbody
-            class="text-sm divide-y divide-slate-200 dark:divide-slate-700"
-          >
-            <Customer
+          <tbody class="text-sm divide-y divide-slate-200 dark:divide-slate-700">
+            <ProductsTableItem
               v-for="product in productStore.products.data"
               :key="product.id"
               :product="product"
             />
           </tbody>
         </table>
+
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import Customer from "./CustomersTableItem.vue";
-import { useProductStore } from "../../stores/product.store.js";
-const productStore = useProductStore();
+import ProductsTableItem from './ProductsTableItem.vue'
+import { useProductStore } from '../../stores/product.store.js';
+const productStore = useProductStore()
+
 </script>

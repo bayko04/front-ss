@@ -243,6 +243,7 @@ import { ref, onMounted } from "vue";
 import Sidebar from "../../partials/Sidebar.vue";
 import Header from "../../partials/Header.vue";
 import { useTaskStore } from "../../stores/task.store.js";
+import { useCustomerStore } from "../../stores/customer.store.js";
 import { useAuthStore } from "../../stores/auth.store.js";
 import { useReferencesStore } from "../../stores/references.store.js";
 import { createTaskModal } from "../../utils/modalVariables.js";
@@ -280,6 +281,7 @@ const daysInMonth = ref([]);
 const startingBlankDays = ref([]);
 const endingBlankDays = ref([]);
 const taskStore = useTaskStore();
+const customerStore = useCustomerStore();
 const authStore = useAuthStore();
 const referencesStore = useReferencesStore();
 const detailsDay = ref(null);
@@ -364,6 +366,12 @@ const prevMonth = () => {
 function openTaskModal(task) {
   taskStore.task = task;
   createTaskModal.value.status = "info";
+
+  customerStore.customer = null;
+
+  if (task.customer_request?.customer_id) {
+    customerStore.getCustomer(task.customer_request.customer_id);
+  }
 }
 
 function newTaskModal() {

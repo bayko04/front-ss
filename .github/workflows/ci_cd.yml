@@ -3,7 +3,7 @@ name: Deploy app
 on:
   push:
     branches:
-      - "main"  # Запускается только при пуше в ветку dev
+      - "dev"  # Запускается только при пуше в ветку dev
 
 jobs:
   build-bundle:
