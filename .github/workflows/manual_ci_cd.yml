@@ -1,11 +1,6 @@
 name: -Manual deploy
 run-name: Deploy ${{ inputs.environment }}
 
-on:
-  push:
-    branches:
-      - "manual_ci_cd"  # Запускается только при пуше в ветку dev
-
 jobs:
   build-bundle:
     name: Build bundle
