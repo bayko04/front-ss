@@ -21,6 +21,15 @@
       <div class="text-center">{{ product.price }}</div>
     </td>
 
+    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[80px]">
+      <div v-if="product.images && product.images.length > 0" class="mx-[auto] h-[40px] w-[40px]">
+        <img class="w-full h-full object-cover"  :src="product.images[0] || ''" alt="Нет фото">
+      </div>
+      <div v-else class="mx-[auto] h-[40px] w-[40px]">
+        <img class="w-full h-full object-cover" src="../../images/noPhoto2.png?url" alt="">
+      </div>
+    </td>
+
     <td
       class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[70px] text-right"
     >
