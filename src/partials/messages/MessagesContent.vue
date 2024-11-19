@@ -140,7 +140,6 @@
         >
           {{ message.text }}
         </div>
-        <div v-if="imageError">История недоступна</div>
 
         <div class="flex items-center flex-row">
           <img
@@ -152,6 +151,16 @@
             height="180"
             alt="История недоступна"
           />
+          <img v-if="message.type === 'story' && !imageError" @error="handleImageError"
+               class="rounded-lg shadow-md mb-1" :src="message?.url" width="240" height="180" alt="История"/>
+          <video v-else-if="imageError"
+                 controls
+                 class="rounded-lg shadow-md mb-1"
+                 :src="message?.url"
+                 width="240"
+                 height="180">
+            Ваш браузер не поддерживает элемент видео.
+          </video>
 
           <!--          image message -->
           <img
