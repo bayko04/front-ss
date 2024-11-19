@@ -37,11 +37,6 @@
               >
                 <div class="font-semibold text-center">Стоимость</div>
               </th>
-               <th
-                class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[80px]"
-              >
-                <div class="font-semibold text-center">Изображения</div>
-              </th>
               <!-- <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[80px]">
                 <div class="font-semibold text-left">Статус</div>
               </th> -->
@@ -53,23 +48,23 @@
             </tr>
           </thead>
           <!-- Table body -->
-          <tbody class="text-sm divide-y divide-slate-200 dark:divide-slate-700">
-            <ProductsTableItem
+          <tbody
+            class="text-sm divide-y divide-slate-200 dark:divide-slate-700"
+          >
+            <Customer
               v-for="product in productStore.products.data"
               :key="product.id"
               :product="product"
             />
           </tbody>
         </table>
-
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import ProductsTableItem from './ProductsTableItem.vue'
-import { useProductStore } from '../../stores/product.store.js';
-const productStore = useProductStore()
-
+import Customer from "./CustomersTableItem.vue";
+import { useProductStore } from "../../stores/product.store.js";
+const productStore = useProductStore();
 </script>
