@@ -1,4 +1,4 @@
-name: -Manual deploy
+name: Manual deploy app
 run-name: Deploy "${{ inputs.branch_name }}" to ${{ inputs.environment }}
 
 on:
