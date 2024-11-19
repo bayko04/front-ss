@@ -17,12 +17,12 @@ export default {
   props: ['align', 'value'],
   data() {
     return {
-      date: this.value || null,
+      date: this.value ? new Date(this.value) : null,
       config: {
         mode: 'single',
         static: true,
         monthSelectorType: 'static',
-        dateFormat: 'd.m.Y H:i', // Формат даты и времени
+        dateFormat: 'd-m-Y H:i', // Формат даты и времени
         enableTime: true, // Включение времени
         time_24hr: true, // Установка временной зоны в 24-часовой формат
         defaultDate: new Date(),

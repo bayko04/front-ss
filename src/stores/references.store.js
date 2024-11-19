@@ -7,6 +7,7 @@ export const useReferencesStore = defineStore({
     id: 'references',
     state: () => ({
         chatStatuses: [],
+        templates: [],
         taskTypes: [],
         sections: [],
     }),
@@ -67,6 +68,11 @@ export const useReferencesStore = defineStore({
         },
         async makeConversionStatus(id){
             await fetchWrapper.post(`${baseUrl}/task-types/${id}`);
+        },
+        async getTemplates () {
+            const result = await fetchWrapper.get(`/whatsapp/chats/templates`);
+            
+            this.templates = result.data;
         }
     }
 });

@@ -1,0 +1,23 @@
+
+dashboard
+<div class="mt-[50px]">
+  <!-- columns -->
+  <div class="flex">
+    <!-- column -->
+    <div class="basis-[25%]">
+      <h3 class="font-semibold text-[18px] mb-[8px]">In Progress</h3>
+      <div class="bg-white rounded-[12px] p-4">
+        <!-- card -->
+        <div class="shadow-xl p-[8px_12px_4px]">
+          <h4 class="font-semibold text-[16px]">Managing teams (book)</h4>
+          <p class="text-sm text-[14px]">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+            Quisquam pariatur sint minima inventore porro repudiandae ab
+            nisi eligendi ipsa architecto, facere voluptates suscipit
+            beatae quas doloremque eos facilis atque soluta.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

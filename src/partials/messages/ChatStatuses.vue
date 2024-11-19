@@ -59,7 +59,7 @@
         return allChatsNumber.value;
       } else {
         // Подсчитываем количество чатов в активном аккаунте
-        return activeAccount.value?.chats.length || 0;
+        return activeAccount.value?.chats?.length || 0;
       }
     });
 

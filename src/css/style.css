@@ -1,10 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback");
 
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
 
 /* Additional styles */
-@import 'additional-styles/utility-patterns.css';
-@import 'additional-styles/flatpickr.css';
+@import "additional-styles/utility-patterns.css";
+@import "additional-styles/flatpickr.css";
 
-@import 'tailwindcss/utilities';
+@import "tailwindcss/utilities";
+
+.container {
+  margin: 0 auto;
+  padding: 32px;
+  max-width: 1536px;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 32px 16px;
+  }
+}

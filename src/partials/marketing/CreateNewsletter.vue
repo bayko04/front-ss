@@ -26,24 +26,30 @@
                     <div class="mb-4">
                       <label for="campaign-name" class="block text-gray-800 dark:text-gray-100 font-semibold mb-1">Наименование рассылки</label>
                       <input
+                          v-model="newsletterStore.newsletter.name"
                           type="text"
                           id="campaign-name"
-                          class="w-full py-2 px-3 rounded bg-gray-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          class="w-full py-2 px-3 rounded dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           placeholder="Введите наименование рассылки"
+                          required
                       />
                     </div>
                     <div class="text-sm">
                       <div class="flex flex-col md:flex-row md:-mr-px">
                         <div class="grow flex">
                           <!-- Left Column: Selectors (вертикально) -->
-                          <div class="w-1/2 pr-4">
-                            <div class="mb-4">Выбор получателей</div>
+                          <div class="w-full">
+                            <div class="mt-[15px] mb-[5px] font-semibold text-[14px] text-slate-800">Выбор получателей</div>
                             <div class="flex flex-col space-y-2">
                               <div class="relative">
                                 <Multiselect
-                                    v-model="selectedCustomerTags"
+                                    v-model="newsletterStore.newsletter.customer_tags"
                                     :options="marketingStore.customerTags"
                                     mode="tags"
+                                    valueProp="name"
+                                    label="name"
+                                    placeholder="Выбор по тегу"
+                                    class="h-[42px] text-[12px]"
                                     :close-on-select="false"
                                     :searchable="true"
                                     :classes="{
@@ -55,11 +61,13 @@
                               </div>
                               <div class="relative">
                                 <Multiselect
-                                    v-model="selectedStatuses"
+                                    v-model="newsletterStore.newsletter.chat_statuses"
                                     :options="referencesStore.chatStatuses"
                                     mode="tags"
                                     valueProp="id"
+                                    placeholder="Выбор по статусу"
                                     label="name"
+                                    class="h-[42px] text-[12px]"
                                     :close-on-select="false"
                                     :searchable="true"
                                     :classes="{
@@ -69,13 +77,32 @@
                                     }"
                                 />
                               </div>
-                              <Datepicker @changeDates="selectDates" align="right" />
-                              <button @click="getCustomers">Сформировать пулл клиентов</button>
+                              <div class="">
+                                <label for="send-text" class="mt-[15px] block text-slate-800 dark:text-slate-100 font-semibold mb-[5px] font-medium text-[14px]">Выбор периода</label>
+                                <div class="flex gap-[10px] flex-wrap">
+                                  <div class="grow">
+                                    <input
+                                      v-model="newsletterStore.newsletter.date_from"
+                                      type="date"
+                                      class="w-full py-2 px-3 rounded dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                      required
+                                    />
+                                  </div>
+                                  <div class="grow">
+                                    <input
+                                      v-model="newsletterStore.newsletter.date_to"
+                                      type="date"
+                                      class="w-full py-2 px-3 rounded dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                      required
+                                    />
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
 
                           <!-- Right Column: Tags Container -->
-                          <div class="w-1/2">
+                          <!-- <div class="w-1/2">
                             <div class="">
                               <div v-for="(customer, index) in customerPull" :key="index"
                                    class="tag rounded-full">
@@ -84,45 +111,32 @@
                                 </div>
                               </div>
                             </div>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
-                      <div class="mb-4">Ввести номер</div>
-                      <div class="w-full mx-auto">
-                                            <textarea
-                                                id="text-area"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                rows="5"
-                                                placeholder="Введите ваш текст здесь...">
-                                            </textarea>
-                      </div>
                       <br>
-                      <div class="flex flex-col md:flex-row md:-mr-px">
-                        <div class="grow flex">
+                      <div class="md:-mr-px">
+                        <div class=" flex flex-col gap-[10px] grow ">
                           <!-- Left Column: Template Selection -->
-                          <div class="w-1/2 pr-4">
-                            <div class="mb-4">Выберите шаблон для отправки</div>
-                            <form>
-                              <select id="countries"
-                                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Выберите шаблон</option>
-                                <option value="US">Успешно завершенные</option>
-                                <option value="CA">Италия</option>
-                                <option value="FR">Дубай</option>
-                                <option value="DE">Не успешно завершенные</option>
-                              </select>
-                            </form>
+                          <div class="">
+                            <div class="mt-[15px] mb-[5px] font-semibold text-[14px] text-slate-800">Выберите шаблон для отправки</div>
+                            <DropdownFull
+                              v-model="newsletterStore.newsletter.template_id"
+                              :options="referencesStore.templates"
+                              @update-value="(value) => handleUpdateValue('template_id', value)"
+                            />
                           </div>
 
                           <!-- Right Column: Text Area -->
-                          <div class="w-1/2">
+                          <div class="w-full">
                             <div class="w-full mx-auto">
-        <textarea
-            id="text-area"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            rows="5"
-            placeholder="Введите ваш текст здесь...">
-        </textarea>
+                              <label for="send-text" class="mt-[15px] block text-slate-800 dark:text-slate-100 font-semibold mb-[5px] font-medium text-[14px]">Введите ваш текст</label>
+                              <textarea
+                                  id="text-area"
+                                  class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  rows="5"
+                                  placeholder="Введите ваш текст здесь..." value="">
+                              </textarea>
                             </div>
                           </div>
                         </div>
@@ -132,26 +146,40 @@
                       <ul class="space-y-2 mb-4">
                         <li>
                           <div
-                              class="w-full h-full py-3 px-4 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm duration-150 ease-in-out">
+                              class="w-full h-full rounded bg-white dark:bg-slate-800  border-slate-200 dark:border-slate-700 shadow-sm duration-150 ease-in-out">
                             <div class="flex flex-col space-y-4">
                               <div>
-                                <label for="send-date"
-                                       class="block text-slate-800 dark:text-slate-100 font-semibold mb-1">Выберите дату
-                                  отправки</label>
+                                <label for="send-date" class="mt-[15px] block text-slate-800 dark:text-slate-100 font-semibold mb-[5px] font-medium text-[14px]">
+                                  Выберите дату отправки
+                                </label>
                                 <input
+                                    v-model="newsletterStore.newsletter.send_at"
                                     type="date"
                                     id="send-date"
-                                    class="w-full py-2 px-3 rounded bg-gray-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    class="w-full py-2 px-3 rounded dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    required
                                 />
                               </div>
                               <div>
-                                <label for="send-time"
-                                       class="block text-slate-800 dark:text-slate-100 font-semibold mb-1">Выберите
-                                  время отправки</label>
+                                <label for="send-time" class="mt-[15px] block text-slate-800 dark:text-slate-100 font-semibold mb-[5px] font-medium text-[14px]">
+                                  Выберите время отправки
+                                </label>
                                 <input
+                                    v-model="newsletterStore.newsletter.send_time"
+                                    value="0"
                                     type="time"
                                     id="send-time"
-                                    class="w-full py-2 px-3 rounded bg-gray-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    class="w-full py-2 px-3 rounded dark:bg-slate-700 border border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    required
+                                />
+                              </div>
+                              <div>
+                                <h2 class="block text-slate-800 text-sm font-semibold mt-[15px] mb-[5px] text-[14px]">
+                                  Статус<span class="text-rose-500">*</span></h2>
+                                <DropdownFull
+                                  v-model="newsletterStore.newsletter.status"
+                                  :options="statuses"
+                                  @update-value="(value) => handleUpdateValue('status', value)"
                                 />
                               </div>
                             </div>
@@ -164,19 +192,16 @@
                   <!-- Modal footer -->
                   <div class="px-5 py-4">
                     <div class="flex flex-wrap justify-end space-x-2">
-                      <button
-                          class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300"
-                          @click.stop="planModalOpen = false">Отменить
+                      <button class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300">
+                        Отменить
                       </button>
-                      <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Сохранить</button>
+                      <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click="save()">Сохранить</button>
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
-
         </div>
       </main>
     </div>
@@ -189,9 +214,10 @@ import Sidebar from '../../partials/Sidebar.vue'
 import Header from '../../partials/Header.vue'
 import {useMarketingStore} from '../../stores/marketing.store.js';
 import {useReferencesStore} from "../../stores/references.store.js";
-import Datepicker from "../../components/Datepicker.vue";
 import {timestampToDate} from "../../helpers/date-format.js";
 import Multiselect from '@vueform/multiselect'
+import DropdownFull from "../../components/DropdownFull.vue";
+import { useNewsletterStore } from "../../stores/newsletter.store.js";
 
 const sidebarOpen = ref()
 const referencesStore = useReferencesStore()
@@ -200,20 +226,18 @@ const dateTo = ref(null)
 const selectedCustomerTags = ref(null)
 const selectedStatuses = ref(null)
 const customerPull = ref([])
+const newsletterStore = useNewsletterStore()
+const marketingStore = useMarketingStore();
+const planModalOpen = ref(false)
+const selectedTags = ref([]);
 
-    const marketingStore = useMarketingStore();
-
-    const planModalOpen = ref(false)
-
-    const selectedTags = ref([]);
-
-    function removeTag(value) {
-      selectedTags.value = selectedTags.value.filter(tag => tag.value !== value);
-    }
+function removeTag(value) {
+  selectedTags.value = selectedTags.value.filter(tag => tag.value !== value);
+}
 
 function selectDates(dates) {
-  dateFrom.value = timestampToDate(dates[0])
-  dateTo.value = timestampToDate(dates[1])
+  date_from.value = timestampToDate(dates[0])
+  date_to.value = timestampToDate(dates[1])
 }
 
 async function getCustomers()
@@ -221,9 +245,31 @@ async function getCustomers()
   customerPull.value = await marketingStore.getCustomersPull(selectedCustomerTags.value, selectedStatuses.value, dateFrom.value, dateTo.value)
 }
 
-    onMounted(() => {
-      marketingStore.getCustomerTags()
-      referencesStore.getChatStatuses()
-    })
+onMounted(() => {
+  referencesStore.getChatStatuses()
+  referencesStore.getTemplates()
+  marketingStore.getCustomerTags()
+})
+
+function handleUpdateValue(field, value) {
+  newsletterStore.newsletter[field] = value
+}
+
+function save() {
+  newsletterStore.createNewsletter()
+}
+
+const statuses = [
+  {
+    id: 'active',
+    name: 'Активный'
+  },
+  {
+    id: 'inactive',
+    name: 'Неактивный'
+  }
+]
 
 </script>
+
+

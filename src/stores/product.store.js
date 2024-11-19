@@ -9,7 +9,6 @@ export const useProductStore = defineStore({
             name: '',
             description: '',
             price: null,
-            status: true,
             category_id: null
         },
         productModalStatus: false,
@@ -56,13 +55,47 @@ export const useProductStore = defineStore({
             this.productModalStatus = 'add'
         },
         async createOrUpdateProduct() {
-            this.product = (await fetchWrapper.post(`/products`, this.product)).data;
+            // Создаем объект FormData для отправки данных
+            const formData = new FormData();
+
+            // Добавляем данные продукта
+            if (this.product.id) {
+                formData.append('id', this.product.id);
+            }
+            formData.append('name', this.product.name);
+            formData.append('description', this.product.description);
+            formData.append('price', this.product.price);
+            formData.append('category_id', this.product.category_id);
+
+            // Добавляем старые изображения
+            if (this.product.images && this.product.images.length > 0) {
+                this.product.images.forEach(image => {
+                    formData.append('images[]', image.id);
+                });
+            }
+
+            // Добавляем новые изображения
+            if (this.product.new_images && this.product.new_images.length > 0) {
+                this.product.new_images.forEach((file, index) => {
+                    formData.append(`new_images[${index}]`, file);
+                });
+            }
+
+            // Отправляем запрос
+            const response = await fetchWrapper.post(`/products`, formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+
+            this.product = response.data;
+
+            // Обновляем массив продуктов
             this.updateProductInArray(this.product);
+
+            // Сбрасываем данные формы
             this.product = {
                 name: '',
                 description: '',
                 price: null,
-                status: true,
                 category_id: null
             }
             this.productModalStatus = false
@@ -97,7 +130,6 @@ export const useProductStore = defineStore({
                 name: '',
                 description: '',
                 price: null,
-                status: 'Активный',
                 category_id: null
             }
             this.productModalStatus = false

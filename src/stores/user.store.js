@@ -29,13 +29,8 @@ export const useUsersStore = defineStore({
             return this.user
         },
         async addUser(data) {
-            let formData = new FormData()
-            formData.append('method', 'POST');
-            for (const key in data) {
-                formData.append(key, data[key]);
-            }
             try {
-                const result = await fetchWrapper.post(`${baseUrl}`, formData);
+                const result = await fetchWrapper.post(`${baseUrl}`, data);
                 if(!result.errors) {
                     router.push(`/community/users-tabs`)
                 }
