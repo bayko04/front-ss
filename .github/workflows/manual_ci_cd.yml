@@ -1,0 +1,51 @@
+name: -Manual deploy
+run-name: Deploy ${{ inputs.environment }}
+
+on:
+  push:
+    branches:
+      - "manual_ci_cd"  # Запускается только при пуше в ветку dev
+
+jobs:
+  build-bundle:
+    name: Build bundle
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            cd /var/www/dev-front-ss || exit 1
+
+            # Создание и обновление .env файла на сервере
+            touch .env
+            set_env_var() {
+              local var_name=$1
+              local var_value=$2
+              if grep -q "^${var_name}=" .env; then
+                sed -i "s|^${var_name}=.*|${var_name}=${var_value}|" .env
+              else
+                echo "${var_name}=${var_value}" >> .env
+              fi
+            }
+
+            set_env_var "VITE_API_URL" "${{ secrets.VITE_API_URL }}"
+            set_env_var "VITE_APP_URL" "${{ secrets.VITE_APP_URL }}"
+            set_env_var "VITE_PUSHER_APP_ID" "${{ secrets.VITE_PUSHER_APP_ID }}"
+            set_env_var "VITE_PUSHER_APP_KEY" "${{ secrets.VITE_PUSHER_APP_KEY }}"
+            set_env_var "VITE_PUSHER_APP_SECRET" "${{ secrets.VITE_PUSHER_APP_SECRET }}"
+            set_env_var "VITE_PUSHER_APP_CLUSTER" "${{ secrets.VITE_PUSHER_APP_CLUSTER }}"
+            set_env_var "VITE_PUSHER_HOST" "${{ secrets.VITE_PUSHER_HOST }}"
+            set_env_var "VITE_PUSHER_PORT" "${{ secrets.VITE_PUSHER_PORT }}"
+            set_env_var "VITE_PUSHER_SSL" "${{ secrets.VITE_PUSHER_SSL }}"
+
+            # Обновление репозитория и сборка на сервере
+            git reset --hard &&
+            git clean -df &&
+            git pull origin main &&
+            yarn install &&
+            yarn build
