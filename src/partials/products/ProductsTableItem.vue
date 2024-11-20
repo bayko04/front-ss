@@ -35,31 +35,6 @@
     >
       <div class="space-x-1">
         <button
-          @click.stop="photo(product)"
-          class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 rounded-full"
-        >
-          <svg
-            class="w-8 h-8"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 35 35"
-            stroke-width="1.5"
-            stroke="#00b341"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M15 8h.01" />
-            <path
-              d="M12.5 21h-6.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6.5"
-            />
-            <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l4 4" />
-            <path d="M14 14l1 -1c.653 -.629 1.413 -.815 2.13 -.559" />
-            <path d="M19 16v6" />
-            <path d="M22 19l-3 3l-3 -3" />
-          </svg>
-        </button>
-        <button
           @click.stop="edit(product)"
           class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 rounded-full"
         >
@@ -106,21 +81,8 @@ function getCategoryName(category, categoryName = "") {
   return categoryName;
 }
 
-function getStatus(status) {
-  if (status) {
-    return "Активный";
-  }
-
-  return "Неактивный";
-}
-
 function edit(product) {
   productStore.productModalStatus = "edit";
-  productStore.product = product;
-}
-
-function photo(product) {
-  productStore.productModalStatus = "photo";
   productStore.product = product;
 }
 
