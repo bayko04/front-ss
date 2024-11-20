@@ -16,12 +16,28 @@
         </div>
       </div>
     </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap  max-w-[80px]">
-      <div class="text-left">{{product.price}}</div>
+
+    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[80px]">
+      <div class="text-center">{{ product.price }}</div>
     </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[70px]">
+
+    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[80px]">
+      <div v-if="product.images && product.images.length > 0" class="mx-[auto] h-[40px] w-[40px]">
+        <img class="w-full h-full object-cover"  :src="product.images[0].path || ''" alt="Нет фото">
+      </div>
+      <div v-else class="mx-[auto] h-[40px] w-[40px]">
+        <img class="w-full h-full object-cover" src="../../images/noPhoto2.png?url" alt="">
+      </div>
+    </td>
+
+    <td
+      class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap max-w-[70px] text-right"
+    >
       <div class="space-x-1">
-        <button @click.stop="edit(product)" class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 rounded-full">
+        <button
+          @click.stop="edit(product)"
+          class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 rounded-full"
+        >
           <span class="sr-only">Edit</span>
           <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
             <path
@@ -43,7 +59,7 @@
         </button>
       </div>
     </td>
-  </tr>  
+  </tr>
 </template>
 
 <script setup>
@@ -65,16 +81,13 @@ function getCategoryName(category, categoryName = "") {
   return categoryName;
 }
 
-function edit(product)
-{
-  productStore.productModalStatus = 'edit'
-  productStore.product = product
+function edit(product) {
+  productStore.productModalStatus = "edit";
+  productStore.product = product;
 }
 
-function deleteProduct(product)
-{
-  productStore.productModalStatus = 'delete'
-  productStore.product = product
+function deleteProduct(product) {
+  productStore.productModalStatus = "delete";
+  productStore.product = product;
 }
-
 </script>
