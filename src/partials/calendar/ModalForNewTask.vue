@@ -299,7 +299,7 @@
                       Закрыть задачу
                     </button>
                     <button
-                      v-if="!taskStore.task.is_completed"
+                      v-if="taskStore.task?.customer_request"
                       class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white"
                       @click.stop="navigateToChat()"
                     >
@@ -434,10 +434,9 @@ import { useReferencesStore } from "../../stores/references.store.js";
 import { useUsersStore } from "../../stores/user.store.js";
 import { useAuthStore } from "../../stores/auth.store.js";
 import DropdownFull from "../../components/DropdownFull.vue";
-import router from "../../router.js";
 import CloseModal from "../../components/CloseModal.vue";
 
-const { activeChat, setActiveCommentsChat, scrollToBottom } =
+const { activeChat, setActiveCommentsChat, scrollToBottom, setActiveAccount, getAccountById, setActiveChat } =
   await useMessangers();
 const modalContent = ref(null);
 const taskStore = useTaskStore();
@@ -447,18 +446,13 @@ const authStore = useAuthStore();
 const user = authStore.userData.user;
 
 const navigateToChat = () => {
-  console.log(activeChat.value);
+  const chatIdKeys = ['whatsapp_chat_id', 'telegram_chat_id', 'instagram_chat_id', 'messenger_chat_id'];
 
-  const newRoute = {
-    path: "/messages",
-    query: {
-      accountId: activeChat.value?.account_id,
-      chatId: activeChat.value?.id,
-    },
-  };
+  const messenger = chatIdKeys.find(key => taskStore.task.customer_request[key] !== null);
+  const chatId = messenger ? taskStore.task.customer_request[messenger] : null;
 
-  router?.push(newRoute);
-  scrollToBottom();
+  setActiveAccount(getAccountById(taskStore.task.customer_request?.account_id));
+  setActiveChat(chatId);
   closeModal();
 };
 
