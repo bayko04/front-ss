@@ -286,18 +286,18 @@
                   <!-- Modal footer -->
                   <div class="flex flex-wrap justify-end space-x-2">
                     <button
-                      @click.stop="closeModal()"
-                      class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300"
-                    >
-                      Закрыть
-                    </button>
-                    <button
                       @click.stop="editTask()"
                       class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300"
                     >
                       Редактировать
                     </button>
-                    <!-- <button v-if="!taskStore.task.is_completed" class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click.stop="completingTask()">Закрыть задачу</button> -->
+                    <button
+                      v-if="!taskStore.task.is_completed"
+                      class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white"
+                      @click.stop="completingTask()"
+                    >
+                      Закрыть задачу
+                    </button>
                     <button
                       v-if="!taskStore.task.is_completed"
                       class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white"
