@@ -39,6 +39,7 @@
       @add-column="addNewColumn"
       @close-modal="isAddModal = false"
       @update-cards="updateColumnCards(index, $event)"
+      @delete-column="removeColumnById"
     />
   </main>
 </template>
@@ -142,6 +143,13 @@ export default {
     updateColumnCards(index, updatedCards) {
       // Обновляем конкретную колонку, используя индекс
       this.columns[index].cards = updatedCards;
+    },
+    removeColumnById(columnId) {
+      const index = this.columns.findIndex((column) => column.id === columnId);
+
+      if (index !== -1) {
+        this.columns.splice(index, 1);
+      }
     },
   },
 };

@@ -7,8 +7,8 @@ export default {};
 <style lang="css">
 .closeModal {
   flex: 0 0 30px;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   position: relative;
   cursor: pointer;
 }

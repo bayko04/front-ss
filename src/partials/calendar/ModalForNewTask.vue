@@ -42,7 +42,7 @@
       >
         <div
           ref="modalContent"
-          class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full"
+          class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-[550px] w-full max-h-full"
         >
           <!-- Create task modal -->
           <div v-show="createTaskModal.status === 'create-update'">
@@ -284,7 +284,14 @@
                   </div>
 
                   <!-- Modal footer -->
-                  <div class="flex flex-wrap justify-end space-x-2">
+                  <div class="flex flex-wrap justify-end gap-[5px]">
+                    <button
+                      v-if="taskStore.task?.customer_request"
+                      class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300"
+                      @click.stop="navigateToChat()"
+                    >
+                      Перейти на чат
+                    </button>
                     <button
                       @click.stop="editTask()"
                       class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300"
@@ -297,13 +304,6 @@
                       @click.stop="completingTask()"
                     >
                       Закрыть задачу
-                    </button>
-                    <button
-                      v-if="taskStore.task?.customer_request"
-                      class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white"
-                      @click.stop="navigateToChat()"
-                    >
-                      Перейти на чат
                     </button>
                     <button
                       class="btn-sm bg-red-500 hover:bg-red-600 text-white"
@@ -436,8 +436,14 @@ import { useAuthStore } from "../../stores/auth.store.js";
 import DropdownFull from "../../components/DropdownFull.vue";
 import CloseModal from "../../components/CloseModal.vue";
 
-const { activeChat, setActiveCommentsChat, scrollToBottom, setActiveAccount, getAccountById, setActiveChat } =
-  await useMessangers();
+const {
+  activeChat,
+  setActiveCommentsChat,
+  scrollToBottom,
+  setActiveAccount,
+  getAccountById,
+  setActiveChat,
+} = await useMessangers();
 const modalContent = ref(null);
 const taskStore = useTaskStore();
 const usersStore = useUsersStore();
@@ -446,9 +452,16 @@ const authStore = useAuthStore();
 const user = authStore.userData.user;
 
 const navigateToChat = () => {
-  const chatIdKeys = ['whatsapp_chat_id', 'telegram_chat_id', 'instagram_chat_id', 'messenger_chat_id'];
+  const chatIdKeys = [
+    "whatsapp_chat_id",
+    "telegram_chat_id",
+    "instagram_chat_id",
+    "messenger_chat_id",
+  ];
 
-  const messenger = chatIdKeys.find(key => taskStore.task.customer_request[key] !== null);
+  const messenger = chatIdKeys.find(
+    (key) => taskStore.task.customer_request[key] !== null
+  );
   const chatId = messenger ? taskStore.task.customer_request[messenger] : null;
 
   setActiveAccount(getAccountById(taskStore.task.customer_request?.account_id));
